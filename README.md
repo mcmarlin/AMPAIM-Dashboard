@@ -81,22 +81,50 @@ No server, no backend, no cost.
 
 ## Weekly update (manual — takes about 2 minutes)
 
-1. Save your latest export as `data/AMP_AIM_Dataset.xlsx` somewhere on your
-   machine. It's fine to keep it inside this project folder for convenience —
-   the `.gitignore` here already excludes `*.xlsx` from what git will track —
-   just don't `git add -f` it or move it outside the ignored `data/` path.
-2. Rebuild the data file:
+There are two folders involved, and it's easy to mix them up:
+
+- **Your project folder** — the local copy of this `AMPAIM-Dashboard` repo on
+  your computer (the folder that has `index.html`, `README.md`, `build_data.py`,
+  etc. in it — wherever you ran `git clone` or downloaded it to). Everything
+  below happens from inside this folder.
+- **Wherever you save the weekly export** — this can be anywhere on your
+  computer. It does **not** need to be inside the project folder. The steps
+  below use the project folder's own `data/` subfolder for convenience (and
+  because it's already set up to be ignored by git), but any location works
+  as long as you use the right path in step 2.
+
+Steps:
+
+1. **Save the file.** Save this week's export as
+   `data/AMP_AIM_Dataset.xlsx` *inside your project folder* (i.e., save it
+   into the `data` subfolder that's already there, replacing last week's
+   copy). This file will never be committed to git — the `.gitignore` in this
+   folder already excludes `*.xlsx` — so it's safe to just keep overwriting it
+   here each week.
+2. **Open a terminal in your project folder and run the build script.** On
+   Mac, open Terminal; on Windows, open Command Prompt or PowerShell. Then
+   navigate into the project folder (for example
+   `cd Documents/AMPAIM-Dashboard`, adjusted to wherever yours actually is),
+   and run:
    ```
    pip install -r requirements.txt
-   python3 build_data.py /path/to/AMP_AIM_Dataset.xlsx data/dashboard.json
+   python3 build_data.py data/AMP_AIM_Dataset.xlsx data/dashboard.json
    ```
-3. Commit and push just the updated data file:
+   (`pip install -r requirements.txt` only needs to be run once, the first
+   time — you can skip it on later weeks.) This reads the spreadsheet and
+   overwrites `data/dashboard.json` with the new aggregate counts. If you
+   saved the export somewhere other than `data/AMP_AIM_Dataset.xlsx`,
+   replace that first path with wherever you actually saved it.
+3. **Commit and push, from that same terminal, still inside the project
+   folder:**
    ```
    git add data/dashboard.json
    git commit -m "Weekly data refresh"
    git push
    ```
    The live site updates automatically within a minute or two of the push.
+   (Only `dashboard.json` gets pushed — the `.xlsx` file stays on your
+   computer and is never uploaded anywhere.)
 
 ## Fully automated weekly refresh (optional)
 
