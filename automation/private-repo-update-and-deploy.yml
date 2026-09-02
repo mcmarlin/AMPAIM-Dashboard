@@ -33,7 +33,7 @@ on:
   workflow_dispatch: {}
 
 env:
-  PUBLIC_REPO: your-org/amp-aim-dashboard   # <-- edit: owner/repo of the PUBLIC GitHub Pages repo
+  PUBLIC_REPO: mcmarlin/AMPAIM-Dashboard   # owner/repo of the PUBLIC GitHub Pages repo
 
 jobs:
   build-and-deploy:

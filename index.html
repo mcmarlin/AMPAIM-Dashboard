@@ -15,6 +15,7 @@
     --grid:           #e1e0d9;
     --baseline:       #c3c2b7;
     --border:         rgba(11,11,11,0.10);
+    --accent-wash:    #eaf1fb;
     --seq-100: #cde2fb; --seq-150:#b7d3f6; --seq-200:#9ec5f4; --seq-250:#86b6ef;
     --seq-300: #6da7ec; --seq-350:#5598e7; --seq-400:#3987e5; --seq-450:#2a78d6;
     --seq-500: #256abf; --seq-550:#1c5cab; --seq-600:#184f95; --seq-650:#104281; --seq-700:#0d366b;
@@ -34,6 +35,7 @@
       --grid:           #2c2c2a;
       --baseline:       #383835;
       --border:         rgba(255,255,255,0.10);
+      --accent-wash:    #132132;
       --seq-450: #3987e5; --seq-500:#2a78d6; --seq-600:#184f95;
     }
   }
@@ -64,13 +66,17 @@
   .kpi-tile { background: var(--surface-1); border: 1px solid var(--border); border-radius: 10px;
     padding: 14px 16px; }
   .kpi-tile.flag { border-color: color-mix(in srgb, var(--st-critical) 40%, var(--border)); }
+  .kpi-tile.hero { border-color: var(--seq-450); background: var(--accent-wash); padding: 18px 18px 16px; }
   .kpi-tile .label { font-size: 12px; color: var(--text-secondary); margin-bottom: 6px; }
   .kpi-tile .value { font-size: 26px; font-weight: 650; letter-spacing: -0.01em; }
   .kpi-tile.flag .value { color: var(--st-critical); }
+  .kpi-tile.hero .label { color: var(--seq-450); font-weight: 650; }
+  .kpi-tile.hero .value { font-size: 36px; color: var(--seq-450); }
 
+  .filter-stack { display: flex; flex-direction: column; gap: 10px; margin-bottom: 18px; }
   .filter-row { display: flex; align-items: flex-start; gap: 10px; flex-wrap: wrap;
     background: var(--surface-1); border: 1px solid var(--border); border-radius: 10px;
-    padding: 12px 14px; margin-bottom: 18px; }
+    padding: 12px 14px; }
   .filter-row .flabel { font-size: 12px; color: var(--text-secondary); font-weight: 600;
     padding-top: 6px; white-space: nowrap; }
   .pill-group { display: flex; flex-wrap: wrap; gap: 6px; flex: 1; }
@@ -81,7 +87,6 @@
   .pill.active { background: var(--seq-450); border-color: var(--seq-450); color: #fff; }
   .pill.meta { color: var(--text-muted); font-style: normal; }
   .pill.meta:hover { color: var(--text-primary); }
-  .pill.meta.active { background: var(--text-primary); border-color: var(--text-primary); color: var(--surface-1); }
 
   section.panel { display: none; }
   section.panel.active { display: block; }
@@ -156,7 +161,7 @@
   </nav>
 
   <div class="kpi-row" id="kpiRow"></div>
-  <div class="filter-row" id="filterRow"></div>
+  <div class="filter-stack" id="filterRow"></div>
 
   <section class="panel active" id="panel-recruitment">
     <div class="card">
@@ -175,7 +180,7 @@
       <div class="card-head">
         <div>
           <h2>Cohorts within each disease team</h2>
-          <p class="sub">Subjects per cohort, grouped by disease team. Use the filter above to focus on one or two teams.</p>
+          <p class="sub">Subjects per cohort (A&ndash;Z), grouped by disease team. A subject in more than one cohort is counted in each &mdash; but only once in the disease-team total above.</p>
         </div>
         <button class="table-toggle" data-target="cohort">View as table</button>
       </div>
@@ -194,8 +199,8 @@
     <div class="card">
       <div class="card-head">
         <div>
-          <h2>Completion by technology</h2>
-          <p class="sub">Share of all visits with a completed sample, across the selected datasets.</p>
+          <h2>Samples completed by technology</h2>
+          <p class="sub">Raw count of completed samples, across the selected disease teams and datasets. Not every sample is selected for every technology, so this is a count, not a completion rate.</p>
         </div>
         <button class="table-toggle" data-target="overview">View as table</button>
       </div>
@@ -219,13 +224,13 @@
     <div class="card">
       <div class="card-head">
         <div>
-          <h2>Completion heatmap</h2>
-          <p class="sub">Darker = more complete. Hover a cell for exact counts.</p>
+          <h2>Completed-samples heatmap</h2>
+          <p class="sub">Darker = more completed samples. Hover a cell for exact counts.</p>
         </div>
         <div style="display:flex; align-items:center; gap:10px;">
           <div class="seg-toggle" id="heatmapGroupToggle">
             <button data-group="scope" class="active">Disease / Tissue</button>
-            <button data-group="cohort">Cohort</button>
+            <button data-group="pipeline">Pipeline</button>
           </div>
           <button class="table-toggle" data-target="bycohort">View as table</button>
         </div>
@@ -294,10 +299,42 @@
     return el;
   }
   function debounce(fn, ms) { var t; return function () { clearTimeout(t); t = setTimeout(fn, ms); }; }
-  function seqColor(p) {
+  function seqColor(frac) { // frac 0..1
     var steps = ['--seq-100','--seq-150','--seq-200','--seq-250','--seq-300','--seq-350','--seq-400','--seq-450','--seq-500','--seq-550','--seq-600','--seq-650','--seq-700'];
-    var idx = Math.min(steps.length - 1, Math.floor((p / 100) * steps.length));
+    var idx = Math.min(steps.length - 1, Math.max(0, Math.floor(frac * steps.length)));
     return resolveVar(steps[idx]);
+  }
+  function niceMax(v) {
+    if (v <= 0) return 1;
+    var exp = Math.floor(Math.log(v) / Math.LN10);
+    var base = Math.pow(10, exp);
+    var f = v / base, niceF;
+    if (f <= 1) niceF = 1; else if (f <= 2) niceF = 2; else if (f <= 5) niceF = 5; else niceF = 10;
+    return niceF * base;
+  }
+
+  // ---------- shared count helpers (status-key aware, disease-filter aware) ----------
+  function zeroCounts() { var o = {}; state.data.status_order.forEach(function (k) { o[k] = 0; }); return o; }
+  function addInto(dst, src) { state.data.status_order.forEach(function (k) { dst[k] = (dst[k] || 0) + ((src && src[k]) || 0); }); return dst; }
+  function totalOf(counts) { return state.data.status_order.reduce(function (s, k) { return s + (counts[k] || 0); }, 0); }
+  function scopesForSelectedDiseases() {
+    return state.data.scopes.filter(function (s) {
+      var sd = state.data.scope_disease[s];
+      return sd && state.selectedDisease.has(sd.key);
+    });
+  }
+  function techCountsByScope(techKey, scopeList) {
+    var sum = zeroCounts();
+    scopeList.forEach(function (scope) { addInto(sum, (state.data.by_scope[techKey] || {})[scope]); });
+    return sum;
+  }
+  function techCountsByPipeline(techKey, pipeline, scopeList) {
+    var sum = zeroCounts();
+    scopeList.forEach(function (scope) {
+      var node = (state.data.by_scope_pipeline[techKey] || {})[scope];
+      addInto(sum, node && node[pipeline]);
+    });
+    return sum;
   }
 
   function selectedTechs() { return state.data.technologies.filter(function (t) { return state.selectedTech.has(t.key); }); }
@@ -309,80 +346,98 @@
     row.innerHTML = '';
     var tiles = [];
     if (state.activeMain === 'recruitment') {
-      var rec = state.data.recruitment;
-      var totalSubj = rec.by_disease.reduce(function (s, d) { return s + d.subjects; }, 0);
+      var diseases = selectedDiseases();
+      var subj = diseases.reduce(function (s, d) { return s + d.subjects; }, 0);
+      var visits = diseases.reduce(function (s, d) { return s + d.visits; }, 0);
+      var keys = diseases.map(function (d) { return d.key; });
+      var cohortCount = state.data.recruitment.by_cohort.filter(function (c) { return keys.indexOf(c.disease_key) !== -1; }).length;
       tiles = [
-        { label: 'Subjects enrolled', value: fmt(totalSubj) },
-        { label: 'Disease teams', value: fmt(rec.by_disease.length) },
-        { label: 'Cohorts tracked', value: fmt(rec.by_cohort.length) },
-        { label: 'Subjects with no enrollment visit', value: fmt(rec.unassigned_subjects), flag: rec.unassigned_subjects > 0 }
+        { label: 'Subjects enrolled', value: fmt(subj), hero: true },
+        { label: 'Visits tracked', value: fmt(visits), hero: true },
+        { label: 'Cohorts tracked', value: fmt(cohortCount) },
+        { label: 'Subjects with no enrollment visit', value: fmt(state.data.recruitment.unassigned_subjects), flag: state.data.recruitment.unassigned_subjects > 0 }
       ];
     } else {
       var d = state.data;
-      var sel = selectedTechs();
-      var avg = sel.length ? (sel.reduce(function (s, t) { return s + t.pct_complete; }, 0) / sel.length) : 0;
+      var scopes = scopesForSelectedDiseases();
+      var completedSum = selectedTechs().reduce(function (s, t) { return s + techCountsByScope(t.key, scopes).completed; }, 0);
       tiles = [
         { label: 'Subjects enrolled', value: fmt(d.totals.subjects) },
         { label: 'Total visits tracked', value: fmt(d.totals.visits) },
         { label: 'Technologies tracked', value: fmt(d.technologies.length) },
-        { label: 'Avg. completion (selected)', value: avg.toFixed(1) + '%' }
+        { label: 'Samples completed (selected)', value: fmt(completedSum) }
       ];
     }
     tiles.forEach(function (t) {
-      var div = document.createElement('div'); div.className = 'kpi-tile' + (t.flag ? ' flag' : '');
+      var div = document.createElement('div'); div.className = 'kpi-tile' + (t.flag ? ' flag' : '') + (t.hero ? ' hero' : '');
       var l = document.createElement('div'); l.className = 'label'; l.textContent = t.label;
       var v = document.createElement('div'); v.className = 'value'; v.textContent = t.value;
       div.appendChild(l); div.appendChild(v); row.appendChild(div);
     });
   }
 
-  // ---------- Filter row ----------
-  function renderFilter() {
-    var wrap = document.getElementById('filterRow');
-    wrap.innerHTML = '';
-    var flabel = document.createElement('div'); flabel.className = 'flabel';
+  // ---------- Filter rows ----------
+  function buildDiseaseFilterRow() {
+    var row = document.createElement('div'); row.className = 'filter-row';
+    var flabel = document.createElement('div'); flabel.className = 'flabel'; flabel.textContent = 'Disease teams shown';
     var group = document.createElement('div'); group.className = 'pill-group';
+    state.data.recruitment.by_disease.forEach(function (dz) {
+      var b = document.createElement('button');
+      b.className = 'pill' + (state.selectedDisease.has(dz.key) ? ' active' : '');
+      b.textContent = dz.label; b.dataset.key = dz.key;
+      b.addEventListener('click', function () {
+        if (state.selectedDisease.has(dz.key)) state.selectedDisease.delete(dz.key); else state.selectedDisease.add(dz.key);
+        renderFilter(); renderAll();
+      });
+      group.appendChild(b);
+    });
     var metaWrap = document.createElement('div'); metaWrap.style.cssText = 'display:flex; gap:6px;';
     var allBtn = document.createElement('button'); allBtn.className = 'pill meta'; allBtn.textContent = 'All';
     var noneBtn = document.createElement('button'); noneBtn.className = 'pill meta'; noneBtn.textContent = 'None';
+    allBtn.addEventListener('click', function () {
+      state.selectedDisease = new Set(state.data.recruitment.by_disease.map(function (d) { return d.key; }));
+      renderFilter(); renderAll();
+    });
+    noneBtn.addEventListener('click', function () { state.selectedDisease = new Set(); renderFilter(); renderAll(); });
     metaWrap.appendChild(allBtn); metaWrap.appendChild(noneBtn);
-
+    row.appendChild(flabel); row.appendChild(group); row.appendChild(metaWrap);
+    return row;
+  }
+  function buildTechFilterRow() {
+    var row = document.createElement('div'); row.className = 'filter-row';
+    var flabel = document.createElement('div'); flabel.className = 'flabel'; flabel.textContent = 'Datasets shown';
+    var group = document.createElement('div'); group.className = 'pill-group';
+    state.data.technologies.forEach(function (t) {
+      var b = document.createElement('button');
+      b.className = 'pill' + (state.selectedTech.has(t.key) ? ' active' : '');
+      b.textContent = t.label; b.dataset.key = t.key;
+      b.addEventListener('click', function () {
+        if (state.selectedTech.has(t.key)) state.selectedTech.delete(t.key); else state.selectedTech.add(t.key);
+        renderFilter(); renderAll();
+      });
+      group.appendChild(b);
+    });
+    var metaWrap = document.createElement('div'); metaWrap.style.cssText = 'display:flex; gap:6px;';
+    var allBtn = document.createElement('button'); allBtn.className = 'pill meta'; allBtn.textContent = 'All';
+    var noneBtn = document.createElement('button'); noneBtn.className = 'pill meta'; noneBtn.textContent = 'None';
+    allBtn.addEventListener('click', function () {
+      state.selectedTech = new Set(state.data.technologies.map(function (t) { return t.key; }));
+      renderFilter(); renderAll();
+    });
+    noneBtn.addEventListener('click', function () { state.selectedTech = new Set(); renderFilter(); renderAll(); });
+    metaWrap.appendChild(allBtn); metaWrap.appendChild(noneBtn);
+    row.appendChild(flabel); row.appendChild(group); row.appendChild(metaWrap);
+    return row;
+  }
+  function renderFilter() {
+    var wrap = document.getElementById('filterRow');
+    wrap.innerHTML = '';
     if (state.activeMain === 'recruitment') {
-      flabel.textContent = 'Disease teams shown';
-      state.data.recruitment.by_disease.forEach(function (dz) {
-        var b = document.createElement('button');
-        b.className = 'pill' + (state.selectedDisease.has(dz.key) ? ' active' : '');
-        b.textContent = dz.label; b.dataset.key = dz.key;
-        b.addEventListener('click', function () {
-          if (state.selectedDisease.has(dz.key)) state.selectedDisease.delete(dz.key); else state.selectedDisease.add(dz.key);
-          renderFilter(); renderAll();
-        });
-        group.appendChild(b);
-      });
-      allBtn.addEventListener('click', function () {
-        state.selectedDisease = new Set(state.data.recruitment.by_disease.map(function (d) { return d.key; }));
-        renderFilter(); renderAll();
-      });
-      noneBtn.addEventListener('click', function () { state.selectedDisease = new Set(); renderFilter(); renderAll(); });
+      wrap.appendChild(buildDiseaseFilterRow());
     } else {
-      flabel.textContent = 'Datasets shown';
-      state.data.technologies.forEach(function (t) {
-        var b = document.createElement('button');
-        b.className = 'pill' + (state.selectedTech.has(t.key) ? ' active' : '');
-        b.textContent = t.label; b.dataset.key = t.key;
-        b.addEventListener('click', function () {
-          if (state.selectedTech.has(t.key)) state.selectedTech.delete(t.key); else state.selectedTech.add(t.key);
-          renderFilter(); renderAll();
-        });
-        group.appendChild(b);
-      });
-      allBtn.addEventListener('click', function () {
-        state.selectedTech = new Set(state.data.technologies.map(function (t) { return t.key; }));
-        renderFilter(); renderAll();
-      });
-      noneBtn.addEventListener('click', function () { state.selectedTech = new Set(); renderFilter(); renderAll(); });
+      wrap.appendChild(buildDiseaseFilterRow());
+      wrap.appendChild(buildTechFilterRow());
     }
-    wrap.appendChild(flabel); wrap.appendChild(group); wrap.appendChild(metaWrap);
   }
 
   // ---------- Main tabs ----------
@@ -474,7 +529,7 @@
     diseases.forEach(function (dz) {
       var cohorts = state.data.recruitment.by_cohort
         .filter(function (c) { return c.disease_key === dz.key; })
-        .slice().sort(function (a, b) { return b.subjects - a.subjects; });
+        .slice().sort(function (a, b) { return a.cohort.toLowerCase().localeCompare(b.cohort.toLowerCase()); });
       var card = document.createElement('div'); card.className = 'mini-card';
       var h3 = document.createElement('h3'); h3.textContent = dz.label; card.appendChild(h3);
       var sub = document.createElement('p'); sub.className = 'mini-sub';
@@ -513,7 +568,9 @@
     var keys = diseases.map(function (d) { return d.key; });
     var rows = state.data.recruitment.by_cohort
       .filter(function (c) { return keys.indexOf(c.disease_key) !== -1; })
-      .slice().sort(function (a, b) { return a.disease_label.localeCompare(b.disease_label) || b.subjects - a.subjects; })
+      .slice().sort(function (a, b) {
+        return a.disease_label.localeCompare(b.disease_label) || a.cohort.toLowerCase().localeCompare(b.cohort.toLowerCase());
+      })
       .map(function (c) {
         return '<tr><td>' + esc(c.disease_label) + '</td><td>' + esc(c.cohort) + '</td><td>' + fmt(c.subjects) + '</td><td>' + fmt(c.visits) + '</td></tr>';
       }).join('');
@@ -532,6 +589,7 @@
       html += '<p><span class="flag">' + fmt(unk.subjects) + ' subjects</span> have an enrollment visit but no readable Data_Scope value (shows as <code>#REF!</code> or blank), so they land in “Unknown.” This is likely the same broken lookup formula affecting the Disease Team column upstream.</p>';
     }
     html += '<p>Disease team here is derived from the <code>Data_Scope</code> prefix (e.g. <code>SLE-KDY</code> → Lupus (SLE)), not the source <code>Disease Team</code> column — that column reads <code>#REF!</code> for most rows and isn’t usable. If you have the authoritative list of disease teams, send it over and I’ll wire up an exact mapping instead of this proxy.</p>';
+    html += '<p>A subject who carries more than one cohort tag (e.g. both “Cohort 1a” and “Cohort 1b”) is counted once in each of those cohorts above, but only once in the disease-team total — so cohort counts within a team can add up to more than the team’s subject total. That’s expected, not double-counting.</p>';
     document.getElementById('recruitmentQuality').innerHTML = html;
   }
 
@@ -539,53 +597,53 @@
   function renderOverview() {
     var el = document.getElementById('overviewChart');
     el.innerHTML = '';
-    var techs = selectedTechs().slice().sort(function (a, b) { return b.pct_complete - a.pct_complete; });
-    if (!techs.length) { el.textContent = 'No datasets selected.'; renderOverviewTable(techs); return; }
+    var scopes = scopesForSelectedDiseases();
+    var rows = selectedTechs().map(function (t) {
+      var counts = techCountsByScope(t.key, scopes);
+      return { key: t.key, label: t.label, completed: counts.completed, total: totalOf(counts) };
+    }).sort(function (a, b) { return b.completed - a.completed; });
+    if (!rows.length) { el.textContent = 'No datasets selected (or no disease teams selected).'; renderOverviewTable(rows); return; }
 
+    var maxCompleted = niceMax(Math.max.apply(null, rows.map(function (r) { return r.completed; })));
     var width = Math.max(el.clientWidth || 900, 480);
-    var rowH = 30, leftPad = 190, rightPad = 56, topPad = 8;
-    var height = topPad + techs.length * rowH + 8;
+    var rowH = 30, leftPad = 190, rightPad = 60, topPad = 8;
+    var height = topPad + rows.length * rowH + 8;
     var chartW = width - leftPad - rightPad;
     var svg = svgEl('svg', { width: width, height: height, viewBox: '0 0 ' + width + ' ' + height });
     var barColor = resolveVar('--seq-450'), gridColor = resolveVar('--grid');
 
-    [0, 25, 50, 75, 100].forEach(function (g) {
-      var x = leftPad + (g / 100) * chartW;
+    [0, 0.25, 0.5, 0.75, 1].forEach(function (f) {
+      var x = leftPad + f * chartW;
       svg.appendChild(svgEl('line', { x1: x, x2: x, y1: topPad, y2: height - 8, stroke: gridColor, 'stroke-width': 1 }));
       var t = svgEl('text', { x: x, y: height - 2, class: 'axis-label', 'text-anchor': 'middle' });
-      t.textContent = g + '%'; svg.appendChild(t);
+      t.textContent = fmt(Math.round(maxCompleted * f)); svg.appendChild(t);
     });
 
-    techs.forEach(function (t, i) {
+    rows.forEach(function (r, i) {
       var y = topPad + i * rowH, barH = 18, barY = y + (rowH - barH) / 2;
-      var w = Math.max(2, (t.pct_complete / 100) * chartW);
+      var w = Math.max(r.completed > 0 ? 2 : 0, (r.completed / maxCompleted) * chartW);
       var label = svgEl('text', { x: leftPad - 10, y: barY + barH / 2 + 4, class: 'bar-label', 'text-anchor': 'end' });
-      label.textContent = t.label; svg.appendChild(label);
+      label.textContent = r.label; svg.appendChild(label);
       var rect = svgEl('rect', { x: leftPad, y: barY, width: w, height: barH, rx: 4, fill: barColor });
       svg.appendChild(rect);
       var val = svgEl('text', { x: leftPad + w + 8, y: barY + barH / 2 + 4, class: 'bar-value' });
-      val.textContent = pct(t.pct_complete); svg.appendChild(val);
+      val.textContent = fmt(r.completed); svg.appendChild(val);
       var hit = svgEl('rect', { x: leftPad, y: y, width: chartW, height: rowH, fill: 'transparent' });
       hit.addEventListener('pointermove', function (ev) {
-        showTooltip(ev.clientX, ev.clientY, [
-          ['Technology', t.label], ['Completed', fmt(t.counts.completed) + ' / ' + fmt(t.total)],
-          ['Of eligible', t.pct_eligible === null ? '–' : t.pct_eligible.toFixed(1) + '%']
-        ]);
+        showTooltip(ev.clientX, ev.clientY, [['Technology', r.label], ['Completed', fmt(r.completed)], ['Total tracked visits', fmt(r.total)]]);
       });
       hit.addEventListener('pointerleave', hideTooltip);
       svg.appendChild(hit);
     });
     el.appendChild(svg);
-    renderOverviewTable(techs);
+    renderOverviewTable(rows);
   }
-  function renderOverviewTable(techs) {
+  function renderOverviewTable(rows) {
     var el = document.getElementById('overviewTable');
-    var rows = techs.map(function (t) {
-      return '<tr><td>' + esc(t.label) + '</td><td>' + fmt(t.counts.completed) + '</td><td>' + fmt(t.total) +
-        '</td><td>' + pct(t.pct_complete) + '</td><td>' + (t.pct_eligible === null ? '–' : pct(t.pct_eligible)) + '</td></tr>';
+    var body = rows.map(function (r) {
+      return '<tr><td>' + esc(r.label) + '</td><td>' + fmt(r.completed) + '</td><td>' + fmt(r.total) + '</td></tr>';
     }).join('');
-    el.innerHTML = '<table class="data-table"><thead><tr><th>Technology</th><th>Completed</th><th>Total visits</th>' +
-      '<th>% complete (all visits)</th><th>% complete (of eligible)</th></tr></thead><tbody>' + rows + '</tbody></table>';
+    el.innerHTML = '<table class="data-table"><thead><tr><th>Technology</th><th>Completed</th><th>Total tracked visits</th></tr></thead><tbody>' + body + '</tbody></table>';
   }
 
   function renderStatusLegend() {
@@ -599,18 +657,21 @@
   }
   function renderByTech() {
     var el = document.getElementById('bytechChart'); el.innerHTML = '';
-    var techs = selectedTechs();
-    if (!techs.length) { el.textContent = 'No datasets selected.'; renderByTechTable(techs); return; }
+    var scopes = scopesForSelectedDiseases();
+    var rows = selectedTechs().map(function (t) { return { key: t.key, label: t.label, counts: techCountsByScope(t.key, scopes) }; });
+    rows.forEach(function (r) { r.total = totalOf(r.counts); });
+    if (!rows.length) { el.textContent = 'No datasets selected (or no disease teams selected).'; renderByTechTable(rows); return; }
     var width = Math.max(el.clientWidth || 900, 480);
     var rowH = 34, leftPad = 190, rightPad = 16, topPad = 8;
-    var height = topPad + techs.length * rowH + 8;
+    var height = topPad + rows.length * rowH + 8;
     var chartW = width - leftPad - rightPad, gap = 2;
     var svg = svgEl('svg', { width: width, height: height, viewBox: '0 0 ' + width + ' ' + height });
 
-    techs.forEach(function (t, i) {
+    rows.forEach(function (t, i) {
       var y = topPad + i * rowH, barH = 20, barY = y + (rowH - barH) / 2;
       var label = svgEl('text', { x: leftPad - 10, y: barY + barH / 2 + 4, class: 'bar-label', 'text-anchor': 'end' });
       label.textContent = t.label; svg.appendChild(label);
+      if (!t.total) { return; }
       var x = leftPad, vc = visualCounts(t.counts);
       VISUAL_ORDER.forEach(function (key, si) {
         var count = vc[key] || 0, w = (count / t.total) * chartW;
@@ -629,29 +690,37 @@
       });
     });
     el.appendChild(svg);
-    renderByTechTable(techs);
+    renderByTechTable(rows);
   }
-  function renderByTechTable(techs) {
+  function renderByTechTable(rows) {
     var el = document.getElementById('bytechTable');
     var order = state.data.status_order;
     var head = '<tr><th>Technology</th>' + order.map(function (k) { return '<th>' + esc(state.data.status_labels[k]) + '</th>'; }).join('') + '<th>Total</th></tr>';
-    var rows = techs.map(function (t) {
+    var body = rows.map(function (t) {
       return '<tr><td>' + esc(t.label) + '</td>' + order.map(function (k) { return '<td>' + fmt(t.counts[k] || 0) + '</td>'; }).join('') + '<td>' + fmt(t.total) + '</td></tr>';
     }).join('');
-    el.innerHTML = '<table class="data-table"><thead>' + head + '</thead><tbody>' + rows + '</tbody></table>';
+    el.innerHTML = '<table class="data-table"><thead>' + head + '</thead><tbody>' + body + '</tbody></table>';
   }
 
-  function currentGroupList() { return state.heatmapGroup === 'scope' ? state.data.scopes : state.data.cohorts; }
-  function currentGroupMatrix() { return state.heatmapGroup === 'scope' ? state.data.by_scope : state.data.by_cohort; }
-  function currentGroupLabel() { return state.heatmapGroup === 'scope' ? 'Scope' : 'Cohort'; }
+  function heatmapGroups() { return state.heatmapGroup === 'scope' ? scopesForSelectedDiseases() : state.data.pipelines; }
+  function heatmapGroupLabel() { return state.heatmapGroup === 'scope' ? 'Scope' : 'Pipeline'; }
+  function heatmapCellCounts(techKey, group) {
+    var scopes = scopesForSelectedDiseases();
+    return state.heatmapGroup === 'scope'
+      ? (state.data.by_scope[techKey] || {})[group] || zeroCounts()
+      : techCountsByPipeline(techKey, group, scopes);
+  }
 
   function renderByCohort() {
     var el = document.getElementById('bycohortChart'); el.innerHTML = '';
     var techs = selectedTechs();
-    var groups = currentGroupList(), matrix = currentGroupMatrix(), groupLabel = currentGroupLabel();
-    if (!techs.length) { el.textContent = 'No datasets selected.'; renderByCohortTable(techs); return; }
+    var groups = heatmapGroups(), groupLabel = heatmapGroupLabel();
+    if (!techs.length || !groups.length) { el.textContent = 'No datasets selected (or no disease teams selected).'; renderByCohortTable(techs, groups); return; }
 
-    var cell = 46, cellH = 30, leftPad = 190, topPad = 130;
+    var maxVal = 1;
+    techs.forEach(function (t) { groups.forEach(function (g) { maxVal = Math.max(maxVal, heatmapCellCounts(t.key, g).completed || 0); }); });
+
+    var cell = 46, cellH = 30, leftPad = 190, topPad = 100;
     var width = leftPad + groups.length * cell + 16;
     var height = topPad + techs.length * cellH + 8;
     var svg = svgEl('svg', { width: width, height: height, viewBox: '0 0 ' + width + ' ' + height });
@@ -668,17 +737,14 @@
       var label = svgEl('text', { x: leftPad - 10, y: y + cellH / 2 + 4, class: 'cat-label', 'text-anchor': 'end' });
       label.textContent = t.label; svg.appendChild(label);
       groups.forEach(function (g, ci) {
-        var counts = (matrix[t.key] || {})[g] || { completed: 0, pending: 0, not_applicable: 0, qc_fail: 0, unknown: 0 };
-        var total = counts.completed + counts.pending + counts.not_applicable + counts.qc_fail + counts.unknown;
-        var p = total ? (100 * counts.completed / total) : null;
+        var counts = heatmapCellCounts(t.key, g);
+        var completed = counts.completed || 0;
         var x = leftPad + ci * cell;
-        var fill = p === null ? resolveVar('--grid') : seqColor(p);
+        var fill = completed === 0 ? resolveVar('--grid') : seqColor(completed / maxVal);
         var rect = svgEl('rect', { x: x + 1, y: y + 1, width: cell - 2, height: cellH - 2, rx: 3, fill: fill });
         rect.addEventListener('pointermove', function (ev) {
           showTooltip(ev.clientX, ev.clientY, [
-            ['Technology', t.label], [groupLabel, g],
-            ['Completed', fmt(counts.completed) + ' / ' + fmt(total)],
-            ['% complete', p === null ? '–' : p.toFixed(1) + '%']
+            ['Technology', t.label], [groupLabel, g], ['Completed', fmt(completed)], ['Total in group', fmt(totalOf(counts))]
           ]);
         });
         rect.addEventListener('pointerleave', hideTooltip);
@@ -686,22 +752,17 @@
       });
     });
     el.appendChild(svg);
-    renderByCohortTable(techs);
+    renderByCohortTable(techs, groups);
   }
-  function renderByCohortTable(techs) {
+  function renderByCohortTable(techs, groups) {
     var el = document.getElementById('bycohortTable');
-    var groups = currentGroupList(), matrix = currentGroupMatrix(), groupLabel = currentGroupLabel();
+    var groupLabel = heatmapGroupLabel();
     var head = '<tr><th>Technology</th>' + groups.map(function (g) { return '<th>' + esc(g) + '</th>'; }).join('') + '</tr>';
-    var rows = techs.map(function (t) {
-      var cells = groups.map(function (g) {
-        var counts = (matrix[t.key] || {})[g] || { completed: 0, pending: 0, not_applicable: 0, qc_fail: 0, unknown: 0 };
-        var total = counts.completed + counts.pending + counts.not_applicable + counts.qc_fail + counts.unknown;
-        var p = total ? (100 * counts.completed / total) : null;
-        return '<td>' + (p === null ? '–' : p.toFixed(0) + '%') + '</td>';
-      }).join('');
+    var body = techs.map(function (t) {
+      var cells = groups.map(function (g) { return '<td>' + fmt(heatmapCellCounts(t.key, g).completed || 0) + '</td>'; }).join('');
       return '<tr><td>' + esc(t.label) + '</td>' + cells + '</tr>';
     }).join('');
-    el.innerHTML = '<p class="note">Grouped by: ' + groupLabel + '</p><table class="data-table"><thead>' + head + '</thead><tbody>' + rows + '</tbody></table>';
+    el.innerHTML = '<p class="note">Grouped by: ' + groupLabel + ' · values are completed-sample counts</p><table class="data-table"><thead>' + head + '</thead><tbody>' + body + '</tbody></table>';
   }
 
   function renderTechnologyQuality() {
@@ -716,6 +777,7 @@
     }
     var qcFailTotal = d.technologies.reduce(function (s, t) { return s + (t.counts.qc_fail || 0); }, 0);
     html += '<p><strong>' + fmt(qcFailTotal) + '</strong> sample-technology combinations across the whole dataset are flagged as QC fail and may need a repeat draw or rerun.</p>';
+    html += '<p>Not every sample is selected for every technology, so the charts above show raw completed counts rather than a completion percentage — a low count can simply mean fewer samples were ever assigned to that technology, not that work is behind.</p>';
     document.getElementById('technologyQuality').innerHTML = html;
   }
 

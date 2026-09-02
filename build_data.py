@@ -11,9 +11,9 @@ Privacy design (do not change without re-checking with the data owner):
   - No diagnosis (Enroll_Dx), demographic field (Sex/Race/Ethnicity/Age), or
     free-text Notes value is ever written to the output.
   - Only COUNTS are emitted, grouped by technology / disease-tissue scope /
-    visit cohort. Cells with fewer than MIN_CELL_COUNT contributing rows are
-    still reported (counts, not identities) but the script makes it easy to
-    raise that floor if small-cell suppression is ever required.
+    pipeline / cohort. Cells with fewer than MIN_CELL_COUNT contributing rows
+    are still reported (counts, not identities) but the script makes it easy
+    to raise that floor if small-cell suppression is ever required.
 
 Usage:
     python3 build_data.py [input.xlsx] [output.json]
@@ -61,8 +61,8 @@ STATUS_LABELS = {
 
 # Visit codes that mark a subject's ENROLLMENT into a cohort (one per Visit_Type:
 # Scheduled->V01, Control->VC1, Enabling->VE1, Archival->VA1, Unscheduled->VU1).
-# The Visit_Cohort tag on this row is the subject's cohort assignment. Checked
-# in this priority order when a subject has more than one such row.
+# The Visit_Cohort tag(s) on this row are the subject's cohort assignment(s).
+# Checked in this priority order when a subject has more than one such row.
 ENROLLMENT_CODES_PRIORITY = ["V01", "VC1", "VE1", "VA1", "VU1"]
 
 # "Disease Team" in the source is unreliable (mostly #REF! - a broken lookup
@@ -79,6 +79,9 @@ DISEASE_LABELS = {
     "SSc": "Systemic Sclerosis (SSc)",
     "SLE/PsD": "SLE / PsD (combined)",
 }
+
+# Label used for a blank/None Pipeline cell.
+UNDEFINED_PIPELINE = "Undefined"
 
 
 def derive_disease(scope_label):
@@ -115,6 +118,7 @@ def classify(value):
 
 
 def clean_label(value, default="Unknown"):
+    """Clean a single-value field (Data_Scope, Pipeline, ...) into one label."""
     if value is None:
         return default
     s = str(value).strip()
@@ -122,9 +126,6 @@ def clean_label(value, default="Unknown"):
         return default
     if s.startswith("[") and s.endswith("]"):
         inner = s[1:-1]
-        # some cells hold multiple bracketed tags back-to-back, e.g.
-        # "[Cohort 1a: PsO][Cohort 3: PsO to PsA Risk]" -> split on the
-        # internal "][" boundary instead of leaving it in the label.
         parts = [p.strip() for p in inner.split("][") if p.strip()]
         s = ", ".join(parts) if parts else default
     if s.lower() == "not yet retrieved":
@@ -132,8 +133,38 @@ def clean_label(value, default="Unknown"):
     return s
 
 
+def split_cohort_tags(value):
+    """
+    Visit_Cohort can hold MULTIPLE tags back-to-back in one cell, e.g.
+    "[Cohort 1a: PsO][Cohort 1b: Drug-Naive PsA]" for a subject who belongs to
+    both. Returns a LIST of individual cohort tags rather than one combined
+    string, so a subject like that is counted once in EACH cohort - never as
+    a separate "Cohort 1a, Cohort 1b" bucket.
+    """
+    if value is None:
+        return ["Unknown"]
+    s = str(value).strip()
+    if s == "" or s in ("None", "#REF!"):
+        return ["Unknown"]
+    if s.startswith("[") and s.endswith("]"):
+        inner = s[1:-1]
+        parts = [p.strip() for p in inner.split("][") if p.strip()]
+        if not parts:
+            return ["Unknown"]
+        return ["Not yet retrieved" if p.lower() == "not yet retrieved" else p for p in parts]
+    if s.lower() == "not yet retrieved":
+        return ["Not yet retrieved"]
+    return [s]
+
+
 def empty_status_counts():
     return {k: 0 for k in STATUS_ORDER}
+
+
+def add_counts(dst, src):
+    for k in STATUS_ORDER:
+        dst[k] = dst.get(k, 0) + (src.get(k, 0) if src else 0)
+    return dst
 
 
 def main():
@@ -154,21 +185,26 @@ def main():
     data_scope_idx = col_idx.get("Data_Scope")
     visit_cohort_idx = col_idx.get("Visit_Cohort")
     visit_code_idx = col_idx.get("Visit_Code")
+    pipeline_idx = col_idx.get("Pipeline")
 
     subjects_seen = set()
     n_visits = 0
-    # subject -> list of (visit_code_raw, cohort_label, scope_label) for every row
+    # subject -> list of (visit_code_raw, cohort_cell_raw_value, scope_label)
+    # cohort_cell_raw_value is kept RAW (not yet split) so pick_enrollment()
+    # below can split it into individual tags itself.
     subj_rows = defaultdict(list)
 
     # tech key -> overall status counts
     tech_totals = {key: empty_status_counts() for _, key, _ in TECH_COLUMNS}
-    # tech key -> {scope_label: status_counts}
+    # tech key -> {scope_label: status_counts}  (all pipelines combined)
     tech_by_scope = {key: defaultdict(empty_status_counts) for _, key, _ in TECH_COLUMNS}
-    # tech key -> {cohort_label: status_counts}
-    tech_by_cohort = {key: defaultdict(empty_status_counts) for _, key, _ in TECH_COLUMNS}
+    # tech key -> {pipeline_label: status_counts}  (all scopes combined)
+    tech_by_pipeline = {key: defaultdict(empty_status_counts) for _, key, _ in TECH_COLUMNS}
+    # tech key -> {scope_label: {pipeline_label: status_counts}}  (for disease-filtered pipeline views)
+    tech_by_scope_pipeline = {key: defaultdict(lambda: defaultdict(empty_status_counts)) for _, key, _ in TECH_COLUMNS}
 
     scopes_seen = set()
-    cohorts_seen = set()
+    pipelines_seen = set()
 
     for r in range(DATA_START_ROW, ws.max_row + 1):
         subj = ws.cell(row=r, column=subject_idx).value if subject_idx else None
@@ -187,14 +223,18 @@ def main():
         n_visits += 1
 
         scope_label = clean_label(ws.cell(row=r, column=data_scope_idx).value if data_scope_idx else None)
-        cohort_label = clean_label(ws.cell(row=r, column=visit_cohort_idx).value if visit_cohort_idx else None)
+        pipeline_label = clean_label(
+            ws.cell(row=r, column=pipeline_idx).value if pipeline_idx else None,
+            default=UNDEFINED_PIPELINE,
+        )
         scopes_seen.add(scope_label)
-        cohorts_seen.add(cohort_label)
+        pipelines_seen.add(pipeline_label)
 
         if subj_clean:
             code_raw = ws.cell(row=r, column=visit_code_idx).value if visit_code_idx else None
             code_raw = str(code_raw).strip() if code_raw is not None else ""
-            subj_rows[subj_clean].append((code_raw, cohort_label, scope_label))
+            cohort_raw = ws.cell(row=r, column=visit_cohort_idx).value if visit_cohort_idx else None
+            subj_rows[subj_clean].append((code_raw, cohort_raw, scope_label))
 
         for col, key, _ in TECH_COLUMNS:
             if col not in col_idx:
@@ -203,18 +243,13 @@ def main():
             status = classify(val)
             tech_totals[key][status] += 1
             tech_by_scope[key][scope_label][status] += 1
-            tech_by_cohort[key][cohort_label][status] += 1
+            tech_by_pipeline[key][pipeline_label][status] += 1
+            tech_by_scope_pipeline[key][scope_label][pipeline_label][status] += 1
 
     def totals_block(counts):
         total = sum(counts.values())
         completed = counts["completed"]
-        # pct_complete: completed / all visits (conservative, denominator = every visit row)
         pct = round(100 * completed / total, 1) if total else 0.0
-        # pct_eligible: completed / (completed + pending + qc_fail), i.e. excludes
-        # cells that were never applicable/ordered or never populated for this
-        # subject-visit. This reads as "of the samples actually in the pipeline
-        # for this technology, how many are done" and is usually the more honest
-        # progress number when a technology only applies to a subset of scopes.
         eligible = counts["completed"] + counts["pending"] + counts["qc_fail"]
         pct_elig = round(100 * completed / eligible, 1) if eligible else None
         return {
@@ -231,26 +266,36 @@ def main():
         block["key"] = key
         block["label"] = label
         technologies.append(block)
-    technologies.sort(key=lambda t: t["pct_complete"], reverse=True)
+    technologies.sort(key=lambda t: t["counts"]["completed"], reverse=True)
 
     scopes_sorted = sorted(s for s in scopes_seen if s != "Unknown") + (
         ["Unknown"] if "Unknown" in scopes_seen else []
     )
-    cohorts_sorted = sorted(c for c in cohorts_seen if c != "Unknown") + (
-        ["Unknown"] if "Unknown" in cohorts_seen else []
-    )
+    pipelines_sorted = sorted(pipelines_seen)  # "EDP1","EDP2","NRP","Undefined" sorts naturally
+
+    scope_disease = {}
+    for scope in scopes_sorted:
+        dk, dl = derive_disease(scope)
+        scope_disease[scope] = {"key": dk, "label": dl}
 
     # ---------- Recruitment: subjects & visits per disease team / cohort ----------
     def pick_enrollment(rows):
-        """Pick the (cohort, scope) for a subject from their enrollment-code row(s)."""
+        """
+        Pick the (cohort_tags, scope) for a subject from their enrollment-code
+        row(s). cohort_tags is a LIST (a subject can be in more than one
+        cohort at once). Prefers, in ENROLLMENT_CODES_PRIORITY order, a row
+        that actually has a real (non-"Unknown") cohort tag.
+        """
         by_code = {}
-        for code, cohort, scope in rows:
+        for code, cohort_raw, scope in rows:
             if code not in ENROLLMENT_CODES_PRIORITY:
                 continue
-            if code not in by_code or (by_code[code][0] == "Unknown" and cohort != "Unknown"):
-                by_code[code] = (cohort, scope)
+            tags = split_cohort_tags(cohort_raw)
+            has_real = any(t != "Unknown" for t in tags)
+            if code not in by_code or (not by_code[code][2] and has_real):
+                by_code[code] = (tags, scope, has_real)
         for code in ENROLLMENT_CODES_PRIORITY:
-            if code in by_code and by_code[code][0] != "Unknown":
+            if code in by_code and by_code[code][2]:
                 return by_code[code][0], by_code[code][1]
         for code in ENROLLMENT_CODES_PRIORITY:
             if code in by_code:
@@ -267,16 +312,21 @@ def main():
         if picked is None:
             unassigned_subjects += 1
             continue
-        cohort, scope = picked
+        tags, scope = picked
         disease_key, disease_label = derive_disease(scope)
+        # Subject counts ONCE toward their disease team, no matter how many
+        # cohort tags they carry.
         disease_totals[disease_key]["subjects"] += 1
         disease_totals[disease_key]["visits"] += n_subject_visits
         disease_totals[disease_key]["label"] = disease_label
-        ck = (disease_key, cohort)
-        cohort_totals[ck]["subjects"] += 1
-        cohort_totals[ck]["visits"] += n_subject_visits
-        cohort_totals[ck]["disease_key"] = disease_key
-        cohort_totals[ck]["disease_label"] = disease_label
+        # ...but counts in EVERY cohort they belong to (a subject in both
+        # "Cohort 1a" and "Cohort 1b" adds 1 to each of those cohort totals).
+        for tag in sorted(set(tags)):
+            ck = (disease_key, tag)
+            cohort_totals[ck]["subjects"] += 1
+            cohort_totals[ck]["visits"] += n_subject_visits
+            cohort_totals[ck]["disease_key"] = disease_key
+            cohort_totals[ck]["disease_label"] = disease_label
 
     by_disease = sorted(
         [{"key": k, "label": v["label"], "subjects": v["subjects"], "visits": v["visits"]}
@@ -287,7 +337,8 @@ def main():
         [{"disease_key": v["disease_key"], "disease_label": v["disease_label"], "cohort": ck[1],
           "subjects": v["subjects"], "visits": v["visits"]}
          for ck, v in cohort_totals.items()],
-        key=lambda d: (d["disease_label"], -d["subjects"]),
+        # Alphabetical by cohort name within each disease team.
+        key=lambda d: (d["disease_label"], d["cohort"].lower()),
     )
     recruitment = {
         "by_disease": by_disease,
@@ -299,8 +350,15 @@ def main():
         key: {scope: tech_by_scope[key].get(scope, empty_status_counts()) for scope in scopes_sorted}
         for _, key, _ in TECH_COLUMNS
     }
-    by_cohort_matrix = {
-        key: {cohort: tech_by_cohort[key].get(cohort, empty_status_counts()) for cohort in cohorts_sorted}
+    by_pipeline_matrix = {
+        key: {p: tech_by_pipeline[key].get(p, empty_status_counts()) for p in pipelines_sorted}
+        for _, key, _ in TECH_COLUMNS
+    }
+    by_scope_pipeline_matrix = {
+        key: {
+            scope: {p: tech_by_scope_pipeline[key][scope].get(p, empty_status_counts()) for p in pipelines_sorted}
+            for scope in scopes_sorted
+        }
         for _, key, _ in TECH_COLUMNS
     }
 
@@ -316,9 +374,11 @@ def main():
         "status_labels": STATUS_LABELS,
         "technologies": technologies,
         "scopes": scopes_sorted,
-        "cohorts": cohorts_sorted,
+        "pipelines": pipelines_sorted,
+        "scope_disease": scope_disease,
         "by_scope": by_scope_matrix,
-        "by_cohort": by_cohort_matrix,
+        "by_pipeline": by_pipeline_matrix,
+        "by_scope_pipeline": by_scope_pipeline_matrix,
     }
 
     with open(out_path, "w") as f:
@@ -327,6 +387,7 @@ def main():
     print(f"Wrote {out_path}")
     print(f"  subjects={len(subjects_seen)} visits={n_visits} technologies={len(technologies)}")
     print(f"  disease teams={len(by_disease)} cohorts={len(by_cohort_detail)} unassigned_subjects={unassigned_subjects}")
+    print(f"  pipelines={pipelines_sorted}")
 
 
 if __name__ == "__main__":

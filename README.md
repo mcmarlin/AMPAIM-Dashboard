@@ -4,6 +4,9 @@ A static, interactive dashboard summarizing sample-collection and technology
 progress across the AMP AIM cohort — built to run for free, 24/7, on GitHub
 Pages, and updated from your weekly Excel export.
 
+**Live at:** https://mcmarlin.github.io/AMPAIM-Dashboard/
+**Repo:** https://github.com/mcmarlin/AMPAIM-Dashboard
+
 ## Why this is aggregate-only (read this before publishing)
 
 The source spreadsheet is human-subjects research data: it carries per-subject
@@ -53,7 +56,11 @@ from this proxy, edit that dictionary (or send it to me and I'll wire it in).
 
 ## Quick start — get it live on GitHub Pages
 
-1. Create a new **public** GitHub repo (e.g. `amp-aim-dashboard`).
+This is already set up for the `mcmarlin/AMPAIM-Dashboard` repo, live at
+https://mcmarlin.github.io/AMPAIM-Dashboard/. To (re)deploy it from scratch:
+
+1. Create a new **public** GitHub repo named `AMPAIM-Dashboard` under the
+   `mcmarlin` account.
 2. Push everything in this folder **except your raw `.xlsx` file** — the
    `.gitignore` here already excludes it, so a plain `git add .` is safe.
    ```
@@ -61,14 +68,14 @@ from this proxy, edit that dictionary (or send it to me and I'll wire it in).
    git add .
    git commit -m "Initial dashboard"
    git branch -M main
-   git remote add origin https://github.com/<you>/amp-aim-dashboard.git
+   git remote add origin https://github.com/mcmarlin/AMPAIM-Dashboard.git
    git push -u origin main
    ```
 3. In the repo settings: **Settings → Pages → Build and deployment → Source:
    Deploy from a branch → Branch: `main` / `(root)`**. Save.
-4. GitHub gives you a URL like `https://<you>.github.io/amp-aim-dashboard/` —
-   that's your live, public, 24/7 dashboard. It typically goes live within a
-   minute or two.
+4. GitHub serves it at https://mcmarlin.github.io/AMPAIM-Dashboard/ — that's
+   the live, public, 24/7 dashboard. It typically goes live within a minute
+   or two of enabling Pages.
 
 No server, no backend, no cost.
 
