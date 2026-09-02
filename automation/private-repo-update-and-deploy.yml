@@ -1,0 +1,73 @@
+# OPTIONAL: full automation for the weekly update.
+#
+# WHERE THIS GOES: a PRIVATE repo that holds your raw weekly export (e.g.
+# "amp-aim-data"), NOT the public dashboard repo. Save this file there as
+# .github/workflows/update-and-deploy.yml.
+#
+# WHAT IT DOES: whenever you push a new weekly export (as data/AMP_AIM_Dataset.xlsx
+# in this private repo), it rebuilds dashboard.json and pushes ONLY that file
+# into your public GitHub Pages repo. The raw spreadsheet never leaves this
+# private repo - it is never copied, committed, or logged anywhere else.
+#
+# ONE-TIME SETUP:
+#   1. Create a private repo, e.g. "amp-aim-data". Put build_data.py and
+#      requirements.txt (from this bundle) at its root, and your weekly
+#      export at data/AMP_AIM_Dataset.xlsx.
+#   2. Create a GitHub Personal Access Token (fine-grained, "Contents:
+#      read and write" scoped to ONLY your public dashboard repo) and save
+#      it as a secret named DASHBOARD_DEPLOY_TOKEN in this private repo's
+#      Settings -> Secrets and variables -> Actions.
+#   3. Edit the `env:` block below with your public repo's owner/name.
+#   4. Commit this file to .github/workflows/update-and-deploy.yml.
+#
+# From then on, updating the spreadsheet and pushing to this private repo is
+# the entire weekly workflow - the public dashboard updates itself within a
+# minute or two.
+
+name: Rebuild and publish dashboard data
+
+on:
+  push:
+    paths:
+      - "data/AMP_AIM_Dataset.xlsx"
+  workflow_dispatch: {}
+
+env:
+  PUBLIC_REPO: your-org/amp-aim-dashboard   # <-- edit: owner/repo of the PUBLIC GitHub Pages repo
+
+jobs:
+  build-and-deploy:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Check out private data repo
+        uses: actions/checkout@v4
+
+      - name: Set up Python
+        uses: actions/setup-python@v5
+        with:
+          python-version: "3.12"
+
+      - name: Install dependencies
+        run: pip install -r requirements.txt
+
+      - name: Build aggregate dashboard.json
+        run: python3 build_data.py data/AMP_AIM_Dataset.xlsx dashboard.json
+
+      - name: Check out public dashboard repo
+        uses: actions/checkout@v4
+        with:
+          repository: ${{ env.PUBLIC_REPO }}
+          token: ${{ secrets.DASHBOARD_DEPLOY_TOKEN }}
+          path: public-repo
+
+      - name: Copy in the freshly built aggregate data only
+        run: cp dashboard.json public-repo/data/dashboard.json
+
+      - name: Commit and push (only if it changed)
+        working-directory: public-repo
+        run: |
+          git config user.name "dashboard-bot"
+          git config user.email "dashboard-bot@users.noreply.github.com"
+          git add data/dashboard.json
+          git diff --cached --quiet && echo "No changes" || git commit -m "Weekly data refresh"
+          git push

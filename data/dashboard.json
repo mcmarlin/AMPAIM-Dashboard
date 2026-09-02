@@ -1,0 +1,5885 @@
+{
+  "generated_at": "2026-09-02T19:08:30Z",
+  "source_rows": 1404,
+  "totals": {
+    "subjects": 1003,
+    "visits": 1404
+  },
+  "recruitment": {
+    "by_disease": [
+      {
+        "key": "sjd",
+        "label": "Sj\u00f6gren's Disease (SjD)",
+        "subjects": 464,
+        "visits": 546
+      },
+      {
+        "key": "psd",
+        "label": "Psoriatic Disease (PsD)",
+        "subjects": 192,
+        "visits": 226
+      },
+      {
+        "key": "ra",
+        "label": "Rheumatoid Arthritis (RA)",
+        "subjects": 162,
+        "visits": 255
+      },
+      {
+        "key": "sle",
+        "label": "Lupus (SLE)",
+        "subjects": 144,
+        "visits": 336
+      },
+      {
+        "key": "unknown",
+        "label": "Unknown",
+        "subjects": 19,
+        "visits": 19
+      },
+      {
+        "key": "ssc",
+        "label": "Systemic Sclerosis (SSc)",
+        "subjects": 17,
+        "visits": 17
+      }
+    ],
+    "by_cohort": [
+      {
+        "disease_key": "sle",
+        "disease_label": "Lupus (SLE)",
+        "cohort": "KP1",
+        "subjects": 39,
+        "visits": 130
+      },
+      {
+        "disease_key": "sle",
+        "disease_label": "Lupus (SLE)",
+        "cohort": "KP2",
+        "subjects": 31,
+        "visits": 105
+      },
+      {
+        "disease_key": "sle",
+        "disease_label": "Lupus (SLE)",
+        "cohort": "SP1",
+        "subjects": 24,
+        "visits": 24
+      },
+      {
+        "disease_key": "sle",
+        "disease_label": "Lupus (SLE)",
+        "cohort": "Enabling",
+        "subjects": 22,
+        "visits": 22
+      },
+      {
+        "disease_key": "sle",
+        "disease_label": "Lupus (SLE)",
+        "cohort": "SP2",
+        "subjects": 15,
+        "visits": 42
+      },
+      {
+        "disease_key": "sle",
+        "disease_label": "Lupus (SLE)",
+        "cohort": "Healthy Control",
+        "subjects": 8,
+        "visits": 8
+      },
+      {
+        "disease_key": "sle",
+        "disease_label": "Lupus (SLE)",
+        "cohort": "Healthy Normal Control",
+        "subjects": 4,
+        "visits": 4
+      },
+      {
+        "disease_key": "sle",
+        "disease_label": "Lupus (SLE)",
+        "cohort": "Not yet retrieved",
+        "subjects": 1,
+        "visits": 1
+      },
+      {
+        "disease_key": "psd",
+        "disease_label": "Psoriatic Disease (PsD)",
+        "cohort": "Cohort 1a: PsO",
+        "subjects": 51,
+        "visits": 59
+      },
+      {
+        "disease_key": "psd",
+        "disease_label": "Psoriatic Disease (PsD)",
+        "cohort": "Cohort 2b: PsA Initiating Therapy",
+        "subjects": 34,
+        "visits": 44
+      },
+      {
+        "disease_key": "psd",
+        "disease_label": "Psoriatic Disease (PsD)",
+        "cohort": "Not yet retrieved",
+        "subjects": 30,
+        "visits": 33
+      },
+      {
+        "disease_key": "psd",
+        "disease_label": "Psoriatic Disease (PsD)",
+        "cohort": "Cohort 1b: Drug-Naive PsA",
+        "subjects": 18,
+        "visits": 23
+      },
+      {
+        "disease_key": "psd",
+        "disease_label": "Psoriatic Disease (PsD)",
+        "cohort": "Uveitis Cohort",
+        "subjects": 15,
+        "visits": 15
+      },
+      {
+        "disease_key": "psd",
+        "disease_label": "Psoriatic Disease (PsD)",
+        "cohort": "Cohort 2a: PsO Initiating Therapy",
+        "subjects": 9,
+        "visits": 10
+      },
+      {
+        "disease_key": "psd",
+        "disease_label": "Psoriatic Disease (PsD)",
+        "cohort": "Cohort 1a: PsO, Cohort 3: PsO to PsA Risk",
+        "subjects": 5,
+        "visits": 6
+      },
+      {
+        "disease_key": "psd",
+        "disease_label": "Psoriatic Disease (PsD)",
+        "cohort": "Cohort 1a: PsO, Cohort 2b: PsA Initiating Therapy",
+        "subjects": 5,
+        "visits": 9
+      },
+      {
+        "disease_key": "psd",
+        "disease_label": "Psoriatic Disease (PsD)",
+        "cohort": "Healthy Normal Control",
+        "subjects": 5,
+        "visits": 5
+      },
+      {
+        "disease_key": "psd",
+        "disease_label": "Psoriatic Disease (PsD)",
+        "cohort": "Cohort 3: PsO to PsA Risk",
+        "subjects": 4,
+        "visits": 4
+      },
+      {
+        "disease_key": "psd",
+        "disease_label": "Psoriatic Disease (PsD)",
+        "cohort": "Uveitis Cohort, Axial Spondyloarthritis Control",
+        "subjects": 4,
+        "visits": 4
+      },
+      {
+        "disease_key": "psd",
+        "disease_label": "Psoriatic Disease (PsD)",
+        "cohort": "Axial Spondyloarthritis Control",
+        "subjects": 3,
+        "visits": 3
+      },
+      {
+        "disease_key": "psd",
+        "disease_label": "Psoriatic Disease (PsD)",
+        "cohort": "Enabling",
+        "subjects": 3,
+        "visits": 3
+      },
+      {
+        "disease_key": "psd",
+        "disease_label": "Psoriatic Disease (PsD)",
+        "cohort": "Cohort 1a: PsO, Cohort 2a: PsO Initiating Therapy, Cohort 2b: PsA Initiating Therapy",
+        "subjects": 2,
+        "visits": 2
+      },
+      {
+        "disease_key": "psd",
+        "disease_label": "Psoriatic Disease (PsD)",
+        "cohort": "Cohort 1b: Drug-Naive PsA, Cohort 2b: PsA Initiating Therapy",
+        "subjects": 1,
+        "visits": 1
+      },
+      {
+        "disease_key": "psd",
+        "disease_label": "Psoriatic Disease (PsD)",
+        "cohort": "Cohort 1b: Drug-Naive PsA, Cohort 2a: PsO Initiating Therapy",
+        "subjects": 1,
+        "visits": 2
+      },
+      {
+        "disease_key": "psd",
+        "disease_label": "Psoriatic Disease (PsD)",
+        "cohort": "Cohort 1a: PsO, Cohort 2a: PsO Initiating Therapy, Cohort 3: PsO to PsA Risk",
+        "subjects": 1,
+        "visits": 2
+      },
+      {
+        "disease_key": "psd",
+        "disease_label": "Psoriatic Disease (PsD)",
+        "cohort": "Cohort 1a: PsO, Cohort 3: PsO to PsA Risk, Uveitis Cohort",
+        "subjects": 1,
+        "visits": 1
+      },
+      {
+        "disease_key": "ra",
+        "disease_label": "Rheumatoid Arthritis (RA)",
+        "cohort": "Cohort 1: Early RA, DMARD naive",
+        "subjects": 51,
+        "visits": 101
+      },
+      {
+        "disease_key": "ra",
+        "disease_label": "Rheumatoid Arthritis (RA)",
+        "cohort": "Cohort 3: Refractory Cohort",
+        "subjects": 42,
+        "visits": 46
+      },
+      {
+        "disease_key": "ra",
+        "disease_label": "Rheumatoid Arthritis (RA)",
+        "cohort": "Unknown",
+        "subjects": 31,
+        "visits": 62
+      },
+      {
+        "disease_key": "ra",
+        "disease_label": "Rheumatoid Arthritis (RA)",
+        "cohort": "Cohort 2: MTX-IR, bDMARD naive",
+        "subjects": 14,
+        "visits": 21
+      },
+      {
+        "disease_key": "ra",
+        "disease_label": "Rheumatoid Arthritis (RA)",
+        "cohort": "Not yet retrieved",
+        "subjects": 11,
+        "visits": 12
+      },
+      {
+        "disease_key": "ra",
+        "disease_label": "Rheumatoid Arthritis (RA)",
+        "cohort": "Enabling",
+        "subjects": 9,
+        "visits": 9
+      },
+      {
+        "disease_key": "ra",
+        "disease_label": "Rheumatoid Arthritis (RA)",
+        "cohort": "Healthy Control",
+        "subjects": 4,
+        "visits": 4
+      },
+      {
+        "disease_key": "sjd",
+        "disease_label": "Sj\u00f6gren's Disease (SjD)",
+        "cohort": "SjD/sicca",
+        "subjects": 296,
+        "visits": 299
+      },
+      {
+        "disease_key": "sjd",
+        "disease_label": "Sj\u00f6gren's Disease (SjD)",
+        "cohort": "Longitudinal case",
+        "subjects": 101,
+        "visits": 179
+      },
+      {
+        "disease_key": "sjd",
+        "disease_label": "Sj\u00f6gren's Disease (SjD)",
+        "cohort": "Healthy Control",
+        "subjects": 50,
+        "visits": 51
+      },
+      {
+        "disease_key": "sjd",
+        "disease_label": "Sj\u00f6gren's Disease (SjD)",
+        "cohort": "Not yet retrieved",
+        "subjects": 8,
+        "visits": 8
+      },
+      {
+        "disease_key": "sjd",
+        "disease_label": "Sj\u00f6gren's Disease (SjD)",
+        "cohort": "Enabling",
+        "subjects": 6,
+        "visits": 6
+      },
+      {
+        "disease_key": "sjd",
+        "disease_label": "Sj\u00f6gren's Disease (SjD)",
+        "cohort": "Overlap syndrome",
+        "subjects": 1,
+        "visits": 1
+      },
+      {
+        "disease_key": "sjd",
+        "disease_label": "Sj\u00f6gren's Disease (SjD)",
+        "cohort": "Unknown",
+        "subjects": 1,
+        "visits": 1
+      },
+      {
+        "disease_key": "sjd",
+        "disease_label": "Sj\u00f6gren's Disease (SjD)",
+        "cohort": "Asymptomatic RRNL",
+        "subjects": 1,
+        "visits": 1
+      },
+      {
+        "disease_key": "ssc",
+        "disease_label": "Systemic Sclerosis (SSc)",
+        "cohort": "n/a",
+        "subjects": 12,
+        "visits": 12
+      },
+      {
+        "disease_key": "ssc",
+        "disease_label": "Systemic Sclerosis (SSc)",
+        "cohort": "Healthy Control",
+        "subjects": 5,
+        "visits": 5
+      },
+      {
+        "disease_key": "unknown",
+        "disease_label": "Unknown",
+        "cohort": "Unknown",
+        "subjects": 19,
+        "visits": 19
+      }
+    ],
+    "unassigned_subjects": 5
+  },
+  "status_order": [
+    "completed",
+    "pending",
+    "not_applicable",
+    "qc_fail",
+    "unknown"
+  ],
+  "status_labels": {
+    "completed": "Completed",
+    "pending": "Pending / Specimen Available",
+    "not_applicable": "Not Applicable / No Specimen",
+    "qc_fail": "QC Fail",
+    "unknown": "Unknown / Not Yet Retrieved"
+  },
+  "technologies": [
+    {
+      "counts": {
+        "completed": 999,
+        "pending": 31,
+        "not_applicable": 318,
+        "qc_fail": 0,
+        "unknown": 56
+      },
+      "total": 1404,
+      "pct_complete": 71.2,
+      "eligible": 1030,
+      "pct_eligible": 97.0,
+      "key": "omrf_lab",
+      "label": "OMRF Lab"
+    },
+    {
+      "counts": {
+        "completed": 669,
+        "pending": 317,
+        "not_applicable": 278,
+        "qc_fail": 12,
+        "unknown": 128
+      },
+      "total": 1404,
+      "pct_complete": 47.6,
+      "eligible": 998,
+      "pct_eligible": 67.0,
+      "key": "genotyping",
+      "label": "Genotyping"
+    },
+    {
+      "counts": {
+        "completed": 524,
+        "pending": 8,
+        "not_applicable": 744,
+        "qc_fail": 0,
+        "unknown": 128
+      },
+      "total": 1404,
+      "pct_complete": 37.3,
+      "eligible": 532,
+      "pct_eligible": 98.5,
+      "key": "cytof_blood",
+      "label": "CyTOF (Blood)"
+    },
+    {
+      "counts": {
+        "completed": 467,
+        "pending": 547,
+        "not_applicable": 264,
+        "qc_fail": 0,
+        "unknown": 126
+      },
+      "total": 1404,
+      "pct_complete": 33.3,
+      "eligible": 1014,
+      "pct_eligible": 46.1,
+      "key": "olink_serum",
+      "label": "Olink (Serum)"
+    },
+    {
+      "counts": {
+        "completed": 288,
+        "pending": 11,
+        "not_applicable": 6,
+        "qc_fail": 2,
+        "unknown": 1097
+      },
+      "total": 1404,
+      "pct_complete": 20.5,
+      "eligible": 301,
+      "pct_eligible": 95.7,
+      "key": "xenium_slide",
+      "label": "Xenium (Slide)"
+    },
+    {
+      "counts": {
+        "completed": 287,
+        "pending": 698,
+        "not_applicable": 288,
+        "qc_fail": 3,
+        "unknown": 128
+      },
+      "total": 1404,
+      "pct_complete": 20.4,
+      "eligible": 988,
+      "pct_eligible": 29.0,
+      "key": "brnaseq",
+      "label": "Bulk RNA-seq"
+    },
+    {
+      "counts": {
+        "completed": 280,
+        "pending": 11,
+        "not_applicable": 14,
+        "qc_fail": 2,
+        "unknown": 1097
+      },
+      "total": 1404,
+      "pct_complete": 19.9,
+      "eligible": 293,
+      "pct_eligible": 95.6,
+      "key": "xenium",
+      "label": "Xenium"
+    },
+    {
+      "counts": {
+        "completed": 267,
+        "pending": 21,
+        "not_applicable": 12,
+        "qc_fail": 0,
+        "unknown": 1104
+      },
+      "total": 1404,
+      "pct_complete": 19.0,
+      "eligible": 288,
+      "pct_eligible": 92.7,
+      "key": "scffpe",
+      "label": "scFFPE"
+    },
+    {
+      "counts": {
+        "completed": 247,
+        "pending": 0,
+        "not_applicable": 1114,
+        "qc_fail": 0,
+        "unknown": 43
+      },
+      "total": 1404,
+      "pct_complete": 17.6,
+      "eligible": 247,
+      "pct_eligible": 100.0,
+      "key": "anti_c1q",
+      "label": "Anti-C1Q"
+    },
+    {
+      "counts": {
+        "completed": 204,
+        "pending": 0,
+        "not_applicable": 0,
+        "qc_fail": 0,
+        "unknown": 1200
+      },
+      "total": 1404,
+      "pct_complete": 14.5,
+      "eligible": 204,
+      "pct_eligible": 100.0,
+      "key": "mbioseq_stool",
+      "label": "Microbiome (Stool)"
+    },
+    {
+      "counts": {
+        "completed": 111,
+        "pending": 0,
+        "not_applicable": 0,
+        "qc_fail": 0,
+        "unknown": 1293
+      },
+      "total": 1404,
+      "pct_complete": 7.9,
+      "eligible": 111,
+      "pct_eligible": 100.0,
+      "key": "mbioseq_skin",
+      "label": "Microbiome (Skin)"
+    },
+    {
+      "counts": {
+        "completed": 69,
+        "pending": 0,
+        "not_applicable": 52,
+        "qc_fail": 1,
+        "unknown": 1282
+      },
+      "total": 1404,
+      "pct_complete": 4.9,
+      "eligible": 70,
+      "pct_eligible": 98.6,
+      "key": "scrnaseq",
+      "label": "scRNA-seq"
+    },
+    {
+      "counts": {
+        "completed": 55,
+        "pending": 159,
+        "not_applicable": 854,
+        "qc_fail": 0,
+        "unknown": 336
+      },
+      "total": 1404,
+      "pct_complete": 3.9,
+      "eligible": 214,
+      "pct_eligible": 25.7,
+      "key": "olink_urine",
+      "label": "Olink (Urine)"
+    },
+    {
+      "counts": {
+        "completed": 32,
+        "pending": 0,
+        "not_applicable": 596,
+        "qc_fail": 0,
+        "unknown": 776
+      },
+      "total": 1404,
+      "pct_complete": 2.3,
+      "eligible": 32,
+      "pct_eligible": 100.0,
+      "key": "xenium_nl",
+      "label": "Xenium (Non-lesional)"
+    },
+    {
+      "counts": {
+        "completed": 24,
+        "pending": 0,
+        "not_applicable": 596,
+        "qc_fail": 0,
+        "unknown": 784
+      },
+      "total": 1404,
+      "pct_complete": 1.7,
+      "eligible": 24,
+      "pct_eligible": 100.0,
+      "key": "scffpe_nl",
+      "label": "scFFPE (Non-lesional)"
+    },
+    {
+      "counts": {
+        "completed": 23,
+        "pending": 0,
+        "not_applicable": 604,
+        "qc_fail": 1,
+        "unknown": 776
+      },
+      "total": 1404,
+      "pct_complete": 1.6,
+      "eligible": 24,
+      "pct_eligible": 95.8,
+      "key": "scrnaseq_nl",
+      "label": "scRNA-seq (Non-lesional)"
+    }
+  ],
+  "scopes": [
+    "PsD-EYE",
+    "PsD-SKN",
+    "PsD-SKN/EYE",
+    "PsD-SKN/SYN",
+    "PsD-SYN",
+    "RA-SYN",
+    "SLE-KDY",
+    "SLE-SKN",
+    "SLE/PsD-SKN",
+    "SSc-SKN",
+    "SjD-SGL",
+    "Unknown"
+  ],
+  "cohorts": [
+    "Asymptomatic RRNL",
+    "Axial Spondyloarthritis Control",
+    "Cohort 1: Early RA, DMARD naive",
+    "Cohort 1a: PsO",
+    "Cohort 1a: PsO, Cohort 2a: PsO Initiating Therapy, Cohort 2b: PsA Initiating Therapy",
+    "Cohort 1a: PsO, Cohort 2a: PsO Initiating Therapy, Cohort 3: PsO to PsA Risk",
+    "Cohort 1a: PsO, Cohort 2b: PsA Initiating Therapy",
+    "Cohort 1a: PsO, Cohort 3: PsO to PsA Risk",
+    "Cohort 1a: PsO, Cohort 3: PsO to PsA Risk, Uveitis Cohort",
+    "Cohort 1b: Drug-Naive PsA",
+    "Cohort 1b: Drug-Naive PsA, Cohort 2a: PsO Initiating Therapy",
+    "Cohort 1b: Drug-Naive PsA, Cohort 2b: PsA Initiating Therapy",
+    "Cohort 2: MTX-IR, bDMARD naive",
+    "Cohort 2a: PsO Initiating Therapy",
+    "Cohort 2a: PsO Initiating Therapy, Cohort 2b: PsA Initiating Therapy",
+    "Cohort 2b: PsA Initiating Therapy",
+    "Cohort 2b: PsA Initiating Therapy, Uveitis Cohort",
+    "Cohort 3: PsO to PsA Risk",
+    "Cohort 3: Refractory Cohort",
+    "Enabling",
+    "Healthy Control",
+    "Healthy Normal Control",
+    "KP1",
+    "KP2",
+    "Longitudinal case",
+    "Not yet retrieved",
+    "Overlap syndrome",
+    "SP1",
+    "SP2",
+    "SjD/sicca",
+    "Uveitis Cohort",
+    "Uveitis Cohort, Axial Spondyloarthritis Control",
+    "n/a",
+    "Unknown"
+  ],
+  "by_scope": {
+    "xenium_slide": {
+      "PsD-EYE": {
+        "completed": 0,
+        "pending": 0,
+        "not_applicable": 0,
+        "qc_fail": 0,
+        "unknown": 23
+      },
+      "PsD-SKN": {
+        "completed": 28,
+        "pending": 0,
+        "not_applicable": 0,
+        "qc_fail": 0,
+        "unknown": 107
+      },
+      "PsD-SKN/EYE": {
+        "completed": 0,
+        "pending": 0,
+        "not_applicable": 0,
+        "qc_fail": 0,
+        "unknown": 1
+      },
+      "PsD-SKN/SYN": {
+        "completed": 0,
+        "pending": 0,
+        "not_applicable": 0,
+        "qc_fail": 0,
+        "unknown": 6
+      },
+      "PsD-SYN": {
+        "completed": 12,
+        "pending": 11,
+        "not_applicable": 0,
+        "qc_fail": 1,
+        "unknown": 27
+      },
+      "RA-SYN": {
+        "completed": 36,
+        "pending": 0,
+        "not_applicable": 5,
+        "qc_fail": 0,
+        "unknown": 208
+      },
+      "SLE-KDY": {
+        "completed": 30,
+        "pending": 0,
+        "not_applicable": 0,
+        "qc_fail": 0,
+        "unknown": 217
+      },
+      "SLE-SKN": {
+        "completed": 28,
+        "pending": 0,
+        "not_applicable": 0,
+        "qc_fail": 0,
+        "unknown": 47
+      },
+      "SLE/PsD-SKN": {
+        "completed": 0,
+        "pending": 0,
+        "not_applicable": 0,
+        "qc_fail": 0,
+        "unknown": 5
+      },
+      "SSc-SKN": {
+        "completed": 16,
+        "pending": 0,
+        "not_applicable": 0,
+        "qc_fail": 0,
+        "unknown": 1
+      },
+      "SjD-SGL": {
+        "completed": 138,
+        "pending": 0,
+        "not_applicable": 1,
+        "qc_fail": 1,
+        "unknown": 406
+      },
+      "Unknown": {
+        "completed": 0,
+        "pending": 0,
+        "not_applicable": 0,
+        "qc_fail": 0,
+        "unknown": 49
+      }
+    },
+    "xenium": {
+      "PsD-EYE": {
+        "completed": 0,
+        "pending": 0,
+        "not_applicable": 0,
+        "qc_fail": 0,
+        "unknown": 23
+      },
+      "PsD-SKN": {
+        "completed": 24,
+        "pending": 0,
+        "not_applicable": 4,
+        "qc_fail": 0,
+        "unknown": 107
+      },
+      "PsD-SKN/EYE": {
+        "completed": 0,
+        "pending": 0,
+        "not_applicable": 0,
+        "qc_fail": 0,
+        "unknown": 1
+      },
+      "PsD-SKN/SYN": {
+        "completed": 0,
+        "pending": 0,
+        "not_applicable": 0,
+        "qc_fail": 0,
+        "unknown": 6
+      },
+      "PsD-SYN": {
+        "completed": 12,
+        "pending": 11,
+        "not_applicable": 0,
+        "qc_fail": 1,
+        "unknown": 27
+      },
+      "RA-SYN": {
+        "completed": 36,
+        "pending": 0,
+        "not_applicable": 5,
+        "qc_fail": 0,
+        "unknown": 208
+      },
+      "SLE-KDY": {
+        "completed": 30,
+        "pending": 0,
+        "not_applicable": 0,
+        "qc_fail": 0,
+        "unknown": 217
+      },
+      "SLE-SKN": {
+        "completed": 24,
+        "pending": 0,
+        "not_applicable": 4,
+        "qc_fail": 0,
+        "unknown": 47
+      },
+      "SLE/PsD-SKN": {
+        "completed": 0,
+        "pending": 0,
+        "not_applicable": 0,
+        "qc_fail": 0,
+        "unknown": 5
+      },
+      "SSc-SKN": {
+        "completed": 16,
+        "pending": 0,
+        "not_applicable": 0,
+        "qc_fail": 0,
+        "unknown": 1
+      },
+      "SjD-SGL": {
+        "completed": 138,
+        "pending": 0,
+        "not_applicable": 1,
+        "qc_fail": 1,
+        "unknown": 406
+      },
+      "Unknown": {
+        "completed": 0,
+        "pending": 0,
+        "not_applicable": 0,
+        "qc_fail": 0,
+        "unknown": 49
+      }
+    },
+    "scffpe": {
+      "PsD-EYE": {
+        "completed": 0,
+        "pending": 0,
+        "not_applicable": 0,
+        "qc_fail": 0,
+        "unknown": 23
+      },
+      "PsD-SKN": {
+        "completed": 24,
+        "pending": 0,
+        "not_applicable": 4,
+        "qc_fail": 0,
+        "unknown": 107
+      },
+      "PsD-SKN/EYE": {
+        "completed": 0,
+        "pending": 0,
+        "not_applicable": 0,
+        "qc_fail": 0,
+        "unknown": 1
+      },
+      "PsD-SKN/SYN": {
+        "completed": 0,
+        "pending": 0,
+        "not_applicable": 0,
+        "qc_fail": 0,
+        "unknown": 6
+      },
+      "PsD-SYN": {
+        "completed": 13,
+        "pending": 11,
+        "not_applicable": 0,
+        "qc_fail": 0,
+        "unknown": 27
+      },
+      "RA-SYN": {
+        "completed": 28,
+        "pending": 10,
+        "not_applicable": 2,
+        "qc_fail": 0,
+        "unknown": 209
+      },
+      "SLE-KDY": {
+        "completed": 29,
+        "pending": 0,
+        "not_applicable": 0,
+        "qc_fail": 0,
+        "unknown": 218
+      },
+      "SLE-SKN": {
+        "completed": 24,
+        "pending": 0,
+        "not_applicable": 4,
+        "qc_fail": 0,
+        "unknown": 47
+      },
+      "SLE/PsD-SKN": {
+        "completed": 5,
+        "pending": 0,
+        "not_applicable": 0,
+        "qc_fail": 0,
+        "unknown": 0
+      },
+      "SSc-SKN": {
+        "completed": 16,
+        "pending": 0,
+        "not_applicable": 0,
+        "qc_fail": 0,
+        "unknown": 1
+      },
+      "SjD-SGL": {
+        "completed": 128,
+        "pending": 0,
+        "not_applicable": 2,
+        "qc_fail": 0,
+        "unknown": 416
+      },
+      "Unknown": {
+        "completed": 0,
+        "pending": 0,
+        "not_applicable": 0,
+        "qc_fail": 0,
+        "unknown": 49
+      }
+    },
+    "scrnaseq": {
+      "PsD-EYE": {
+        "completed": 0,
+        "pending": 0,
+        "not_applicable": 0,
+        "qc_fail": 0,
+        "unknown": 23
+      },
+      "PsD-SKN": {
+        "completed": 12,
+        "pending": 0,
+        "not_applicable": 4,
+        "qc_fail": 0,
+        "unknown": 119
+      },
+      "PsD-SKN/EYE": {
+        "completed": 0,
+        "pending": 0,
+        "not_applicable": 0,
+        "qc_fail": 0,
+        "unknown": 1
+      },
+      "PsD-SKN/SYN": {
+        "completed": 0,
+        "pending": 0,
+        "not_applicable": 0,
+        "qc_fail": 0,
+        "unknown": 6
+      },
+      "PsD-SYN": {
+        "completed": 8,
+        "pending": 0,
+        "not_applicable": 8,
+        "qc_fail": 0,
+        "unknown": 35
+      },
+      "RA-SYN": {
+        "completed": 8,
+        "pending": 0,
+        "not_applicable": 14,
+        "qc_fail": 0,
+        "unknown": 227
+      },
+      "SLE-KDY": {
+        "completed": 0,
+        "pending": 0,
+        "not_applicable": 16,
+        "qc_fail": 0,
+        "unknown": 231
+      },
+      "SLE-SKN": {
+        "completed": 11,
+        "pending": 0,
+        "not_applicable": 4,
+        "qc_fail": 1,
+        "unknown": 59
+      },
+      "SLE/PsD-SKN": {
+        "completed": 0,
+        "pending": 0,
+        "not_applicable": 0,
+        "qc_fail": 0,
+        "unknown": 5
+      },
+      "SSc-SKN": {
+        "completed": 0,
+        "pending": 0,
+        "not_applicable": 0,
+        "qc_fail": 0,
+        "unknown": 17
+      },
+      "SjD-SGL": {
+        "completed": 30,
+        "pending": 0,
+        "not_applicable": 6,
+        "qc_fail": 0,
+        "unknown": 510
+      },
+      "Unknown": {
+        "completed": 0,
+        "pending": 0,
+        "not_applicable": 0,
+        "qc_fail": 0,
+        "unknown": 49
+      }
+    },
+    "olink_serum": {
+      "PsD-EYE": {
+        "completed": 0,
+        "pending": 5,
+        "not_applicable": 18,
+        "qc_fail": 0,
+        "unknown": 0
+      },
+      "PsD-SKN": {
+        "completed": 34,
+        "pending": 86,
+        "not_applicable": 14,
+        "qc_fail": 0,
+        "unknown": 1
+      },
+      "PsD-SKN/EYE": {
+        "completed": 0,
+        "pending": 1,
+        "not_applicable": 0,
+        "qc_fail": 0,
+        "unknown": 0
+      },
+      "PsD-SKN/SYN": {
+        "completed": 1,
+        "pending": 2,
+        "not_applicable": 3,
+        "qc_fail": 0,
+        "unknown": 0
+      },
+      "PsD-SYN": {
+        "completed": 15,
+        "pending": 17,
+        "not_applicable": 18,
+        "qc_fail": 0,
+        "unknown": 1
+      },
+      "RA-SYN": {
+        "completed": 48,
+        "pending": 90,
+        "not_applicable": 48,
+        "qc_fail": 0,
+        "unknown": 63
+      },
+      "SLE-KDY": {
+        "completed": 199,
+        "pending": 4,
+        "not_applicable": 42,
+        "qc_fail": 0,
+        "unknown": 2
+      },
+      "SLE-SKN": {
+        "completed": 61,
+        "pending": 2,
+        "not_applicable": 12,
+        "qc_fail": 0,
+        "unknown": 0
+      },
+      "SLE/PsD-SKN": {
+        "completed": 0,
+        "pending": 0,
+        "not_applicable": 0,
+        "qc_fail": 0,
+        "unknown": 5
+      },
+      "SSc-SKN": {
+        "completed": 0,
+        "pending": 0,
+        "not_applicable": 17,
+        "qc_fail": 0,
+        "unknown": 0
+      },
+      "SjD-SGL": {
+        "completed": 109,
+        "pending": 339,
+        "not_applicable": 91,
+        "qc_fail": 0,
+        "unknown": 7
+      },
+      "Unknown": {
+        "completed": 0,
+        "pending": 1,
+        "not_applicable": 1,
+        "qc_fail": 0,
+        "unknown": 47
+      }
+    },
+    "cytof_blood": {
+      "PsD-EYE": {
+        "completed": 2,
+        "pending": 0,
+        "not_applicable": 21,
+        "qc_fail": 0,
+        "unknown": 0
+      },
+      "PsD-SKN": {
+        "completed": 90,
+        "pending": 3,
+        "not_applicable": 41,
+        "qc_fail": 0,
+        "unknown": 1
+      },
+      "PsD-SKN/EYE": {
+        "completed": 1,
+        "pending": 0,
+        "not_applicable": 0,
+        "qc_fail": 0,
+        "unknown": 0
+      },
+      "PsD-SKN/SYN": {
+        "completed": 3,
+        "pending": 0,
+        "not_applicable": 3,
+        "qc_fail": 0,
+        "unknown": 0
+      },
+      "PsD-SYN": {
+        "completed": 15,
+        "pending": 3,
+        "not_applicable": 32,
+        "qc_fail": 0,
+        "unknown": 1
+      },
+      "RA-SYN": {
+        "completed": 82,
+        "pending": 1,
+        "not_applicable": 103,
+        "qc_fail": 0,
+        "unknown": 63
+      },
+      "SLE-KDY": {
+        "completed": 151,
+        "pending": 1,
+        "not_applicable": 93,
+        "qc_fail": 0,
+        "unknown": 2
+      },
+      "SLE-SKN": {
+        "completed": 39,
+        "pending": 0,
+        "not_applicable": 36,
+        "qc_fail": 0,
+        "unknown": 0
+      },
+      "SLE/PsD-SKN": {
+        "completed": 0,
+        "pending": 0,
+        "not_applicable": 0,
+        "qc_fail": 0,
+        "unknown": 5
+      },
+      "SSc-SKN": {
+        "completed": 0,
+        "pending": 0,
+        "not_applicable": 17,
+        "qc_fail": 0,
+        "unknown": 0
+      },
+      "SjD-SGL": {
+        "completed": 141,
+        "pending": 0,
+        "not_applicable": 398,
+        "qc_fail": 0,
+        "unknown": 7
+      },
+      "Unknown": {
+        "completed": 0,
+        "pending": 0,
+        "not_applicable": 0,
+        "qc_fail": 0,
+        "unknown": 49
+      }
+    },
+    "genotyping": {
+      "PsD-EYE": {
+        "completed": 5,
+        "pending": 0,
+        "not_applicable": 18,
+        "qc_fail": 0,
+        "unknown": 0
+      },
+      "PsD-SKN": {
+        "completed": 102,
+        "pending": 20,
+        "not_applicable": 12,
+        "qc_fail": 0,
+        "unknown": 1
+      },
+      "PsD-SKN/EYE": {
+        "completed": 1,
+        "pending": 0,
+        "not_applicable": 0,
+        "qc_fail": 0,
+        "unknown": 0
+      },
+      "PsD-SKN/SYN": {
+        "completed": 2,
+        "pending": 1,
+        "not_applicable": 3,
+        "qc_fail": 0,
+        "unknown": 0
+      },
+      "PsD-SYN": {
+        "completed": 25,
+        "pending": 6,
+        "not_applicable": 19,
+        "qc_fail": 0,
+        "unknown": 1
+      },
+      "RA-SYN": {
+        "completed": 89,
+        "pending": 49,
+        "not_applicable": 48,
+        "qc_fail": 0,
+        "unknown": 63
+      },
+      "SLE-KDY": {
+        "completed": 69,
+        "pending": 131,
+        "not_applicable": 45,
+        "qc_fail": 0,
+        "unknown": 2
+      },
+      "SLE-SKN": {
+        "completed": 23,
+        "pending": 25,
+        "not_applicable": 25,
+        "qc_fail": 2,
+        "unknown": 0
+      },
+      "SLE/PsD-SKN": {
+        "completed": 0,
+        "pending": 0,
+        "not_applicable": 0,
+        "qc_fail": 0,
+        "unknown": 5
+      },
+      "SSc-SKN": {
+        "completed": 0,
+        "pending": 0,
+        "not_applicable": 17,
+        "qc_fail": 0,
+        "unknown": 0
+      },
+      "SjD-SGL": {
+        "completed": 353,
+        "pending": 85,
+        "not_applicable": 91,
+        "qc_fail": 10,
+        "unknown": 7
+      },
+      "Unknown": {
+        "completed": 0,
+        "pending": 0,
+        "not_applicable": 0,
+        "qc_fail": 0,
+        "unknown": 49
+      }
+    },
+    "omrf_lab": {
+      "PsD-EYE": {
+        "completed": 4,
+        "pending": 1,
+        "not_applicable": 18,
+        "qc_fail": 0,
+        "unknown": 0
+      },
+      "PsD-SKN": {
+        "completed": 121,
+        "pending": 2,
+        "not_applicable": 12,
+        "qc_fail": 0,
+        "unknown": 0
+      },
+      "PsD-SKN/EYE": {
+        "completed": 1,
+        "pending": 0,
+        "not_applicable": 0,
+        "qc_fail": 0,
+        "unknown": 0
+      },
+      "PsD-SKN/SYN": {
+        "completed": 3,
+        "pending": 0,
+        "not_applicable": 3,
+        "qc_fail": 0,
+        "unknown": 0
+      },
+      "PsD-SYN": {
+        "completed": 31,
+        "pending": 1,
+        "not_applicable": 18,
+        "qc_fail": 0,
+        "unknown": 1
+      },
+      "RA-SYN": {
+        "completed": 131,
+        "pending": 12,
+        "not_applicable": 106,
+        "qc_fail": 0,
+        "unknown": 0
+      },
+      "SLE-KDY": {
+        "completed": 203,
+        "pending": 2,
+        "not_applicable": 42,
+        "qc_fail": 0,
+        "unknown": 0
+      },
+      "SLE-SKN": {
+        "completed": 50,
+        "pending": 11,
+        "not_applicable": 14,
+        "qc_fail": 0,
+        "unknown": 0
+      },
+      "SLE/PsD-SKN": {
+        "completed": 0,
+        "pending": 0,
+        "not_applicable": 0,
+        "qc_fail": 0,
+        "unknown": 5
+      },
+      "SSc-SKN": {
+        "completed": 0,
+        "pending": 0,
+        "not_applicable": 17,
+        "qc_fail": 0,
+        "unknown": 0
+      },
+      "SjD-SGL": {
+        "completed": 450,
+        "pending": 2,
+        "not_applicable": 88,
+        "qc_fail": 0,
+        "unknown": 6
+      },
+      "Unknown": {
+        "completed": 5,
+        "pending": 0,
+        "not_applicable": 0,
+        "qc_fail": 0,
+        "unknown": 44
+      }
+    },
+    "brnaseq": {
+      "PsD-EYE": {
+        "completed": 0,
+        "pending": 5,
+        "not_applicable": 18,
+        "qc_fail": 0,
+        "unknown": 0
+      },
+      "PsD-SKN": {
+        "completed": 49,
+        "pending": 68,
+        "not_applicable": 17,
+        "qc_fail": 0,
+        "unknown": 1
+      },
+      "PsD-SKN/EYE": {
+        "completed": 0,
+        "pending": 1,
+        "not_applicable": 0,
+        "qc_fail": 0,
+        "unknown": 0
+      },
+      "PsD-SKN/SYN": {
+        "completed": 1,
+        "pending": 2,
+        "not_applicable": 3,
+        "qc_fail": 0,
+        "unknown": 0
+      },
+      "PsD-SYN": {
+        "completed": 15,
+        "pending": 15,
+        "not_applicable": 20,
+        "qc_fail": 0,
+        "unknown": 1
+      },
+      "RA-SYN": {
+        "completed": 36,
+        "pending": 101,
+        "not_applicable": 48,
+        "qc_fail": 1,
+        "unknown": 63
+      },
+      "SLE-KDY": {
+        "completed": 45,
+        "pending": 152,
+        "not_applicable": 46,
+        "qc_fail": 2,
+        "unknown": 2
+      },
+      "SLE-SKN": {
+        "completed": 20,
+        "pending": 30,
+        "not_applicable": 25,
+        "qc_fail": 0,
+        "unknown": 0
+      },
+      "SLE/PsD-SKN": {
+        "completed": 0,
+        "pending": 0,
+        "not_applicable": 0,
+        "qc_fail": 0,
+        "unknown": 5
+      },
+      "SSc-SKN": {
+        "completed": 0,
+        "pending": 0,
+        "not_applicable": 17,
+        "qc_fail": 0,
+        "unknown": 0
+      },
+      "SjD-SGL": {
+        "completed": 121,
+        "pending": 324,
+        "not_applicable": 94,
+        "qc_fail": 0,
+        "unknown": 7
+      },
+      "Unknown": {
+        "completed": 0,
+        "pending": 0,
+        "not_applicable": 0,
+        "qc_fail": 0,
+        "unknown": 49
+      }
+    },
+    "xenium_nl": {
+      "PsD-EYE": {
+        "completed": 0,
+        "pending": 0,
+        "not_applicable": 0,
+        "qc_fail": 0,
+        "unknown": 23
+      },
+      "PsD-SKN": {
+        "completed": 16,
+        "pending": 0,
+        "not_applicable": 0,
+        "qc_fail": 0,
+        "unknown": 119
+      },
+      "PsD-SKN/EYE": {
+        "completed": 0,
+        "pending": 0,
+        "not_applicable": 0,
+        "qc_fail": 0,
+        "unknown": 1
+      },
+      "PsD-SKN/SYN": {
+        "completed": 0,
+        "pending": 0,
+        "not_applicable": 0,
+        "qc_fail": 0,
+        "unknown": 6
+      },
+      "PsD-SYN": {
+        "completed": 0,
+        "pending": 0,
+        "not_applicable": 24,
+        "qc_fail": 0,
+        "unknown": 27
+      },
+      "RA-SYN": {
+        "completed": 0,
+        "pending": 0,
+        "not_applicable": 92,
+        "qc_fail": 0,
+        "unknown": 157
+      },
+      "SLE-KDY": {
+        "completed": 0,
+        "pending": 0,
+        "not_applicable": 137,
+        "qc_fail": 0,
+        "unknown": 110
+      },
+      "SLE-SKN": {
+        "completed": 16,
+        "pending": 0,
+        "not_applicable": 0,
+        "qc_fail": 0,
+        "unknown": 59
+      },
+      "SLE/PsD-SKN": {
+        "completed": 0,
+        "pending": 0,
+        "not_applicable": 0,
+        "qc_fail": 0,
+        "unknown": 5
+      },
+      "SSc-SKN": {
+        "completed": 0,
+        "pending": 0,
+        "not_applicable": 0,
+        "qc_fail": 0,
+        "unknown": 17
+      },
+      "SjD-SGL": {
+        "completed": 0,
+        "pending": 0,
+        "not_applicable": 343,
+        "qc_fail": 0,
+        "unknown": 203
+      },
+      "Unknown": {
+        "completed": 0,
+        "pending": 0,
+        "not_applicable": 0,
+        "qc_fail": 0,
+        "unknown": 49
+      }
+    },
+    "scffpe_nl": {
+      "PsD-EYE": {
+        "completed": 0,
+        "pending": 0,
+        "not_applicable": 0,
+        "qc_fail": 0,
+        "unknown": 23
+      },
+      "PsD-SKN": {
+        "completed": 12,
+        "pending": 0,
+        "not_applicable": 0,
+        "qc_fail": 0,
+        "unknown": 123
+      },
+      "PsD-SKN/EYE": {
+        "completed": 0,
+        "pending": 0,
+        "not_applicable": 0,
+        "qc_fail": 0,
+        "unknown": 1
+      },
+      "PsD-SKN/SYN": {
+        "completed": 0,
+        "pending": 0,
+        "not_applicable": 0,
+        "qc_fail": 0,
+        "unknown": 6
+      },
+      "PsD-SYN": {
+        "completed": 0,
+        "pending": 0,
+        "not_applicable": 24,
+        "qc_fail": 0,
+        "unknown": 27
+      },
+      "RA-SYN": {
+        "completed": 0,
+        "pending": 0,
+        "not_applicable": 92,
+        "qc_fail": 0,
+        "unknown": 157
+      },
+      "SLE-KDY": {
+        "completed": 0,
+        "pending": 0,
+        "not_applicable": 137,
+        "qc_fail": 0,
+        "unknown": 110
+      },
+      "SLE-SKN": {
+        "completed": 12,
+        "pending": 0,
+        "not_applicable": 0,
+        "qc_fail": 0,
+        "unknown": 63
+      },
+      "SLE/PsD-SKN": {
+        "completed": 0,
+        "pending": 0,
+        "not_applicable": 0,
+        "qc_fail": 0,
+        "unknown": 5
+      },
+      "SSc-SKN": {
+        "completed": 0,
+        "pending": 0,
+        "not_applicable": 0,
+        "qc_fail": 0,
+        "unknown": 17
+      },
+      "SjD-SGL": {
+        "completed": 0,
+        "pending": 0,
+        "not_applicable": 343,
+        "qc_fail": 0,
+        "unknown": 203
+      },
+      "Unknown": {
+        "completed": 0,
+        "pending": 0,
+        "not_applicable": 0,
+        "qc_fail": 0,
+        "unknown": 49
+      }
+    },
+    "scrnaseq_nl": {
+      "PsD-EYE": {
+        "completed": 0,
+        "pending": 0,
+        "not_applicable": 0,
+        "qc_fail": 0,
+        "unknown": 23
+      },
+      "PsD-SKN": {
+        "completed": 12,
+        "pending": 0,
+        "not_applicable": 4,
+        "qc_fail": 0,
+        "unknown": 119
+      },
+      "PsD-SKN/EYE": {
+        "completed": 0,
+        "pending": 0,
+        "not_applicable": 0,
+        "qc_fail": 0,
+        "unknown": 1
+      },
+      "PsD-SKN/SYN": {
+        "completed": 0,
+        "pending": 0,
+        "not_applicable": 0,
+        "qc_fail": 0,
+        "unknown": 6
+      },
+      "PsD-SYN": {
+        "completed": 0,
+        "pending": 0,
+        "not_applicable": 24,
+        "qc_fail": 0,
+        "unknown": 27
+      },
+      "RA-SYN": {
+        "completed": 0,
+        "pending": 0,
+        "not_applicable": 92,
+        "qc_fail": 0,
+        "unknown": 157
+      },
+      "SLE-KDY": {
+        "completed": 0,
+        "pending": 0,
+        "not_applicable": 137,
+        "qc_fail": 0,
+        "unknown": 110
+      },
+      "SLE-SKN": {
+        "completed": 11,
+        "pending": 0,
+        "not_applicable": 4,
+        "qc_fail": 1,
+        "unknown": 59
+      },
+      "SLE/PsD-SKN": {
+        "completed": 0,
+        "pending": 0,
+        "not_applicable": 0,
+        "qc_fail": 0,
+        "unknown": 5
+      },
+      "SSc-SKN": {
+        "completed": 0,
+        "pending": 0,
+        "not_applicable": 0,
+        "qc_fail": 0,
+        "unknown": 17
+      },
+      "SjD-SGL": {
+        "completed": 0,
+        "pending": 0,
+        "not_applicable": 343,
+        "qc_fail": 0,
+        "unknown": 203
+      },
+      "Unknown": {
+        "completed": 0,
+        "pending": 0,
+        "not_applicable": 0,
+        "qc_fail": 0,
+        "unknown": 49
+      }
+    },
+    "olink_urine": {
+      "PsD-EYE": {
+        "completed": 0,
+        "pending": 0,
+        "not_applicable": 6,
+        "qc_fail": 0,
+        "unknown": 17
+      },
+      "PsD-SKN": {
+        "completed": 0,
+        "pending": 0,
+        "not_applicable": 113,
+        "qc_fail": 0,
+        "unknown": 22
+      },
+      "PsD-SKN/EYE": {
+        "completed": 0,
+        "pending": 0,
+        "not_applicable": 1,
+        "qc_fail": 0,
+        "unknown": 0
+      },
+      "PsD-SKN/SYN": {
+        "completed": 0,
+        "pending": 0,
+        "not_applicable": 6,
+        "qc_fail": 0,
+        "unknown": 0
+      },
+      "PsD-SYN": {
+        "completed": 0,
+        "pending": 0,
+        "not_applicable": 33,
+        "qc_fail": 0,
+        "unknown": 18
+      },
+      "RA-SYN": {
+        "completed": 0,
+        "pending": 0,
+        "not_applicable": 147,
+        "qc_fail": 0,
+        "unknown": 102
+      },
+      "SLE-KDY": {
+        "completed": 55,
+        "pending": 154,
+        "not_applicable": 33,
+        "qc_fail": 0,
+        "unknown": 5
+      },
+      "SLE-SKN": {
+        "completed": 0,
+        "pending": 0,
+        "not_applicable": 58,
+        "qc_fail": 0,
+        "unknown": 17
+      },
+      "SLE/PsD-SKN": {
+        "completed": 0,
+        "pending": 0,
+        "not_applicable": 0,
+        "qc_fail": 0,
+        "unknown": 5
+      },
+      "SSc-SKN": {
+        "completed": 0,
+        "pending": 0,
+        "not_applicable": 0,
+        "qc_fail": 0,
+        "unknown": 17
+      },
+      "SjD-SGL": {
+        "completed": 0,
+        "pending": 0,
+        "not_applicable": 457,
+        "qc_fail": 0,
+        "unknown": 89
+      },
+      "Unknown": {
+        "completed": 0,
+        "pending": 5,
+        "not_applicable": 0,
+        "qc_fail": 0,
+        "unknown": 44
+      }
+    },
+    "mbioseq_stool": {
+      "PsD-EYE": {
+        "completed": 0,
+        "pending": 0,
+        "not_applicable": 0,
+        "qc_fail": 0,
+        "unknown": 23
+      },
+      "PsD-SKN": {
+        "completed": 49,
+        "pending": 0,
+        "not_applicable": 0,
+        "qc_fail": 0,
+        "unknown": 86
+      },
+      "PsD-SKN/EYE": {
+        "completed": 0,
+        "pending": 0,
+        "not_applicable": 0,
+        "qc_fail": 0,
+        "unknown": 1
+      },
+      "PsD-SKN/SYN": {
+        "completed": 1,
+        "pending": 0,
+        "not_applicable": 0,
+        "qc_fail": 0,
+        "unknown": 5
+      },
+      "PsD-SYN": {
+        "completed": 8,
+        "pending": 0,
+        "not_applicable": 0,
+        "qc_fail": 0,
+        "unknown": 43
+      },
+      "RA-SYN": {
+        "completed": 19,
+        "pending": 0,
+        "not_applicable": 0,
+        "qc_fail": 0,
+        "unknown": 230
+      },
+      "SLE-KDY": {
+        "completed": 10,
+        "pending": 0,
+        "not_applicable": 0,
+        "qc_fail": 0,
+        "unknown": 237
+      },
+      "SLE-SKN": {
+        "completed": 8,
+        "pending": 0,
+        "not_applicable": 0,
+        "qc_fail": 0,
+        "unknown": 67
+      },
+      "SLE/PsD-SKN": {
+        "completed": 0,
+        "pending": 0,
+        "not_applicable": 0,
+        "qc_fail": 0,
+        "unknown": 5
+      },
+      "SSc-SKN": {
+        "completed": 0,
+        "pending": 0,
+        "not_applicable": 0,
+        "qc_fail": 0,
+        "unknown": 17
+      },
+      "SjD-SGL": {
+        "completed": 109,
+        "pending": 0,
+        "not_applicable": 0,
+        "qc_fail": 0,
+        "unknown": 437
+      },
+      "Unknown": {
+        "completed": 0,
+        "pending": 0,
+        "not_applicable": 0,
+        "qc_fail": 0,
+        "unknown": 49
+      }
+    },
+    "mbioseq_skin": {
+      "PsD-EYE": {
+        "completed": 1,
+        "pending": 0,
+        "not_applicable": 0,
+        "qc_fail": 0,
+        "unknown": 22
+      },
+      "PsD-SKN": {
+        "completed": 65,
+        "pending": 0,
+        "not_applicable": 0,
+        "qc_fail": 0,
+        "unknown": 70
+      },
+      "PsD-SKN/EYE": {
+        "completed": 1,
+        "pending": 0,
+        "not_applicable": 0,
+        "qc_fail": 0,
+        "unknown": 0
+      },
+      "PsD-SKN/SYN": {
+        "completed": 2,
+        "pending": 0,
+        "not_applicable": 0,
+        "qc_fail": 0,
+        "unknown": 4
+      },
+      "PsD-SYN": {
+        "completed": 8,
+        "pending": 0,
+        "not_applicable": 0,
+        "qc_fail": 0,
+        "unknown": 43
+      },
+      "RA-SYN": {
+        "completed": 0,
+        "pending": 0,
+        "not_applicable": 0,
+        "qc_fail": 0,
+        "unknown": 249
+      },
+      "SLE-KDY": {
+        "completed": 0,
+        "pending": 0,
+        "not_applicable": 0,
+        "qc_fail": 0,
+        "unknown": 247
+      },
+      "SLE-SKN": {
+        "completed": 34,
+        "pending": 0,
+        "not_applicable": 0,
+        "qc_fail": 0,
+        "unknown": 41
+      },
+      "SLE/PsD-SKN": {
+        "completed": 0,
+        "pending": 0,
+        "not_applicable": 0,
+        "qc_fail": 0,
+        "unknown": 5
+      },
+      "SSc-SKN": {
+        "completed": 0,
+        "pending": 0,
+        "not_applicable": 0,
+        "qc_fail": 0,
+        "unknown": 17
+      },
+      "SjD-SGL": {
+        "completed": 0,
+        "pending": 0,
+        "not_applicable": 0,
+        "qc_fail": 0,
+        "unknown": 546
+      },
+      "Unknown": {
+        "completed": 0,
+        "pending": 0,
+        "not_applicable": 0,
+        "qc_fail": 0,
+        "unknown": 49
+      }
+    },
+    "anti_c1q": {
+      "PsD-EYE": {
+        "completed": 0,
+        "pending": 0,
+        "not_applicable": 23,
+        "qc_fail": 0,
+        "unknown": 0
+      },
+      "PsD-SKN": {
+        "completed": 0,
+        "pending": 0,
+        "not_applicable": 135,
+        "qc_fail": 0,
+        "unknown": 0
+      },
+      "PsD-SKN/EYE": {
+        "completed": 0,
+        "pending": 0,
+        "not_applicable": 1,
+        "qc_fail": 0,
+        "unknown": 0
+      },
+      "PsD-SKN/SYN": {
+        "completed": 0,
+        "pending": 0,
+        "not_applicable": 6,
+        "qc_fail": 0,
+        "unknown": 0
+      },
+      "PsD-SYN": {
+        "completed": 0,
+        "pending": 0,
+        "not_applicable": 51,
+        "qc_fail": 0,
+        "unknown": 0
+      },
+      "RA-SYN": {
+        "completed": 0,
+        "pending": 0,
+        "not_applicable": 249,
+        "qc_fail": 0,
+        "unknown": 0
+      },
+      "SLE-KDY": {
+        "completed": 197,
+        "pending": 0,
+        "not_applicable": 50,
+        "qc_fail": 0,
+        "unknown": 0
+      },
+      "SLE-SKN": {
+        "completed": 50,
+        "pending": 0,
+        "not_applicable": 25,
+        "qc_fail": 0,
+        "unknown": 0
+      },
+      "SLE/PsD-SKN": {
+        "completed": 0,
+        "pending": 0,
+        "not_applicable": 5,
+        "qc_fail": 0,
+        "unknown": 0
+      },
+      "SSc-SKN": {
+        "completed": 0,
+        "pending": 0,
+        "not_applicable": 17,
+        "qc_fail": 0,
+        "unknown": 0
+      },
+      "SjD-SGL": {
+        "completed": 0,
+        "pending": 0,
+        "not_applicable": 540,
+        "qc_fail": 0,
+        "unknown": 6
+      },
+      "Unknown": {
+        "completed": 0,
+        "pending": 0,
+        "not_applicable": 12,
+        "qc_fail": 0,
+        "unknown": 37
+      }
+    }
+  },
+  "by_cohort": {
+    "xenium_slide": {
+      "Asymptomatic RRNL": {
+        "completed": 0,
+        "pending": 0,
+        "not_applicable": 0,
+        "qc_fail": 0,
+        "unknown": 1
+      },
+      "Axial Spondyloarthritis Control": {
+        "completed": 0,
+        "pending": 0,
+        "not_applicable": 0,
+        "qc_fail": 0,
+        "unknown": 3
+      },
+      "Cohort 1: Early RA, DMARD naive": {
+        "completed": 30,
+        "pending": 0,
+        "not_applicable": 4,
+        "qc_fail": 0,
+        "unknown": 49
+      },
+      "Cohort 1a: PsO": {
+        "completed": 13,
+        "pending": 0,
+        "not_applicable": 0,
+        "qc_fail": 0,
+        "unknown": 42
+      },
+      "Cohort 1a: PsO, Cohort 2a: PsO Initiating Therapy, Cohort 2b: PsA Initiating Therapy": {
+        "completed": 1,
+        "pending": 0,
+        "not_applicable": 0,
+        "qc_fail": 0,
+        "unknown": 1
+      },
+      "Cohort 1a: PsO, Cohort 2a: PsO Initiating Therapy, Cohort 3: PsO to PsA Risk": {
+        "completed": 0,
+        "pending": 0,
+        "not_applicable": 0,
+        "qc_fail": 0,
+        "unknown": 1
+      },
+      "Cohort 1a: PsO, Cohort 2b: PsA Initiating Therapy": {
+        "completed": 0,
+        "pending": 0,
+        "not_applicable": 0,
+        "qc_fail": 0,
+        "unknown": 6
+      },
+      "Cohort 1a: PsO, Cohort 3: PsO to PsA Risk": {
+        "completed": 2,
+        "pending": 0,
+        "not_applicable": 0,
+        "qc_fail": 0,
+        "unknown": 3
+      },
+      "Cohort 1a: PsO, Cohort 3: PsO to PsA Risk, Uveitis Cohort": {
+        "completed": 0,
+        "pending": 0,
+        "not_applicable": 0,
+        "qc_fail": 0,
+        "unknown": 1
+      },
+      "Cohort 1b: Drug-Naive PsA": {
+        "completed": 5,
+        "pending": 0,
+        "not_applicable": 0,
+        "qc_fail": 0,
+        "unknown": 15
+      },
+      "Cohort 1b: Drug-Naive PsA, Cohort 2a: PsO Initiating Therapy": {
+        "completed": 0,
+        "pending": 0,
+        "not_applicable": 0,
+        "qc_fail": 0,
+        "unknown": 1
+      },
+      "Cohort 1b: Drug-Naive PsA, Cohort 2b: PsA Initiating Therapy": {
+        "completed": 1,
+        "pending": 0,
+        "not_applicable": 0,
+        "qc_fail": 0,
+        "unknown": 0
+      },
+      "Cohort 2: MTX-IR, bDMARD naive": {
+        "completed": 1,
+        "pending": 0,
+        "not_applicable": 0,
+        "qc_fail": 0,
+        "unknown": 25
+      },
+      "Cohort 2a: PsO Initiating Therapy": {
+        "completed": 1,
+        "pending": 0,
+        "not_applicable": 0,
+        "qc_fail": 0,
+        "unknown": 10
+      },
+      "Cohort 2a: PsO Initiating Therapy, Cohort 2b: PsA Initiating Therapy": {
+        "completed": 0,
+        "pending": 0,
+        "not_applicable": 0,
+        "qc_fail": 0,
+        "unknown": 1
+      },
+      "Cohort 2b: PsA Initiating Therapy": {
+        "completed": 1,
+        "pending": 2,
+        "not_applicable": 0,
+        "qc_fail": 1,
+        "unknown": 38
+      },
+      "Cohort 2b: PsA Initiating Therapy, Uveitis Cohort": {
+        "completed": 0,
+        "pending": 0,
+        "not_applicable": 0,
+        "qc_fail": 0,
+        "unknown": 1
+      },
+      "Cohort 3: PsO to PsA Risk": {
+        "completed": 1,
+        "pending": 0,
+        "not_applicable": 0,
+        "qc_fail": 0,
+        "unknown": 3
+      },
+      "Cohort 3: Refractory Cohort": {
+        "completed": 0,
+        "pending": 0,
+        "not_applicable": 0,
+        "qc_fail": 0,
+        "unknown": 45
+      },
+      "Enabling": {
+        "completed": 0,
+        "pending": 0,
+        "not_applicable": 0,
+        "qc_fail": 0,
+        "unknown": 40
+      },
+      "Healthy Control": {
+        "completed": 35,
+        "pending": 0,
+        "not_applicable": 0,
+        "qc_fail": 0,
+        "unknown": 37
+      },
+      "Healthy Normal Control": {
+        "completed": 8,
+        "pending": 0,
+        "not_applicable": 0,
+        "qc_fail": 0,
+        "unknown": 1
+      },
+      "KP1": {
+        "completed": 23,
+        "pending": 0,
+        "not_applicable": 0,
+        "qc_fail": 0,
+        "unknown": 99
+      },
+      "KP2": {
+        "completed": 0,
+        "pending": 0,
+        "not_applicable": 0,
+        "qc_fail": 0,
+        "unknown": 98
+      },
+      "Longitudinal case": {
+        "completed": 26,
+        "pending": 0,
+        "not_applicable": 1,
+        "qc_fail": 0,
+        "unknown": 92
+      },
+      "Not yet retrieved": {
+        "completed": 12,
+        "pending": 9,
+        "not_applicable": 1,
+        "qc_fail": 0,
+        "unknown": 99
+      },
+      "Overlap syndrome": {
+        "completed": 0,
+        "pending": 0,
+        "not_applicable": 0,
+        "qc_fail": 0,
+        "unknown": 1
+      },
+      "SP1": {
+        "completed": 11,
+        "pending": 0,
+        "not_applicable": 0,
+        "qc_fail": 0,
+        "unknown": 13
+      },
+      "SP2": {
+        "completed": 13,
+        "pending": 0,
+        "not_applicable": 0,
+        "qc_fail": 0,
+        "unknown": 27
+      },
+      "SjD/sicca": {
+        "completed": 92,
+        "pending": 0,
+        "not_applicable": 0,
+        "qc_fail": 1,
+        "unknown": 203
+      },
+      "Uveitis Cohort": {
+        "completed": 0,
+        "pending": 0,
+        "not_applicable": 0,
+        "qc_fail": 0,
+        "unknown": 15
+      },
+      "Uveitis Cohort, Axial Spondyloarthritis Control": {
+        "completed": 0,
+        "pending": 0,
+        "not_applicable": 0,
+        "qc_fail": 0,
+        "unknown": 4
+      },
+      "n/a": {
+        "completed": 12,
+        "pending": 0,
+        "not_applicable": 0,
+        "qc_fail": 0,
+        "unknown": 0
+      },
+      "Unknown": {
+        "completed": 0,
+        "pending": 0,
+        "not_applicable": 0,
+        "qc_fail": 0,
+        "unknown": 122
+      }
+    },
+    "xenium": {
+      "Asymptomatic RRNL": {
+        "completed": 0,
+        "pending": 0,
+        "not_applicable": 0,
+        "qc_fail": 0,
+        "unknown": 1
+      },
+      "Axial Spondyloarthritis Control": {
+        "completed": 0,
+        "pending": 0,
+        "not_applicable": 0,
+        "qc_fail": 0,
+        "unknown": 3
+      },
+      "Cohort 1: Early RA, DMARD naive": {
+        "completed": 30,
+        "pending": 0,
+        "not_applicable": 4,
+        "qc_fail": 0,
+        "unknown": 49
+      },
+      "Cohort 1a: PsO": {
+        "completed": 13,
+        "pending": 0,
+        "not_applicable": 0,
+        "qc_fail": 0,
+        "unknown": 42
+      },
+      "Cohort 1a: PsO, Cohort 2a: PsO Initiating Therapy, Cohort 2b: PsA Initiating Therapy": {
+        "completed": 1,
+        "pending": 0,
+        "not_applicable": 0,
+        "qc_fail": 0,
+        "unknown": 1
+      },
+      "Cohort 1a: PsO, Cohort 2a: PsO Initiating Therapy, Cohort 3: PsO to PsA Risk": {
+        "completed": 0,
+        "pending": 0,
+        "not_applicable": 0,
+        "qc_fail": 0,
+        "unknown": 1
+      },
+      "Cohort 1a: PsO, Cohort 2b: PsA Initiating Therapy": {
+        "completed": 0,
+        "pending": 0,
+        "not_applicable": 0,
+        "qc_fail": 0,
+        "unknown": 6
+      },
+      "Cohort 1a: PsO, Cohort 3: PsO to PsA Risk": {
+        "completed": 2,
+        "pending": 0,
+        "not_applicable": 0,
+        "qc_fail": 0,
+        "unknown": 3
+      },
+      "Cohort 1a: PsO, Cohort 3: PsO to PsA Risk, Uveitis Cohort": {
+        "completed": 0,
+        "pending": 0,
+        "not_applicable": 0,
+        "qc_fail": 0,
+        "unknown": 1
+      },
+      "Cohort 1b: Drug-Naive PsA": {
+        "completed": 5,
+        "pending": 0,
+        "not_applicable": 0,
+        "qc_fail": 0,
+        "unknown": 15
+      },
+      "Cohort 1b: Drug-Naive PsA, Cohort 2a: PsO Initiating Therapy": {
+        "completed": 0,
+        "pending": 0,
+        "not_applicable": 0,
+        "qc_fail": 0,
+        "unknown": 1
+      },
+      "Cohort 1b: Drug-Naive PsA, Cohort 2b: PsA Initiating Therapy": {
+        "completed": 1,
+        "pending": 0,
+        "not_applicable": 0,
+        "qc_fail": 0,
+        "unknown": 0
+      },
+      "Cohort 2: MTX-IR, bDMARD naive": {
+        "completed": 1,
+        "pending": 0,
+        "not_applicable": 0,
+        "qc_fail": 0,
+        "unknown": 25
+      },
+      "Cohort 2a: PsO Initiating Therapy": {
+        "completed": 1,
+        "pending": 0,
+        "not_applicable": 0,
+        "qc_fail": 0,
+        "unknown": 10
+      },
+      "Cohort 2a: PsO Initiating Therapy, Cohort 2b: PsA Initiating Therapy": {
+        "completed": 0,
+        "pending": 0,
+        "not_applicable": 0,
+        "qc_fail": 0,
+        "unknown": 1
+      },
+      "Cohort 2b: PsA Initiating Therapy": {
+        "completed": 1,
+        "pending": 2,
+        "not_applicable": 0,
+        "qc_fail": 1,
+        "unknown": 38
+      },
+      "Cohort 2b: PsA Initiating Therapy, Uveitis Cohort": {
+        "completed": 0,
+        "pending": 0,
+        "not_applicable": 0,
+        "qc_fail": 0,
+        "unknown": 1
+      },
+      "Cohort 3: PsO to PsA Risk": {
+        "completed": 1,
+        "pending": 0,
+        "not_applicable": 0,
+        "qc_fail": 0,
+        "unknown": 3
+      },
+      "Cohort 3: Refractory Cohort": {
+        "completed": 0,
+        "pending": 0,
+        "not_applicable": 0,
+        "qc_fail": 0,
+        "unknown": 45
+      },
+      "Enabling": {
+        "completed": 0,
+        "pending": 0,
+        "not_applicable": 0,
+        "qc_fail": 0,
+        "unknown": 40
+      },
+      "Healthy Control": {
+        "completed": 35,
+        "pending": 0,
+        "not_applicable": 0,
+        "qc_fail": 0,
+        "unknown": 37
+      },
+      "Healthy Normal Control": {
+        "completed": 0,
+        "pending": 0,
+        "not_applicable": 8,
+        "qc_fail": 0,
+        "unknown": 1
+      },
+      "KP1": {
+        "completed": 23,
+        "pending": 0,
+        "not_applicable": 0,
+        "qc_fail": 0,
+        "unknown": 99
+      },
+      "KP2": {
+        "completed": 0,
+        "pending": 0,
+        "not_applicable": 0,
+        "qc_fail": 0,
+        "unknown": 98
+      },
+      "Longitudinal case": {
+        "completed": 26,
+        "pending": 0,
+        "not_applicable": 1,
+        "qc_fail": 0,
+        "unknown": 92
+      },
+      "Not yet retrieved": {
+        "completed": 12,
+        "pending": 9,
+        "not_applicable": 1,
+        "qc_fail": 0,
+        "unknown": 99
+      },
+      "Overlap syndrome": {
+        "completed": 0,
+        "pending": 0,
+        "not_applicable": 0,
+        "qc_fail": 0,
+        "unknown": 1
+      },
+      "SP1": {
+        "completed": 11,
+        "pending": 0,
+        "not_applicable": 0,
+        "qc_fail": 0,
+        "unknown": 13
+      },
+      "SP2": {
+        "completed": 13,
+        "pending": 0,
+        "not_applicable": 0,
+        "qc_fail": 0,
+        "unknown": 27
+      },
+      "SjD/sicca": {
+        "completed": 92,
+        "pending": 0,
+        "not_applicable": 0,
+        "qc_fail": 1,
+        "unknown": 203
+      },
+      "Uveitis Cohort": {
+        "completed": 0,
+        "pending": 0,
+        "not_applicable": 0,
+        "qc_fail": 0,
+        "unknown": 15
+      },
+      "Uveitis Cohort, Axial Spondyloarthritis Control": {
+        "completed": 0,
+        "pending": 0,
+        "not_applicable": 0,
+        "qc_fail": 0,
+        "unknown": 4
+      },
+      "n/a": {
+        "completed": 12,
+        "pending": 0,
+        "not_applicable": 0,
+        "qc_fail": 0,
+        "unknown": 0
+      },
+      "Unknown": {
+        "completed": 0,
+        "pending": 0,
+        "not_applicable": 0,
+        "qc_fail": 0,
+        "unknown": 122
+      }
+    },
+    "scffpe": {
+      "Asymptomatic RRNL": {
+        "completed": 0,
+        "pending": 0,
+        "not_applicable": 0,
+        "qc_fail": 0,
+        "unknown": 1
+      },
+      "Axial Spondyloarthritis Control": {
+        "completed": 0,
+        "pending": 0,
+        "not_applicable": 0,
+        "qc_fail": 0,
+        "unknown": 3
+      },
+      "Cohort 1: Early RA, DMARD naive": {
+        "completed": 21,
+        "pending": 10,
+        "not_applicable": 2,
+        "qc_fail": 0,
+        "unknown": 50
+      },
+      "Cohort 1a: PsO": {
+        "completed": 13,
+        "pending": 0,
+        "not_applicable": 0,
+        "qc_fail": 0,
+        "unknown": 42
+      },
+      "Cohort 1a: PsO, Cohort 2a: PsO Initiating Therapy, Cohort 2b: PsA Initiating Therapy": {
+        "completed": 1,
+        "pending": 0,
+        "not_applicable": 0,
+        "qc_fail": 0,
+        "unknown": 1
+      },
+      "Cohort 1a: PsO, Cohort 2a: PsO Initiating Therapy, Cohort 3: PsO to PsA Risk": {
+        "completed": 0,
+        "pending": 0,
+        "not_applicable": 0,
+        "qc_fail": 0,
+        "unknown": 1
+      },
+      "Cohort 1a: PsO, Cohort 2b: PsA Initiating Therapy": {
+        "completed": 0,
+        "pending": 0,
+        "not_applicable": 0,
+        "qc_fail": 0,
+        "unknown": 6
+      },
+      "Cohort 1a: PsO, Cohort 3: PsO to PsA Risk": {
+        "completed": 2,
+        "pending": 0,
+        "not_applicable": 0,
+        "qc_fail": 0,
+        "unknown": 3
+      },
+      "Cohort 1a: PsO, Cohort 3: PsO to PsA Risk, Uveitis Cohort": {
+        "completed": 0,
+        "pending": 0,
+        "not_applicable": 0,
+        "qc_fail": 0,
+        "unknown": 1
+      },
+      "Cohort 1b: Drug-Naive PsA": {
+        "completed": 5,
+        "pending": 0,
+        "not_applicable": 0,
+        "qc_fail": 0,
+        "unknown": 15
+      },
+      "Cohort 1b: Drug-Naive PsA, Cohort 2a: PsO Initiating Therapy": {
+        "completed": 0,
+        "pending": 0,
+        "not_applicable": 0,
+        "qc_fail": 0,
+        "unknown": 1
+      },
+      "Cohort 1b: Drug-Naive PsA, Cohort 2b: PsA Initiating Therapy": {
+        "completed": 1,
+        "pending": 0,
+        "not_applicable": 0,
+        "qc_fail": 0,
+        "unknown": 0
+      },
+      "Cohort 2: MTX-IR, bDMARD naive": {
+        "completed": 1,
+        "pending": 0,
+        "not_applicable": 0,
+        "qc_fail": 0,
+        "unknown": 25
+      },
+      "Cohort 2a: PsO Initiating Therapy": {
+        "completed": 1,
+        "pending": 0,
+        "not_applicable": 0,
+        "qc_fail": 0,
+        "unknown": 10
+      },
+      "Cohort 2a: PsO Initiating Therapy, Cohort 2b: PsA Initiating Therapy": {
+        "completed": 0,
+        "pending": 0,
+        "not_applicable": 0,
+        "qc_fail": 0,
+        "unknown": 1
+      },
+      "Cohort 2b: PsA Initiating Therapy": {
+        "completed": 2,
+        "pending": 2,
+        "not_applicable": 0,
+        "qc_fail": 0,
+        "unknown": 38
+      },
+      "Cohort 2b: PsA Initiating Therapy, Uveitis Cohort": {
+        "completed": 0,
+        "pending": 0,
+        "not_applicable": 0,
+        "qc_fail": 0,
+        "unknown": 1
+      },
+      "Cohort 3: PsO to PsA Risk": {
+        "completed": 1,
+        "pending": 0,
+        "not_applicable": 0,
+        "qc_fail": 0,
+        "unknown": 3
+      },
+      "Cohort 3: Refractory Cohort": {
+        "completed": 0,
+        "pending": 0,
+        "not_applicable": 0,
+        "qc_fail": 0,
+        "unknown": 45
+      },
+      "Enabling": {
+        "completed": 0,
+        "pending": 0,
+        "not_applicable": 0,
+        "qc_fail": 0,
+        "unknown": 40
+      },
+      "Healthy Control": {
+        "completed": 39,
+        "pending": 0,
+        "not_applicable": 0,
+        "qc_fail": 0,
+        "unknown": 33
+      },
+      "Healthy Normal Control": {
+        "completed": 0,
+        "pending": 0,
+        "not_applicable": 8,
+        "qc_fail": 0,
+        "unknown": 1
+      },
+      "KP1": {
+        "completed": 22,
+        "pending": 0,
+        "not_applicable": 0,
+        "qc_fail": 0,
+        "unknown": 100
+      },
+      "KP2": {
+        "completed": 0,
+        "pending": 0,
+        "not_applicable": 0,
+        "qc_fail": 0,
+        "unknown": 98
+      },
+      "Longitudinal case": {
+        "completed": 20,
+        "pending": 0,
+        "not_applicable": 1,
+        "qc_fail": 0,
+        "unknown": 98
+      },
+      "Not yet retrieved": {
+        "completed": 13,
+        "pending": 9,
+        "not_applicable": 0,
+        "qc_fail": 0,
+        "unknown": 99
+      },
+      "Overlap syndrome": {
+        "completed": 0,
+        "pending": 0,
+        "not_applicable": 0,
+        "qc_fail": 0,
+        "unknown": 1
+      },
+      "SP1": {
+        "completed": 11,
+        "pending": 0,
+        "not_applicable": 0,
+        "qc_fail": 0,
+        "unknown": 13
+      },
+      "SP2": {
+        "completed": 13,
+        "pending": 0,
+        "not_applicable": 0,
+        "qc_fail": 0,
+        "unknown": 27
+      },
+      "SjD/sicca": {
+        "completed": 89,
+        "pending": 0,
+        "not_applicable": 1,
+        "qc_fail": 0,
+        "unknown": 206
+      },
+      "Uveitis Cohort": {
+        "completed": 0,
+        "pending": 0,
+        "not_applicable": 0,
+        "qc_fail": 0,
+        "unknown": 15
+      },
+      "Uveitis Cohort, Axial Spondyloarthritis Control": {
+        "completed": 0,
+        "pending": 0,
+        "not_applicable": 0,
+        "qc_fail": 0,
+        "unknown": 4
+      },
+      "n/a": {
+        "completed": 12,
+        "pending": 0,
+        "not_applicable": 0,
+        "qc_fail": 0,
+        "unknown": 0
+      },
+      "Unknown": {
+        "completed": 0,
+        "pending": 0,
+        "not_applicable": 0,
+        "qc_fail": 0,
+        "unknown": 122
+      }
+    },
+    "scrnaseq": {
+      "Asymptomatic RRNL": {
+        "completed": 0,
+        "pending": 0,
+        "not_applicable": 0,
+        "qc_fail": 0,
+        "unknown": 1
+      },
+      "Axial Spondyloarthritis Control": {
+        "completed": 0,
+        "pending": 0,
+        "not_applicable": 0,
+        "qc_fail": 0,
+        "unknown": 3
+      },
+      "Cohort 1: Early RA, DMARD naive": {
+        "completed": 8,
+        "pending": 0,
+        "not_applicable": 8,
+        "qc_fail": 0,
+        "unknown": 67
+      },
+      "Cohort 1a: PsO": {
+        "completed": 6,
+        "pending": 0,
+        "not_applicable": 0,
+        "qc_fail": 0,
+        "unknown": 49
+      },
+      "Cohort 1a: PsO, Cohort 2a: PsO Initiating Therapy, Cohort 2b: PsA Initiating Therapy": {
+        "completed": 1,
+        "pending": 0,
+        "not_applicable": 0,
+        "qc_fail": 0,
+        "unknown": 1
+      },
+      "Cohort 1a: PsO, Cohort 2a: PsO Initiating Therapy, Cohort 3: PsO to PsA Risk": {
+        "completed": 0,
+        "pending": 0,
+        "not_applicable": 0,
+        "qc_fail": 0,
+        "unknown": 1
+      },
+      "Cohort 1a: PsO, Cohort 2b: PsA Initiating Therapy": {
+        "completed": 0,
+        "pending": 0,
+        "not_applicable": 0,
+        "qc_fail": 0,
+        "unknown": 6
+      },
+      "Cohort 1a: PsO, Cohort 3: PsO to PsA Risk": {
+        "completed": 1,
+        "pending": 0,
+        "not_applicable": 0,
+        "qc_fail": 0,
+        "unknown": 4
+      },
+      "Cohort 1a: PsO, Cohort 3: PsO to PsA Risk, Uveitis Cohort": {
+        "completed": 0,
+        "pending": 0,
+        "not_applicable": 0,
+        "qc_fail": 0,
+        "unknown": 1
+      },
+      "Cohort 1b: Drug-Naive PsA": {
+        "completed": 2,
+        "pending": 0,
+        "not_applicable": 2,
+        "qc_fail": 0,
+        "unknown": 16
+      },
+      "Cohort 1b: Drug-Naive PsA, Cohort 2a: PsO Initiating Therapy": {
+        "completed": 0,
+        "pending": 0,
+        "not_applicable": 0,
+        "qc_fail": 0,
+        "unknown": 1
+      },
+      "Cohort 1b: Drug-Naive PsA, Cohort 2b: PsA Initiating Therapy": {
+        "completed": 1,
+        "pending": 0,
+        "not_applicable": 0,
+        "qc_fail": 0,
+        "unknown": 0
+      },
+      "Cohort 2: MTX-IR, bDMARD naive": {
+        "completed": 0,
+        "pending": 0,
+        "not_applicable": 0,
+        "qc_fail": 0,
+        "unknown": 26
+      },
+      "Cohort 2a: PsO Initiating Therapy": {
+        "completed": 0,
+        "pending": 0,
+        "not_applicable": 0,
+        "qc_fail": 0,
+        "unknown": 11
+      },
+      "Cohort 2a: PsO Initiating Therapy, Cohort 2b: PsA Initiating Therapy": {
+        "completed": 0,
+        "pending": 0,
+        "not_applicable": 0,
+        "qc_fail": 0,
+        "unknown": 1
+      },
+      "Cohort 2b: PsA Initiating Therapy": {
+        "completed": 0,
+        "pending": 0,
+        "not_applicable": 1,
+        "qc_fail": 0,
+        "unknown": 41
+      },
+      "Cohort 2b: PsA Initiating Therapy, Uveitis Cohort": {
+        "completed": 0,
+        "pending": 0,
+        "not_applicable": 0,
+        "qc_fail": 0,
+        "unknown": 1
+      },
+      "Cohort 3: PsO to PsA Risk": {
+        "completed": 0,
+        "pending": 0,
+        "not_applicable": 0,
+        "qc_fail": 0,
+        "unknown": 4
+      },
+      "Cohort 3: Refractory Cohort": {
+        "completed": 0,
+        "pending": 0,
+        "not_applicable": 0,
+        "qc_fail": 0,
+        "unknown": 45
+      },
+      "Enabling": {
+        "completed": 0,
+        "pending": 0,
+        "not_applicable": 0,
+        "qc_fail": 0,
+        "unknown": 40
+      },
+      "Healthy Control": {
+        "completed": 6,
+        "pending": 0,
+        "not_applicable": 8,
+        "qc_fail": 0,
+        "unknown": 58
+      },
+      "Healthy Normal Control": {
+        "completed": 0,
+        "pending": 0,
+        "not_applicable": 8,
+        "qc_fail": 0,
+        "unknown": 1
+      },
+      "KP1": {
+        "completed": 0,
+        "pending": 0,
+        "not_applicable": 12,
+        "qc_fail": 0,
+        "unknown": 110
+      },
+      "KP2": {
+        "completed": 0,
+        "pending": 0,
+        "not_applicable": 0,
+        "qc_fail": 0,
+        "unknown": 98
+      },
+      "Longitudinal case": {
+        "completed": 3,
+        "pending": 0,
+        "not_applicable": 6,
+        "qc_fail": 0,
+        "unknown": 110
+      },
+      "Not yet retrieved": {
+        "completed": 9,
+        "pending": 0,
+        "not_applicable": 7,
+        "qc_fail": 0,
+        "unknown": 105
+      },
+      "Overlap syndrome": {
+        "completed": 0,
+        "pending": 0,
+        "not_applicable": 0,
+        "qc_fail": 0,
+        "unknown": 1
+      },
+      "SP1": {
+        "completed": 5,
+        "pending": 0,
+        "not_applicable": 0,
+        "qc_fail": 1,
+        "unknown": 18
+      },
+      "SP2": {
+        "completed": 6,
+        "pending": 0,
+        "not_applicable": 0,
+        "qc_fail": 0,
+        "unknown": 34
+      },
+      "SjD/sicca": {
+        "completed": 21,
+        "pending": 0,
+        "not_applicable": 0,
+        "qc_fail": 0,
+        "unknown": 275
+      },
+      "Uveitis Cohort": {
+        "completed": 0,
+        "pending": 0,
+        "not_applicable": 0,
+        "qc_fail": 0,
+        "unknown": 15
+      },
+      "Uveitis Cohort, Axial Spondyloarthritis Control": {
+        "completed": 0,
+        "pending": 0,
+        "not_applicable": 0,
+        "qc_fail": 0,
+        "unknown": 4
+      },
+      "n/a": {
+        "completed": 0,
+        "pending": 0,
+        "not_applicable": 0,
+        "qc_fail": 0,
+        "unknown": 12
+      },
+      "Unknown": {
+        "completed": 0,
+        "pending": 0,
+        "not_applicable": 0,
+        "qc_fail": 0,
+        "unknown": 122
+      }
+    },
+    "olink_serum": {
+      "Asymptomatic RRNL": {
+        "completed": 0,
+        "pending": 1,
+        "not_applicable": 0,
+        "qc_fail": 0,
+        "unknown": 0
+      },
+      "Axial Spondyloarthritis Control": {
+        "completed": 0,
+        "pending": 0,
+        "not_applicable": 3,
+        "qc_fail": 0,
+        "unknown": 0
+      },
+      "Cohort 1: Early RA, DMARD naive": {
+        "completed": 40,
+        "pending": 30,
+        "not_applicable": 13,
+        "qc_fail": 0,
+        "unknown": 0
+      },
+      "Cohort 1a: PsO": {
+        "completed": 14,
+        "pending": 38,
+        "not_applicable": 3,
+        "qc_fail": 0,
+        "unknown": 0
+      },
+      "Cohort 1a: PsO, Cohort 2a: PsO Initiating Therapy, Cohort 2b: PsA Initiating Therapy": {
+        "completed": 1,
+        "pending": 1,
+        "not_applicable": 0,
+        "qc_fail": 0,
+        "unknown": 0
+      },
+      "Cohort 1a: PsO, Cohort 2a: PsO Initiating Therapy, Cohort 3: PsO to PsA Risk": {
+        "completed": 0,
+        "pending": 1,
+        "not_applicable": 0,
+        "qc_fail": 0,
+        "unknown": 0
+      },
+      "Cohort 1a: PsO, Cohort 2b: PsA Initiating Therapy": {
+        "completed": 1,
+        "pending": 5,
+        "not_applicable": 0,
+        "qc_fail": 0,
+        "unknown": 0
+      },
+      "Cohort 1a: PsO, Cohort 3: PsO to PsA Risk": {
+        "completed": 2,
+        "pending": 3,
+        "not_applicable": 0,
+        "qc_fail": 0,
+        "unknown": 0
+      },
+      "Cohort 1a: PsO, Cohort 3: PsO to PsA Risk, Uveitis Cohort": {
+        "completed": 0,
+        "pending": 1,
+        "not_applicable": 0,
+        "qc_fail": 0,
+        "unknown": 0
+      },
+      "Cohort 1b: Drug-Naive PsA": {
+        "completed": 6,
+        "pending": 13,
+        "not_applicable": 1,
+        "qc_fail": 0,
+        "unknown": 0
+      },
+      "Cohort 1b: Drug-Naive PsA, Cohort 2a: PsO Initiating Therapy": {
+        "completed": 1,
+        "pending": 0,
+        "not_applicable": 0,
+        "qc_fail": 0,
+        "unknown": 0
+      },
+      "Cohort 1b: Drug-Naive PsA, Cohort 2b: PsA Initiating Therapy": {
+        "completed": 1,
+        "pending": 0,
+        "not_applicable": 0,
+        "qc_fail": 0,
+        "unknown": 0
+      },
+      "Cohort 2: MTX-IR, bDMARD naive": {
+        "completed": 6,
+        "pending": 16,
+        "not_applicable": 4,
+        "qc_fail": 0,
+        "unknown": 0
+      },
+      "Cohort 2a: PsO Initiating Therapy": {
+        "completed": 2,
+        "pending": 8,
+        "not_applicable": 1,
+        "qc_fail": 0,
+        "unknown": 0
+      },
+      "Cohort 2a: PsO Initiating Therapy, Cohort 2b: PsA Initiating Therapy": {
+        "completed": 0,
+        "pending": 1,
+        "not_applicable": 0,
+        "qc_fail": 0,
+        "unknown": 0
+      },
+      "Cohort 2b: PsA Initiating Therapy": {
+        "completed": 10,
+        "pending": 25,
+        "not_applicable": 7,
+        "qc_fail": 0,
+        "unknown": 0
+      },
+      "Cohort 2b: PsA Initiating Therapy, Uveitis Cohort": {
+        "completed": 0,
+        "pending": 1,
+        "not_applicable": 0,
+        "qc_fail": 0,
+        "unknown": 0
+      },
+      "Cohort 3: PsO to PsA Risk": {
+        "completed": 1,
+        "pending": 3,
+        "not_applicable": 0,
+        "qc_fail": 0,
+        "unknown": 0
+      },
+      "Cohort 3: Refractory Cohort": {
+        "completed": 2,
+        "pending": 32,
+        "not_applicable": 11,
+        "qc_fail": 0,
+        "unknown": 0
+      },
+      "Enabling": {
+        "completed": 0,
+        "pending": 1,
+        "not_applicable": 39,
+        "qc_fail": 0,
+        "unknown": 0
+      },
+      "Healthy Control": {
+        "completed": 19,
+        "pending": 26,
+        "not_applicable": 22,
+        "qc_fail": 0,
+        "unknown": 5
+      },
+      "Healthy Normal Control": {
+        "completed": 0,
+        "pending": 0,
+        "not_applicable": 9,
+        "qc_fail": 0,
+        "unknown": 0
+      },
+      "KP1": {
+        "completed": 116,
+        "pending": 1,
+        "not_applicable": 5,
+        "qc_fail": 0,
+        "unknown": 0
+      },
+      "KP2": {
+        "completed": 83,
+        "pending": 2,
+        "not_applicable": 13,
+        "qc_fail": 0,
+        "unknown": 0
+      },
+      "Longitudinal case": {
+        "completed": 11,
+        "pending": 90,
+        "not_applicable": 18,
+        "qc_fail": 0,
+        "unknown": 0
+      },
+      "Not yet retrieved": {
+        "completed": 11,
+        "pending": 23,
+        "not_applicable": 86,
+        "qc_fail": 0,
+        "unknown": 1
+      },
+      "Overlap syndrome": {
+        "completed": 0,
+        "pending": 1,
+        "not_applicable": 0,
+        "qc_fail": 0,
+        "unknown": 0
+      },
+      "SP1": {
+        "completed": 23,
+        "pending": 0,
+        "not_applicable": 1,
+        "qc_fail": 0,
+        "unknown": 0
+      },
+      "SP2": {
+        "completed": 38,
+        "pending": 2,
+        "not_applicable": 0,
+        "qc_fail": 0,
+        "unknown": 0
+      },
+      "SjD/sicca": {
+        "completed": 79,
+        "pending": 216,
+        "not_applicable": 1,
+        "qc_fail": 0,
+        "unknown": 0
+      },
+      "Uveitis Cohort": {
+        "completed": 0,
+        "pending": 5,
+        "not_applicable": 10,
+        "qc_fail": 0,
+        "unknown": 0
+      },
+      "Uveitis Cohort, Axial Spondyloarthritis Control": {
+        "completed": 0,
+        "pending": 0,
+        "not_applicable": 4,
+        "qc_fail": 0,
+        "unknown": 0
+      },
+      "n/a": {
+        "completed": 0,
+        "pending": 0,
+        "not_applicable": 12,
+        "qc_fail": 0,
+        "unknown": 0
+      },
+      "Unknown": {
+        "completed": 0,
+        "pending": 1,
+        "not_applicable": 1,
+        "qc_fail": 0,
+        "unknown": 120
+      }
+    },
+    "cytof_blood": {
+      "Asymptomatic RRNL": {
+        "completed": 0,
+        "pending": 0,
+        "not_applicable": 1,
+        "qc_fail": 0,
+        "unknown": 0
+      },
+      "Axial Spondyloarthritis Control": {
+        "completed": 0,
+        "pending": 0,
+        "not_applicable": 3,
+        "qc_fail": 0,
+        "unknown": 0
+      },
+      "Cohort 1: Early RA, DMARD naive": {
+        "completed": 48,
+        "pending": 0,
+        "not_applicable": 35,
+        "qc_fail": 0,
+        "unknown": 0
+      },
+      "Cohort 1a: PsO": {
+        "completed": 34,
+        "pending": 1,
+        "not_applicable": 20,
+        "qc_fail": 0,
+        "unknown": 0
+      },
+      "Cohort 1a: PsO, Cohort 2a: PsO Initiating Therapy, Cohort 2b: PsA Initiating Therapy": {
+        "completed": 1,
+        "pending": 0,
+        "not_applicable": 1,
+        "qc_fail": 0,
+        "unknown": 0
+      },
+      "Cohort 1a: PsO, Cohort 2a: PsO Initiating Therapy, Cohort 3: PsO to PsA Risk": {
+        "completed": 1,
+        "pending": 0,
+        "not_applicable": 0,
+        "qc_fail": 0,
+        "unknown": 0
+      },
+      "Cohort 1a: PsO, Cohort 2b: PsA Initiating Therapy": {
+        "completed": 6,
+        "pending": 0,
+        "not_applicable": 0,
+        "qc_fail": 0,
+        "unknown": 0
+      },
+      "Cohort 1a: PsO, Cohort 3: PsO to PsA Risk": {
+        "completed": 5,
+        "pending": 0,
+        "not_applicable": 0,
+        "qc_fail": 0,
+        "unknown": 0
+      },
+      "Cohort 1a: PsO, Cohort 3: PsO to PsA Risk, Uveitis Cohort": {
+        "completed": 1,
+        "pending": 0,
+        "not_applicable": 0,
+        "qc_fail": 0,
+        "unknown": 0
+      },
+      "Cohort 1b: Drug-Naive PsA": {
+        "completed": 13,
+        "pending": 1,
+        "not_applicable": 6,
+        "qc_fail": 0,
+        "unknown": 0
+      },
+      "Cohort 1b: Drug-Naive PsA, Cohort 2a: PsO Initiating Therapy": {
+        "completed": 1,
+        "pending": 0,
+        "not_applicable": 0,
+        "qc_fail": 0,
+        "unknown": 0
+      },
+      "Cohort 1b: Drug-Naive PsA, Cohort 2b: PsA Initiating Therapy": {
+        "completed": 1,
+        "pending": 0,
+        "not_applicable": 0,
+        "qc_fail": 0,
+        "unknown": 0
+      },
+      "Cohort 2: MTX-IR, bDMARD naive": {
+        "completed": 14,
+        "pending": 0,
+        "not_applicable": 12,
+        "qc_fail": 0,
+        "unknown": 0
+      },
+      "Cohort 2a: PsO Initiating Therapy": {
+        "completed": 8,
+        "pending": 1,
+        "not_applicable": 2,
+        "qc_fail": 0,
+        "unknown": 0
+      },
+      "Cohort 2a: PsO Initiating Therapy, Cohort 2b: PsA Initiating Therapy": {
+        "completed": 0,
+        "pending": 1,
+        "not_applicable": 0,
+        "qc_fail": 0,
+        "unknown": 0
+      },
+      "Cohort 2b: PsA Initiating Therapy": {
+        "completed": 29,
+        "pending": 0,
+        "not_applicable": 13,
+        "qc_fail": 0,
+        "unknown": 0
+      },
+      "Cohort 2b: PsA Initiating Therapy, Uveitis Cohort": {
+        "completed": 0,
+        "pending": 0,
+        "not_applicable": 1,
+        "qc_fail": 0,
+        "unknown": 0
+      },
+      "Cohort 3: PsO to PsA Risk": {
+        "completed": 4,
+        "pending": 0,
+        "not_applicable": 0,
+        "qc_fail": 0,
+        "unknown": 0
+      },
+      "Cohort 3: Refractory Cohort": {
+        "completed": 17,
+        "pending": 0,
+        "not_applicable": 28,
+        "qc_fail": 0,
+        "unknown": 0
+      },
+      "Enabling": {
+        "completed": 1,
+        "pending": 1,
+        "not_applicable": 38,
+        "qc_fail": 0,
+        "unknown": 0
+      },
+      "Healthy Control": {
+        "completed": 11,
+        "pending": 0,
+        "not_applicable": 56,
+        "qc_fail": 0,
+        "unknown": 5
+      },
+      "Healthy Normal Control": {
+        "completed": 0,
+        "pending": 0,
+        "not_applicable": 9,
+        "qc_fail": 0,
+        "unknown": 0
+      },
+      "KP1": {
+        "completed": 92,
+        "pending": 0,
+        "not_applicable": 30,
+        "qc_fail": 0,
+        "unknown": 0
+      },
+      "KP2": {
+        "completed": 59,
+        "pending": 1,
+        "not_applicable": 38,
+        "qc_fail": 0,
+        "unknown": 0
+      },
+      "Longitudinal case": {
+        "completed": 13,
+        "pending": 0,
+        "not_applicable": 106,
+        "qc_fail": 0,
+        "unknown": 0
+      },
+      "Not yet retrieved": {
+        "completed": 7,
+        "pending": 2,
+        "not_applicable": 111,
+        "qc_fail": 0,
+        "unknown": 1
+      },
+      "Overlap syndrome": {
+        "completed": 0,
+        "pending": 0,
+        "not_applicable": 1,
+        "qc_fail": 0,
+        "unknown": 0
+      },
+      "SP1": {
+        "completed": 10,
+        "pending": 0,
+        "not_applicable": 14,
+        "qc_fail": 0,
+        "unknown": 0
+      },
+      "SP2": {
+        "completed": 29,
+        "pending": 0,
+        "not_applicable": 11,
+        "qc_fail": 0,
+        "unknown": 0
+      },
+      "SjD/sicca": {
+        "completed": 117,
+        "pending": 0,
+        "not_applicable": 179,
+        "qc_fail": 0,
+        "unknown": 0
+      },
+      "Uveitis Cohort": {
+        "completed": 2,
+        "pending": 0,
+        "not_applicable": 13,
+        "qc_fail": 0,
+        "unknown": 0
+      },
+      "Uveitis Cohort, Axial Spondyloarthritis Control": {
+        "completed": 0,
+        "pending": 0,
+        "not_applicable": 4,
+        "qc_fail": 0,
+        "unknown": 0
+      },
+      "n/a": {
+        "completed": 0,
+        "pending": 0,
+        "not_applicable": 12,
+        "qc_fail": 0,
+        "unknown": 0
+      },
+      "Unknown": {
+        "completed": 0,
+        "pending": 0,
+        "not_applicable": 0,
+        "qc_fail": 0,
+        "unknown": 122
+      }
+    },
+    "genotyping": {
+      "Asymptomatic RRNL": {
+        "completed": 0,
+        "pending": 1,
+        "not_applicable": 0,
+        "qc_fail": 0,
+        "unknown": 0
+      },
+      "Axial Spondyloarthritis Control": {
+        "completed": 0,
+        "pending": 0,
+        "not_applicable": 3,
+        "qc_fail": 0,
+        "unknown": 0
+      },
+      "Cohort 1: Early RA, DMARD naive": {
+        "completed": 40,
+        "pending": 29,
+        "not_applicable": 14,
+        "qc_fail": 0,
+        "unknown": 0
+      },
+      "Cohort 1a: PsO": {
+        "completed": 47,
+        "pending": 6,
+        "not_applicable": 2,
+        "qc_fail": 0,
+        "unknown": 0
+      },
+      "Cohort 1a: PsO, Cohort 2a: PsO Initiating Therapy, Cohort 2b: PsA Initiating Therapy": {
+        "completed": 1,
+        "pending": 1,
+        "not_applicable": 0,
+        "qc_fail": 0,
+        "unknown": 0
+      },
+      "Cohort 1a: PsO, Cohort 2a: PsO Initiating Therapy, Cohort 3: PsO to PsA Risk": {
+        "completed": 1,
+        "pending": 0,
+        "not_applicable": 0,
+        "qc_fail": 0,
+        "unknown": 0
+      },
+      "Cohort 1a: PsO, Cohort 2b: PsA Initiating Therapy": {
+        "completed": 3,
+        "pending": 3,
+        "not_applicable": 0,
+        "qc_fail": 0,
+        "unknown": 0
+      },
+      "Cohort 1a: PsO, Cohort 3: PsO to PsA Risk": {
+        "completed": 5,
+        "pending": 0,
+        "not_applicable": 0,
+        "qc_fail": 0,
+        "unknown": 0
+      },
+      "Cohort 1a: PsO, Cohort 3: PsO to PsA Risk, Uveitis Cohort": {
+        "completed": 1,
+        "pending": 0,
+        "not_applicable": 0,
+        "qc_fail": 0,
+        "unknown": 0
+      },
+      "Cohort 1b: Drug-Naive PsA": {
+        "completed": 16,
+        "pending": 3,
+        "not_applicable": 1,
+        "qc_fail": 0,
+        "unknown": 0
+      },
+      "Cohort 1b: Drug-Naive PsA, Cohort 2a: PsO Initiating Therapy": {
+        "completed": 1,
+        "pending": 0,
+        "not_applicable": 0,
+        "qc_fail": 0,
+        "unknown": 0
+      },
+      "Cohort 1b: Drug-Naive PsA, Cohort 2b: PsA Initiating Therapy": {
+        "completed": 1,
+        "pending": 0,
+        "not_applicable": 0,
+        "qc_fail": 0,
+        "unknown": 0
+      },
+      "Cohort 2: MTX-IR, bDMARD naive": {
+        "completed": 11,
+        "pending": 11,
+        "not_applicable": 4,
+        "qc_fail": 0,
+        "unknown": 0
+      },
+      "Cohort 2a: PsO Initiating Therapy": {
+        "completed": 8,
+        "pending": 2,
+        "not_applicable": 1,
+        "qc_fail": 0,
+        "unknown": 0
+      },
+      "Cohort 2a: PsO Initiating Therapy, Cohort 2b: PsA Initiating Therapy": {
+        "completed": 1,
+        "pending": 0,
+        "not_applicable": 0,
+        "qc_fail": 0,
+        "unknown": 0
+      },
+      "Cohort 2b: PsA Initiating Therapy": {
+        "completed": 28,
+        "pending": 7,
+        "not_applicable": 7,
+        "qc_fail": 0,
+        "unknown": 0
+      },
+      "Cohort 2b: PsA Initiating Therapy, Uveitis Cohort": {
+        "completed": 0,
+        "pending": 1,
+        "not_applicable": 0,
+        "qc_fail": 0,
+        "unknown": 0
+      },
+      "Cohort 3: PsO to PsA Risk": {
+        "completed": 4,
+        "pending": 0,
+        "not_applicable": 0,
+        "qc_fail": 0,
+        "unknown": 0
+      },
+      "Cohort 3: Refractory Cohort": {
+        "completed": 33,
+        "pending": 1,
+        "not_applicable": 11,
+        "qc_fail": 0,
+        "unknown": 0
+      },
+      "Enabling": {
+        "completed": 2,
+        "pending": 0,
+        "not_applicable": 38,
+        "qc_fail": 0,
+        "unknown": 0
+      },
+      "Healthy Control": {
+        "completed": 35,
+        "pending": 8,
+        "not_applicable": 22,
+        "qc_fail": 2,
+        "unknown": 5
+      },
+      "Healthy Normal Control": {
+        "completed": 0,
+        "pending": 0,
+        "not_applicable": 9,
+        "qc_fail": 0,
+        "unknown": 0
+      },
+      "KP1": {
+        "completed": 39,
+        "pending": 75,
+        "not_applicable": 8,
+        "qc_fail": 0,
+        "unknown": 0
+      },
+      "KP2": {
+        "completed": 30,
+        "pending": 55,
+        "not_applicable": 13,
+        "qc_fail": 0,
+        "unknown": 0
+      },
+      "Longitudinal case": {
+        "completed": 88,
+        "pending": 10,
+        "not_applicable": 17,
+        "qc_fail": 4,
+        "unknown": 0
+      },
+      "Not yet retrieved": {
+        "completed": 16,
+        "pending": 18,
+        "not_applicable": 86,
+        "qc_fail": 0,
+        "unknown": 1
+      },
+      "Overlap syndrome": {
+        "completed": 0,
+        "pending": 1,
+        "not_applicable": 0,
+        "qc_fail": 0,
+        "unknown": 0
+      },
+      "SP1": {
+        "completed": 10,
+        "pending": 0,
+        "not_applicable": 12,
+        "qc_fail": 2,
+        "unknown": 0
+      },
+      "SP2": {
+        "completed": 13,
+        "pending": 25,
+        "not_applicable": 2,
+        "qc_fail": 0,
+        "unknown": 0
+      },
+      "SjD/sicca": {
+        "completed": 230,
+        "pending": 60,
+        "not_applicable": 2,
+        "qc_fail": 4,
+        "unknown": 0
+      },
+      "Uveitis Cohort": {
+        "completed": 5,
+        "pending": 0,
+        "not_applicable": 10,
+        "qc_fail": 0,
+        "unknown": 0
+      },
+      "Uveitis Cohort, Axial Spondyloarthritis Control": {
+        "completed": 0,
+        "pending": 0,
+        "not_applicable": 4,
+        "qc_fail": 0,
+        "unknown": 0
+      },
+      "n/a": {
+        "completed": 0,
+        "pending": 0,
+        "not_applicable": 12,
+        "qc_fail": 0,
+        "unknown": 0
+      },
+      "Unknown": {
+        "completed": 0,
+        "pending": 0,
+        "not_applicable": 0,
+        "qc_fail": 0,
+        "unknown": 122
+      }
+    },
+    "omrf_lab": {
+      "Asymptomatic RRNL": {
+        "completed": 1,
+        "pending": 0,
+        "not_applicable": 0,
+        "qc_fail": 0,
+        "unknown": 0
+      },
+      "Axial Spondyloarthritis Control": {
+        "completed": 0,
+        "pending": 0,
+        "not_applicable": 3,
+        "qc_fail": 0,
+        "unknown": 0
+      },
+      "Cohort 1: Early RA, DMARD naive": {
+        "completed": 68,
+        "pending": 6,
+        "not_applicable": 9,
+        "qc_fail": 0,
+        "unknown": 0
+      },
+      "Cohort 1a: PsO": {
+        "completed": 53,
+        "pending": 0,
+        "not_applicable": 2,
+        "qc_fail": 0,
+        "unknown": 0
+      },
+      "Cohort 1a: PsO, Cohort 2a: PsO Initiating Therapy, Cohort 2b: PsA Initiating Therapy": {
+        "completed": 2,
+        "pending": 0,
+        "not_applicable": 0,
+        "qc_fail": 0,
+        "unknown": 0
+      },
+      "Cohort 1a: PsO, Cohort 2a: PsO Initiating Therapy, Cohort 3: PsO to PsA Risk": {
+        "completed": 1,
+        "pending": 0,
+        "not_applicable": 0,
+        "qc_fail": 0,
+        "unknown": 0
+      },
+      "Cohort 1a: PsO, Cohort 2b: PsA Initiating Therapy": {
+        "completed": 5,
+        "pending": 1,
+        "not_applicable": 0,
+        "qc_fail": 0,
+        "unknown": 0
+      },
+      "Cohort 1a: PsO, Cohort 3: PsO to PsA Risk": {
+        "completed": 5,
+        "pending": 0,
+        "not_applicable": 0,
+        "qc_fail": 0,
+        "unknown": 0
+      },
+      "Cohort 1a: PsO, Cohort 3: PsO to PsA Risk, Uveitis Cohort": {
+        "completed": 1,
+        "pending": 0,
+        "not_applicable": 0,
+        "qc_fail": 0,
+        "unknown": 0
+      },
+      "Cohort 1b: Drug-Naive PsA": {
+        "completed": 19,
+        "pending": 0,
+        "not_applicable": 1,
+        "qc_fail": 0,
+        "unknown": 0
+      },
+      "Cohort 1b: Drug-Naive PsA, Cohort 2a: PsO Initiating Therapy": {
+        "completed": 1,
+        "pending": 0,
+        "not_applicable": 0,
+        "qc_fail": 0,
+        "unknown": 0
+      },
+      "Cohort 1b: Drug-Naive PsA, Cohort 2b: PsA Initiating Therapy": {
+        "completed": 1,
+        "pending": 0,
+        "not_applicable": 0,
+        "qc_fail": 0,
+        "unknown": 0
+      },
+      "Cohort 2: MTX-IR, bDMARD naive": {
+        "completed": 21,
+        "pending": 1,
+        "not_applicable": 4,
+        "qc_fail": 0,
+        "unknown": 0
+      },
+      "Cohort 2a: PsO Initiating Therapy": {
+        "completed": 11,
+        "pending": 0,
+        "not_applicable": 0,
+        "qc_fail": 0,
+        "unknown": 0
+      },
+      "Cohort 2a: PsO Initiating Therapy, Cohort 2b: PsA Initiating Therapy": {
+        "completed": 1,
+        "pending": 0,
+        "not_applicable": 0,
+        "qc_fail": 0,
+        "unknown": 0
+      },
+      "Cohort 2b: PsA Initiating Therapy": {
+        "completed": 35,
+        "pending": 0,
+        "not_applicable": 7,
+        "qc_fail": 0,
+        "unknown": 0
+      },
+      "Cohort 2b: PsA Initiating Therapy, Uveitis Cohort": {
+        "completed": 1,
+        "pending": 0,
+        "not_applicable": 0,
+        "qc_fail": 0,
+        "unknown": 0
+      },
+      "Cohort 3: PsO to PsA Risk": {
+        "completed": 4,
+        "pending": 0,
+        "not_applicable": 0,
+        "qc_fail": 0,
+        "unknown": 0
+      },
+      "Cohort 3: Refractory Cohort": {
+        "completed": 33,
+        "pending": 1,
+        "not_applicable": 11,
+        "qc_fail": 0,
+        "unknown": 0
+      },
+      "Enabling": {
+        "completed": 1,
+        "pending": 0,
+        "not_applicable": 39,
+        "qc_fail": 0,
+        "unknown": 0
+      },
+      "Healthy Control": {
+        "completed": 45,
+        "pending": 0,
+        "not_applicable": 22,
+        "qc_fail": 0,
+        "unknown": 5
+      },
+      "Healthy Normal Control": {
+        "completed": 0,
+        "pending": 0,
+        "not_applicable": 9,
+        "qc_fail": 0,
+        "unknown": 0
+      },
+      "KP1": {
+        "completed": 116,
+        "pending": 1,
+        "not_applicable": 5,
+        "qc_fail": 0,
+        "unknown": 0
+      },
+      "KP2": {
+        "completed": 84,
+        "pending": 1,
+        "not_applicable": 13,
+        "qc_fail": 0,
+        "unknown": 0
+      },
+      "Longitudinal case": {
+        "completed": 104,
+        "pending": 0,
+        "not_applicable": 15,
+        "qc_fail": 0,
+        "unknown": 0
+      },
+      "Not yet retrieved": {
+        "completed": 28,
+        "pending": 6,
+        "not_applicable": 86,
+        "qc_fail": 0,
+        "unknown": 1
+      },
+      "Overlap syndrome": {
+        "completed": 1,
+        "pending": 0,
+        "not_applicable": 0,
+        "qc_fail": 0,
+        "unknown": 0
+      },
+      "SP1": {
+        "completed": 12,
+        "pending": 11,
+        "not_applicable": 1,
+        "qc_fail": 0,
+        "unknown": 0
+      },
+      "SP2": {
+        "completed": 38,
+        "pending": 0,
+        "not_applicable": 2,
+        "qc_fail": 0,
+        "unknown": 0
+      },
+      "SjD/sicca": {
+        "completed": 293,
+        "pending": 2,
+        "not_applicable": 1,
+        "qc_fail": 0,
+        "unknown": 0
+      },
+      "Uveitis Cohort": {
+        "completed": 4,
+        "pending": 1,
+        "not_applicable": 10,
+        "qc_fail": 0,
+        "unknown": 0
+      },
+      "Uveitis Cohort, Axial Spondyloarthritis Control": {
+        "completed": 0,
+        "pending": 0,
+        "not_applicable": 4,
+        "qc_fail": 0,
+        "unknown": 0
+      },
+      "n/a": {
+        "completed": 0,
+        "pending": 0,
+        "not_applicable": 12,
+        "qc_fail": 0,
+        "unknown": 0
+      },
+      "Unknown": {
+        "completed": 10,
+        "pending": 0,
+        "not_applicable": 62,
+        "qc_fail": 0,
+        "unknown": 50
+      }
+    },
+    "brnaseq": {
+      "Asymptomatic RRNL": {
+        "completed": 0,
+        "pending": 1,
+        "not_applicable": 0,
+        "qc_fail": 0,
+        "unknown": 0
+      },
+      "Axial Spondyloarthritis Control": {
+        "completed": 0,
+        "pending": 0,
+        "not_applicable": 3,
+        "qc_fail": 0,
+        "unknown": 0
+      },
+      "Cohort 1: Early RA, DMARD naive": {
+        "completed": 22,
+        "pending": 47,
+        "not_applicable": 14,
+        "qc_fail": 0,
+        "unknown": 0
+      },
+      "Cohort 1a: PsO": {
+        "completed": 21,
+        "pending": 31,
+        "not_applicable": 3,
+        "qc_fail": 0,
+        "unknown": 0
+      },
+      "Cohort 1a: PsO, Cohort 2a: PsO Initiating Therapy, Cohort 2b: PsA Initiating Therapy": {
+        "completed": 1,
+        "pending": 1,
+        "not_applicable": 0,
+        "qc_fail": 0,
+        "unknown": 0
+      },
+      "Cohort 1a: PsO, Cohort 2a: PsO Initiating Therapy, Cohort 3: PsO to PsA Risk": {
+        "completed": 1,
+        "pending": 0,
+        "not_applicable": 0,
+        "qc_fail": 0,
+        "unknown": 0
+      },
+      "Cohort 1a: PsO, Cohort 2b: PsA Initiating Therapy": {
+        "completed": 2,
+        "pending": 4,
+        "not_applicable": 0,
+        "qc_fail": 0,
+        "unknown": 0
+      },
+      "Cohort 1a: PsO, Cohort 3: PsO to PsA Risk": {
+        "completed": 5,
+        "pending": 0,
+        "not_applicable": 0,
+        "qc_fail": 0,
+        "unknown": 0
+      },
+      "Cohort 1a: PsO, Cohort 3: PsO to PsA Risk, Uveitis Cohort": {
+        "completed": 0,
+        "pending": 1,
+        "not_applicable": 0,
+        "qc_fail": 0,
+        "unknown": 0
+      },
+      "Cohort 1b: Drug-Naive PsA": {
+        "completed": 8,
+        "pending": 10,
+        "not_applicable": 2,
+        "qc_fail": 0,
+        "unknown": 0
+      },
+      "Cohort 1b: Drug-Naive PsA, Cohort 2a: PsO Initiating Therapy": {
+        "completed": 1,
+        "pending": 0,
+        "not_applicable": 0,
+        "qc_fail": 0,
+        "unknown": 0
+      },
+      "Cohort 1b: Drug-Naive PsA, Cohort 2b: PsA Initiating Therapy": {
+        "completed": 1,
+        "pending": 0,
+        "not_applicable": 0,
+        "qc_fail": 0,
+        "unknown": 0
+      },
+      "Cohort 2: MTX-IR, bDMARD naive": {
+        "completed": 4,
+        "pending": 18,
+        "not_applicable": 4,
+        "qc_fail": 0,
+        "unknown": 0
+      },
+      "Cohort 2a: PsO Initiating Therapy": {
+        "completed": 3,
+        "pending": 6,
+        "not_applicable": 2,
+        "qc_fail": 0,
+        "unknown": 0
+      },
+      "Cohort 2a: PsO Initiating Therapy, Cohort 2b: PsA Initiating Therapy": {
+        "completed": 0,
+        "pending": 0,
+        "not_applicable": 1,
+        "qc_fail": 0,
+        "unknown": 0
+      },
+      "Cohort 2b: PsA Initiating Therapy": {
+        "completed": 10,
+        "pending": 23,
+        "not_applicable": 9,
+        "qc_fail": 0,
+        "unknown": 0
+      },
+      "Cohort 2b: PsA Initiating Therapy, Uveitis Cohort": {
+        "completed": 0,
+        "pending": 1,
+        "not_applicable": 0,
+        "qc_fail": 0,
+        "unknown": 0
+      },
+      "Cohort 3: PsO to PsA Risk": {
+        "completed": 1,
+        "pending": 3,
+        "not_applicable": 0,
+        "qc_fail": 0,
+        "unknown": 0
+      },
+      "Cohort 3: Refractory Cohort": {
+        "completed": 6,
+        "pending": 27,
+        "not_applicable": 11,
+        "qc_fail": 1,
+        "unknown": 0
+      },
+      "Enabling": {
+        "completed": 1,
+        "pending": 0,
+        "not_applicable": 39,
+        "qc_fail": 0,
+        "unknown": 0
+      },
+      "Healthy Control": {
+        "completed": 12,
+        "pending": 33,
+        "not_applicable": 22,
+        "qc_fail": 0,
+        "unknown": 5
+      },
+      "Healthy Normal Control": {
+        "completed": 0,
+        "pending": 0,
+        "not_applicable": 9,
+        "qc_fail": 0,
+        "unknown": 0
+      },
+      "KP1": {
+        "completed": 38,
+        "pending": 75,
+        "not_applicable": 8,
+        "qc_fail": 1,
+        "unknown": 0
+      },
+      "KP2": {
+        "completed": 7,
+        "pending": 76,
+        "not_applicable": 14,
+        "qc_fail": 1,
+        "unknown": 0
+      },
+      "Longitudinal case": {
+        "completed": 11,
+        "pending": 88,
+        "not_applicable": 20,
+        "qc_fail": 0,
+        "unknown": 0
+      },
+      "Not yet retrieved": {
+        "completed": 14,
+        "pending": 21,
+        "not_applicable": 85,
+        "qc_fail": 0,
+        "unknown": 1
+      },
+      "Overlap syndrome": {
+        "completed": 0,
+        "pending": 1,
+        "not_applicable": 0,
+        "qc_fail": 0,
+        "unknown": 0
+      },
+      "SP1": {
+        "completed": 8,
+        "pending": 4,
+        "not_applicable": 12,
+        "qc_fail": 0,
+        "unknown": 0
+      },
+      "SP2": {
+        "completed": 12,
+        "pending": 26,
+        "not_applicable": 2,
+        "qc_fail": 0,
+        "unknown": 0
+      },
+      "SjD/sicca": {
+        "completed": 98,
+        "pending": 196,
+        "not_applicable": 2,
+        "qc_fail": 0,
+        "unknown": 0
+      },
+      "Uveitis Cohort": {
+        "completed": 0,
+        "pending": 5,
+        "not_applicable": 10,
+        "qc_fail": 0,
+        "unknown": 0
+      },
+      "Uveitis Cohort, Axial Spondyloarthritis Control": {
+        "completed": 0,
+        "pending": 0,
+        "not_applicable": 4,
+        "qc_fail": 0,
+        "unknown": 0
+      },
+      "n/a": {
+        "completed": 0,
+        "pending": 0,
+        "not_applicable": 12,
+        "qc_fail": 0,
+        "unknown": 0
+      },
+      "Unknown": {
+        "completed": 0,
+        "pending": 0,
+        "not_applicable": 0,
+        "qc_fail": 0,
+        "unknown": 122
+      }
+    },
+    "xenium_nl": {
+      "Asymptomatic RRNL": {
+        "completed": 0,
+        "pending": 0,
+        "not_applicable": 0,
+        "qc_fail": 0,
+        "unknown": 1
+      },
+      "Axial Spondyloarthritis Control": {
+        "completed": 0,
+        "pending": 0,
+        "not_applicable": 0,
+        "qc_fail": 0,
+        "unknown": 3
+      },
+      "Cohort 1: Early RA, DMARD naive": {
+        "completed": 0,
+        "pending": 0,
+        "not_applicable": 46,
+        "qc_fail": 0,
+        "unknown": 37
+      },
+      "Cohort 1a: PsO": {
+        "completed": 6,
+        "pending": 0,
+        "not_applicable": 0,
+        "qc_fail": 0,
+        "unknown": 49
+      },
+      "Cohort 1a: PsO, Cohort 2a: PsO Initiating Therapy, Cohort 2b: PsA Initiating Therapy": {
+        "completed": 0,
+        "pending": 0,
+        "not_applicable": 1,
+        "qc_fail": 0,
+        "unknown": 1
+      },
+      "Cohort 1a: PsO, Cohort 2a: PsO Initiating Therapy, Cohort 3: PsO to PsA Risk": {
+        "completed": 0,
+        "pending": 0,
+        "not_applicable": 0,
+        "qc_fail": 0,
+        "unknown": 1
+      },
+      "Cohort 1a: PsO, Cohort 2b: PsA Initiating Therapy": {
+        "completed": 0,
+        "pending": 0,
+        "not_applicable": 1,
+        "qc_fail": 0,
+        "unknown": 5
+      },
+      "Cohort 1a: PsO, Cohort 3: PsO to PsA Risk": {
+        "completed": 1,
+        "pending": 0,
+        "not_applicable": 0,
+        "qc_fail": 0,
+        "unknown": 4
+      },
+      "Cohort 1a: PsO, Cohort 3: PsO to PsA Risk, Uveitis Cohort": {
+        "completed": 0,
+        "pending": 0,
+        "not_applicable": 0,
+        "qc_fail": 0,
+        "unknown": 1
+      },
+      "Cohort 1b: Drug-Naive PsA": {
+        "completed": 1,
+        "pending": 0,
+        "not_applicable": 7,
+        "qc_fail": 0,
+        "unknown": 12
+      },
+      "Cohort 1b: Drug-Naive PsA, Cohort 2a: PsO Initiating Therapy": {
+        "completed": 0,
+        "pending": 0,
+        "not_applicable": 0,
+        "qc_fail": 0,
+        "unknown": 1
+      },
+      "Cohort 1b: Drug-Naive PsA, Cohort 2b: PsA Initiating Therapy": {
+        "completed": 1,
+        "pending": 0,
+        "not_applicable": 0,
+        "qc_fail": 0,
+        "unknown": 0
+      },
+      "Cohort 2: MTX-IR, bDMARD naive": {
+        "completed": 0,
+        "pending": 0,
+        "not_applicable": 7,
+        "qc_fail": 0,
+        "unknown": 19
+      },
+      "Cohort 2a: PsO Initiating Therapy": {
+        "completed": 0,
+        "pending": 0,
+        "not_applicable": 0,
+        "qc_fail": 0,
+        "unknown": 11
+      },
+      "Cohort 2a: PsO Initiating Therapy, Cohort 2b: PsA Initiating Therapy": {
+        "completed": 0,
+        "pending": 0,
+        "not_applicable": 0,
+        "qc_fail": 0,
+        "unknown": 1
+      },
+      "Cohort 2b: PsA Initiating Therapy": {
+        "completed": 0,
+        "pending": 0,
+        "not_applicable": 3,
+        "qc_fail": 0,
+        "unknown": 39
+      },
+      "Cohort 2b: PsA Initiating Therapy, Uveitis Cohort": {
+        "completed": 0,
+        "pending": 0,
+        "not_applicable": 0,
+        "qc_fail": 0,
+        "unknown": 1
+      },
+      "Cohort 3: PsO to PsA Risk": {
+        "completed": 0,
+        "pending": 0,
+        "not_applicable": 1,
+        "qc_fail": 0,
+        "unknown": 3
+      },
+      "Cohort 3: Refractory Cohort": {
+        "completed": 0,
+        "pending": 0,
+        "not_applicable": 17,
+        "qc_fail": 0,
+        "unknown": 28
+      },
+      "Enabling": {
+        "completed": 0,
+        "pending": 0,
+        "not_applicable": 30,
+        "qc_fail": 0,
+        "unknown": 10
+      },
+      "Healthy Control": {
+        "completed": 0,
+        "pending": 0,
+        "not_applicable": 45,
+        "qc_fail": 0,
+        "unknown": 27
+      },
+      "Healthy Normal Control": {
+        "completed": 8,
+        "pending": 0,
+        "not_applicable": 0,
+        "qc_fail": 0,
+        "unknown": 1
+      },
+      "KP1": {
+        "completed": 0,
+        "pending": 0,
+        "not_applicable": 80,
+        "qc_fail": 0,
+        "unknown": 42
+      },
+      "KP2": {
+        "completed": 0,
+        "pending": 0,
+        "not_applicable": 37,
+        "qc_fail": 0,
+        "unknown": 61
+      },
+      "Longitudinal case": {
+        "completed": 0,
+        "pending": 0,
+        "not_applicable": 65,
+        "qc_fail": 0,
+        "unknown": 54
+      },
+      "Not yet retrieved": {
+        "completed": 3,
+        "pending": 0,
+        "not_applicable": 20,
+        "qc_fail": 0,
+        "unknown": 98
+      },
+      "Overlap syndrome": {
+        "completed": 0,
+        "pending": 0,
+        "not_applicable": 0,
+        "qc_fail": 0,
+        "unknown": 1
+      },
+      "SP1": {
+        "completed": 6,
+        "pending": 0,
+        "not_applicable": 0,
+        "qc_fail": 0,
+        "unknown": 18
+      },
+      "SP2": {
+        "completed": 6,
+        "pending": 0,
+        "not_applicable": 0,
+        "qc_fail": 0,
+        "unknown": 34
+      },
+      "SjD/sicca": {
+        "completed": 0,
+        "pending": 0,
+        "not_applicable": 236,
+        "qc_fail": 0,
+        "unknown": 60
+      },
+      "Uveitis Cohort": {
+        "completed": 0,
+        "pending": 0,
+        "not_applicable": 0,
+        "qc_fail": 0,
+        "unknown": 15
+      },
+      "Uveitis Cohort, Axial Spondyloarthritis Control": {
+        "completed": 0,
+        "pending": 0,
+        "not_applicable": 0,
+        "qc_fail": 0,
+        "unknown": 4
+      },
+      "n/a": {
+        "completed": 0,
+        "pending": 0,
+        "not_applicable": 0,
+        "qc_fail": 0,
+        "unknown": 12
+      },
+      "Unknown": {
+        "completed": 0,
+        "pending": 0,
+        "not_applicable": 0,
+        "qc_fail": 0,
+        "unknown": 122
+      }
+    },
+    "scffpe_nl": {
+      "Asymptomatic RRNL": {
+        "completed": 0,
+        "pending": 0,
+        "not_applicable": 0,
+        "qc_fail": 0,
+        "unknown": 1
+      },
+      "Axial Spondyloarthritis Control": {
+        "completed": 0,
+        "pending": 0,
+        "not_applicable": 0,
+        "qc_fail": 0,
+        "unknown": 3
+      },
+      "Cohort 1: Early RA, DMARD naive": {
+        "completed": 0,
+        "pending": 0,
+        "not_applicable": 46,
+        "qc_fail": 0,
+        "unknown": 37
+      },
+      "Cohort 1a: PsO": {
+        "completed": 6,
+        "pending": 0,
+        "not_applicable": 0,
+        "qc_fail": 0,
+        "unknown": 49
+      },
+      "Cohort 1a: PsO, Cohort 2a: PsO Initiating Therapy, Cohort 2b: PsA Initiating Therapy": {
+        "completed": 0,
+        "pending": 0,
+        "not_applicable": 1,
+        "qc_fail": 0,
+        "unknown": 1
+      },
+      "Cohort 1a: PsO, Cohort 2a: PsO Initiating Therapy, Cohort 3: PsO to PsA Risk": {
+        "completed": 0,
+        "pending": 0,
+        "not_applicable": 0,
+        "qc_fail": 0,
+        "unknown": 1
+      },
+      "Cohort 1a: PsO, Cohort 2b: PsA Initiating Therapy": {
+        "completed": 0,
+        "pending": 0,
+        "not_applicable": 1,
+        "qc_fail": 0,
+        "unknown": 5
+      },
+      "Cohort 1a: PsO, Cohort 3: PsO to PsA Risk": {
+        "completed": 1,
+        "pending": 0,
+        "not_applicable": 0,
+        "qc_fail": 0,
+        "unknown": 4
+      },
+      "Cohort 1a: PsO, Cohort 3: PsO to PsA Risk, Uveitis Cohort": {
+        "completed": 0,
+        "pending": 0,
+        "not_applicable": 0,
+        "qc_fail": 0,
+        "unknown": 1
+      },
+      "Cohort 1b: Drug-Naive PsA": {
+        "completed": 1,
+        "pending": 0,
+        "not_applicable": 7,
+        "qc_fail": 0,
+        "unknown": 12
+      },
+      "Cohort 1b: Drug-Naive PsA, Cohort 2a: PsO Initiating Therapy": {
+        "completed": 0,
+        "pending": 0,
+        "not_applicable": 0,
+        "qc_fail": 0,
+        "unknown": 1
+      },
+      "Cohort 1b: Drug-Naive PsA, Cohort 2b: PsA Initiating Therapy": {
+        "completed": 1,
+        "pending": 0,
+        "not_applicable": 0,
+        "qc_fail": 0,
+        "unknown": 0
+      },
+      "Cohort 2: MTX-IR, bDMARD naive": {
+        "completed": 0,
+        "pending": 0,
+        "not_applicable": 7,
+        "qc_fail": 0,
+        "unknown": 19
+      },
+      "Cohort 2a: PsO Initiating Therapy": {
+        "completed": 0,
+        "pending": 0,
+        "not_applicable": 0,
+        "qc_fail": 0,
+        "unknown": 11
+      },
+      "Cohort 2a: PsO Initiating Therapy, Cohort 2b: PsA Initiating Therapy": {
+        "completed": 0,
+        "pending": 0,
+        "not_applicable": 0,
+        "qc_fail": 0,
+        "unknown": 1
+      },
+      "Cohort 2b: PsA Initiating Therapy": {
+        "completed": 0,
+        "pending": 0,
+        "not_applicable": 3,
+        "qc_fail": 0,
+        "unknown": 39
+      },
+      "Cohort 2b: PsA Initiating Therapy, Uveitis Cohort": {
+        "completed": 0,
+        "pending": 0,
+        "not_applicable": 0,
+        "qc_fail": 0,
+        "unknown": 1
+      },
+      "Cohort 3: PsO to PsA Risk": {
+        "completed": 0,
+        "pending": 0,
+        "not_applicable": 1,
+        "qc_fail": 0,
+        "unknown": 3
+      },
+      "Cohort 3: Refractory Cohort": {
+        "completed": 0,
+        "pending": 0,
+        "not_applicable": 17,
+        "qc_fail": 0,
+        "unknown": 28
+      },
+      "Enabling": {
+        "completed": 0,
+        "pending": 0,
+        "not_applicable": 30,
+        "qc_fail": 0,
+        "unknown": 10
+      },
+      "Healthy Control": {
+        "completed": 0,
+        "pending": 0,
+        "not_applicable": 45,
+        "qc_fail": 0,
+        "unknown": 27
+      },
+      "Healthy Normal Control": {
+        "completed": 0,
+        "pending": 0,
+        "not_applicable": 0,
+        "qc_fail": 0,
+        "unknown": 9
+      },
+      "KP1": {
+        "completed": 0,
+        "pending": 0,
+        "not_applicable": 80,
+        "qc_fail": 0,
+        "unknown": 42
+      },
+      "KP2": {
+        "completed": 0,
+        "pending": 0,
+        "not_applicable": 37,
+        "qc_fail": 0,
+        "unknown": 61
+      },
+      "Longitudinal case": {
+        "completed": 0,
+        "pending": 0,
+        "not_applicable": 65,
+        "qc_fail": 0,
+        "unknown": 54
+      },
+      "Not yet retrieved": {
+        "completed": 3,
+        "pending": 0,
+        "not_applicable": 20,
+        "qc_fail": 0,
+        "unknown": 98
+      },
+      "Overlap syndrome": {
+        "completed": 0,
+        "pending": 0,
+        "not_applicable": 0,
+        "qc_fail": 0,
+        "unknown": 1
+      },
+      "SP1": {
+        "completed": 6,
+        "pending": 0,
+        "not_applicable": 0,
+        "qc_fail": 0,
+        "unknown": 18
+      },
+      "SP2": {
+        "completed": 6,
+        "pending": 0,
+        "not_applicable": 0,
+        "qc_fail": 0,
+        "unknown": 34
+      },
+      "SjD/sicca": {
+        "completed": 0,
+        "pending": 0,
+        "not_applicable": 236,
+        "qc_fail": 0,
+        "unknown": 60
+      },
+      "Uveitis Cohort": {
+        "completed": 0,
+        "pending": 0,
+        "not_applicable": 0,
+        "qc_fail": 0,
+        "unknown": 15
+      },
+      "Uveitis Cohort, Axial Spondyloarthritis Control": {
+        "completed": 0,
+        "pending": 0,
+        "not_applicable": 0,
+        "qc_fail": 0,
+        "unknown": 4
+      },
+      "n/a": {
+        "completed": 0,
+        "pending": 0,
+        "not_applicable": 0,
+        "qc_fail": 0,
+        "unknown": 12
+      },
+      "Unknown": {
+        "completed": 0,
+        "pending": 0,
+        "not_applicable": 0,
+        "qc_fail": 0,
+        "unknown": 122
+      }
+    },
+    "scrnaseq_nl": {
+      "Asymptomatic RRNL": {
+        "completed": 0,
+        "pending": 0,
+        "not_applicable": 0,
+        "qc_fail": 0,
+        "unknown": 1
+      },
+      "Axial Spondyloarthritis Control": {
+        "completed": 0,
+        "pending": 0,
+        "not_applicable": 0,
+        "qc_fail": 0,
+        "unknown": 3
+      },
+      "Cohort 1: Early RA, DMARD naive": {
+        "completed": 0,
+        "pending": 0,
+        "not_applicable": 46,
+        "qc_fail": 0,
+        "unknown": 37
+      },
+      "Cohort 1a: PsO": {
+        "completed": 6,
+        "pending": 0,
+        "not_applicable": 0,
+        "qc_fail": 0,
+        "unknown": 49
+      },
+      "Cohort 1a: PsO, Cohort 2a: PsO Initiating Therapy, Cohort 2b: PsA Initiating Therapy": {
+        "completed": 0,
+        "pending": 0,
+        "not_applicable": 1,
+        "qc_fail": 0,
+        "unknown": 1
+      },
+      "Cohort 1a: PsO, Cohort 2a: PsO Initiating Therapy, Cohort 3: PsO to PsA Risk": {
+        "completed": 0,
+        "pending": 0,
+        "not_applicable": 0,
+        "qc_fail": 0,
+        "unknown": 1
+      },
+      "Cohort 1a: PsO, Cohort 2b: PsA Initiating Therapy": {
+        "completed": 0,
+        "pending": 0,
+        "not_applicable": 1,
+        "qc_fail": 0,
+        "unknown": 5
+      },
+      "Cohort 1a: PsO, Cohort 3: PsO to PsA Risk": {
+        "completed": 1,
+        "pending": 0,
+        "not_applicable": 0,
+        "qc_fail": 0,
+        "unknown": 4
+      },
+      "Cohort 1a: PsO, Cohort 3: PsO to PsA Risk, Uveitis Cohort": {
+        "completed": 0,
+        "pending": 0,
+        "not_applicable": 0,
+        "qc_fail": 0,
+        "unknown": 1
+      },
+      "Cohort 1b: Drug-Naive PsA": {
+        "completed": 1,
+        "pending": 0,
+        "not_applicable": 7,
+        "qc_fail": 0,
+        "unknown": 12
+      },
+      "Cohort 1b: Drug-Naive PsA, Cohort 2a: PsO Initiating Therapy": {
+        "completed": 0,
+        "pending": 0,
+        "not_applicable": 0,
+        "qc_fail": 0,
+        "unknown": 1
+      },
+      "Cohort 1b: Drug-Naive PsA, Cohort 2b: PsA Initiating Therapy": {
+        "completed": 1,
+        "pending": 0,
+        "not_applicable": 0,
+        "qc_fail": 0,
+        "unknown": 0
+      },
+      "Cohort 2: MTX-IR, bDMARD naive": {
+        "completed": 0,
+        "pending": 0,
+        "not_applicable": 7,
+        "qc_fail": 0,
+        "unknown": 19
+      },
+      "Cohort 2a: PsO Initiating Therapy": {
+        "completed": 0,
+        "pending": 0,
+        "not_applicable": 0,
+        "qc_fail": 0,
+        "unknown": 11
+      },
+      "Cohort 2a: PsO Initiating Therapy, Cohort 2b: PsA Initiating Therapy": {
+        "completed": 0,
+        "pending": 0,
+        "not_applicable": 0,
+        "qc_fail": 0,
+        "unknown": 1
+      },
+      "Cohort 2b: PsA Initiating Therapy": {
+        "completed": 0,
+        "pending": 0,
+        "not_applicable": 3,
+        "qc_fail": 0,
+        "unknown": 39
+      },
+      "Cohort 2b: PsA Initiating Therapy, Uveitis Cohort": {
+        "completed": 0,
+        "pending": 0,
+        "not_applicable": 0,
+        "qc_fail": 0,
+        "unknown": 1
+      },
+      "Cohort 3: PsO to PsA Risk": {
+        "completed": 0,
+        "pending": 0,
+        "not_applicable": 1,
+        "qc_fail": 0,
+        "unknown": 3
+      },
+      "Cohort 3: Refractory Cohort": {
+        "completed": 0,
+        "pending": 0,
+        "not_applicable": 17,
+        "qc_fail": 0,
+        "unknown": 28
+      },
+      "Enabling": {
+        "completed": 0,
+        "pending": 0,
+        "not_applicable": 30,
+        "qc_fail": 0,
+        "unknown": 10
+      },
+      "Healthy Control": {
+        "completed": 0,
+        "pending": 0,
+        "not_applicable": 45,
+        "qc_fail": 0,
+        "unknown": 27
+      },
+      "Healthy Normal Control": {
+        "completed": 0,
+        "pending": 0,
+        "not_applicable": 8,
+        "qc_fail": 0,
+        "unknown": 1
+      },
+      "KP1": {
+        "completed": 0,
+        "pending": 0,
+        "not_applicable": 80,
+        "qc_fail": 0,
+        "unknown": 42
+      },
+      "KP2": {
+        "completed": 0,
+        "pending": 0,
+        "not_applicable": 37,
+        "qc_fail": 0,
+        "unknown": 61
+      },
+      "Longitudinal case": {
+        "completed": 0,
+        "pending": 0,
+        "not_applicable": 65,
+        "qc_fail": 0,
+        "unknown": 54
+      },
+      "Not yet retrieved": {
+        "completed": 3,
+        "pending": 0,
+        "not_applicable": 20,
+        "qc_fail": 0,
+        "unknown": 98
+      },
+      "Overlap syndrome": {
+        "completed": 0,
+        "pending": 0,
+        "not_applicable": 0,
+        "qc_fail": 0,
+        "unknown": 1
+      },
+      "SP1": {
+        "completed": 5,
+        "pending": 0,
+        "not_applicable": 0,
+        "qc_fail": 1,
+        "unknown": 18
+      },
+      "SP2": {
+        "completed": 6,
+        "pending": 0,
+        "not_applicable": 0,
+        "qc_fail": 0,
+        "unknown": 34
+      },
+      "SjD/sicca": {
+        "completed": 0,
+        "pending": 0,
+        "not_applicable": 236,
+        "qc_fail": 0,
+        "unknown": 60
+      },
+      "Uveitis Cohort": {
+        "completed": 0,
+        "pending": 0,
+        "not_applicable": 0,
+        "qc_fail": 0,
+        "unknown": 15
+      },
+      "Uveitis Cohort, Axial Spondyloarthritis Control": {
+        "completed": 0,
+        "pending": 0,
+        "not_applicable": 0,
+        "qc_fail": 0,
+        "unknown": 4
+      },
+      "n/a": {
+        "completed": 0,
+        "pending": 0,
+        "not_applicable": 0,
+        "qc_fail": 0,
+        "unknown": 12
+      },
+      "Unknown": {
+        "completed": 0,
+        "pending": 0,
+        "not_applicable": 0,
+        "qc_fail": 0,
+        "unknown": 122
+      }
+    },
+    "olink_urine": {
+      "Asymptomatic RRNL": {
+        "completed": 0,
+        "pending": 0,
+        "not_applicable": 1,
+        "qc_fail": 0,
+        "unknown": 0
+      },
+      "Axial Spondyloarthritis Control": {
+        "completed": 0,
+        "pending": 0,
+        "not_applicable": 0,
+        "qc_fail": 0,
+        "unknown": 3
+      },
+      "Cohort 1: Early RA, DMARD naive": {
+        "completed": 0,
+        "pending": 0,
+        "not_applicable": 70,
+        "qc_fail": 0,
+        "unknown": 13
+      },
+      "Cohort 1a: PsO": {
+        "completed": 0,
+        "pending": 0,
+        "not_applicable": 44,
+        "qc_fail": 0,
+        "unknown": 11
+      },
+      "Cohort 1a: PsO, Cohort 2a: PsO Initiating Therapy, Cohort 2b: PsA Initiating Therapy": {
+        "completed": 0,
+        "pending": 0,
+        "not_applicable": 2,
+        "qc_fail": 0,
+        "unknown": 0
+      },
+      "Cohort 1a: PsO, Cohort 2a: PsO Initiating Therapy, Cohort 3: PsO to PsA Risk": {
+        "completed": 0,
+        "pending": 0,
+        "not_applicable": 1,
+        "qc_fail": 0,
+        "unknown": 0
+      },
+      "Cohort 1a: PsO, Cohort 2b: PsA Initiating Therapy": {
+        "completed": 0,
+        "pending": 0,
+        "not_applicable": 6,
+        "qc_fail": 0,
+        "unknown": 0
+      },
+      "Cohort 1a: PsO, Cohort 3: PsO to PsA Risk": {
+        "completed": 0,
+        "pending": 0,
+        "not_applicable": 5,
+        "qc_fail": 0,
+        "unknown": 0
+      },
+      "Cohort 1a: PsO, Cohort 3: PsO to PsA Risk, Uveitis Cohort": {
+        "completed": 0,
+        "pending": 0,
+        "not_applicable": 1,
+        "qc_fail": 0,
+        "unknown": 0
+      },
+      "Cohort 1b: Drug-Naive PsA": {
+        "completed": 0,
+        "pending": 0,
+        "not_applicable": 16,
+        "qc_fail": 0,
+        "unknown": 4
+      },
+      "Cohort 1b: Drug-Naive PsA, Cohort 2a: PsO Initiating Therapy": {
+        "completed": 0,
+        "pending": 0,
+        "not_applicable": 1,
+        "qc_fail": 0,
+        "unknown": 0
+      },
+      "Cohort 1b: Drug-Naive PsA, Cohort 2b: PsA Initiating Therapy": {
+        "completed": 0,
+        "pending": 0,
+        "not_applicable": 1,
+        "qc_fail": 0,
+        "unknown": 0
+      },
+      "Cohort 2: MTX-IR, bDMARD naive": {
+        "completed": 0,
+        "pending": 0,
+        "not_applicable": 18,
+        "qc_fail": 0,
+        "unknown": 8
+      },
+      "Cohort 2a: PsO Initiating Therapy": {
+        "completed": 0,
+        "pending": 0,
+        "not_applicable": 10,
+        "qc_fail": 0,
+        "unknown": 1
+      },
+      "Cohort 2a: PsO Initiating Therapy, Cohort 2b: PsA Initiating Therapy": {
+        "completed": 0,
+        "pending": 0,
+        "not_applicable": 0,
+        "qc_fail": 0,
+        "unknown": 1
+      },
+      "Cohort 2b: PsA Initiating Therapy": {
+        "completed": 0,
+        "pending": 0,
+        "not_applicable": 35,
+        "qc_fail": 0,
+        "unknown": 7
+      },
+      "Cohort 2b: PsA Initiating Therapy, Uveitis Cohort": {
+        "completed": 0,
+        "pending": 0,
+        "not_applicable": 0,
+        "qc_fail": 0,
+        "unknown": 1
+      },
+      "Cohort 3: PsO to PsA Risk": {
+        "completed": 0,
+        "pending": 0,
+        "not_applicable": 4,
+        "qc_fail": 0,
+        "unknown": 0
+      },
+      "Cohort 3: Refractory Cohort": {
+        "completed": 0,
+        "pending": 0,
+        "not_applicable": 35,
+        "qc_fail": 0,
+        "unknown": 10
+      },
+      "Enabling": {
+        "completed": 0,
+        "pending": 0,
+        "not_applicable": 40,
+        "qc_fail": 0,
+        "unknown": 0
+      },
+      "Healthy Control": {
+        "completed": 0,
+        "pending": 0,
+        "not_applicable": 58,
+        "qc_fail": 0,
+        "unknown": 14
+      },
+      "Healthy Normal Control": {
+        "completed": 0,
+        "pending": 0,
+        "not_applicable": 9,
+        "qc_fail": 0,
+        "unknown": 0
+      },
+      "KP1": {
+        "completed": 55,
+        "pending": 62,
+        "not_applicable": 5,
+        "qc_fail": 0,
+        "unknown": 0
+      },
+      "KP2": {
+        "completed": 0,
+        "pending": 89,
+        "not_applicable": 4,
+        "qc_fail": 0,
+        "unknown": 5
+      },
+      "Longitudinal case": {
+        "completed": 0,
+        "pending": 0,
+        "not_applicable": 107,
+        "qc_fail": 0,
+        "unknown": 12
+      },
+      "Not yet retrieved": {
+        "completed": 0,
+        "pending": 1,
+        "not_applicable": 31,
+        "qc_fail": 0,
+        "unknown": 89
+      },
+      "Overlap syndrome": {
+        "completed": 0,
+        "pending": 0,
+        "not_applicable": 1,
+        "qc_fail": 0,
+        "unknown": 0
+      },
+      "SP1": {
+        "completed": 0,
+        "pending": 0,
+        "not_applicable": 13,
+        "qc_fail": 0,
+        "unknown": 11
+      },
+      "SP2": {
+        "completed": 0,
+        "pending": 0,
+        "not_applicable": 34,
+        "qc_fail": 0,
+        "unknown": 6
+      },
+      "SjD/sicca": {
+        "completed": 0,
+        "pending": 0,
+        "not_applicable": 296,
+        "qc_fail": 0,
+        "unknown": 0
+      },
+      "Uveitis Cohort": {
+        "completed": 0,
+        "pending": 0,
+        "not_applicable": 5,
+        "qc_fail": 0,
+        "unknown": 10
+      },
+      "Uveitis Cohort, Axial Spondyloarthritis Control": {
+        "completed": 0,
+        "pending": 0,
+        "not_applicable": 1,
+        "qc_fail": 0,
+        "unknown": 3
+      },
+      "n/a": {
+        "completed": 0,
+        "pending": 0,
+        "not_applicable": 0,
+        "qc_fail": 0,
+        "unknown": 12
+      },
+      "Unknown": {
+        "completed": 0,
+        "pending": 7,
+        "not_applicable": 0,
+        "qc_fail": 0,
+        "unknown": 115
+      }
+    },
+    "mbioseq_stool": {
+      "Asymptomatic RRNL": {
+        "completed": 0,
+        "pending": 0,
+        "not_applicable": 0,
+        "qc_fail": 0,
+        "unknown": 1
+      },
+      "Axial Spondyloarthritis Control": {
+        "completed": 0,
+        "pending": 0,
+        "not_applicable": 0,
+        "qc_fail": 0,
+        "unknown": 3
+      },
+      "Cohort 1: Early RA, DMARD naive": {
+        "completed": 4,
+        "pending": 0,
+        "not_applicable": 0,
+        "qc_fail": 0,
+        "unknown": 79
+      },
+      "Cohort 1a: PsO": {
+        "completed": 24,
+        "pending": 0,
+        "not_applicable": 0,
+        "qc_fail": 0,
+        "unknown": 31
+      },
+      "Cohort 1a: PsO, Cohort 2a: PsO Initiating Therapy, Cohort 2b: PsA Initiating Therapy": {
+        "completed": 0,
+        "pending": 0,
+        "not_applicable": 0,
+        "qc_fail": 0,
+        "unknown": 2
+      },
+      "Cohort 1a: PsO, Cohort 2a: PsO Initiating Therapy, Cohort 3: PsO to PsA Risk": {
+        "completed": 1,
+        "pending": 0,
+        "not_applicable": 0,
+        "qc_fail": 0,
+        "unknown": 0
+      },
+      "Cohort 1a: PsO, Cohort 2b: PsA Initiating Therapy": {
+        "completed": 3,
+        "pending": 0,
+        "not_applicable": 0,
+        "qc_fail": 0,
+        "unknown": 3
+      },
+      "Cohort 1a: PsO, Cohort 3: PsO to PsA Risk": {
+        "completed": 5,
+        "pending": 0,
+        "not_applicable": 0,
+        "qc_fail": 0,
+        "unknown": 0
+      },
+      "Cohort 1a: PsO, Cohort 3: PsO to PsA Risk, Uveitis Cohort": {
+        "completed": 0,
+        "pending": 0,
+        "not_applicable": 0,
+        "qc_fail": 0,
+        "unknown": 1
+      },
+      "Cohort 1b: Drug-Naive PsA": {
+        "completed": 8,
+        "pending": 0,
+        "not_applicable": 0,
+        "qc_fail": 0,
+        "unknown": 12
+      },
+      "Cohort 1b: Drug-Naive PsA, Cohort 2a: PsO Initiating Therapy": {
+        "completed": 0,
+        "pending": 0,
+        "not_applicable": 0,
+        "qc_fail": 0,
+        "unknown": 1
+      },
+      "Cohort 1b: Drug-Naive PsA, Cohort 2b: PsA Initiating Therapy": {
+        "completed": 1,
+        "pending": 0,
+        "not_applicable": 0,
+        "qc_fail": 0,
+        "unknown": 0
+      },
+      "Cohort 2: MTX-IR, bDMARD naive": {
+        "completed": 3,
+        "pending": 0,
+        "not_applicable": 0,
+        "qc_fail": 0,
+        "unknown": 23
+      },
+      "Cohort 2a: PsO Initiating Therapy": {
+        "completed": 3,
+        "pending": 0,
+        "not_applicable": 0,
+        "qc_fail": 0,
+        "unknown": 8
+      },
+      "Cohort 2a: PsO Initiating Therapy, Cohort 2b: PsA Initiating Therapy": {
+        "completed": 0,
+        "pending": 0,
+        "not_applicable": 0,
+        "qc_fail": 0,
+        "unknown": 1
+      },
+      "Cohort 2b: PsA Initiating Therapy": {
+        "completed": 10,
+        "pending": 0,
+        "not_applicable": 0,
+        "qc_fail": 0,
+        "unknown": 32
+      },
+      "Cohort 2b: PsA Initiating Therapy, Uveitis Cohort": {
+        "completed": 0,
+        "pending": 0,
+        "not_applicable": 0,
+        "qc_fail": 0,
+        "unknown": 1
+      },
+      "Cohort 3: PsO to PsA Risk": {
+        "completed": 2,
+        "pending": 0,
+        "not_applicable": 0,
+        "qc_fail": 0,
+        "unknown": 2
+      },
+      "Cohort 3: Refractory Cohort": {
+        "completed": 11,
+        "pending": 0,
+        "not_applicable": 0,
+        "qc_fail": 0,
+        "unknown": 34
+      },
+      "Enabling": {
+        "completed": 0,
+        "pending": 0,
+        "not_applicable": 0,
+        "qc_fail": 0,
+        "unknown": 40
+      },
+      "Healthy Control": {
+        "completed": 10,
+        "pending": 0,
+        "not_applicable": 0,
+        "qc_fail": 0,
+        "unknown": 62
+      },
+      "Healthy Normal Control": {
+        "completed": 0,
+        "pending": 0,
+        "not_applicable": 0,
+        "qc_fail": 0,
+        "unknown": 9
+      },
+      "KP1": {
+        "completed": 9,
+        "pending": 0,
+        "not_applicable": 0,
+        "qc_fail": 0,
+        "unknown": 113
+      },
+      "KP2": {
+        "completed": 1,
+        "pending": 0,
+        "not_applicable": 0,
+        "qc_fail": 0,
+        "unknown": 97
+      },
+      "Longitudinal case": {
+        "completed": 21,
+        "pending": 0,
+        "not_applicable": 0,
+        "qc_fail": 0,
+        "unknown": 98
+      },
+      "Not yet retrieved": {
+        "completed": 2,
+        "pending": 0,
+        "not_applicable": 0,
+        "qc_fail": 0,
+        "unknown": 119
+      },
+      "Overlap syndrome": {
+        "completed": 0,
+        "pending": 0,
+        "not_applicable": 0,
+        "qc_fail": 0,
+        "unknown": 1
+      },
+      "SP1": {
+        "completed": 2,
+        "pending": 0,
+        "not_applicable": 0,
+        "qc_fail": 0,
+        "unknown": 22
+      },
+      "SP2": {
+        "completed": 6,
+        "pending": 0,
+        "not_applicable": 0,
+        "qc_fail": 0,
+        "unknown": 34
+      },
+      "SjD/sicca": {
+        "completed": 78,
+        "pending": 0,
+        "not_applicable": 0,
+        "qc_fail": 0,
+        "unknown": 218
+      },
+      "Uveitis Cohort": {
+        "completed": 0,
+        "pending": 0,
+        "not_applicable": 0,
+        "qc_fail": 0,
+        "unknown": 15
+      },
+      "Uveitis Cohort, Axial Spondyloarthritis Control": {
+        "completed": 0,
+        "pending": 0,
+        "not_applicable": 0,
+        "qc_fail": 0,
+        "unknown": 4
+      },
+      "n/a": {
+        "completed": 0,
+        "pending": 0,
+        "not_applicable": 0,
+        "qc_fail": 0,
+        "unknown": 12
+      },
+      "Unknown": {
+        "completed": 0,
+        "pending": 0,
+        "not_applicable": 0,
+        "qc_fail": 0,
+        "unknown": 122
+      }
+    },
+    "mbioseq_skin": {
+      "Asymptomatic RRNL": {
+        "completed": 0,
+        "pending": 0,
+        "not_applicable": 0,
+        "qc_fail": 0,
+        "unknown": 1
+      },
+      "Axial Spondyloarthritis Control": {
+        "completed": 0,
+        "pending": 0,
+        "not_applicable": 0,
+        "qc_fail": 0,
+        "unknown": 3
+      },
+      "Cohort 1: Early RA, DMARD naive": {
+        "completed": 0,
+        "pending": 0,
+        "not_applicable": 0,
+        "qc_fail": 0,
+        "unknown": 83
+      },
+      "Cohort 1a: PsO": {
+        "completed": 26,
+        "pending": 0,
+        "not_applicable": 0,
+        "qc_fail": 0,
+        "unknown": 29
+      },
+      "Cohort 1a: PsO, Cohort 2a: PsO Initiating Therapy, Cohort 2b: PsA Initiating Therapy": {
+        "completed": 2,
+        "pending": 0,
+        "not_applicable": 0,
+        "qc_fail": 0,
+        "unknown": 0
+      },
+      "Cohort 1a: PsO, Cohort 2a: PsO Initiating Therapy, Cohort 3: PsO to PsA Risk": {
+        "completed": 1,
+        "pending": 0,
+        "not_applicable": 0,
+        "qc_fail": 0,
+        "unknown": 0
+      },
+      "Cohort 1a: PsO, Cohort 2b: PsA Initiating Therapy": {
+        "completed": 5,
+        "pending": 0,
+        "not_applicable": 0,
+        "qc_fail": 0,
+        "unknown": 1
+      },
+      "Cohort 1a: PsO, Cohort 3: PsO to PsA Risk": {
+        "completed": 5,
+        "pending": 0,
+        "not_applicable": 0,
+        "qc_fail": 0,
+        "unknown": 0
+      },
+      "Cohort 1a: PsO, Cohort 3: PsO to PsA Risk, Uveitis Cohort": {
+        "completed": 1,
+        "pending": 0,
+        "not_applicable": 0,
+        "qc_fail": 0,
+        "unknown": 0
+      },
+      "Cohort 1b: Drug-Naive PsA": {
+        "completed": 8,
+        "pending": 0,
+        "not_applicable": 0,
+        "qc_fail": 0,
+        "unknown": 12
+      },
+      "Cohort 1b: Drug-Naive PsA, Cohort 2a: PsO Initiating Therapy": {
+        "completed": 1,
+        "pending": 0,
+        "not_applicable": 0,
+        "qc_fail": 0,
+        "unknown": 0
+      },
+      "Cohort 1b: Drug-Naive PsA, Cohort 2b: PsA Initiating Therapy": {
+        "completed": 1,
+        "pending": 0,
+        "not_applicable": 0,
+        "qc_fail": 0,
+        "unknown": 0
+      },
+      "Cohort 2: MTX-IR, bDMARD naive": {
+        "completed": 0,
+        "pending": 0,
+        "not_applicable": 0,
+        "qc_fail": 0,
+        "unknown": 26
+      },
+      "Cohort 2a: PsO Initiating Therapy": {
+        "completed": 4,
+        "pending": 0,
+        "not_applicable": 0,
+        "qc_fail": 0,
+        "unknown": 7
+      },
+      "Cohort 2a: PsO Initiating Therapy, Cohort 2b: PsA Initiating Therapy": {
+        "completed": 0,
+        "pending": 0,
+        "not_applicable": 0,
+        "qc_fail": 0,
+        "unknown": 1
+      },
+      "Cohort 2b: PsA Initiating Therapy": {
+        "completed": 14,
+        "pending": 0,
+        "not_applicable": 0,
+        "qc_fail": 0,
+        "unknown": 28
+      },
+      "Cohort 2b: PsA Initiating Therapy, Uveitis Cohort": {
+        "completed": 0,
+        "pending": 0,
+        "not_applicable": 0,
+        "qc_fail": 0,
+        "unknown": 1
+      },
+      "Cohort 3: PsO to PsA Risk": {
+        "completed": 2,
+        "pending": 0,
+        "not_applicable": 0,
+        "qc_fail": 0,
+        "unknown": 2
+      },
+      "Cohort 3: Refractory Cohort": {
+        "completed": 0,
+        "pending": 0,
+        "not_applicable": 0,
+        "qc_fail": 0,
+        "unknown": 45
+      },
+      "Enabling": {
+        "completed": 0,
+        "pending": 0,
+        "not_applicable": 0,
+        "qc_fail": 0,
+        "unknown": 40
+      },
+      "Healthy Control": {
+        "completed": 0,
+        "pending": 0,
+        "not_applicable": 0,
+        "qc_fail": 0,
+        "unknown": 72
+      },
+      "Healthy Normal Control": {
+        "completed": 0,
+        "pending": 0,
+        "not_applicable": 0,
+        "qc_fail": 0,
+        "unknown": 9
+      },
+      "KP1": {
+        "completed": 0,
+        "pending": 0,
+        "not_applicable": 0,
+        "qc_fail": 0,
+        "unknown": 122
+      },
+      "KP2": {
+        "completed": 0,
+        "pending": 0,
+        "not_applicable": 0,
+        "qc_fail": 0,
+        "unknown": 98
+      },
+      "Longitudinal case": {
+        "completed": 0,
+        "pending": 0,
+        "not_applicable": 0,
+        "qc_fail": 0,
+        "unknown": 119
+      },
+      "Not yet retrieved": {
+        "completed": 6,
+        "pending": 0,
+        "not_applicable": 0,
+        "qc_fail": 0,
+        "unknown": 115
+      },
+      "Overlap syndrome": {
+        "completed": 0,
+        "pending": 0,
+        "not_applicable": 0,
+        "qc_fail": 0,
+        "unknown": 1
+      },
+      "SP1": {
+        "completed": 9,
+        "pending": 0,
+        "not_applicable": 0,
+        "qc_fail": 0,
+        "unknown": 15
+      },
+      "SP2": {
+        "completed": 25,
+        "pending": 0,
+        "not_applicable": 0,
+        "qc_fail": 0,
+        "unknown": 15
+      },
+      "SjD/sicca": {
+        "completed": 0,
+        "pending": 0,
+        "not_applicable": 0,
+        "qc_fail": 0,
+        "unknown": 296
+      },
+      "Uveitis Cohort": {
+        "completed": 1,
+        "pending": 0,
+        "not_applicable": 0,
+        "qc_fail": 0,
+        "unknown": 14
+      },
+      "Uveitis Cohort, Axial Spondyloarthritis Control": {
+        "completed": 0,
+        "pending": 0,
+        "not_applicable": 0,
+        "qc_fail": 0,
+        "unknown": 4
+      },
+      "n/a": {
+        "completed": 0,
+        "pending": 0,
+        "not_applicable": 0,
+        "qc_fail": 0,
+        "unknown": 12
+      },
+      "Unknown": {
+        "completed": 0,
+        "pending": 0,
+        "not_applicable": 0,
+        "qc_fail": 0,
+        "unknown": 122
+      }
+    },
+    "anti_c1q": {
+      "Asymptomatic RRNL": {
+        "completed": 0,
+        "pending": 0,
+        "not_applicable": 1,
+        "qc_fail": 0,
+        "unknown": 0
+      },
+      "Axial Spondyloarthritis Control": {
+        "completed": 0,
+        "pending": 0,
+        "not_applicable": 3,
+        "qc_fail": 0,
+        "unknown": 0
+      },
+      "Cohort 1: Early RA, DMARD naive": {
+        "completed": 0,
+        "pending": 0,
+        "not_applicable": 83,
+        "qc_fail": 0,
+        "unknown": 0
+      },
+      "Cohort 1a: PsO": {
+        "completed": 0,
+        "pending": 0,
+        "not_applicable": 55,
+        "qc_fail": 0,
+        "unknown": 0
+      },
+      "Cohort 1a: PsO, Cohort 2a: PsO Initiating Therapy, Cohort 2b: PsA Initiating Therapy": {
+        "completed": 0,
+        "pending": 0,
+        "not_applicable": 2,
+        "qc_fail": 0,
+        "unknown": 0
+      },
+      "Cohort 1a: PsO, Cohort 2a: PsO Initiating Therapy, Cohort 3: PsO to PsA Risk": {
+        "completed": 0,
+        "pending": 0,
+        "not_applicable": 1,
+        "qc_fail": 0,
+        "unknown": 0
+      },
+      "Cohort 1a: PsO, Cohort 2b: PsA Initiating Therapy": {
+        "completed": 0,
+        "pending": 0,
+        "not_applicable": 6,
+        "qc_fail": 0,
+        "unknown": 0
+      },
+      "Cohort 1a: PsO, Cohort 3: PsO to PsA Risk": {
+        "completed": 0,
+        "pending": 0,
+        "not_applicable": 5,
+        "qc_fail": 0,
+        "unknown": 0
+      },
+      "Cohort 1a: PsO, Cohort 3: PsO to PsA Risk, Uveitis Cohort": {
+        "completed": 0,
+        "pending": 0,
+        "not_applicable": 1,
+        "qc_fail": 0,
+        "unknown": 0
+      },
+      "Cohort 1b: Drug-Naive PsA": {
+        "completed": 0,
+        "pending": 0,
+        "not_applicable": 20,
+        "qc_fail": 0,
+        "unknown": 0
+      },
+      "Cohort 1b: Drug-Naive PsA, Cohort 2a: PsO Initiating Therapy": {
+        "completed": 0,
+        "pending": 0,
+        "not_applicable": 1,
+        "qc_fail": 0,
+        "unknown": 0
+      },
+      "Cohort 1b: Drug-Naive PsA, Cohort 2b: PsA Initiating Therapy": {
+        "completed": 0,
+        "pending": 0,
+        "not_applicable": 1,
+        "qc_fail": 0,
+        "unknown": 0
+      },
+      "Cohort 2: MTX-IR, bDMARD naive": {
+        "completed": 0,
+        "pending": 0,
+        "not_applicable": 26,
+        "qc_fail": 0,
+        "unknown": 0
+      },
+      "Cohort 2a: PsO Initiating Therapy": {
+        "completed": 0,
+        "pending": 0,
+        "not_applicable": 11,
+        "qc_fail": 0,
+        "unknown": 0
+      },
+      "Cohort 2a: PsO Initiating Therapy, Cohort 2b: PsA Initiating Therapy": {
+        "completed": 0,
+        "pending": 0,
+        "not_applicable": 1,
+        "qc_fail": 0,
+        "unknown": 0
+      },
+      "Cohort 2b: PsA Initiating Therapy": {
+        "completed": 0,
+        "pending": 0,
+        "not_applicable": 42,
+        "qc_fail": 0,
+        "unknown": 0
+      },
+      "Cohort 2b: PsA Initiating Therapy, Uveitis Cohort": {
+        "completed": 0,
+        "pending": 0,
+        "not_applicable": 1,
+        "qc_fail": 0,
+        "unknown": 0
+      },
+      "Cohort 3: PsO to PsA Risk": {
+        "completed": 0,
+        "pending": 0,
+        "not_applicable": 4,
+        "qc_fail": 0,
+        "unknown": 0
+      },
+      "Cohort 3: Refractory Cohort": {
+        "completed": 0,
+        "pending": 0,
+        "not_applicable": 45,
+        "qc_fail": 0,
+        "unknown": 0
+      },
+      "Enabling": {
+        "completed": 0,
+        "pending": 0,
+        "not_applicable": 40,
+        "qc_fail": 0,
+        "unknown": 0
+      },
+      "Healthy Control": {
+        "completed": 0,
+        "pending": 0,
+        "not_applicable": 72,
+        "qc_fail": 0,
+        "unknown": 0
+      },
+      "Healthy Normal Control": {
+        "completed": 0,
+        "pending": 0,
+        "not_applicable": 9,
+        "qc_fail": 0,
+        "unknown": 0
+      },
+      "KP1": {
+        "completed": 115,
+        "pending": 0,
+        "not_applicable": 7,
+        "qc_fail": 0,
+        "unknown": 0
+      },
+      "KP2": {
+        "completed": 82,
+        "pending": 0,
+        "not_applicable": 16,
+        "qc_fail": 0,
+        "unknown": 0
+      },
+      "Longitudinal case": {
+        "completed": 0,
+        "pending": 0,
+        "not_applicable": 119,
+        "qc_fail": 0,
+        "unknown": 0
+      },
+      "Not yet retrieved": {
+        "completed": 0,
+        "pending": 0,
+        "not_applicable": 121,
+        "qc_fail": 0,
+        "unknown": 0
+      },
+      "Overlap syndrome": {
+        "completed": 0,
+        "pending": 0,
+        "not_applicable": 1,
+        "qc_fail": 0,
+        "unknown": 0
+      },
+      "SP1": {
+        "completed": 12,
+        "pending": 0,
+        "not_applicable": 12,
+        "qc_fail": 0,
+        "unknown": 0
+      },
+      "SP2": {
+        "completed": 38,
+        "pending": 0,
+        "not_applicable": 2,
+        "qc_fail": 0,
+        "unknown": 0
+      },
+      "SjD/sicca": {
+        "completed": 0,
+        "pending": 0,
+        "not_applicable": 296,
+        "qc_fail": 0,
+        "unknown": 0
+      },
+      "Uveitis Cohort": {
+        "completed": 0,
+        "pending": 0,
+        "not_applicable": 15,
+        "qc_fail": 0,
+        "unknown": 0
+      },
+      "Uveitis Cohort, Axial Spondyloarthritis Control": {
+        "completed": 0,
+        "pending": 0,
+        "not_applicable": 4,
+        "qc_fail": 0,
+        "unknown": 0
+      },
+      "n/a": {
+        "completed": 0,
+        "pending": 0,
+        "not_applicable": 12,
+        "qc_fail": 0,
+        "unknown": 0
+      },
+      "Unknown": {
+        "completed": 0,
+        "pending": 0,
+        "not_applicable": 79,
+        "qc_fail": 0,
+        "unknown": 43
+      }
+    }
+  }
+}
