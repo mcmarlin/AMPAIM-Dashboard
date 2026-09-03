@@ -29,10 +29,13 @@
     --cat-orange:  #eb6834;
     --cat-aqua:    #1baf7a;
     --cat-yellow:  #eda100;
-    /* Filter-row accents only (never reused for chart-series identity) -
-       lets each filter row's active pills read as its own group at a glance. */
+    /* Filter-pill accents only (never reused for chart-series identity) -
+       cycled per individual pill within a row so each option in a category
+       (each disease team, each pipeline, each dataset) reads as distinct. */
     --cat-violet:  #4a3aa7;
     --cat-magenta: #e87ba4;
+    --cat-blue:    #2a78d6;
+    --cat-red:     #e34948;
   }
   @media (prefers-color-scheme: dark) {
     :root:where(:not([data-theme="light"])) {
@@ -52,6 +55,8 @@
       --cat-yellow:  #c98500;
       --cat-violet:  #9085e9;
       --cat-magenta: #d55181;
+      --cat-blue:    #3987e5;
+      --cat-red:     #e66767;
     }
   }
   * { box-sizing: border-box; }
@@ -100,9 +105,11 @@
     font-size: 12.5px; padding: 5px 10px; border-radius: 999px; border: 1px solid var(--border);
     background: transparent; color: var(--text-secondary); cursor: pointer; user-select: none;
   }
-  .pill.active { background: var(--seq-450); border-color: var(--seq-450); color: #fff; }
-  .filter-row--disease .pill.active { background: var(--cat-violet); border-color: var(--cat-violet); }
-  .filter-row--pipeline .pill.active { background: var(--cat-magenta); border-color: var(--cat-magenta); }
+  /* Each pill carries its own --pill-color (set inline, per option) so options
+     within a category are distinguishable from each other, not just from the
+     unselected pills; --seq-450 is only a fallback for any pill that doesn't
+     get one (the meta All/None buttons never go .active, so they never need it). */
+  .pill.active { background: var(--pill-color, var(--seq-450)); border-color: var(--pill-color, var(--seq-450)); color: #fff; }
   .pill.meta { color: var(--text-muted); font-style: normal; }
   .pill.meta:hover { color: var(--text-primary); }
 
@@ -355,6 +362,16 @@
   // but the underlying data key stays "Undefined" so filtering/lookups are
   // unaffected.
   function pipelineLabel(p) { return p === 'Undefined' ? 'Unselected/Banked' : p; }
+  // Per-pill filter accents: each option within a filter row gets its own
+  // color from this fixed cycle (by position, not by any data identity - it's
+  // just so "Lupus Kidney" and "Rheumatoid Arthritis" read as different pills
+  // at a glance, not a claim that a color means the same disease team
+  // elsewhere on the page). Rows longer than the palette wrap back to the
+  // start; with the largest row (datasets, ~12) that means a repeat, which is
+  // fine here since adjacent-pill CVD separation isn't load-bearing the way
+  // it is for a stacked chart segment.
+  var PILL_PALETTE = ['--cat-blue', '--cat-orange', '--cat-aqua', '--cat-yellow', '--cat-magenta', '--cat-green', '--cat-violet', '--cat-red'];
+  function pillColor(i) { return 'var(' + PILL_PALETTE[i % PILL_PALETTE.length] + ')'; }
   function zeroRecruitCounts() { var o = {}; state.data.recruitment.status_order.forEach(function (k) { o[k] = 0; }); return o; }
   function addRecruitInto(dst, src) { state.data.recruitment.status_order.forEach(function (k) { dst[k] = (dst[k] || 0) + ((src && src[k]) || 0); }); return dst; }
   // Fixed identity->color mapping (never by rank/position) for the disease
@@ -364,7 +381,7 @@
     psd_syn: '--cat-orange', psd_skn: '--cat-aqua', psd_eye: '--cat-yellow',
   };
   var RECRUIT_STATUS_COLOR_VARS = { enrolled: '--seq-450', archival: '--cat-green' };
-  var RECRUIT_STATUS_LABELS = { enrolled: 'Enrolled', archival: 'Archival', unknown: 'Unknown' };
+  var RECRUIT_STATUS_LABELS = { enrolled: 'Enrolled', archival: 'Archival' };
   function byDiseaseMap() {
     var m = {};
     state.data.recruitment.by_disease.forEach(function (d) { m[d.key] = d; });
@@ -465,9 +482,10 @@
     var row = document.createElement('div'); row.className = 'filter-row filter-row--disease';
     var flabel = document.createElement('div'); flabel.className = 'flabel'; flabel.textContent = 'Disease teams shown';
     var group = document.createElement('div'); group.className = 'pill-group';
-    state.data.recruitment.by_disease.forEach(function (dz) {
+    state.data.recruitment.by_disease.forEach(function (dz, i) {
       var b = document.createElement('button');
       b.className = 'pill' + (state.selectedDisease.has(dz.key) ? ' active' : '');
+      b.style.setProperty('--pill-color', pillColor(i));
       b.textContent = dz.label; b.dataset.key = dz.key;
       b.addEventListener('click', function () {
         if (state.selectedDisease.has(dz.key)) state.selectedDisease.delete(dz.key); else state.selectedDisease.add(dz.key);
@@ -491,9 +509,10 @@
     var row = document.createElement('div'); row.className = 'filter-row filter-row--tech';
     var flabel = document.createElement('div'); flabel.className = 'flabel'; flabel.textContent = 'Datasets shown';
     var group = document.createElement('div'); group.className = 'pill-group';
-    state.data.technologies.forEach(function (t) {
+    state.data.technologies.forEach(function (t, i) {
       var b = document.createElement('button');
       b.className = 'pill' + (state.selectedTech.has(t.key) ? ' active' : '');
+      b.style.setProperty('--pill-color', pillColor(i));
       b.textContent = t.label; b.dataset.key = t.key;
       b.addEventListener('click', function () {
         if (state.selectedTech.has(t.key)) state.selectedTech.delete(t.key); else state.selectedTech.add(t.key);
@@ -517,9 +536,10 @@
     var row = document.createElement('div'); row.className = 'filter-row filter-row--pipeline';
     var flabel = document.createElement('div'); flabel.className = 'flabel'; flabel.textContent = 'Pipelines shown';
     var group = document.createElement('div'); group.className = 'pill-group';
-    state.data.pipelines.forEach(function (p) {
+    state.data.pipelines.forEach(function (p, i) {
       var b = document.createElement('button');
       b.className = 'pill' + (state.selectedPipeline.has(p) ? ' active' : '');
+      b.style.setProperty('--pill-color', pillColor(i));
       b.textContent = pipelineLabel(p); b.dataset.key = p;
       b.addEventListener('click', function () {
         if (state.selectedPipeline.has(p)) state.selectedPipeline.delete(p); else state.selectedPipeline.add(p);
