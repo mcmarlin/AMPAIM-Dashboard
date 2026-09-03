@@ -31,19 +31,18 @@ HEADER_ROW = 3
 DATA_START_ROW = 4
 
 # Technology (sample/assay) columns -> (key, display label)
+# Trimmed to the 12 technologies actually tracked on the dashboard. (Plain
+# Xenium, both "-NL" / Non-lesional columns, and the old OMRF Lab / Xenium
+# (Slide) labels were dropped or renamed - see README history / requests.)
 TECH_COLUMNS = [
-    ("Xenium-Slide_Sample_ID", "xenium_slide", "Xenium (Slide)"),
-    ("Xenium_Sample_ID", "xenium", "Xenium"),
+    ("Xenium-Slide_Sample_ID", "xenium_slide", "Xenium"),
     ("scFFPE_Sample_ID", "scffpe", "scFFPE"),
     ("scRNAseq_Sample_ID", "scrnaseq", "scRNA-seq"),
     ("Olink-Serum_Sample_ID", "olink_serum", "Olink (Serum)"),
     ("CyTOF-Blood_Sample_ID", "cytof_blood", "CyTOF (Blood)"),
     ("Genotyping_Sample_ID", "genotyping", "Genotyping"),
-    ("OMRF-Lab_Sample_ID", "omrf_lab", "OMRF Lab"),
-    ("bRNAseq_Sample_ID", "brnaseq", "Bulk RNA-seq"),
-    ("Xenium-NL_Sample_ID", "xenium_nl", "Xenium (Non-lesional)"),
-    ("scFFPE-NL_Sample_ID", "scffpe_nl", "scFFPE (Non-lesional)"),
-    ("scRNAseq-NL_Sample_ID", "scrnaseq_nl", "scRNA-seq (Non-lesional)"),
+    ("OMRF-Lab_Sample_ID", "omrf_lab", "Autoantibody Testing"),
+    ("bRNAseq_Sample_ID", "brnaseq", "Bulk RNA-Seq"),
     ("Olink-Urine_Sample_ID", "olink_urine", "Olink (Urine)"),
     ("mBioSeq-stool", "mbioseq_stool", "Microbiome (Stool)"),
     ("mBioSeq-skin", "mbioseq_skin", "Microbiome (Skin)"),
@@ -80,18 +79,121 @@ DISEASE_LABELS = {
     "SLE/PsD": "SLE / PsD (combined)",
 }
 
+# SLE and PsD are further split by tissue (the part of Data_Scope after the
+# hyphen) into the finer subgroups the dashboard now reports as their own
+# "disease teams". (prefix, tissue) -> (key, display label). Any prefix/tissue
+# combo NOT listed here just falls back to the whole-prefix grouping above
+# (e.g. RA-SYN, SjD-SGL, SSc-SKN all stay as one bucket per prefix).
+SPLIT_DISEASE_LABELS = {
+    ("SLE", "KDY"): ("sle_kdy", "Lupus Kidney"),
+    ("SLE", "SKN"): ("sle_skn", "Lupus Skin"),
+    ("PsD", "SYN"): ("psd_syn", "Psoriatic Arthritis"),
+    ("PsD", "SKN"): ("psd_skn", "Psoriasis"),
+    ("PsD", "EYE"): ("psd_eye", "Uveitis"),
+}
+
 # Label used for a blank/None Pipeline cell.
 UNDEFINED_PIPELINE = "Undefined"
 
+# A subject's enrollment Visit_Code also tells us their recruitment status:
+# VA1 rows are archival specimens, everything else is a normal enrolled visit.
+STATUS_BY_CODE = {
+    "V01": "enrolled",
+    "VC1": "enrolled",
+    "VE1": "enrolled",
+    "VA1": "archival",
+    "VU1": "enrolled",
+}
+RECRUIT_STATUS_ORDER = ["enrolled", "archival", "unknown"]
+RECRUIT_STATUS_LABELS = {"enrolled": "Enrolled", "archival": "Archival", "unknown": "Unknown"}
 
-def derive_disease(scope_label):
-    """('SLE-KDY' -> ('sle', 'Lupus (SLE)')); unknown/blank scope -> ('unknown', 'Unknown')."""
+# How many subjects are ultimately expected in each cohort, per the network's
+# recruitment targets (from Expected_Recruitment_Numbers.xlsx, supplied
+# separately from the weekly sample-tracking export - these targets change
+# rarely, so they're kept here rather than requiring a second file upload
+# every week). None = not yet defined ("Undefined" in that spreadsheet).
+# Keyed by the ORIGINAL (pre-split) disease-team label, since that's the
+# level the targets were given at; a cohort's new, finer disease-subgroup
+# membership (see SPLIT_DISEASE_LABELS) is looked up from the real data, and
+# this table is then consulted by that cohort's old/whole-disease label.
+# Update this if the recruitment targets change.
+EXPECTED_RECRUITMENT = {
+    "Lupus (SLE)": {
+        "enabling": 22, "healthy control": 8, "healthy normal control": 4,
+        "kp1": 40, "kp2": 36, "not yet retrieved": None, "sp1": 30, "sp2": 20,
+    },
+    "Psoriatic Disease (PsD)": {
+        "axial spondyloarthritis control": 10, "cohort 1a: pso": 130,
+        "cohort 1b: drug-naive psa": 130, "cohort 2a: pso initiating therapy": 90,
+        "cohort 2b: psa initiating therapy": 90, "cohort 3: pso to psa risk": None,
+        "enabling": 3, "healthy normal control": 5, "not yet retrieved": None,
+        "uveitis cohort": 30,
+    },
+    "Rheumatoid Arthritis (RA)": {
+        "cohort 1: early ra, dmard naive": 50, "cohort 2: mtx-ir, bdmard naive": 50,
+        "cohort 3: refractory cohort": 50, "enabling": 9, "healthy control": 4,
+        "not yet retrieved": None, "unknown": None,
+    },
+    "Sjögren's Disease (SjD)": {
+        "asymptomatic rrnl": None, "enabling": 6, "healthy control": 50,
+        "longitudinal case": 100, "not yet retrieved": None,
+        "overlap syndrome": None, "sjd/sicca": 300, "unknown": None,
+    },
+    "Systemic Sclerosis (SSc)": {"healthy control": 4, "n/a": 12},
+    "Unknown": {"unknown": None},
+}
+
+
+def expected_for(old_label, cohort_name):
+    """Look up a cohort's recruitment target. None if not defined/found."""
+    return EXPECTED_RECRUITMENT.get(old_label, {}).get(cohort_name.strip().lower())
+
+
+def empty_recruit_status():
+    return {k: 0 for k in RECRUIT_STATUS_ORDER}
+
+
+def derive_diseases(scope_label):
+    """
+    Return the list of (key, label, old_label, old_group_key) disease-team
+    entries a given Data_Scope value belongs to. Usually a single entry (e.g.
+    'RA-SYN' -> [('ra', 'Rheumatoid Arthritis (RA)', 'Rheumatoid Arthritis
+    (RA)', 'ra')]), but Data_Scope can encode more than one disease/tissue in
+    a single cell with a '/' - either in the prefix ('SLE/PsD-SKN', an
+    overlap-syndrome subject) or in the tissue ('PsD-SKN/SYN', a subject with
+    data under both tissues). In either case the subject is counted in EACH
+    matching disease team, but only once in the site-wide subject total (that
+    total is a distinct count of Subject_ID and never goes through this
+    function).
+    `old_label`/`old_group_key` are the pre-split whole-disease label/key
+    (e.g. still "Lupus (SLE)" / "sle" for both Lupus subgroups) - used to
+    roll the new finer subgroups back up into one combined bar with one
+    combined Expected Recruitment target, since that's the level those
+    targets were given at.
+    """
     if not scope_label or scope_label == "Unknown":
-        return "unknown", "Unknown"
-    prefix = scope_label.split("-")[0].strip()
-    label = DISEASE_LABELS.get(prefix, prefix)
-    key = prefix.lower().replace("/", "_").replace(" ", "_")
-    return key, label
+        return [("unknown", "Unknown", "Unknown", "unknown")]
+    if "-" in scope_label:
+        prefix_part, tissue_part = scope_label.split("-", 1)
+    else:
+        prefix_part, tissue_part = scope_label, ""
+    prefixes = [p.strip() for p in prefix_part.split("/") if p.strip()] or [prefix_part.strip()]
+    tissues = [t.strip() for t in tissue_part.split("/") if t.strip()] or [""]
+
+    seen = {}
+    for prefix in prefixes:
+        old_label = DISEASE_LABELS.get(prefix, prefix)
+        old_group_key = prefix.lower().replace(" ", "_")
+        for tissue in tissues:
+            split = SPLIT_DISEASE_LABELS.get((prefix, tissue))
+            if split:
+                key, label = split
+            else:
+                key = old_group_key
+                label = old_label
+            if key not in seen:
+                seen[key] = (key, label, old_label, old_group_key)
+    return list(seen.values())
 
 
 def classify(value):
@@ -275,16 +377,16 @@ def main():
 
     scope_disease = {}
     for scope in scopes_sorted:
-        dk, dl = derive_disease(scope)
-        scope_disease[scope] = {"key": dk, "label": dl}
+        scope_disease[scope] = [{"key": k, "label": l} for k, l, _old, _grp in derive_diseases(scope)]
 
     # ---------- Recruitment: subjects & visits per disease team / cohort ----------
     def pick_enrollment(rows):
         """
-        Pick the (cohort_tags, scope) for a subject from their enrollment-code
-        row(s). cohort_tags is a LIST (a subject can be in more than one
-        cohort at once). Prefers, in ENROLLMENT_CODES_PRIORITY order, a row
-        that actually has a real (non-"Unknown") cohort tag.
+        Pick the (cohort_tags, scope, code) for a subject from their
+        enrollment-code row(s). cohort_tags is a LIST (a subject can be in
+        more than one cohort at once). Prefers, in ENROLLMENT_CODES_PRIORITY
+        order, a row that actually has a real (non-"Unknown") cohort tag.
+        The code itself (V01/VC1/VE1/VA1/VU1) also tells us archival status.
         """
         by_code = {}
         for code, cohort_raw, scope in rows:
@@ -296,14 +398,26 @@ def main():
                 by_code[code] = (tags, scope, has_real)
         for code in ENROLLMENT_CODES_PRIORITY:
             if code in by_code and by_code[code][2]:
-                return by_code[code][0], by_code[code][1]
+                return by_code[code][0], by_code[code][1], code
         for code in ENROLLMENT_CODES_PRIORITY:
             if code in by_code:
-                return by_code[code][0], by_code[code][1]
+                return by_code[code][0], by_code[code][1], code
         return None
 
-    disease_totals = defaultdict(lambda: {"subjects": 0, "visits": 0, "label": ""})
-    cohort_totals = defaultdict(lambda: {"subjects": 0, "visits": 0, "disease_key": "", "disease_label": ""})
+    disease_totals = defaultdict(lambda: {
+        "subjects": 0, "visits": 0, "label": "", "old_label": "", "old_group_key": "",
+        "status": empty_recruit_status(),
+    })
+    cohort_totals = defaultdict(lambda: {
+        "subjects": 0, "visits": 0, "disease_key": "", "disease_label": "", "old_label": "",
+        "status": empty_recruit_status(),
+    })
+    # Rolled back up to the ORIGINAL, pre-split disease team (e.g. "sle"
+    # combines sle_kdy + sle_skn) - this is where a single, shared Expected
+    # Recruitment target still makes sense (see the "combined bar" note
+    # above derive_diseases). Subject membership here is a real set, so a
+    # subject touching both Lupus subgroups still counts once.
+    combined_totals = defaultdict(lambda: {"subject_set": set(), "visits": 0, "label": "", "status": empty_recruit_status()})
     unassigned_subjects = 0
 
     for subj, rows in subj_rows.items():
@@ -312,38 +426,105 @@ def main():
         if picked is None:
             unassigned_subjects += 1
             continue
-        tags, scope = picked
-        disease_key, disease_label = derive_disease(scope)
-        # Subject counts ONCE toward their disease team, no matter how many
-        # cohort tags they carry.
-        disease_totals[disease_key]["subjects"] += 1
-        disease_totals[disease_key]["visits"] += n_subject_visits
-        disease_totals[disease_key]["label"] = disease_label
-        # ...but counts in EVERY cohort they belong to (a subject in both
-        # "Cohort 1a" and "Cohort 1b" adds 1 to each of those cohort totals).
-        for tag in sorted(set(tags)):
-            ck = (disease_key, tag)
-            cohort_totals[ck]["subjects"] += 1
-            cohort_totals[ck]["visits"] += n_subject_visits
-            cohort_totals[ck]["disease_key"] = disease_key
-            cohort_totals[ck]["disease_label"] = disease_label
+        tags, scope, code = picked
+        recruit_status = STATUS_BY_CODE.get(code, "unknown")
+        touched_groups = {}
+        # A subject can land in more than one disease-team bucket - see
+        # derive_diseases() for the combo Data_Scope cases ("PsD-SKN/SYN",
+        # "SLE/PsD-SKN", etc). They're counted once in EACH matching team,
+        # but the site-wide subject total is a separate, plain distinct-
+        # Subject_ID count (below) so it's never inflated by this.
+        for disease_key, disease_label, old_label, old_group_key in derive_diseases(scope):
+            disease_totals[disease_key]["subjects"] += 1
+            disease_totals[disease_key]["visits"] += n_subject_visits
+            disease_totals[disease_key]["label"] = disease_label
+            disease_totals[disease_key]["old_label"] = old_label
+            disease_totals[disease_key]["old_group_key"] = old_group_key
+            disease_totals[disease_key]["status"][recruit_status] += 1
+            touched_groups[old_group_key] = old_label
+            # ...and within that team, counts in EVERY cohort tag they carry
+            # (a subject in both "Cohort 1a" and "Cohort 1b" adds 1 to each).
+            for tag in sorted(set(tags)):
+                ck = (disease_key, tag)
+                cohort_totals[ck]["subjects"] += 1
+                cohort_totals[ck]["visits"] += n_subject_visits
+                cohort_totals[ck]["disease_key"] = disease_key
+                cohort_totals[ck]["disease_label"] = disease_label
+                cohort_totals[ck]["old_label"] = old_label
+                cohort_totals[ck]["status"][recruit_status] += 1
+        # Roll this subject up into each ORIGINAL (pre-split) team they
+        # touched - once each, even if they hit more than one new subgroup
+        # within that same original team.
+        for group_key, old_label in touched_groups.items():
+            g = combined_totals[group_key]
+            g["subject_set"].add(subj)
+            g["visits"] += n_subject_visits
+            g["label"] = old_label
+            g["status"][recruit_status] += 1
 
+    def disease_expected(old_label, cohort_names):
+        """
+        Sum this disease team's cohort-level recruitment targets. Returns
+        (total_or_None, partial): partial=True means at least one
+        contributing cohort has no target defined yet, so the sum is a
+        floor (actual target is >= this), not the full picture.
+        """
+        total, any_known, any_unknown = 0, False, False
+        for name in cohort_names:
+            v = expected_for(old_label, name)
+            if v is None:
+                any_unknown = True
+            else:
+                total += v
+                any_known = True
+        return (total if any_known else None), any_unknown
+
+    # Fine-grained (Lupus Kidney / Lupus Skin / ... ) - used for the disease
+    # filter pills, KPI totals, and the per-subgroup cohort cards. No target
+    # numbers at this granularity (see the module docstring / derive_diseases
+    # note) - those live one level up, on by_disease_group below.
     by_disease = sorted(
-        [{"key": k, "label": v["label"], "subjects": v["subjects"], "visits": v["visits"]}
+        [{"key": k, "label": v["label"], "subjects": v["subjects"], "visits": v["visits"], "status": v["status"]}
          for k, v in disease_totals.items()],
         key=lambda d: d["subjects"], reverse=True,
     )
+
+    # Rolled back up to the original disease team - one shared Expected
+    # Recruitment target per team, with the fine-grained subgroups above
+    # broken out as "segments" so a single progress-toward-target bar can
+    # still show the Kidney/Skin (or Arthritis/Psoriasis/Uveitis) split.
+    subgroup_to_group = {k: v["old_group_key"] for k, v in disease_totals.items()}
+    by_disease_group = []
+    for gk, g in combined_totals.items():
+        member_keys = [k for k, og in subgroup_to_group.items() if og == gk]
+        segments = sorted(
+            [{"key": k, "label": disease_totals[k]["label"], "subjects": disease_totals[k]["subjects"]}
+             for k in member_keys],
+            key=lambda s: s["subjects"], reverse=True,
+        )
+        cohort_names = {ck[1] for ck, cv in cohort_totals.items() if cv["disease_key"] in member_keys}
+        expected, partial = disease_expected(g["label"], cohort_names)
+        by_disease_group.append({
+            "key": gk, "label": g["label"], "subjects": len(g["subject_set"]), "visits": g["visits"],
+            "status": g["status"], "expected": expected, "expected_partial": partial, "segments": segments,
+        })
+    by_disease_group.sort(key=lambda d: d["subjects"], reverse=True)
+
     by_cohort_detail = sorted(
         [{"disease_key": v["disease_key"], "disease_label": v["disease_label"], "cohort": ck[1],
-          "subjects": v["subjects"], "visits": v["visits"]}
+          "subjects": v["subjects"], "visits": v["visits"], "status": v["status"],
+          "expected": expected_for(v["old_label"], ck[1])}
          for ck, v in cohort_totals.items()],
         # Alphabetical by cohort name within each disease team.
         key=lambda d: (d["disease_label"], d["cohort"].lower()),
     )
     recruitment = {
         "by_disease": by_disease,
+        "by_disease_group": by_disease_group,
         "by_cohort": by_cohort_detail,
         "unassigned_subjects": unassigned_subjects,
+        "status_order": RECRUIT_STATUS_ORDER,
+        "status_labels": RECRUIT_STATUS_LABELS,
     }
 
     by_scope_matrix = {

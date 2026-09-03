@@ -37,22 +37,26 @@ automation/                 optional: fully automated weekly refresh (see below)
 
 ## What's on each tab
 
-- **Recruitment** — how many subjects are enrolled, broken down by disease team
-  and then by cohort within each team. A subject's cohort is read from their
-  enrollment visit row (`Visit_Code` = `V01` / `VC1` / `VE1` / `VA1` / `VU1` —
-  one per visit type), pulling the `Visit_Cohort` tag from that row.
+- **Recruitment** — how many subjects are enrolled, broken down by disease
+  team/subgroup and then by cohort within each. A subject's cohort is read
+  from their enrollment visit row (`Visit_Code` = `V01` / `VC1` / `VE1` /
+  `VA1` / `VU1` — one per visit type), pulling the `Visit_Cohort` tag from
+  that row. Bars show progress toward the network's Expected Recruitment
+  targets; the top chart also splits Lupus (Kidney/Skin) and Psoriatic
+  Disease (Arthritis/Psoriasis/Uveitis) into colored segments, and cohort
+  bars are further split into Enrolled vs. Archival subjects.
 - **Technologies** — completion by technology, a full status breakdown
-  (completed / pending / QC fail / not applicable), and a heatmap you can group
-  either by disease/tissue scope (`Data_Scope`) or by cohort (`Visit_Cohort`) —
-  toggle at the top right of the heatmap card.
+  (completed / pending / QC fail / not applicable), and a small chart per
+  disease team showing completed samples by technology, filterable by
+  disease team, Pipeline, and dataset.
 
 **About "disease team":** the source `Disease Team` column is broken (reads
 `#REF!` for most rows — a lookup formula pointing at something that no longer
 exists). Both tabs instead derive the disease team from the `Data_Scope`
-prefix (`SLE-KDY` → Lupus (SLE), `RA-SYN` → Rheumatoid Arthritis (RA), etc.) —
-see `DISEASE_LABELS` and `derive_disease()` near the top of `build_data.py`.
-If you have the authoritative disease-team list, or the true mapping differs
-from this proxy, edit that dictionary (or send it to me and I'll wire it in).
+value (`SLE-KDY` → Lupus Kidney, `RA-SYN` → Rheumatoid Arthritis (RA), etc.) —
+see `DISEASE_LABELS`, `SPLIT_DISEASE_LABELS`, and `derive_diseases()` near the
+top of `build_data.py`. If you have the authoritative disease-team list, or
+the true mapping differs from this proxy, send it over and I'll wire it in.
 
 ## Quick start — get it live on GitHub Pages
 
@@ -96,9 +100,10 @@ There are two folders involved, and it's easy to mix them up:
 Steps:
 
 1. **Save the file.** Save this week's export as
-   `data/AMP_AIM_Dataset.xlsx` *inside your project folder* (i.e., save it
+   `data/AMP AIM Dataset.xlsx` *inside your project folder* (i.e., save it
    into the `data` subfolder that's already there, replacing last week's
-   copy). This file will never be committed to git — the `.gitignore` in this
+   copy) — note the file is always named **with spaces**, not underscores.
+   This file will never be committed to git — the `.gitignore` in this
    folder already excludes `*.xlsx` — so it's safe to just keep overwriting it
    here each week.
 2. **Open a terminal in your project folder and run the build script.** On
@@ -107,14 +112,26 @@ Steps:
    `cd Documents/AMPAIM-Dashboard`, adjusted to wherever yours actually is),
    and run:
    ```
-   pip install -r requirements.txt
-   python3 build_data.py data/AMP_AIM_Dataset.xlsx data/dashboard.json
+   python3 -m pip install -r requirements.txt
+   python3 build_data.py "data/AMP AIM Dataset.xlsx" data/dashboard.json
    ```
-   (`pip install -r requirements.txt` only needs to be run once, the first
-   time — you can skip it on later weeks.) This reads the spreadsheet and
+   The quotes around the first path are required — the filename has spaces
+   in it, and without quotes the terminal treats it as three separate
+   arguments and the script won't find the file.
+   (The `pip install` line only needs to be run once, the first time — you
+   can skip it on later weeks. Using `python3 -m pip install...` rather than
+   just `pip install...` matters especially on Windows, where a plain `pip`
+   command can sometimes point at a different Python install than `python3`
+   does — running pip "through" python3 like this guarantees the package
+   lands where `build_data.py` will actually look for it. If you already ran
+   `pip install -r requirements.txt` and still see
+   `ModuleNotFoundError: No module named 'openpyxl'`, that mismatch is almost
+   certainly why — rerun it as `python3 -m pip install -r requirements.txt`
+   instead.) This reads the spreadsheet and
    overwrites `data/dashboard.json` with the new aggregate counts. If you
-   saved the export somewhere other than `data/AMP_AIM_Dataset.xlsx`,
-   replace that first path with wherever you actually saved it.
+   saved the export somewhere other than `data/AMP AIM Dataset.xlsx`,
+   replace that first (quoted) path with wherever you actually saved it —
+   keep the quotes if that path has spaces too.
 3. **Commit and push, from that same terminal, still inside the project
    folder:**
    ```
@@ -134,32 +151,6 @@ sets up a GitHub Action that does it for you — but it needs to live in a
 one). See the comments at the top of that file for the one-time setup. Once
 configured, updating the spreadsheet in the private repo is the entire weekly
 workflow; the public dashboard refreshes itself.
-
-## Using Render instead of GitHub Pages
-
-Nothing here requires Render — this is a static site, and GitHub Pages hosts
-it for free with less setup. Render is worth it only if you outgrow this
-(e.g. you want the dashboard to query a live database instead of a weekly
-snapshot). If you do want it on Render: create a **Static Site** service
-pointing at this same repo, with build command `(none)` and publish directory
-`.` — Render will serve `index.html` directly, same as GitHub Pages.
-
-## Customizing
-
-- **Which technologies are tracked**: edit the `TECH_COLUMNS` list at the top
-  of `build_data.py` — each entry is `(source column name, short key, display label)`.
-- **Status classification**: the `classify()` function in `build_data.py` maps
-  the many raw status strings (`[specimen available]`, `[not applicable]`,
-  QC-fail suffixes, etc.) into 5 reportable buckets. If your export starts
-  using a new status string, add a rule there.
-- **Disease team labels**: edit `DISEASE_LABELS` in `build_data.py` (see "About
-  disease team" above).
-- **Which visit codes count as "enrollment"**: edit `ENROLLMENT_CODES_PRIORITY`
-  in `build_data.py` if a cohort should instead be read from a different visit
-  code, or if the priority order between them should change.
-- **Colors / chart styling**: all CSS custom properties are declared at the
-  top of `index.html` (`:root` for light mode, the media query below it for
-  dark mode) — change values there rather than hunting through the chart code.
 
 ## Local preview / troubleshooting
 
