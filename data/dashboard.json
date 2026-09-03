@@ -1,5 +1,5 @@
 {
-  "generated_at": "2026-09-03T04:09:14Z",
+  "generated_at": "2026-09-03T04:35:04Z",
   "source_rows": 1404,
   "totals": {
     "subjects": 1003,
@@ -233,7 +233,7 @@
           "archival": 17,
           "unknown": 0
         },
-        "expected": 16,
+        "expected": 17,
         "expected_partial": false,
         "segments": [
           {
@@ -776,7 +776,7 @@
           "archival": 5,
           "unknown": 0
         },
-        "expected": 4
+        "expected": 5
       },
       {
         "disease_key": "ssc",
