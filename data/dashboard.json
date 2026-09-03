@@ -1,5 +1,5 @@
 {
-  "generated_at": "2026-09-03T03:36:20Z",
+  "generated_at": "2026-09-03T04:09:14Z",
   "source_rows": 1404,
   "totals": {
     "subjects": 1003,
@@ -138,7 +138,7 @@
           "archival": 31,
           "unknown": 0
         },
-        "expected": 488,
+        "expected": 268,
         "expected_partial": true,
         "segments": [
           {
@@ -386,7 +386,7 @@
           "archival": 0,
           "unknown": 0
         },
-        "expected": 130
+        "expected": 65
       },
       {
         "disease_key": "psd_skn",
@@ -399,7 +399,7 @@
           "archival": 0,
           "unknown": 0
         },
-        "expected": 130
+        "expected": 65
       },
       {
         "disease_key": "psd_skn",
@@ -412,7 +412,7 @@
           "archival": 0,
           "unknown": 0
         },
-        "expected": 90
+        "expected": 45
       },
       {
         "disease_key": "psd_skn",
@@ -425,7 +425,7 @@
           "archival": 2,
           "unknown": 0
         },
-        "expected": 90
+        "expected": 45
       },
       {
         "disease_key": "psd_skn",
@@ -503,7 +503,7 @@
           "archival": 0,
           "unknown": 0
         },
-        "expected": 130
+        "expected": 65
       },
       {
         "disease_key": "psd_syn",
@@ -516,7 +516,7 @@
           "archival": 1,
           "unknown": 0
         },
-        "expected": 130
+        "expected": 65
       },
       {
         "disease_key": "psd_syn",
@@ -529,7 +529,7 @@
           "archival": 0,
           "unknown": 0
         },
-        "expected": 90
+        "expected": 45
       },
       {
         "disease_key": "psd_syn",
@@ -542,7 +542,7 @@
           "archival": 4,
           "unknown": 0
         },
-        "expected": 90
+        "expected": 45
       },
       {
         "disease_key": "psd_syn",
@@ -828,7 +828,7 @@
           "archival": 0,
           "unknown": 0
         },
-        "expected": 130
+        "expected": 65
       },
       {
         "disease_key": "psd_eye",
