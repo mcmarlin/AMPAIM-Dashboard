@@ -4,15 +4,17 @@
 # "amp-aim-data"), NOT the public dashboard repo. Save this file there as
 # .github/workflows/update-and-deploy.yml.
 #
-# WHAT IT DOES: whenever you push a new weekly export (as "data/AMP AIM Dataset.xlsx"
-# in this private repo), it rebuilds dashboard.json and pushes ONLY that file
+# WHAT IT DOES: whenever you push a new weekly export (as "data/AMP AIM Dataset.xlsx")
+# or an updated recruitment-target file (as "data/Expected_Recruitment_Numbers.xlsx")
+# in this private repo, it rebuilds dashboard.json and pushes ONLY that file
 # into your public GitHub Pages repo. The raw spreadsheet never leaves this
 # private repo - it is never copied, committed, or logged anywhere else.
 #
 # ONE-TIME SETUP:
 #   1. Create a private repo, e.g. "amp-aim-data". Put build_data.py and
-#      requirements.txt (from this bundle) at its root, and your weekly
-#      export at "data/AMP AIM Dataset.xlsx".
+#      requirements.txt (from this bundle) at its root, your weekly export
+#      at "data/AMP AIM Dataset.xlsx", and your recruitment targets at
+#      "data/Expected_Recruitment_Numbers.xlsx".
 #   2. Create a GitHub Personal Access Token (fine-grained, "Contents:
 #      read and write" scoped to ONLY your public dashboard repo) and save
 #      it as a secret named DASHBOARD_DEPLOY_TOKEN in this private repo's
@@ -30,6 +32,7 @@ on:
   push:
     paths:
       - "data/AMP AIM Dataset.xlsx"
+      - "data/Expected_Recruitment_Numbers.xlsx"
   workflow_dispatch: {}
 
 env:

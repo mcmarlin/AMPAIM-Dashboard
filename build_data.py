@@ -16,9 +16,10 @@ Privacy design (do not change without re-checking with the data owner):
     to raise that floor if small-cell suppression is ever required.
 
 Usage:
-    python3 build_data.py [input.xlsx] [output.json]
+    python3 build_data.py [input.xlsx] [output.json] [expected_recruitment.xlsx]
 
-Defaults: data/AMP_AIM_Dataset.xlsx -> data/dashboard.json
+Defaults: data/AMP_AIM_Dataset.xlsx -> data/dashboard.json, reading recruitment
+targets from data/Expected_Recruitment_Numbers.xlsx.
 """
 import sys
 import json
@@ -108,40 +109,57 @@ RECRUIT_STATUS_ORDER = ["enrolled", "archival", "unknown"]
 RECRUIT_STATUS_LABELS = {"enrolled": "Enrolled", "archival": "Archival", "unknown": "Unknown"}
 
 # How many subjects are ultimately expected in each cohort, per the network's
-# recruitment targets (from Expected_Recruitment_Numbers.xlsx, supplied
-# separately from the weekly sample-tracking export - these targets change
-# rarely, so they're kept here rather than requiring a second file upload
-# every week). None = not yet defined ("Undefined" in that spreadsheet).
-# Keyed by the ORIGINAL (pre-split) disease-team label, since that's the
-# level the targets were given at; a cohort's new, finer disease-subgroup
+# recruitment targets. Loaded at runtime (see load_expected_recruitment(),
+# called from main()) from a spreadsheet - data/Expected_Recruitment_Numbers.xlsx
+# by default - with columns "Disease Team", "Cohort", "Expected" (an optional
+# "Notes" column is ignored). Edit that spreadsheet directly to update targets;
+# no code change needed. A blank or "Undefined" Expected cell means "not yet
+# defined". Keyed by the ORIGINAL (pre-split) disease-team label, since that's
+# the level the targets were given at; a cohort's new, finer disease-subgroup
 # membership (see SPLIT_DISEASE_LABELS) is looked up from the real data, and
 # this table is then consulted by that cohort's old/whole-disease label.
-# Update this if the recruitment targets change.
-EXPECTED_RECRUITMENT = {
-    "Lupus (SLE)": {
-        "enabling": 22, "healthy control": 8, "healthy normal control": 4,
-        "kp1": 40, "kp2": 36, "not yet retrieved": None, "sp1": 30, "sp2": 20,
-    },
-    "Psoriatic Disease (PsD)": {
-        "axial spondyloarthritis control": 10, "cohort 1a: pso": 130,
-        "cohort 1b: drug-naive psa": 130, "cohort 2a: pso initiating therapy": 90,
-        "cohort 2b: psa initiating therapy": 90, "cohort 3: pso to psa risk": None,
-        "enabling": 3, "healthy normal control": 5, "not yet retrieved": None,
-        "uveitis cohort": 30,
-    },
-    "Rheumatoid Arthritis (RA)": {
-        "cohort 1: early ra, dmard naive": 50, "cohort 2: mtx-ir, bdmard naive": 50,
-        "cohort 3: refractory cohort": 50, "enabling": 9, "healthy control": 4,
-        "not yet retrieved": None, "unknown": None,
-    },
-    "Sjögren's Disease (SjD)": {
-        "asymptomatic rrnl": None, "enabling": 6, "healthy control": 50,
-        "longitudinal case": 100, "not yet retrieved": None,
-        "overlap syndrome": None, "sjd/sicca": 300, "unknown": None,
-    },
-    "Systemic Sclerosis (SSc)": {"healthy control": 4, "n/a": 12},
-    "Unknown": {"unknown": None},
-}
+EXPECTED_RECRUITMENT_PATH_DEFAULT = "data/Expected_Recruitment_Numbers.xlsx"
+EXPECTED_RECRUITMENT = {}  # populated by load_expected_recruitment() in main()
+
+
+def load_expected_recruitment(path):
+    """
+    Read the recruitment-target spreadsheet and return
+    {disease_team_label: {cohort_name_lowercased: int_or_None}}.
+    Returns {} (every target "not yet set") if the file is missing or doesn't
+    have the expected headers - the dashboard still builds fine either way,
+    it just won't show "of N" progress numbers until the file is in place.
+    """
+    try:
+        wb = openpyxl.load_workbook(path, data_only=True)
+    except FileNotFoundError:
+        print(f"WARNING: recruitment-target file not found at {path!r} - "
+              f"recruitment bars will show as \"not yet set\" until it's added.",
+              file=sys.stderr)
+        return {}
+    ws = wb[wb.sheetnames[0]]
+    headers = [c.value.strip() if isinstance(c.value, str) else c.value for c in ws[1]]
+    col_idx = {h: i for i, h in enumerate(headers) if h}
+    required = ["Disease Team", "Cohort", "Expected"]
+    missing = [c for c in required if c not in col_idx]
+    if missing:
+        print(f"WARNING: {path!r} is missing column(s) {missing} (expected "
+              f"'Disease Team', 'Cohort', 'Expected' headers on row 1) - "
+              f"recruitment bars will show as \"not yet set\".", file=sys.stderr)
+        return {}
+
+    out = {}
+    for row in ws.iter_rows(min_row=2, values_only=True):
+        team_cell = row[col_idx["Disease Team"]]
+        cohort_cell = row[col_idx["Cohort"]]
+        if team_cell is None or cohort_cell is None:
+            continue
+        team = str(team_cell).strip()
+        cohort = str(cohort_cell).strip().lower()
+        raw = row[col_idx["Expected"]]
+        value = int(raw) if isinstance(raw, (int, float)) else None
+        out.setdefault(team, {})[cohort] = value
+    return out
 
 
 def expected_for(old_label, cohort_name):
@@ -272,6 +290,10 @@ def add_counts(dst, src):
 def main():
     in_path = sys.argv[1] if len(sys.argv) > 1 else "data/AMP_AIM_Dataset.xlsx"
     out_path = sys.argv[2] if len(sys.argv) > 2 else "data/dashboard.json"
+    expected_path = sys.argv[3] if len(sys.argv) > 3 else EXPECTED_RECRUITMENT_PATH_DEFAULT
+
+    global EXPECTED_RECRUITMENT
+    EXPECTED_RECRUITMENT = load_expected_recruitment(expected_path)
 
     wb = openpyxl.load_workbook(in_path, data_only=True)
     ws = wb[wb.sheetnames[0]]

@@ -28,11 +28,12 @@ re-check with your PI/data manager before changing what this dashboard shows.
 ## What's in this folder
 
 ```
-index.html                  the dashboard itself (one self-contained file)
-data/dashboard.json         generated aggregate data — this is what's public
-build_data.py                reads your weekly .xlsx, writes dashboard.json
-requirements.txt            Python dependency (openpyxl) for build_data.py
-automation/                 optional: fully automated weekly refresh (see below)
+index.html                             the dashboard itself (one self-contained file)
+data/dashboard.json                    generated aggregate data — this is what's public
+data/Expected_Recruitment_Numbers.xlsx recruitment targets — edit this to update them
+build_data.py                          reads your weekly .xlsx, writes dashboard.json
+requirements.txt                       Python dependency (openpyxl) for build_data.py
+automation/                            optional: fully automated weekly refresh (see below)
 ```
 
 ## What's on each tab
@@ -142,6 +143,32 @@ Steps:
    The live site updates automatically within a minute or two of the push.
    (Only `dashboard.json` gets pushed — the `.xlsx` file stays on your
    computer and is never uploaded anywhere.)
+
+## Updating recruitment targets
+
+The "of N" progress numbers on the Recruitment tab (e.g. "192 of 488") come
+from `data/Expected_Recruitment_Numbers.xlsx`, not from the weekly sample
+export — these targets change far less often, so they're kept in their own
+small spreadsheet. To update one:
+
+1. Open `data/Expected_Recruitment_Numbers.xlsx` (in your project folder,
+   right next to `data/AMP AIM Dataset.xlsx`) in Excel.
+2. Each row is one cohort. Edit the number in the **Expected** column, or
+   type `Undefined` if a target isn't set yet. (The **Notes** column is just
+   for your own reference — it isn't read by the dashboard.) Don't rename the
+   **Disease Team** or **Cohort** values, or a target won't be found for that
+   cohort.
+3. Save the file, in place, still named `Expected_Recruitment_Numbers.xlsx`.
+4. Run the normal weekly-update steps above (`build_data.py` then
+   `git add` / `commit` / `push`) — the new targets are picked up
+   automatically the next time the script runs, no separate step needed. If
+   you're only updating targets and not the weekly sample export, you can
+   still just rerun step 2 and step 3 of the weekly update as-is; the script
+   reads both files every time.
+
+If this file is ever missing or moved, `build_data.py` won't fail — it just
+prints a warning and every recruitment bar shows "not yet set" until the
+file is back in place.
 
 ## Fully automated weekly refresh (optional)
 
