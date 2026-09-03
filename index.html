@@ -29,6 +29,10 @@
     --cat-orange:  #eb6834;
     --cat-aqua:    #1baf7a;
     --cat-yellow:  #eda100;
+    /* Filter-row accents only (never reused for chart-series identity) -
+       lets each filter row's active pills read as its own group at a glance. */
+    --cat-violet:  #4a3aa7;
+    --cat-magenta: #e87ba4;
   }
   @media (prefers-color-scheme: dark) {
     :root:where(:not([data-theme="light"])) {
@@ -46,6 +50,8 @@
       --cat-orange:  #d95926;
       --cat-aqua:    #199e70;
       --cat-yellow:  #c98500;
+      --cat-violet:  #9085e9;
+      --cat-magenta: #d55181;
     }
   }
   * { box-sizing: border-box; }
@@ -95,6 +101,8 @@
     background: transparent; color: var(--text-secondary); cursor: pointer; user-select: none;
   }
   .pill.active { background: var(--seq-450); border-color: var(--seq-450); color: #fff; }
+  .filter-row--disease .pill.active { background: var(--cat-violet); border-color: var(--cat-violet); }
+  .filter-row--pipeline .pill.active { background: var(--cat-magenta); border-color: var(--cat-magenta); }
   .pill.meta { color: var(--text-muted); font-style: normal; }
   .pill.meta:hover { color: var(--text-primary); }
 
@@ -224,7 +232,7 @@
       <div class="card-head">
         <div>
           <h2>Status breakdown by technology</h2>
-          <p class="sub">Every visit, classified by where its sample stands for each technology.</p>
+          <p class="sub">Every visit, classified by where its sample stands for each technology. Visits with no specimen to run are left out entirely (see the table view for that count).</p>
         </div>
         <button class="table-toggle" data-target="bytech">View as table</button>
       </div>
@@ -342,6 +350,11 @@
       return arr.some(function (sd) { return state.selectedDisease.has(sd.key); });
     });
   }
+  // Display-only relabel: the "Undefined" pipeline value (a blank/missing
+  // Pipeline cell in the source data) reads as "Unselected/Banked" to users,
+  // but the underlying data key stays "Undefined" so filtering/lookups are
+  // unaffected.
+  function pipelineLabel(p) { return p === 'Undefined' ? 'Unselected/Banked' : p; }
   function zeroRecruitCounts() { var o = {}; state.data.recruitment.status_order.forEach(function (k) { o[k] = 0; }); return o; }
   function addRecruitInto(dst, src) { state.data.recruitment.status_order.forEach(function (k) { dst[k] = (dst[k] || 0) + ((src && src[k]) || 0); }); return dst; }
   // Fixed identity->color mapping (never by rank/position) for the disease
@@ -350,7 +363,7 @@
     sle_kdy: '--cat-orange', sle_skn: '--cat-aqua',
     psd_syn: '--cat-orange', psd_skn: '--cat-aqua', psd_eye: '--cat-yellow',
   };
-  var RECRUIT_STATUS_COLOR_VARS = { enrolled: '--seq-450', archival: '--cat-green', unknown: '--st-other' };
+  var RECRUIT_STATUS_COLOR_VARS = { enrolled: '--seq-450', archival: '--cat-green' };
   var RECRUIT_STATUS_LABELS = { enrolled: 'Enrolled', archival: 'Archival', unknown: 'Unknown' };
   function byDiseaseMap() {
     var m = {};
@@ -449,7 +462,7 @@
 
   // ---------- Filter rows ----------
   function buildDiseaseFilterRow() {
-    var row = document.createElement('div'); row.className = 'filter-row';
+    var row = document.createElement('div'); row.className = 'filter-row filter-row--disease';
     var flabel = document.createElement('div'); flabel.className = 'flabel'; flabel.textContent = 'Disease teams shown';
     var group = document.createElement('div'); group.className = 'pill-group';
     state.data.recruitment.by_disease.forEach(function (dz) {
@@ -475,7 +488,7 @@
     return row;
   }
   function buildTechFilterRow() {
-    var row = document.createElement('div'); row.className = 'filter-row';
+    var row = document.createElement('div'); row.className = 'filter-row filter-row--tech';
     var flabel = document.createElement('div'); flabel.className = 'flabel'; flabel.textContent = 'Datasets shown';
     var group = document.createElement('div'); group.className = 'pill-group';
     state.data.technologies.forEach(function (t) {
@@ -501,13 +514,13 @@
     return row;
   }
   function buildPipelineFilterRow() {
-    var row = document.createElement('div'); row.className = 'filter-row';
+    var row = document.createElement('div'); row.className = 'filter-row filter-row--pipeline';
     var flabel = document.createElement('div'); flabel.className = 'flabel'; flabel.textContent = 'Pipelines shown';
     var group = document.createElement('div'); group.className = 'pill-group';
     state.data.pipelines.forEach(function (p) {
       var b = document.createElement('button');
       b.className = 'pill' + (state.selectedPipeline.has(p) ? ' active' : '');
-      b.textContent = p; b.dataset.key = p;
+      b.textContent = pipelineLabel(p); b.dataset.key = p;
       b.addEventListener('click', function () {
         if (state.selectedPipeline.has(p)) state.selectedPipeline.delete(p); else state.selectedPipeline.add(p);
         renderFilter(); renderAll();
@@ -612,7 +625,6 @@
           var rows = [[multi ? seg.label : g.label, fmt(seg.subjects) + ' subjects']];
           if (multi) rows.push(['Share of ' + g.label, fmt(g.subjects) + ' subjects total']);
           rows.push(['Enrolled', fmt(g.status.enrolled)], ['Archival', fmt(g.status.archival)]);
-          if (g.status.unknown) rows.push(['Unknown', fmt(g.status.unknown)]);
           if (hasTarget) rows.push(['Team target', fmt(g.expected) + (g.expected_partial ? ' (partial)' : '')]);
           showTooltip(ev.clientX, ev.clientY, rows);
         });
@@ -705,7 +717,6 @@
         hit.addEventListener('pointermove', function (ev) {
           var rows = [['Cohort', c.cohort], ['Disease team', dz.label], ['Subjects', expectedLabel(c.subjects, c.expected, false)]];
           rows.push(['Enrolled', fmt(c.status.enrolled)], ['Archival', fmt(c.status.archival)]);
-          if (c.status.unknown) rows.push(['Unknown', fmt(c.status.unknown)]);
           rows.push(['Visits', fmt(c.visits)]);
           showTooltip(ev.clientX, ev.clientY, rows);
         });
@@ -817,7 +828,10 @@
     var el = document.getElementById('bytechChart'); el.innerHTML = '';
     var scopes = scopesForSelectedDiseases(), pipelines = selectedPipelines();
     var rows = selectedTechs().map(function (t) { return { key: t.key, label: t.label, counts: techCountsFiltered(t.key, scopes, pipelines) }; });
-    rows.forEach(function (r) { r.total = totalOf(r.counts); });
+    // "No Specimen" samples never had a specimen to run this technology on,
+    // so this chart (and its Total column) excludes them entirely rather
+    // than counting them as a tracked-but-incomplete sample.
+    rows.forEach(function (r) { r.total = totalOf(r.counts) - (r.counts.no_specimen || 0); });
     if (!rows.length) { el.textContent = 'No datasets selected (or no disease teams / pipelines selected).'; renderByTechTable(rows); return; }
     var width = Math.max(el.clientWidth || 900, 480);
     var rowH = 34, leftPad = 190, rightPad = 16, topPad = 8;

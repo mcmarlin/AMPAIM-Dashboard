@@ -50,11 +50,12 @@ TECH_COLUMNS = [
     ("anti-C1Q_Sample_ID", "anti_c1q", "Anti-C1Q"),
 ]
 
-STATUS_ORDER = ["completed", "pending", "not_applicable", "qc_fail", "unknown"]
+STATUS_ORDER = ["completed", "pending", "not_applicable", "no_specimen", "qc_fail", "unknown"]
 STATUS_LABELS = {
     "completed": "Completed",
     "pending": "Pending / Specimen Available",
-    "not_applicable": "Not Applicable / No Specimen",
+    "not_applicable": "Not Applicable",
+    "no_specimen": "No Specimen",
     "qc_fail": "QC Fail",
     "unknown": "Unknown / Not Yet Retrieved",
 }
@@ -105,8 +106,8 @@ STATUS_BY_CODE = {
     "VA1": "archival",
     "VU1": "enrolled",
 }
-RECRUIT_STATUS_ORDER = ["enrolled", "archival", "unknown"]
-RECRUIT_STATUS_LABELS = {"enrolled": "Enrolled", "archival": "Archival", "unknown": "Unknown"}
+RECRUIT_STATUS_ORDER = ["enrolled", "archival"]
+RECRUIT_STATUS_LABELS = {"enrolled": "Enrolled", "archival": "Archival"}
 
 # How many subjects are ultimately expected in each cohort, per the network's
 # recruitment targets. Loaded at runtime (see load_expected_recruitment(),
@@ -215,7 +216,7 @@ def derive_diseases(scope_label):
 
 
 def classify(value):
-    """Collapse the many raw status strings into 5 reportable buckets."""
+    """Collapse the many raw status strings into 6 reportable buckets."""
     if value is None:
         return "unknown"
     s = str(value).strip()
@@ -224,7 +225,15 @@ def classify(value):
     low = s.lower()
     if "qc fail" in low or "qc-fail" in low or "failed qc" in low:
         return "qc_fail"
-    if "not applicable" in low or "no specimen" in low or "not available" in low:
+    # "No Specimen" (and any bracketed reason alongside it, e.g.
+    # "[No Specimen][Block Exhausted]") means there was never a specimen to
+    # run this technology on - kept as its own bucket, distinct from the
+    # rarer "Not Applicable"/"Not Available" cases below, because the
+    # Technologies tab's "Status breakdown by technology" chart excludes it
+    # entirely (not shown as a segment, not counted in that chart's total).
+    if "no specimen" in low:
+        return "no_specimen"
+    if "not applicable" in low or "not available" in low:
         return "not_applicable"
     if "not ordered" in low:
         return "not_applicable"
@@ -449,7 +458,12 @@ def main():
             unassigned_subjects += 1
             continue
         tags, scope, code = picked
-        recruit_status = STATUS_BY_CODE.get(code, "unknown")
+        # Every enrollment code STATUS_BY_CODE is ever asked about (V01/VC1/
+        # VE1/VA1/VU1 - see ENROLLMENT_CODES_PRIORITY) maps to enrolled or
+        # archival, so this fallback is unreachable in practice; "enrolled"
+        # keeps the status dict valid (only enrolled/archival keys exist)
+        # rather than risking a KeyError on a status this dict doesn't track.
+        recruit_status = STATUS_BY_CODE.get(code, "enrolled")
         touched_groups = {}
         # A subject can land in more than one disease-team bucket - see
         # derive_diseases() for the combo Data_Scope cases ("PsD-SKN/SYN",
