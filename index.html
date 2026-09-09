@@ -510,8 +510,9 @@
     var row = document.createElement('div'); row.className = 'filter-row filter-row--disease';
     var flabel = document.createElement('div'); flabel.className = 'flabel'; flabel.textContent = 'Disease teams shown';
     var group = document.createElement('div'); group.className = 'pill-group';
-    var diseaseCount = state.data.recruitment.by_disease.length;
-    state.data.recruitment.by_disease.forEach(function (dz, i) {
+    var diseasesAZ = state.data.recruitment.by_disease.slice().sort(function (a, b) { return a.label.localeCompare(b.label); });
+    var diseaseCount = diseasesAZ.length;
+    diseasesAZ.forEach(function (dz, i) {
       var b = document.createElement('button');
       b.className = 'pill' + (state.selectedDisease.has(dz.key) ? ' active' : '');
       b.style.setProperty('--pill-color', pillGradient('disease', i, diseaseCount));
@@ -640,7 +641,7 @@
   function renderDiseaseChart() {
     var el = document.getElementById('diseaseChart');
     el.innerHTML = '';
-    var groups = selectedDiseaseGroups().sort(function (a, b) { return b.subjects - a.subjects; });
+    var groups = selectedDiseaseGroups().sort(function (a, b) { return a.label.localeCompare(b.label); });
     if (!groups.length) { el.textContent = 'No disease teams selected.'; renderDiseaseTable(groups); return; }
 
     var maxSubj = Math.max.apply(null, groups.map(function (g) { return g.subjects; })) || 1;
@@ -662,9 +663,16 @@
       var filledW = g.subjects > 0 ? Math.max(3, frac * chartW) : 0;
       var multi = g.segments.length > 1;
       var gap = 2, xCursor = leftPad;
+      // Segment widths are shares of the filled bar, not shares of g.subjects
+      // directly - a subject whose Data_Scope spans more than one tissue is
+      // counted in EACH matching segment (see derive_diseases()), so
+      // seg.subjects can sum to more than g.subjects. Normalizing by that sum
+      // instead keeps the segments always adding up to exactly filledW, so
+      // they never run past the bar's own (possibly target-capped) width.
+      var segSubjTotal = g.segments.reduce(function (s, seg) { return s + seg.subjects; }, 0) || g.subjects || 1;
 
       g.segments.forEach(function (seg, si) {
-        var segFrac = g.subjects > 0 ? seg.subjects / g.subjects : 0;
+        var segFrac = segSubjTotal > 0 ? seg.subjects / segSubjTotal : 0;
         var isLast = si === g.segments.length - 1;
         var segW = Math.max(0, segFrac * filledW - (isLast ? 0 : gap));
         if (segW <= 0) return;
@@ -719,7 +727,7 @@
   function renderCohortChart() {
     var el = document.getElementById('cohortChart');
     el.innerHTML = '';
-    var diseases = selectedDiseases().slice().sort(function (a, b) { return b.subjects - a.subjects; });
+    var diseases = selectedDiseases().slice().sort(function (a, b) { return a.label.localeCompare(b.label); });
     if (!diseases.length) { el.textContent = 'No disease teams selected.'; renderCohortTable(diseases); return; }
 
     diseases.forEach(function (dz) {
@@ -937,7 +945,7 @@
   // stay visible at once without a fourth "group by" control to juggle.
   function renderByDisease() {
     var el = document.getElementById('bydiseaseChart'); el.innerHTML = '';
-    var diseases = selectedDiseases().slice().sort(function (a, b) { return b.subjects - a.subjects; });
+    var diseases = selectedDiseases().slice().sort(function (a, b) { return a.label.localeCompare(b.label); });
     var techs = selectedTechs(), pipelines = selectedPipelines();
     if (!diseases.length || !techs.length) {
       el.textContent = 'No disease teams / datasets selected (or no pipelines selected).';
