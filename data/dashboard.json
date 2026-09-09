@@ -1,5 +1,5 @@
 {
-  "generated_at": "2026-09-09T16:48:17Z",
+  "generated_at": "2026-09-09T16:55:24Z",
   "source_rows": 1397,
   "totals": {
     "subjects": 1001,
@@ -98,7 +98,7 @@
           "enrolled": 461,
           "archival": 2
         },
-        "expected": 466,
+        "expected": 450,
         "expected_partial": false,
         "segments": [
           {
@@ -141,7 +141,7 @@
           "enrolled": 128,
           "archival": 42
         },
-        "expected": 137,
+        "expected": 216,
         "expected_partial": true,
         "segments": [
           {
@@ -160,7 +160,7 @@
           "enrolled": 129,
           "archival": 15
         },
-        "expected": 160,
+        "expected": 159,
         "expected_partial": false,
         "segments": [
           {
@@ -184,7 +184,7 @@
           "enrolled": 0,
           "archival": 17
         },
-        "expected": 16,
+        "expected": 17,
         "expected_partial": false,
         "segments": [
           {
@@ -249,7 +249,7 @@
           "enrolled": 41,
           "archival": 0
         },
-        "expected": 40
+        "expected": 39
       },
       {
         "disease_key": "sle_kdy",
@@ -417,7 +417,7 @@
           "enrolled": 51,
           "archival": 4
         },
-        "expected": 52
+        "expected": 96
       },
       {
         "disease_key": "ra",
@@ -429,7 +429,7 @@
           "enrolled": 15,
           "archival": 0
         },
-        "expected": 21
+        "expected": 56
       },
       {
         "disease_key": "ra",
@@ -489,7 +489,7 @@
           "enrolled": 46,
           "archival": 0
         },
-        "expected": 50
+        "expected": 43
       },
       {
         "disease_key": "sjd",
@@ -501,7 +501,7 @@
           "enrolled": 297,
           "archival": 0
         },
-        "expected": 300
+        "expected": 293
       },
       {
         "disease_key": "sjd",
@@ -525,7 +525,7 @@
           "enrolled": 3,
           "archival": 0
         },
-        "expected": 5
+        "expected": 3
       },
       {
         "disease_key": "ssc",
@@ -537,7 +537,7 @@
           "enrolled": 0,
           "archival": 17
         },
-        "expected": 16
+        "expected": 17
       },
       {
         "disease_key": "unknown",
