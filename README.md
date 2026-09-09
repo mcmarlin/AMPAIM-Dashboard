@@ -22,7 +22,7 @@ GitHub** — not even temporarily. GitHub remembers every version of every file
 ever uploaded, so deleting it afterward doesn't remove it from the repo's
 history (see "Removing a file you accidentally uploaded" below — a plain
 delete isn't enough for anything sensitive). The real safeguard is keeping
-both spreadsheets (`AMP AIM Dataset.xlsx` and `Expected_Recruitment_Numbers.xlsx`)
+both spreadsheets (`AMP-AIM_Dataset_Weekly_Update.xlsx` and `Target_Recruitment_Numbers.xlsx`)
 in your `Data` folder — see "Where your files live" below — which sits
 *outside* the project folder you upload from, so there's nothing to
 accidentally drag in. Only ever upload the generated `dashboard.json`. If
@@ -49,8 +49,8 @@ adjusted to whatever your project folder is actually named):
 ```
 AMP-AIM_Progress_Dashboard\
 ├── Data\
-│   ├── AMP AIM Dataset.xlsx                 this week's sample-tracking export
-│   └── Expected_Recruitment_Numbers.xlsx    recruitment targets — edit to update them
+│   ├── AMP-AIM_Dataset_Weekly_Update.xlsx   this week's export (subjects + visits + more)
+│   └── Target_Recruitment_Numbers.xlsx      recruitment targets — edit to update them
 └── amp-dashboard_v4\  (or whatever your project folder is named)
     ├── index.html
     ├── build_data.py
@@ -66,25 +66,31 @@ new folder every time you get an updated project folder from Claude.
 ## What's on each tab
 
 - **Recruitment** — how many subjects are enrolled, broken down by disease
-  team/subgroup and then by cohort within each. A subject's cohort is read
-  from their enrollment visit row (`Visit_Code` = `V01` / `VC1` / `VE1` /
-  `VA1` / `VU1` — one per visit type), pulling the `Visit_Cohort` tag from
-  that row. Bars show progress toward the network's Expected Recruitment
-  targets; the top chart also splits Lupus (Kidney/Skin) and Psoriatic
-  Disease (Arthritis/Psoriasis/Uveitis) into colored segments, and cohort
-  bars are further split into Enrolled vs. Archival subjects.
+  team/subgroup and then by cohort within each. This now reads straight off
+  the `subjects` tab of the weekly export — one row per subject, no more
+  hunting for a particular enrollment visit. A subject's status (Enrolled vs.
+  Archival) comes from their `Subject Type`, and their cohort(s) come from
+  their `Dashboard_Label` tag(s) — a simplified, harmonized version of the
+  original cohort labels, still shown as "Cohort" in the dashboard. Bars show
+  progress toward the network's recruitment targets; the top chart also
+  splits Lupus (Kidney/Skin) and Psoriatic Disease (Arthritis/Psoriasis) into
+  colored segments, and cohort bars are further split into Enrolled vs.
+  Archival subjects.
 - **Technologies** — completion by technology, a full status breakdown
   (completed / pending / QC fail / not applicable), and a small chart per
   disease team showing completed samples by technology, filterable by
-  disease team, Pipeline, and dataset.
+  disease team, Pipeline, and dataset. This still reads the visit-level
+  `visits` tab, since it's tracking samples/assays per visit rather than
+  per subject.
 
-**About "disease team":** the source `Disease Team` column is broken (reads
-`#REF!` for most rows — a lookup formula pointing at something that no longer
-exists). Both tabs instead derive the disease team from the `Data_Scope`
-value (`SLE-KDY` → Lupus Kidney, `RA-SYN` → Rheumatoid Arthritis (RA), etc.) —
-see `DISEASE_LABELS`, `SPLIT_DISEASE_LABELS`, and `derive_diseases()` near the
-top of `build_data.py`. If you have the authoritative disease-team list, or
-the true mapping differs from this proxy, send it over and I'll wire it in.
+**About "disease team":** the source `Disease Team` column holds each row's
+study/protocol name (STAMP, ELLIPSS, AIM for RA, LOCKIT, SSc Pilot), not a
+diagnosis, so it isn't the grouping the dashboard needs. Both tabs instead
+derive the disease team from the `Data_Scope` value (`SLE-KDY` → Lupus
+Kidney, `RA-SYN` → Rheumatoid Arthritis (RA), etc.) — see `DISEASE_LABELS`,
+`SPLIT_DISEASE_LABELS`, and `derive_diseases()` near the top of
+`build_data.py`. If the true mapping ever needs to change, that's the place
+to edit it.
 
 ## Quick start — get it live on GitHub Pages
 
@@ -125,22 +131,21 @@ github.com.
 Steps:
 
 1. **Save this week's export.** Save/overwrite it as
-   `AMP AIM Dataset.xlsx` in your `Data` folder (not inside the project
-   folder) — note the file is always named **with spaces**, not underscores.
-   Nothing in this step touches GitHub; this file never leaves your computer.
+   `AMP-AIM_Dataset_Weekly_Update.xlsx` in your `Data` folder (not inside the
+   project folder). Nothing in this step touches GitHub; this file never
+   leaves your computer.
 2. **Open a terminal in your project folder and run the build script.** On
    Windows, open Command Prompt or PowerShell and navigate into your project
    folder (for example `cd Desktop\AMP-AIM_Progress_Dashboard\amp-dashboard_v4`,
    adjusted to your actual folder name), then run:
    ```
    python3 -m pip install -r requirements.txt
-   python3 build_data.py "../Data/AMP AIM Dataset.xlsx" data/dashboard.json "../Data/Expected_Recruitment_Numbers.xlsx"
+   python3 build_data.py "../Data/AMP-AIM_Dataset_Weekly_Update.xlsx" data/dashboard.json "../Data/Target_Recruitment_Numbers.xlsx"
    ```
    The `../Data/...` paths point one folder up and into `Data` — that's what
    makes this find your spreadsheets now that they live outside the project
-   folder. Quotes are required on both spreadsheet paths because the
-   filenames contain spaces; without quotes the terminal treats each as
-   several separate arguments and the script won't find the file.
+   folder. (Quotes around each path aren't strictly required anymore since
+   neither filename has spaces, but they don't hurt either.)
    (The `pip install` line only needs to be run once, ever — skip it on
    later weeks. Using `python3 -m pip install...` rather than just
    `pip install...` matters especially on Windows, where a plain `pip`
@@ -173,18 +178,20 @@ Steps:
 ## Updating recruitment targets
 
 The "of N" progress numbers on the Recruitment tab (e.g. "192 of 488") come
-from `Expected_Recruitment_Numbers.xlsx` in your `Data` folder, not from the
+from `Target_Recruitment_Numbers.xlsx` in your `Data` folder, not from the
 weekly sample export — these targets change far less often, so they're kept
 in their own small spreadsheet. To update one:
 
-1. Open `Expected_Recruitment_Numbers.xlsx` (in your `Data` folder, next to
-   `AMP AIM Dataset.xlsx`) in Excel.
+1. Open `Target_Recruitment_Numbers.xlsx` (in your `Data` folder, next to
+   `AMP-AIM_Dataset_Weekly_Update.xlsx`) in Excel.
 2. Each row is one cohort. Edit the number in the **Expected** column, or
    type `Undefined` if a target isn't set yet. (The **Notes** column is just
    for your own reference — it isn't read by the dashboard.) Don't rename the
    **Disease Team** or **Cohort** values, or a target won't be found for that
-   cohort.
-3. Save the file, in place, still named `Expected_Recruitment_Numbers.xlsx`,
+   cohort — the **Cohort** values need to match the new `Dashboard_Label`
+   tags from the `subjects` tab (see "Generating a fresh Disease Team x
+   Cohort reference" below if you need the current list).
+3. Save the file, in place, still named `Target_Recruitment_Numbers.xlsx`,
    still in the `Data` folder.
 4. Run steps 2 and 3 of the weekly update above (rebuild, then upload just
    `data/dashboard.json` into the repo's `data` folder on GitHub) — the new
@@ -195,7 +202,23 @@ in their own small spreadsheet. To update one:
 
 If this file is ever missing or moved, `build_data.py` won't fail — it just
 prints a warning and every recruitment bar shows "not yet set" until the
-file is back in place at `../Data/Expected_Recruitment_Numbers.xlsx`.
+file is back in place at `../Data/Target_Recruitment_Numbers.xlsx`.
+
+### Generating a fresh Disease Team x Cohort reference
+
+`automation/generate_cohort_reference.py` reads the current `subjects` tab
+and writes out every Disease Team x Cohort combination that actually appears
+in the data, in the new `Dashboard_Label` format, alongside each combo's
+current subject count and its existing target (carried over automatically
+when the name matches `Target_Recruitment_Numbers.xlsx` exactly). Useful
+whenever cohort labels change and `Target_Recruitment_Numbers.xlsx` needs to
+be brought up to date:
+```
+python3 automation/generate_cohort_reference.py "../Data/AMP-AIM_Dataset_Weekly_Update.xlsx" "../Data/Target_Recruitment_Numbers.xlsx" "../Data/Cohort_Reference_New_Format.xlsx"
+```
+This is a reference file only — it's never read by the dashboard itself.
+Copy the Expected values you want to keep over into
+`Target_Recruitment_Numbers.xlsx` by hand.
 
 ## Removing a file you accidentally uploaded
 
@@ -216,8 +239,8 @@ That's the right move for an ordinary mistaken upload — an extra copy of
 `dashboard.json`, an unwanted image, and so on. **It is not enough for
 anything sensitive.** GitHub keeps every previous version of every file
 forever, so a deleted file is still sitting in the repo's history and
-recoverable by anyone — this matters most for `AMP AIM Dataset.xlsx`, which
-must never be uploaded here at all (see "Why this is aggregate-only" above).
+recoverable by anyone — this matters most for `AMP-AIM_Dataset_Weekly_Update.xlsx`,
+which must never be uploaded here at all (see "Why this is aggregate-only" above).
 If that ever happens by mistake, deleting it isn't sufficient — stop and
 either make the repo private immediately or contact GitHub support about
 fully purging it from history, and check with your PI/data manager.

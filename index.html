@@ -205,7 +205,7 @@
       <div class="card-head">
         <div>
           <h2>Subjects enrolled by disease team</h2>
-          <p class="sub">One subject is counted once, at their enrollment visit (V01 / VC1 / VE1 / VA1 / VU1). Bar length is progress toward the recruitment target; Lupus and Psoriatic Disease are further split into their subgroups as colored segments. Hover a segment for its exact numbers.</p>
+          <p class="sub">Each subject is counted once, from their own row on the subjects tracking sheet. Bar length is progress toward the recruitment target; Lupus and Psoriatic Disease are further split into their subgroups as colored segments. Hover a segment for its exact numbers.</p>
         </div>
         <button class="table-toggle" data-target="disease">View as table</button>
       </div>
@@ -406,7 +406,7 @@
   // subgroup segments, and for the enrolled/archival/unknown breakdown.
   var SEGMENT_COLOR_VARS = {
     sle_kdy: '--cat-orange', sle_skn: '--cat-aqua',
-    psd_syn: '--cat-orange', psd_skn: '--cat-aqua', psd_eye: '--cat-yellow',
+    psd_syn: '--cat-orange', psd_skn: '--cat-aqua',
   };
   var RECRUIT_STATUS_COLOR_VARS = { enrolled: '--seq-450', archival: '--cat-green' };
   var RECRUIT_STATUS_LABELS = { enrolled: 'Enrolled', archival: 'Archival' };
@@ -484,7 +484,7 @@
         { label: 'Subjects enrolled', value: fmt(subj), hero: true },
         { label: 'Visits tracked', value: fmt(visits), hero: true },
         { label: 'Cohorts tracked', value: fmt(cohortCount) },
-        { label: 'Subjects with no enrollment visit', value: fmt(state.data.recruitment.unassigned_subjects), flag: state.data.recruitment.unassigned_subjects > 0 }
+        { label: 'Subjects not yet placed in a cohort', value: fmt(state.data.recruitment.unassigned_subjects), flag: state.data.recruitment.unassigned_subjects > 0 }
       ];
     } else {
       var d = state.data;
@@ -801,15 +801,15 @@
     var html = '';
     if (rec.unassigned_subjects > 0) {
       html += '<p><span class="flag">' + fmt(rec.unassigned_subjects) + ' subject' + (rec.unassigned_subjects === 1 ? '' : 's') +
-        '</span> have no enrollment-visit row at all (no V01 / VC1 / VE1 / VA1 / VU1 record), so they can’t be placed in a cohort here. They’re still counted in overall totals elsewhere on this site.</p>';
+        '</span> ' + (rec.unassigned_subjects === 1 ? 'has' : 'have') + ' a Subject Type of “Pre-Participation” (or another value this dashboard doesn’t yet recognize as enrolled/archival), so ' + (rec.unassigned_subjects === 1 ? 'it isn’t' : 'they aren’t') + ' placed in a cohort here. ' + (rec.unassigned_subjects === 1 ? 'It’s' : 'They’re') + ' still counted in overall totals elsewhere on this site.</p>';
     }
     var unk = rec.by_disease.find(function (d) { return d.key === 'unknown'; });
     if (unk && unk.subjects > 0) {
-      html += '<p><span class="flag">' + fmt(unk.subjects) + ' subjects</span> have an enrollment visit but no readable Data_Scope value (shows as <code>#REF!</code> or blank), so they land in “Unknown.” This is likely the same broken lookup formula affecting the Disease Team column upstream.</p>';
+      html += '<p><span class="flag">' + fmt(unk.subjects) + ' subjects</span> have a blank or unrecognized <code>Data_Scope</code> value, so they land in “Unknown.”</p>';
     }
-    html += '<p>Disease team here is derived from the <code>Data_Scope</code> value (e.g. <code>SLE-KDY</code> → Lupus Kidney, <code>PsD-SKN</code> → Psoriasis), not the source <code>Disease Team</code> column — that column reads <code>#REF!</code> for most rows and isn’t usable. Lupus and Psoriatic Disease are split into finer subgroups by tissue; a subject whose Data_Scope spans more than one tissue (or more than one disease) is counted in each matching subgroup, but only once in that subgroup’s own total. That can occasionally make the subgroups under one disease team add up to slightly more than the team’s combined subject count above — that’s expected, not double-counting.</p>';
-    html += '<p>A subject who carries more than one cohort tag (e.g. both “Cohort 1a” and “Cohort 1b”) is counted once in each of those cohorts, but only once in its subgroup’s total — so cohort counts within a subgroup can add up to more than that subgroup’s subject total.</p>';
-    html += '<p>Recruitment targets (the “of N” figures) come from the network’s Expected Recruitment numbers, given per cohort at the whole-disease-team level — so Lupus Kidney and Lupus Skin share one Lupus target, and the three Psoriatic Disease subgroups share one PsD target, shown as segments of that one bar. Individual cohort targets are exact; a bar marked “partial target” has at least one cohort with no target defined yet, so its true target is at least the number shown.</p>';
+    html += '<p>Disease team here is derived from the <code>Data_Scope</code> value (e.g. <code>SLE-KDY</code> → Lupus Kidney, <code>PsD-SKN</code> → Psoriasis), not the source <code>Disease Team</code> column — that column holds each row’s study/protocol name (STAMP, ELLIPSS, AIM for RA, LOCKIT, SSc Pilot), not a diagnosis, so it isn’t the grouping used here. Lupus and Psoriatic Disease are split into finer subgroups by tissue; a subject whose Data_Scope spans more than one tissue (or more than one disease) is counted in each matching subgroup, but only once in that subgroup’s own total. That can occasionally make the subgroups under one disease team add up to slightly more than the team’s combined subject count above — that’s expected, not double-counting.</p>';
+    html += '<p>A subject who carries more than one cohort tag (e.g. both “PsD Eye” and “PsD axSpA”) is counted once in each of those cohorts, but only once in its subgroup’s total — so cohort counts within a subgroup can add up to more than that subgroup’s subject total.</p>';
+    html += '<p>Recruitment targets (the “of N” figures) come from the network’s recruitment target numbers, given per cohort at the whole-disease-team level — so Lupus Kidney and Lupus Skin share one Lupus target, and the Psoriatic Disease subgroups share one PsD target, shown as segments of that one bar. Individual cohort targets are exact; a bar marked “partial target” has at least one cohort with no target defined yet, so its true target is at least the number shown.</p>';
     document.getElementById('recruitmentQuality').innerHTML = html;
   }
 

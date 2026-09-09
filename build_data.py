@@ -18,8 +18,18 @@ Privacy design (do not change without re-checking with the data owner):
 Usage:
     python3 build_data.py [input.xlsx] [output.json] [expected_recruitment.xlsx]
 
-Defaults: data/AMP_AIM_Dataset.xlsx -> data/dashboard.json, reading recruitment
-targets from data/Expected_Recruitment_Numbers.xlsx.
+Defaults: data/AMP-AIM_Dataset_Weekly_Update.xlsx -> data/dashboard.json, reading
+recruitment targets from data/Target_Recruitment_Numbers.xlsx.
+
+The input workbook is a multi-tab weekly export. Two sheets matter here:
+  - "subjects" - one row per subject. This is now the source of truth for the
+    Recruitment tab: Data_Scope gives the disease team, Dashboard_Label gives
+    the cohort(s, still shown as "Cohorts" in the UI), Subject Type gives
+    enrolled/archival status, and Visits gives that subject's visit count.
+  - "visits"   - one row per subject-visit, still used for the Technologies
+    tab's per-assay/sample tracking.
+Both sheets share the same 3-row header layout (see HEADER_ROW/DATA_START_ROW
+below).
 """
 import sys
 import json
@@ -60,18 +70,13 @@ STATUS_LABELS = {
     "unknown": "Unknown / Not Yet Retrieved",
 }
 
-# Visit codes that mark a subject's ENROLLMENT into a cohort (one per Visit_Type:
-# Scheduled->V01, Control->VC1, Enabling->VE1, Archival->VA1, Unscheduled->VU1).
-# The Visit_Cohort tag(s) on this row are the subject's cohort assignment(s).
-# Checked in this priority order when a subject has more than one such row.
-ENROLLMENT_CODES_PRIORITY = ["V01", "VC1", "VE1", "VA1", "VU1"]
-
-# "Disease Team" in the source is unreliable (mostly #REF! - a broken lookup
-# formula upstream). Data_Scope ("<disease>-<tissue>", e.g. "SLE-KDY") is
-# populated and reliable, so the disease/team grouping is derived from its
-# prefix instead. EDIT THIS if your actual disease-team names differ, or add
-# an explicit Subject_ID -> team override if Data_Scope isn't authoritative
-# for some subjects.
+# "Disease Team" in the source holds each row's study/protocol name (e.g.
+# STAMP, ELLIPSS, AIM for RA, LOCKIT, SSc Pilot) rather than a diagnosis, so
+# it isn't the grouping the dashboard needs. Data_Scope ("<disease>-<tissue>",
+# e.g. "SLE-KDY") is populated and reliable, so the disease/team grouping is
+# derived from its prefix instead. EDIT THIS if your actual disease-team
+# names differ, or add an explicit Subject_ID -> team override if Data_Scope
+# isn't authoritative for some subjects.
 DISEASE_LABELS = {
     "SLE": "Lupus (SLE)",
     "RA": "Rheumatoid Arthritis (RA)",
@@ -85,33 +90,38 @@ DISEASE_LABELS = {
 # hyphen) into the finer subgroups the dashboard now reports as their own
 # "disease teams". (prefix, tissue) -> (key, display label). Any prefix/tissue
 # combo NOT listed here just falls back to the whole-prefix grouping above
-# (e.g. RA-SYN, SjD-SGL, SSc-SKN all stay as one bucket per prefix).
+# (e.g. RA-SYN, SjD-SGL, SSc-SKN all stay as one bucket per prefix). PsD no
+# longer has a separate Eye/Uveitis tissue on the "subjects" tab (Data_Scope
+# there is just PsD-SYN / PsD-SKN); a handful of older PsD-EYE rows can still
+# show up on the visit-level "visits" tab, and those simply roll up into the
+# combined Psoriatic Disease (PsD) bucket via the fallback above.
 SPLIT_DISEASE_LABELS = {
     ("SLE", "KDY"): ("sle_kdy", "Lupus Kidney"),
     ("SLE", "SKN"): ("sle_skn", "Lupus Skin"),
     ("PsD", "SYN"): ("psd_syn", "Psoriatic Arthritis"),
     ("PsD", "SKN"): ("psd_skn", "Psoriasis"),
-    ("PsD", "EYE"): ("psd_eye", "Uveitis"),
 }
 
 # Label used for a blank/None Pipeline cell.
 UNDEFINED_PIPELINE = "Undefined"
 
-# A subject's enrollment Visit_Code also tells us their recruitment status:
-# VA1 rows are archival specimens, everything else is a normal enrolled visit.
-STATUS_BY_CODE = {
-    "V01": "enrolled",
-    "VC1": "enrolled",
-    "VE1": "enrolled",
-    "VA1": "archival",
-    "VU1": "enrolled",
+# A subject's "Subject Type" (on the "subjects" tab) tells us their
+# recruitment status: "Enrolled" and "Enabling only" subjects are both
+# actively enrolled; "Archival only" subjects are archival specimens.
+# "Pre-Participation" (and anything else unrecognized) isn't mapped here at
+# all - those subjects aren't placed in a cohort, and are counted in
+# `unassigned_subjects` instead (see main()).
+SUBJECT_STATUS_BY_TYPE = {
+    "Enrolled": "enrolled",
+    "Enabling only": "enrolled",
+    "Archival only": "archival",
 }
 RECRUIT_STATUS_ORDER = ["enrolled", "archival"]
 RECRUIT_STATUS_LABELS = {"enrolled": "Enrolled", "archival": "Archival"}
 
 # How many subjects are ultimately expected in each cohort, per the network's
 # recruitment targets. Loaded at runtime (see load_expected_recruitment(),
-# called from main()) from a spreadsheet - data/Expected_Recruitment_Numbers.xlsx
+# called from main()) from a spreadsheet - data/Target_Recruitment_Numbers.xlsx
 # by default - with columns "Disease Team", "Cohort", "Expected" (an optional
 # "Notes" column is ignored). Edit that spreadsheet directly to update targets;
 # no code change needed. A blank or "Undefined" Expected cell means "not yet
@@ -119,7 +129,7 @@ RECRUIT_STATUS_LABELS = {"enrolled": "Enrolled", "archival": "Archival"}
 # the level the targets were given at; a cohort's new, finer disease-subgroup
 # membership (see SPLIT_DISEASE_LABELS) is looked up from the real data, and
 # this table is then consulted by that cohort's old/whole-disease label.
-EXPECTED_RECRUITMENT_PATH_DEFAULT = "data/Expected_Recruitment_Numbers.xlsx"
+EXPECTED_RECRUITMENT_PATH_DEFAULT = "data/Target_Recruitment_Numbers.xlsx"
 EXPECTED_RECRUITMENT = {}  # populated by load_expected_recruitment() in main()
 
 
@@ -251,7 +261,7 @@ def clean_label(value, default="Unknown"):
     if value is None:
         return default
     s = str(value).strip()
-    if s == "" or s in ("None", "#REF!"):
+    if s == "" or s in ("None", "#REF!") or s.lower() == "n/a":
         return default
     if s.startswith("[") and s.endswith("]"):
         inner = s[1:-1]
@@ -264,11 +274,11 @@ def clean_label(value, default="Unknown"):
 
 def split_cohort_tags(value):
     """
-    Visit_Cohort can hold MULTIPLE tags back-to-back in one cell, e.g.
-    "[Cohort 1a: PsO][Cohort 1b: Drug-Naive PsA]" for a subject who belongs to
-    both. Returns a LIST of individual cohort tags rather than one combined
-    string, so a subject like that is counted once in EACH cohort - never as
-    a separate "Cohort 1a, Cohort 1b" bucket.
+    Dashboard_Label can hold MULTIPLE tags back-to-back in one cell, e.g.
+    "[PsD Eye][PsD axSpA]" for a subject who belongs to both. Returns a LIST
+    of individual cohort tags rather than one combined string, so a subject
+    like that is counted once in EACH cohort - never as a separate
+    "PsD Eye, PsD axSpA" bucket.
     """
     if value is None:
         return ["Unknown"]
@@ -297,7 +307,7 @@ def add_counts(dst, src):
 
 
 def main():
-    in_path = sys.argv[1] if len(sys.argv) > 1 else "data/AMP_AIM_Dataset.xlsx"
+    in_path = sys.argv[1] if len(sys.argv) > 1 else "data/AMP-AIM_Dataset_Weekly_Update.xlsx"
     out_path = sys.argv[2] if len(sys.argv) > 2 else "data/dashboard.json"
     expected_path = sys.argv[3] if len(sys.argv) > 3 else EXPECTED_RECRUITMENT_PATH_DEFAULT
 
@@ -305,7 +315,20 @@ def main():
     EXPECTED_RECRUITMENT = load_expected_recruitment(expected_path)
 
     wb = openpyxl.load_workbook(in_path, data_only=True)
-    ws = wb[wb.sheetnames[0]]
+
+    # The workbook is a multi-tab weekly export now. Visit-level sample/assay
+    # tracking (Technologies tab) lives on the "visits" sheet. Fall back to
+    # the first sheet (the old single-sheet layout) with a warning if
+    # "visits" isn't found, rather than silently mis-parsing whatever sheet
+    # happens to be first.
+    if "visits" in wb.sheetnames:
+        ws = wb["visits"]
+    else:
+        print(f"WARNING: no 'visits' sheet found in {in_path!r} - falling back to "
+              f"the first sheet ({wb.sheetnames[0]!r}) for Technologies-tab data. "
+              f"Counts may be wrong if that isn't actually the visit-level data.",
+              file=sys.stderr)
+        ws = wb[wb.sheetnames[0]]
 
     headers = [ws.cell(row=HEADER_ROW, column=c).value for c in range(1, ws.max_column + 1)]
     col_idx = {h: i + 1 for i, h in enumerate(headers) if h}
@@ -316,16 +339,10 @@ def main():
 
     subject_idx = col_idx.get("Subject_ID")
     data_scope_idx = col_idx.get("Data_Scope")
-    visit_cohort_idx = col_idx.get("Visit_Cohort")
-    visit_code_idx = col_idx.get("Visit_Code")
     pipeline_idx = col_idx.get("Pipeline")
 
     subjects_seen = set()
     n_visits = 0
-    # subject -> list of (visit_code_raw, cohort_cell_raw_value, scope_label)
-    # cohort_cell_raw_value is kept RAW (not yet split) so pick_enrollment()
-    # below can split it into individual tags itself.
-    subj_rows = defaultdict(list)
 
     # tech key -> overall status counts
     tech_totals = {key: empty_status_counts() for _, key, _ in TECH_COLUMNS}
@@ -362,12 +379,6 @@ def main():
         )
         scopes_seen.add(scope_label)
         pipelines_seen.add(pipeline_label)
-
-        if subj_clean:
-            code_raw = ws.cell(row=r, column=visit_code_idx).value if visit_code_idx else None
-            code_raw = str(code_raw).strip() if code_raw is not None else ""
-            cohort_raw = ws.cell(row=r, column=visit_cohort_idx).value if visit_cohort_idx else None
-            subj_rows[subj_clean].append((code_raw, cohort_raw, scope_label))
 
         for col, key, _ in TECH_COLUMNS:
             if col not in col_idx:
@@ -411,29 +422,15 @@ def main():
         scope_disease[scope] = [{"key": k, "label": l} for k, l, _old, _grp in derive_diseases(scope)]
 
     # ---------- Recruitment: subjects & visits per disease team / cohort ----------
-    def pick_enrollment(rows):
-        """
-        Pick the (cohort_tags, scope, code) for a subject from their
-        enrollment-code row(s). cohort_tags is a LIST (a subject can be in
-        more than one cohort at once). Prefers, in ENROLLMENT_CODES_PRIORITY
-        order, a row that actually has a real (non-"Unknown") cohort tag.
-        The code itself (V01/VC1/VE1/VA1/VU1) also tells us archival status.
-        """
-        by_code = {}
-        for code, cohort_raw, scope in rows:
-            if code not in ENROLLMENT_CODES_PRIORITY:
-                continue
-            tags = split_cohort_tags(cohort_raw)
-            has_real = any(t != "Unknown" for t in tags)
-            if code not in by_code or (not by_code[code][2] and has_real):
-                by_code[code] = (tags, scope, has_real)
-        for code in ENROLLMENT_CODES_PRIORITY:
-            if code in by_code and by_code[code][2]:
-                return by_code[code][0], by_code[code][1], code
-        for code in ENROLLMENT_CODES_PRIORITY:
-            if code in by_code:
-                return by_code[code][0], by_code[code][1], code
-        return None
+    # One row per subject on the "subjects" tab - Data_Scope, Dashboard_Label,
+    # Subject Type and Visits are all read straight off that subject's own
+    # row, no more scanning multiple visit rows to find an "enrollment" one.
+    if "subjects" in wb.sheetnames:
+        subj_ws = wb["subjects"]
+    else:
+        subj_ws = None
+        print(f"WARNING: no 'subjects' sheet found in {in_path!r} - the "
+              f"Recruitment tab will show zero subjects.", file=sys.stderr)
 
     disease_totals = defaultdict(lambda: {
         "subjects": 0, "visits": 0, "label": "", "old_label": "", "old_group_key": "",
@@ -451,52 +448,75 @@ def main():
     combined_totals = defaultdict(lambda: {"subject_set": set(), "visits": 0, "label": "", "status": empty_recruit_status()})
     unassigned_subjects = 0
 
-    for subj, rows in subj_rows.items():
-        picked = pick_enrollment(rows)
-        n_subject_visits = len(rows)
-        if picked is None:
-            unassigned_subjects += 1
-            continue
-        tags, scope, code = picked
-        # Every enrollment code STATUS_BY_CODE is ever asked about (V01/VC1/
-        # VE1/VA1/VU1 - see ENROLLMENT_CODES_PRIORITY) maps to enrolled or
-        # archival, so this fallback is unreachable in practice; "enrolled"
-        # keeps the status dict valid (only enrolled/archival keys exist)
-        # rather than risking a KeyError on a status this dict doesn't track.
-        recruit_status = STATUS_BY_CODE.get(code, "enrolled")
-        touched_groups = {}
-        # A subject can land in more than one disease-team bucket - see
-        # derive_diseases() for the combo Data_Scope cases ("PsD-SKN/SYN",
-        # "SLE/PsD-SKN", etc). They're counted once in EACH matching team,
-        # but the site-wide subject total is a separate, plain distinct-
-        # Subject_ID count (below) so it's never inflated by this.
-        for disease_key, disease_label, old_label, old_group_key in derive_diseases(scope):
-            disease_totals[disease_key]["subjects"] += 1
-            disease_totals[disease_key]["visits"] += n_subject_visits
-            disease_totals[disease_key]["label"] = disease_label
-            disease_totals[disease_key]["old_label"] = old_label
-            disease_totals[disease_key]["old_group_key"] = old_group_key
-            disease_totals[disease_key]["status"][recruit_status] += 1
-            touched_groups[old_group_key] = old_label
-            # ...and within that team, counts in EVERY cohort tag they carry
-            # (a subject in both "Cohort 1a" and "Cohort 1b" adds 1 to each).
-            for tag in sorted(set(tags)):
-                ck = (disease_key, tag)
-                cohort_totals[ck]["subjects"] += 1
-                cohort_totals[ck]["visits"] += n_subject_visits
-                cohort_totals[ck]["disease_key"] = disease_key
-                cohort_totals[ck]["disease_label"] = disease_label
-                cohort_totals[ck]["old_label"] = old_label
-                cohort_totals[ck]["status"][recruit_status] += 1
-        # Roll this subject up into each ORIGINAL (pre-split) team they
-        # touched - once each, even if they hit more than one new subgroup
-        # within that same original team.
-        for group_key, old_label in touched_groups.items():
-            g = combined_totals[group_key]
-            g["subject_set"].add(subj)
-            g["visits"] += n_subject_visits
-            g["label"] = old_label
-            g["status"][recruit_status] += 1
+    if subj_ws is not None:
+        subj_headers = [subj_ws.cell(row=HEADER_ROW, column=c).value for c in range(1, subj_ws.max_column + 1)]
+        subj_col_idx = {h: i + 1 for i, h in enumerate(subj_headers) if h}
+        required_subj_cols = ["Subject_ID", "Data_Scope", "Dashboard_Label", "Subject Type", "Visits"]
+        missing_subj_cols = [c for c in required_subj_cols if c not in subj_col_idx]
+        if missing_subj_cols:
+            print(f"WARNING: 'subjects' sheet is missing column(s) {missing_subj_cols} - "
+                  f"Recruitment-tab counts will be incomplete.", file=sys.stderr)
+
+        sid_idx = subj_col_idx.get("Subject_ID")
+        sscope_idx = subj_col_idx.get("Data_Scope")
+        slabel_idx = subj_col_idx.get("Dashboard_Label")
+        stype_idx = subj_col_idx.get("Subject Type")
+        svisits_idx = subj_col_idx.get("Visits")
+
+        for r in range(DATA_START_ROW, subj_ws.max_row + 1):
+            sid_raw = subj_ws.cell(row=r, column=sid_idx).value if sid_idx else None
+            sid = clean_label(sid_raw, default=None)
+            if sid is None:
+                continue  # blank row
+
+            type_raw = subj_ws.cell(row=r, column=stype_idx).value if stype_idx else None
+            recruit_status = SUBJECT_STATUS_BY_TYPE.get(clean_label(type_raw, default=""))
+            if recruit_status is None:
+                # "Pre-Participation" (or any other/unrecognized Subject
+                # Type) isn't placed in a cohort here, but is still counted
+                # in overall totals elsewhere on the site.
+                unassigned_subjects += 1
+                continue
+
+            scope = clean_label(subj_ws.cell(row=r, column=sscope_idx).value if sscope_idx else None)
+            tags = split_cohort_tags(subj_ws.cell(row=r, column=slabel_idx).value if slabel_idx else None)
+            visits_raw = subj_ws.cell(row=r, column=svisits_idx).value if svisits_idx else None
+            n_subject_visits = int(visits_raw) if isinstance(visits_raw, (int, float)) else 0
+
+            touched_groups = {}
+            # A subject can land in more than one disease-team bucket - see
+            # derive_diseases() for the combo Data_Scope cases ("PsD-SKN/SYN",
+            # "SLE/PsD-SKN", etc). They're counted once in EACH matching team,
+            # but the site-wide subject total is a separate, plain distinct-
+            # Subject_ID count (below) so it's never inflated by this.
+            for disease_key, disease_label, old_label, old_group_key in derive_diseases(scope):
+                disease_totals[disease_key]["subjects"] += 1
+                disease_totals[disease_key]["visits"] += n_subject_visits
+                disease_totals[disease_key]["label"] = disease_label
+                disease_totals[disease_key]["old_label"] = old_label
+                disease_totals[disease_key]["old_group_key"] = old_group_key
+                disease_totals[disease_key]["status"][recruit_status] += 1
+                touched_groups[old_group_key] = old_label
+                # ...and within that team, counts in EVERY cohort tag they
+                # carry (a subject in both "[PsD Eye]" and "[PsD axSpA]" adds
+                # 1 to each).
+                for tag in sorted(set(tags)):
+                    ck = (disease_key, tag)
+                    cohort_totals[ck]["subjects"] += 1
+                    cohort_totals[ck]["visits"] += n_subject_visits
+                    cohort_totals[ck]["disease_key"] = disease_key
+                    cohort_totals[ck]["disease_label"] = disease_label
+                    cohort_totals[ck]["old_label"] = old_label
+                    cohort_totals[ck]["status"][recruit_status] += 1
+            # Roll this subject up into each ORIGINAL (pre-split) team they
+            # touched - once each, even if they hit more than one new
+            # subgroup within that same original team.
+            for group_key, old_label in touched_groups.items():
+                g = combined_totals[group_key]
+                g["subject_set"].add(sid)
+                g["visits"] += n_subject_visits
+                g["label"] = old_label
+                g["status"][recruit_status] += 1
 
     def disease_expected(old_label, cohort_names):
         """

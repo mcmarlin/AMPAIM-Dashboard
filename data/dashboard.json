@@ -1,39 +1,39 @@
 {
-  "generated_at": "2026-09-03T15:48:29Z",
-  "source_rows": 1404,
+  "generated_at": "2026-09-09T15:50:32Z",
+  "source_rows": 1397,
   "totals": {
-    "subjects": 1003,
-    "visits": 1404
+    "subjects": 1001,
+    "visits": 1397
   },
   "recruitment": {
     "by_disease": [
       {
         "key": "sjd",
         "label": "Sj\u00f6gren's Disease (SjD)",
-        "subjects": 465,
-        "visits": 547,
+        "subjects": 463,
+        "visits": 544,
         "status": {
-          "enrolled": 463,
+          "enrolled": 461,
           "archival": 2
         }
       },
       {
         "key": "ra",
         "label": "Rheumatoid Arthritis (RA)",
-        "subjects": 166,
-        "visits": 259,
+        "subjects": 170,
+        "visits": 258,
         "status": {
-          "enrolled": 124,
+          "enrolled": 128,
           "archival": 42
         }
       },
       {
         "key": "psd_skn",
         "label": "Psoriasis",
-        "subjects": 127,
-        "visits": 154,
+        "subjects": 154,
+        "visits": 183,
         "status": {
-          "enrolled": 119,
+          "enrolled": 146,
           "archival": 8
         }
       },
@@ -41,40 +41,30 @@
         "key": "sle_kdy",
         "label": "Lupus Kidney",
         "subjects": 95,
-        "visits": 260,
+        "visits": 259,
         "status": {
           "enrolled": 95,
           "archival": 0
         }
       },
       {
-        "key": "sle_skn",
-        "label": "Lupus Skin",
-        "subjects": 50,
-        "visits": 77,
-        "status": {
-          "enrolled": 34,
-          "archival": 16
-        }
-      },
-      {
         "key": "psd_syn",
         "label": "Psoriatic Arthritis",
-        "subjects": 50,
-        "visits": 58,
+        "subjects": 54,
+        "visits": 63,
         "status": {
-          "enrolled": 24,
-          "archival": 26
+          "enrolled": 27,
+          "archival": 27
         }
       },
       {
-        "key": "psd_eye",
-        "label": "Uveitis",
-        "subjects": 24,
-        "visits": 24,
+        "key": "sle_skn",
+        "label": "Lupus Skin",
+        "subjects": 49,
+        "visits": 76,
         "status": {
-          "enrolled": 24,
-          "archival": 0
+          "enrolled": 34,
+          "archival": 15
         }
       },
       {
@@ -88,13 +78,13 @@
         }
       },
       {
-        "key": "not_yet_retrieved",
-        "label": "Not yet retrieved",
-        "subjects": 10,
-        "visits": 10,
+        "key": "unknown",
+        "label": "Unknown",
+        "subjects": 1,
+        "visits": 1,
         "status": {
-          "enrolled": 9,
-          "archival": 1
+          "enrolled": 1,
+          "archival": 0
         }
       }
     ],
@@ -102,81 +92,76 @@
       {
         "key": "sjd",
         "label": "Sj\u00f6gren's Disease (SjD)",
-        "subjects": 465,
-        "visits": 547,
+        "subjects": 463,
+        "visits": 544,
         "status": {
-          "enrolled": 463,
+          "enrolled": 461,
           "archival": 2
         },
-        "expected": 456,
-        "expected_partial": true,
+        "expected": 466,
+        "expected_partial": false,
         "segments": [
           {
             "key": "sjd",
             "label": "Sj\u00f6gren's Disease (SjD)",
-            "subjects": 465
+            "subjects": 463
           }
         ]
       },
       {
         "key": "psd",
         "label": "Psoriatic Disease (PsD)",
-        "subjects": 195,
-        "visits": 229,
+        "subjects": 202,
+        "visits": 238,
         "status": {
-          "enrolled": 164,
-          "archival": 31
+          "enrolled": 170,
+          "archival": 32
         },
-        "expected": 268,
-        "expected_partial": true,
+        "expected": 200,
+        "expected_partial": false,
         "segments": [
           {
             "key": "psd_skn",
             "label": "Psoriasis",
-            "subjects": 127
+            "subjects": 154
           },
           {
             "key": "psd_syn",
             "label": "Psoriatic Arthritis",
-            "subjects": 50
-          },
-          {
-            "key": "psd_eye",
-            "label": "Uveitis",
-            "subjects": 24
+            "subjects": 54
           }
         ]
       },
       {
         "key": "ra",
         "label": "Rheumatoid Arthritis (RA)",
-        "subjects": 166,
-        "visits": 259,
+        "subjects": 170,
+        "visits": 258,
         "status": {
-          "enrolled": 124,
+          "enrolled": 128,
           "archival": 42
         },
-        "expected": 163,
+        "expected": 137,
         "expected_partial": true,
         "segments": [
           {
             "key": "ra",
             "label": "Rheumatoid Arthritis (RA)",
-            "subjects": 166
+            "subjects": 170
           }
         ]
       },
       {
         "key": "sle",
         "label": "Lupus (SLE)",
-        "subjects": 145,
-        "visits": 337,
+        "subjects": 144,
+        "visits": 335,
         "status": {
           "enrolled": 129,
-          "archival": 16
+          "archival": 15
         },
         "expected": 160,
-        "expected_partial": true,
+        "expected_partial": false,
         "segments": [
           {
             "key": "sle_kdy",
@@ -186,7 +171,7 @@
           {
             "key": "sle_skn",
             "label": "Lupus Skin",
-            "subjects": 50
+            "subjects": 49
           }
         ]
       },
@@ -199,7 +184,7 @@
           "enrolled": 0,
           "archival": 17
         },
-        "expected": 17,
+        "expected": 16,
         "expected_partial": false,
         "segments": [
           {
@@ -210,21 +195,21 @@
         ]
       },
       {
-        "key": "not_yet_retrieved",
-        "label": "Not yet retrieved",
-        "subjects": 10,
-        "visits": 10,
+        "key": "unknown",
+        "label": "Unknown",
+        "subjects": 1,
+        "visits": 1,
         "status": {
-          "enrolled": 9,
-          "archival": 1
+          "enrolled": 1,
+          "archival": 0
         },
         "expected": null,
         "expected_partial": true,
         "segments": [
           {
-            "key": "not_yet_retrieved",
-            "label": "Not yet retrieved",
-            "subjects": 10
+            "key": "unknown",
+            "label": "Unknown",
+            "subjects": 1
           }
         ]
       }
@@ -233,7 +218,7 @@
       {
         "disease_key": "sle_kdy",
         "disease_label": "Lupus Kidney",
-        "cohort": "Enabling",
+        "cohort": "Enabling Case",
         "subjects": 15,
         "visits": 15,
         "status": {
@@ -245,7 +230,7 @@
       {
         "disease_key": "sle_kdy",
         "disease_label": "Lupus Kidney",
-        "cohort": "Healthy Control",
+        "cohort": "Enabling Control",
         "subjects": 8,
         "visits": 8,
         "status": {
@@ -258,10 +243,10 @@
         "disease_key": "sle_kdy",
         "disease_label": "Lupus Kidney",
         "cohort": "KP1",
-        "subjects": 39,
-        "visits": 130,
+        "subjects": 41,
+        "visits": 131,
         "status": {
-          "enrolled": 39,
+          "enrolled": 41,
           "archival": 0
         },
         "expected": 40
@@ -279,33 +264,9 @@
         "expected": 36
       },
       {
-        "disease_key": "sle_kdy",
-        "disease_label": "Lupus Kidney",
-        "cohort": "SP1",
-        "subjects": 1,
-        "visits": 1,
-        "status": {
-          "enrolled": 1,
-          "archival": 0
-        },
-        "expected": 30
-      },
-      {
-        "disease_key": "sle_kdy",
-        "disease_label": "Lupus Kidney",
-        "cohort": "Unknown",
-        "subjects": 1,
-        "visits": 1,
-        "status": {
-          "enrolled": 1,
-          "archival": 0
-        },
-        "expected": null
-      },
-      {
         "disease_key": "sle_skn",
         "disease_label": "Lupus Skin",
-        "cohort": "Enabling",
+        "cohort": "Enabling Case",
         "subjects": 7,
         "visits": 7,
         "status": {
@@ -317,7 +278,7 @@
       {
         "disease_key": "sle_skn",
         "disease_label": "Lupus Skin",
-        "cohort": "Healthy Normal Control",
+        "cohort": "Healthy Control",
         "subjects": 4,
         "visits": 4,
         "status": {
@@ -325,18 +286,6 @@
           "archival": 4
         },
         "expected": 4
-      },
-      {
-        "disease_key": "sle_skn",
-        "disease_label": "Lupus Skin",
-        "cohort": "Not yet retrieved",
-        "subjects": 1,
-        "visits": 1,
-        "status": {
-          "enrolled": 0,
-          "archival": 1
-        },
-        "expected": null
       },
       {
         "disease_key": "sle_skn",
@@ -363,268 +312,88 @@
         "expected": 20
       },
       {
-        "disease_key": "not_yet_retrieved",
-        "disease_label": "Not yet retrieved",
-        "cohort": "Unknown",
-        "subjects": 10,
-        "visits": 10,
-        "status": {
-          "enrolled": 9,
-          "archival": 1
-        },
-        "expected": null
-      },
-      {
         "disease_key": "psd_skn",
         "disease_label": "Psoriasis",
-        "cohort": "Cohort 1a: PsO",
-        "subjects": 63,
-        "visits": 77,
-        "status": {
-          "enrolled": 63,
-          "archival": 0
-        },
-        "expected": 65
-      },
-      {
-        "disease_key": "psd_skn",
-        "disease_label": "Psoriasis",
-        "cohort": "Cohort 1b: Drug-Naive PsA",
-        "subjects": 11,
-        "visits": 14,
-        "status": {
-          "enrolled": 11,
-          "archival": 0
-        },
-        "expected": 65
-      },
-      {
-        "disease_key": "psd_skn",
-        "disease_label": "Psoriasis",
-        "cohort": "Cohort 2a: PsO Initiating Therapy",
-        "subjects": 12,
-        "visits": 15,
-        "status": {
-          "enrolled": 12,
-          "archival": 0
-        },
-        "expected": 45
-      },
-      {
-        "disease_key": "psd_skn",
-        "disease_label": "Psoriasis",
-        "cohort": "Cohort 2b: PsA Initiating Therapy",
-        "subjects": 31,
-        "visits": 43,
-        "status": {
-          "enrolled": 29,
-          "archival": 2
-        },
-        "expected": 45
-      },
-      {
-        "disease_key": "psd_skn",
-        "disease_label": "Psoriasis",
-        "cohort": "Cohort 3: PsO to PsA Risk",
-        "subjects": 9,
-        "visits": 11,
-        "status": {
-          "enrolled": 9,
-          "archival": 0
-        },
-        "expected": null
-      },
-      {
-        "disease_key": "psd_skn",
-        "disease_label": "Psoriasis",
-        "cohort": "Enabling",
-        "subjects": 3,
-        "visits": 3,
-        "status": {
-          "enrolled": 3,
-          "archival": 0
-        },
-        "expected": 3
-      },
-      {
-        "disease_key": "psd_skn",
-        "disease_label": "Psoriasis",
-        "cohort": "Healthy Normal Control",
-        "subjects": 5,
-        "visits": 5,
-        "status": {
-          "enrolled": 0,
-          "archival": 5
-        },
-        "expected": 5
-      },
-      {
-        "disease_key": "psd_skn",
-        "disease_label": "Psoriasis",
-        "cohort": "Not yet retrieved",
-        "subjects": 7,
+        "cohort": "PsD axSpA",
+        "subjects": 8,
         "visits": 8,
         "status": {
+          "enrolled": 8,
+          "archival": 0
+        },
+        "expected": 10
+      },
+      {
+        "disease_key": "psd_skn",
+        "disease_label": "Psoriasis",
+        "cohort": "PsD Eye",
+        "subjects": 26,
+        "visits": 26,
+        "status": {
+          "enrolled": 26,
+          "archival": 0
+        },
+        "expected": 30
+      },
+      {
+        "disease_key": "psd_skn",
+        "disease_label": "Psoriasis",
+        "cohort": "PsD Skin",
+        "subjects": 122,
+        "visits": 149,
+        "status": {
+          "enrolled": 117,
+          "archival": 5
+        },
+        "expected": 130
+      },
+      {
+        "disease_key": "psd_skn",
+        "disease_label": "Psoriasis",
+        "cohort": "PsD Synovium",
+        "subjects": 9,
+        "visits": 14,
+        "status": {
           "enrolled": 6,
-          "archival": 1
-        },
-        "expected": null
-      },
-      {
-        "disease_key": "psd_skn",
-        "disease_label": "Psoriasis",
-        "cohort": "Unknown",
-        "subjects": 2,
-        "visits": 2,
-        "status": {
-          "enrolled": 2,
-          "archival": 0
-        },
-        "expected": null
-      },
-      {
-        "disease_key": "psd_skn",
-        "disease_label": "Psoriasis",
-        "cohort": "Uveitis Cohort",
-        "subjects": 1,
-        "visits": 1,
-        "status": {
-          "enrolled": 1,
-          "archival": 0
+          "archival": 3
         },
         "expected": 30
       },
       {
         "disease_key": "psd_syn",
         "disease_label": "Psoriatic Arthritis",
-        "cohort": "Cohort 1a: PsO",
-        "subjects": 2,
-        "visits": 2,
+        "cohort": "PsD axSpA",
+        "subjects": 1,
+        "visits": 1,
         "status": {
-          "enrolled": 2,
-          "archival": 0
-        },
-        "expected": 65
-      },
-      {
-        "disease_key": "psd_syn",
-        "disease_label": "Psoriatic Arthritis",
-        "cohort": "Cohort 1b: Drug-Naive PsA",
-        "subjects": 9,
-        "visits": 12,
-        "status": {
-          "enrolled": 8,
+          "enrolled": 0,
           "archival": 1
         },
-        "expected": 65
+        "expected": 10
       },
       {
         "disease_key": "psd_syn",
         "disease_label": "Psoriatic Arthritis",
-        "cohort": "Cohort 2a: PsO Initiating Therapy",
-        "subjects": 1,
-        "visits": 1,
+        "cohort": "PsD Synovium",
+        "subjects": 53,
+        "visits": 62,
         "status": {
-          "enrolled": 1,
-          "archival": 0
+          "enrolled": 27,
+          "archival": 26
         },
-        "expected": 45
-      },
-      {
-        "disease_key": "psd_syn",
-        "disease_label": "Psoriatic Arthritis",
-        "cohort": "Cohort 2b: PsA Initiating Therapy",
-        "subjects": 15,
-        "visits": 18,
-        "status": {
-          "enrolled": 11,
-          "archival": 4
-        },
-        "expected": 45
-      },
-      {
-        "disease_key": "psd_syn",
-        "disease_label": "Psoriatic Arthritis",
-        "cohort": "Cohort 3: PsO to PsA Risk",
-        "subjects": 2,
-        "visits": 2,
-        "status": {
-          "enrolled": 2,
-          "archival": 0
-        },
-        "expected": null
-      },
-      {
-        "disease_key": "psd_syn",
-        "disease_label": "Psoriatic Arthritis",
-        "cohort": "Not yet retrieved",
-        "subjects": 23,
-        "visits": 25,
-        "status": {
-          "enrolled": 2,
-          "archival": 21
-        },
-        "expected": null
-      },
-      {
-        "disease_key": "psd_syn",
-        "disease_label": "Psoriatic Arthritis",
-        "cohort": "Unknown",
-        "subjects": 1,
-        "visits": 1,
-        "status": {
-          "enrolled": 1,
-          "archival": 0
-        },
-        "expected": null
+        "expected": 30
       },
       {
         "disease_key": "ra",
         "disease_label": "Rheumatoid Arthritis (RA)",
-        "cohort": "Cohort 1: Early RA, DMARD naive",
-        "subjects": 51,
-        "visits": 101,
+        "cohort": "Enabling Case",
+        "subjects": 10,
+        "visits": 11,
         "status": {
-          "enrolled": 47,
-          "archival": 4
-        },
-        "expected": 50
-      },
-      {
-        "disease_key": "ra",
-        "disease_label": "Rheumatoid Arthritis (RA)",
-        "cohort": "Cohort 2: MTX-IR, bDMARD naive",
-        "subjects": 14,
-        "visits": 21,
-        "status": {
-          "enrolled": 14,
+          "enrolled": 10,
           "archival": 0
         },
-        "expected": 50
-      },
-      {
-        "disease_key": "ra",
-        "disease_label": "Rheumatoid Arthritis (RA)",
-        "cohort": "Cohort 3: Refractory Cohort",
-        "subjects": 42,
-        "visits": 46,
-        "status": {
-          "enrolled": 42,
-          "archival": 0
-        },
-        "expected": 50
-      },
-      {
-        "disease_key": "ra",
-        "disease_label": "Rheumatoid Arthritis (RA)",
-        "cohort": "Enabling",
-        "subjects": 9,
-        "visits": 9,
-        "status": {
-          "enrolled": 9,
-          "archival": 0
-        },
-        "expected": 9
+        "expected": 10
       },
       {
         "disease_key": "ra",
@@ -641,43 +410,55 @@
       {
         "disease_key": "ra",
         "disease_label": "Rheumatoid Arthritis (RA)",
-        "cohort": "Not yet retrieved",
-        "subjects": 11,
-        "visits": 12,
+        "cohort": "RA Cohort 1",
+        "subjects": 55,
+        "visits": 105,
         "status": {
-          "enrolled": 8,
-          "archival": 3
+          "enrolled": 51,
+          "archival": 4
         },
-        "expected": null
+        "expected": 52
       },
       {
         "disease_key": "ra",
         "disease_label": "Rheumatoid Arthritis (RA)",
-        "cohort": "Unknown",
-        "subjects": 35,
-        "visits": 66,
+        "cohort": "RA Cohort 2",
+        "subjects": 15,
+        "visits": 21,
         "status": {
-          "enrolled": 4,
-          "archival": 31
-        },
-        "expected": null
-      },
-      {
-        "disease_key": "sjd",
-        "disease_label": "Sj\u00f6gren's Disease (SjD)",
-        "cohort": "Asymptomatic RRNL",
-        "subjects": 1,
-        "visits": 1,
-        "status": {
-          "enrolled": 1,
+          "enrolled": 15,
           "archival": 0
         },
+        "expected": 21
+      },
+      {
+        "disease_key": "ra",
+        "disease_label": "Rheumatoid Arthritis (RA)",
+        "cohort": "RA Cohort 3",
+        "subjects": 47,
+        "visits": 47,
+        "status": {
+          "enrolled": 47,
+          "archival": 0
+        },
+        "expected": 50
+      },
+      {
+        "disease_key": "ra",
+        "disease_label": "Rheumatoid Arthritis (RA)",
+        "cohort": "RA Cohort Pending",
+        "subjects": 39,
+        "visits": 70,
+        "status": {
+          "enrolled": 5,
+          "archival": 34
+        },
         "expected": null
       },
       {
         "disease_key": "sjd",
         "disease_label": "Sj\u00f6gren's Disease (SjD)",
-        "cohort": "Enabling",
+        "cohort": "Enabling Case",
         "subjects": 6,
         "visits": 6,
         "status": {
@@ -689,11 +470,23 @@
       {
         "disease_key": "sjd",
         "disease_label": "Sj\u00f6gren's Disease (SjD)",
-        "cohort": "Healthy Control",
-        "subjects": 50,
-        "visits": 51,
+        "cohort": "Enabling Control",
+        "subjects": 5,
+        "visits": 5,
         "status": {
-          "enrolled": 50,
+          "enrolled": 5,
+          "archival": 0
+        },
+        "expected": 5
+      },
+      {
+        "disease_key": "sjd",
+        "disease_label": "Sj\u00f6gren's Disease (SjD)",
+        "cohort": "Healthy Control",
+        "subjects": 46,
+        "visits": 46,
+        "status": {
+          "enrolled": 46,
           "archival": 0
         },
         "expected": 50
@@ -701,47 +494,11 @@
       {
         "disease_key": "sjd",
         "disease_label": "Sj\u00f6gren's Disease (SjD)",
-        "cohort": "Longitudinal case",
-        "subjects": 101,
-        "visits": 179,
+        "cohort": "SjD Cross-Sectional",
+        "subjects": 297,
+        "visits": 297,
         "status": {
-          "enrolled": 101,
-          "archival": 0
-        },
-        "expected": 100
-      },
-      {
-        "disease_key": "sjd",
-        "disease_label": "Sj\u00f6gren's Disease (SjD)",
-        "cohort": "Not yet retrieved",
-        "subjects": 8,
-        "visits": 8,
-        "status": {
-          "enrolled": 6,
-          "archival": 2
-        },
-        "expected": null
-      },
-      {
-        "disease_key": "sjd",
-        "disease_label": "Sj\u00f6gren's Disease (SjD)",
-        "cohort": "Overlap syndrome",
-        "subjects": 1,
-        "visits": 1,
-        "status": {
-          "enrolled": 1,
-          "archival": 0
-        },
-        "expected": null
-      },
-      {
-        "disease_key": "sjd",
-        "disease_label": "Sj\u00f6gren's Disease (SjD)",
-        "cohort": "SjD/sicca",
-        "subjects": 296,
-        "visits": 299,
-        "status": {
-          "enrolled": 296,
+          "enrolled": 297,
           "archival": 0
         },
         "expected": 300
@@ -749,67 +506,43 @@
       {
         "disease_key": "sjd",
         "disease_label": "Sj\u00f6gren's Disease (SjD)",
-        "cohort": "Unknown",
-        "subjects": 2,
-        "visits": 2,
+        "cohort": "SjD Longitudinal",
+        "subjects": 106,
+        "visits": 187,
         "status": {
-          "enrolled": 2,
-          "archival": 0
+          "enrolled": 104,
+          "archival": 2
         },
-        "expected": null
+        "expected": 100
       },
       {
-        "disease_key": "ssc",
-        "disease_label": "Systemic Sclerosis (SSc)",
-        "cohort": "Healthy Control",
-        "subjects": 5,
-        "visits": 5,
+        "disease_key": "sjd",
+        "disease_label": "Sj\u00f6gren's Disease (SjD)",
+        "cohort": "SjD RRNL",
+        "subjects": 3,
+        "visits": 3,
         "status": {
-          "enrolled": 0,
-          "archival": 5
+          "enrolled": 3,
+          "archival": 0
         },
         "expected": 5
       },
       {
         "disease_key": "ssc",
         "disease_label": "Systemic Sclerosis (SSc)",
-        "cohort": "n/a",
-        "subjects": 12,
-        "visits": 12,
+        "cohort": "SSc",
+        "subjects": 17,
+        "visits": 17,
         "status": {
           "enrolled": 0,
-          "archival": 12
+          "archival": 17
         },
-        "expected": 12
+        "expected": 16
       },
       {
-        "disease_key": "psd_eye",
-        "disease_label": "Uveitis",
-        "cohort": "Axial Spondyloarthritis Control",
-        "subjects": 7,
-        "visits": 7,
-        "status": {
-          "enrolled": 7,
-          "archival": 0
-        },
-        "expected": 10
-      },
-      {
-        "disease_key": "psd_eye",
-        "disease_label": "Uveitis",
-        "cohort": "Cohort 1a: PsO",
-        "subjects": 1,
-        "visits": 1,
-        "status": {
-          "enrolled": 1,
-          "archival": 0
-        },
-        "expected": 65
-      },
-      {
-        "disease_key": "psd_eye",
-        "disease_label": "Uveitis",
-        "cohort": "Cohort 3: PsO to PsA Risk",
+        "disease_key": "unknown",
+        "disease_label": "Unknown",
+        "cohort": "PsD Cohort Pending",
         "subjects": 1,
         "visits": 1,
         "status": {
@@ -817,33 +550,9 @@
           "archival": 0
         },
         "expected": null
-      },
-      {
-        "disease_key": "psd_eye",
-        "disease_label": "Uveitis",
-        "cohort": "Not yet retrieved",
-        "subjects": 1,
-        "visits": 1,
-        "status": {
-          "enrolled": 1,
-          "archival": 0
-        },
-        "expected": null
-      },
-      {
-        "disease_key": "psd_eye",
-        "disease_label": "Uveitis",
-        "cohort": "Uveitis Cohort",
-        "subjects": 20,
-        "visits": 20,
-        "status": {
-          "enrolled": 20,
-          "archival": 0
-        },
-        "expected": 30
       }
     ],
-    "unassigned_subjects": 5,
+    "unassigned_subjects": 1,
     "status_order": [
       "enrolled",
       "archival"
@@ -873,112 +582,112 @@
     {
       "counts": {
         "completed": 999,
-        "pending": 31,
+        "pending": 60,
         "not_applicable": 0,
         "no_specimen": 318,
         "qc_fail": 0,
-        "unknown": 56
+        "unknown": 20
       },
-      "total": 1404,
-      "pct_complete": 71.2,
-      "eligible": 1030,
-      "pct_eligible": 97.0,
+      "total": 1397,
+      "pct_complete": 71.5,
+      "eligible": 1059,
+      "pct_eligible": 94.3,
       "key": "omrf_lab",
       "label": "Autoantibody Testing"
     },
     {
       "counts": {
         "completed": 669,
-        "pending": 317,
+        "pending": 368,
         "not_applicable": 0,
-        "no_specimen": 278,
+        "no_specimen": 347,
         "qc_fail": 12,
-        "unknown": 128
+        "unknown": 1
       },
-      "total": 1404,
-      "pct_complete": 47.6,
-      "eligible": 998,
-      "pct_eligible": 67.0,
+      "total": 1397,
+      "pct_complete": 47.9,
+      "eligible": 1049,
+      "pct_eligible": 63.8,
       "key": "genotyping",
       "label": "Genotyping"
     },
     {
       "counts": {
         "completed": 524,
-        "pending": 8,
+        "pending": 9,
         "not_applicable": 0,
-        "no_specimen": 744,
+        "no_specimen": 863,
         "qc_fail": 0,
-        "unknown": 128
+        "unknown": 1
       },
-      "total": 1404,
-      "pct_complete": 37.3,
-      "eligible": 532,
-      "pct_eligible": 98.5,
+      "total": 1397,
+      "pct_complete": 37.5,
+      "eligible": 533,
+      "pct_eligible": 98.3,
       "key": "cytof_blood",
       "label": "CyTOF (Blood)"
     },
     {
       "counts": {
         "completed": 467,
-        "pending": 547,
+        "pending": 638,
         "not_applicable": 0,
-        "no_specimen": 264,
+        "no_specimen": 291,
         "qc_fail": 0,
-        "unknown": 126
+        "unknown": 1
       },
-      "total": 1404,
-      "pct_complete": 33.3,
-      "eligible": 1014,
-      "pct_eligible": 46.1,
+      "total": 1397,
+      "pct_complete": 33.4,
+      "eligible": 1105,
+      "pct_eligible": 42.3,
       "key": "olink_serum",
       "label": "Olink (Serum)"
     },
     {
       "counts": {
-        "completed": 288,
-        "pending": 11,
+        "completed": 360,
+        "pending": 735,
         "not_applicable": 6,
-        "no_specimen": 0,
+        "no_specimen": 288,
         "qc_fail": 2,
-        "unknown": 1097
+        "unknown": 6
       },
-      "total": 1404,
-      "pct_complete": 20.5,
-      "eligible": 301,
-      "pct_eligible": 95.7,
+      "total": 1397,
+      "pct_complete": 25.8,
+      "eligible": 1097,
+      "pct_eligible": 32.8,
       "key": "xenium_slide",
       "label": "Xenium"
     },
     {
       "counts": {
         "completed": 287,
-        "pending": 698,
+        "pending": 760,
         "not_applicable": 0,
-        "no_specimen": 288,
+        "no_specimen": 346,
         "qc_fail": 3,
-        "unknown": 128
+        "unknown": 1
       },
-      "total": 1404,
-      "pct_complete": 20.4,
-      "eligible": 988,
-      "pct_eligible": 29.0,
+      "total": 1397,
+      "pct_complete": 20.5,
+      "eligible": 1050,
+      "pct_eligible": 27.3,
       "key": "brnaseq",
       "label": "Bulk RNA-Seq"
     },
     {
       "counts": {
-        "completed": 267,
-        "pending": 21,
+        "completed": 262,
+        "pending": 828,
         "not_applicable": 10,
-        "no_specimen": 2,
+        "no_specimen": 290,
         "qc_fail": 0,
-        "unknown": 1104
+        "unknown": 7
       },
-      "total": 1404,
-      "pct_complete": 19.0,
-      "eligible": 288,
-      "pct_eligible": 92.7,
+      "total": 1397,
+      "pct_complete": 18.8,
+      "eligible": 1090,
+      "pct_eligible": 24.0,
       "key": "scffpe",
       "label": "scFFPE"
     },
@@ -986,13 +695,13 @@
       "counts": {
         "completed": 247,
         "pending": 0,
-        "not_applicable": 1114,
+        "not_applicable": 1103,
         "no_specimen": 0,
         "qc_fail": 0,
-        "unknown": 43
+        "unknown": 47
       },
-      "total": 1404,
-      "pct_complete": 17.6,
+      "total": 1397,
+      "pct_complete": 17.7,
       "eligible": 247,
       "pct_eligible": 100.0,
       "key": "anti_c1q",
@@ -1000,16 +709,16 @@
     },
     {
       "counts": {
-        "completed": 204,
+        "completed": 203,
         "pending": 0,
         "not_applicable": 0,
         "no_specimen": 0,
         "qc_fail": 0,
-        "unknown": 1200
+        "unknown": 1194
       },
-      "total": 1404,
+      "total": 1397,
       "pct_complete": 14.5,
-      "eligible": 204,
+      "eligible": 203,
       "pct_eligible": 100.0,
       "key": "mbioseq_stool",
       "label": "Microbiome (Stool)"
@@ -1021,9 +730,9 @@
         "not_applicable": 0,
         "no_specimen": 0,
         "qc_fail": 0,
-        "unknown": 1293
+        "unknown": 1286
       },
-      "total": 1404,
+      "total": 1397,
       "pct_complete": 7.9,
       "eligible": 111,
       "pct_eligible": 100.0,
@@ -1033,16 +742,16 @@
     {
       "counts": {
         "completed": 69,
-        "pending": 0,
-        "not_applicable": 18,
-        "no_specimen": 34,
+        "pending": 886,
+        "not_applicable": 17,
+        "no_specimen": 424,
         "qc_fail": 1,
-        "unknown": 1282
+        "unknown": 0
       },
-      "total": 1404,
+      "total": 1397,
       "pct_complete": 4.9,
-      "eligible": 70,
-      "pct_eligible": 98.6,
+      "eligible": 956,
+      "pct_eligible": 7.2,
       "key": "scrnaseq",
       "label": "scRNA-seq"
     },
@@ -1051,11 +760,11 @@
         "completed": 55,
         "pending": 159,
         "not_applicable": 0,
-        "no_specimen": 854,
+        "no_specimen": 1183,
         "qc_fail": 0,
-        "unknown": 336
+        "unknown": 0
       },
-      "total": 1404,
+      "total": 1397,
       "pct_complete": 3.9,
       "eligible": 214,
       "pct_eligible": 25.7,
@@ -1064,7 +773,6 @@
     }
   ],
   "scopes": [
-    "Not yet retrieved",
     "PsD-EYE",
     "PsD-SKN",
     "PsD-SKN/EYE",
@@ -1073,27 +781,21 @@
     "RA-SYN",
     "SLE-KDY",
     "SLE-SKN",
-    "SLE/PsD-SKN",
     "SSc-SKN",
-    "SjD-SGL"
+    "SjD-SGL",
+    "Unknown"
   ],
   "pipelines": [
     "EDP1",
     "EDP2",
-    "NRP",
+    "NRP1",
     "Undefined"
   ],
   "scope_disease": {
-    "Not yet retrieved": [
-      {
-        "key": "not_yet_retrieved",
-        "label": "Not yet retrieved"
-      }
-    ],
     "PsD-EYE": [
       {
-        "key": "psd_eye",
-        "label": "Uveitis"
+        "key": "psd",
+        "label": "Psoriatic Disease (PsD)"
       }
     ],
     "PsD-SKN": [
@@ -1108,8 +810,8 @@
         "label": "Psoriasis"
       },
       {
-        "key": "psd_eye",
-        "label": "Uveitis"
+        "key": "psd",
+        "label": "Psoriatic Disease (PsD)"
       }
     ],
     "PsD-SKN/SYN": [
@@ -1146,16 +848,6 @@
         "label": "Lupus Skin"
       }
     ],
-    "SLE/PsD-SKN": [
-      {
-        "key": "sle_skn",
-        "label": "Lupus Skin"
-      },
-      {
-        "key": "psd_skn",
-        "label": "Psoriasis"
-      }
-    ],
     "SSc-SKN": [
       {
         "key": "ssc",
@@ -1167,185 +859,77 @@
         "key": "sjd",
         "label": "Sj\u00f6gren's Disease (SjD)"
       }
+    ],
+    "Unknown": [
+      {
+        "key": "unknown",
+        "label": "Unknown"
+      }
     ]
   },
   "by_scope": {
     "xenium_slide": {
-      "Not yet retrieved": {
-        "completed": 0,
-        "pending": 0,
-        "not_applicable": 0,
-        "no_specimen": 0,
-        "qc_fail": 0,
-        "unknown": 10
-      },
       "PsD-EYE": {
         "completed": 0,
         "pending": 0,
         "not_applicable": 0,
-        "no_specimen": 0,
+        "no_specimen": 23,
         "qc_fail": 0,
-        "unknown": 23
+        "unknown": 0
       },
       "PsD-SKN": {
         "completed": 28,
-        "pending": 0,
+        "pending": 97,
         "not_applicable": 0,
-        "no_specimen": 0,
+        "no_specimen": 23,
         "qc_fail": 0,
-        "unknown": 118
+        "unknown": 0
       },
       "PsD-SKN/EYE": {
         "completed": 0,
-        "pending": 0,
+        "pending": 1,
         "not_applicable": 0,
         "no_specimen": 0,
         "qc_fail": 0,
-        "unknown": 1
+        "unknown": 0
       },
       "PsD-SKN/SYN": {
         "completed": 0,
-        "pending": 0,
+        "pending": 6,
         "not_applicable": 0,
         "no_specimen": 0,
         "qc_fail": 0,
-        "unknown": 6
+        "unknown": 0
       },
       "PsD-SYN": {
         "completed": 12,
-        "pending": 11,
+        "pending": 30,
         "not_applicable": 0,
-        "no_specimen": 0,
+        "no_specimen": 6,
         "qc_fail": 1,
-        "unknown": 29
+        "unknown": 5
       },
       "RA-SYN": {
         "completed": 36,
-        "pending": 0,
+        "pending": 153,
         "not_applicable": 5,
-        "no_specimen": 0,
+        "no_specimen": 64,
         "qc_fail": 0,
-        "unknown": 218
+        "unknown": 0
       },
       "SLE-KDY": {
-        "completed": 30,
-        "pending": 0,
+        "completed": 76,
+        "pending": 35,
         "not_applicable": 0,
-        "no_specimen": 0,
+        "no_specimen": 149,
         "qc_fail": 0,
-        "unknown": 230
+        "unknown": 0
       },
       "SLE-SKN": {
         "completed": 28,
-        "pending": 0,
+        "pending": 36,
         "not_applicable": 0,
-        "no_specimen": 0,
-        "qc_fail": 0,
-        "unknown": 49
-      },
-      "SLE/PsD-SKN": {
-        "completed": 0,
-        "pending": 0,
-        "not_applicable": 0,
-        "no_specimen": 0,
-        "qc_fail": 0,
-        "unknown": 5
-      },
-      "SSc-SKN": {
-        "completed": 16,
-        "pending": 0,
-        "not_applicable": 0,
-        "no_specimen": 0,
-        "qc_fail": 0,
-        "unknown": 1
-      },
-      "SjD-SGL": {
-        "completed": 138,
-        "pending": 0,
-        "not_applicable": 1,
-        "no_specimen": 0,
-        "qc_fail": 1,
-        "unknown": 407
-      }
-    },
-    "scffpe": {
-      "Not yet retrieved": {
-        "completed": 0,
-        "pending": 0,
-        "not_applicable": 0,
-        "no_specimen": 0,
-        "qc_fail": 0,
-        "unknown": 10
-      },
-      "PsD-EYE": {
-        "completed": 0,
-        "pending": 0,
-        "not_applicable": 0,
-        "no_specimen": 0,
-        "qc_fail": 0,
-        "unknown": 23
-      },
-      "PsD-SKN": {
-        "completed": 24,
-        "pending": 0,
-        "not_applicable": 4,
-        "no_specimen": 0,
-        "qc_fail": 0,
-        "unknown": 118
-      },
-      "PsD-SKN/EYE": {
-        "completed": 0,
-        "pending": 0,
-        "not_applicable": 0,
-        "no_specimen": 0,
-        "qc_fail": 0,
-        "unknown": 1
-      },
-      "PsD-SKN/SYN": {
-        "completed": 0,
-        "pending": 0,
-        "not_applicable": 0,
-        "no_specimen": 0,
-        "qc_fail": 0,
-        "unknown": 6
-      },
-      "PsD-SYN": {
-        "completed": 13,
-        "pending": 11,
-        "not_applicable": 0,
-        "no_specimen": 0,
-        "qc_fail": 0,
-        "unknown": 29
-      },
-      "RA-SYN": {
-        "completed": 28,
-        "pending": 10,
-        "not_applicable": 0,
-        "no_specimen": 2,
-        "qc_fail": 0,
-        "unknown": 219
-      },
-      "SLE-KDY": {
-        "completed": 29,
-        "pending": 0,
-        "not_applicable": 0,
-        "no_specimen": 0,
-        "qc_fail": 0,
-        "unknown": 231
-      },
-      "SLE-SKN": {
-        "completed": 24,
-        "pending": 0,
-        "not_applicable": 4,
-        "no_specimen": 0,
-        "qc_fail": 0,
-        "unknown": 49
-      },
-      "SLE/PsD-SKN": {
-        "completed": 5,
-        "pending": 0,
-        "not_applicable": 0,
-        "no_specimen": 0,
+        "no_specimen": 13,
         "qc_fail": 0,
         "unknown": 0
       },
@@ -1353,126 +937,208 @@
         "completed": 16,
         "pending": 0,
         "not_applicable": 0,
-        "no_specimen": 0,
+        "no_specimen": 1,
         "qc_fail": 0,
-        "unknown": 1
+        "unknown": 0
       },
       "SjD-SGL": {
-        "completed": 128,
-        "pending": 0,
-        "not_applicable": 2,
-        "no_specimen": 0,
+        "completed": 164,
+        "pending": 371,
+        "not_applicable": 1,
+        "no_specimen": 7,
+        "qc_fail": 1,
+        "unknown": 1
+      },
+      "Unknown": {
+        "completed": 0,
+        "pending": 6,
+        "not_applicable": 0,
+        "no_specimen": 2,
         "qc_fail": 0,
-        "unknown": 417
+        "unknown": 0
       }
     },
-    "scrnaseq": {
-      "Not yet retrieved": {
-        "completed": 0,
-        "pending": 0,
-        "not_applicable": 0,
-        "no_specimen": 0,
-        "qc_fail": 0,
-        "unknown": 10
-      },
+    "scffpe": {
       "PsD-EYE": {
         "completed": 0,
         "pending": 0,
         "not_applicable": 0,
-        "no_specimen": 0,
+        "no_specimen": 23,
         "qc_fail": 0,
-        "unknown": 23
+        "unknown": 0
       },
       "PsD-SKN": {
-        "completed": 12,
-        "pending": 0,
-        "not_applicable": 0,
-        "no_specimen": 4,
+        "completed": 24,
+        "pending": 97,
+        "not_applicable": 4,
+        "no_specimen": 23,
         "qc_fail": 0,
-        "unknown": 130
+        "unknown": 0
       },
       "PsD-SKN/EYE": {
         "completed": 0,
-        "pending": 0,
+        "pending": 1,
         "not_applicable": 0,
         "no_specimen": 0,
         "qc_fail": 0,
-        "unknown": 1
+        "unknown": 0
       },
       "PsD-SKN/SYN": {
         "completed": 0,
-        "pending": 0,
+        "pending": 6,
         "not_applicable": 0,
         "no_specimen": 0,
         "qc_fail": 0,
-        "unknown": 6
+        "unknown": 0
+      },
+      "PsD-SYN": {
+        "completed": 13,
+        "pending": 30,
+        "not_applicable": 0,
+        "no_specimen": 6,
+        "qc_fail": 0,
+        "unknown": 5
+      },
+      "RA-SYN": {
+        "completed": 28,
+        "pending": 163,
+        "not_applicable": 0,
+        "no_specimen": 66,
+        "qc_fail": 0,
+        "unknown": 1
+      },
+      "SLE-KDY": {
+        "completed": 29,
+        "pending": 82,
+        "not_applicable": 0,
+        "no_specimen": 149,
+        "qc_fail": 0,
+        "unknown": 0
+      },
+      "SLE-SKN": {
+        "completed": 24,
+        "pending": 36,
+        "not_applicable": 4,
+        "no_specimen": 13,
+        "qc_fail": 0,
+        "unknown": 0
+      },
+      "SSc-SKN": {
+        "completed": 16,
+        "pending": 0,
+        "not_applicable": 0,
+        "no_specimen": 1,
+        "qc_fail": 0,
+        "unknown": 0
+      },
+      "SjD-SGL": {
+        "completed": 128,
+        "pending": 407,
+        "not_applicable": 2,
+        "no_specimen": 7,
+        "qc_fail": 0,
+        "unknown": 1
+      },
+      "Unknown": {
+        "completed": 0,
+        "pending": 6,
+        "not_applicable": 0,
+        "no_specimen": 2,
+        "qc_fail": 0,
+        "unknown": 0
+      }
+    },
+    "scrnaseq": {
+      "PsD-EYE": {
+        "completed": 0,
+        "pending": 0,
+        "not_applicable": 0,
+        "no_specimen": 23,
+        "qc_fail": 0,
+        "unknown": 0
+      },
+      "PsD-SKN": {
+        "completed": 12,
+        "pending": 106,
+        "not_applicable": 0,
+        "no_specimen": 30,
+        "qc_fail": 0,
+        "unknown": 0
+      },
+      "PsD-SKN/EYE": {
+        "completed": 0,
+        "pending": 1,
+        "not_applicable": 0,
+        "no_specimen": 0,
+        "qc_fail": 0,
+        "unknown": 0
+      },
+      "PsD-SKN/SYN": {
+        "completed": 0,
+        "pending": 6,
+        "not_applicable": 0,
+        "no_specimen": 0,
+        "qc_fail": 0,
+        "unknown": 0
       },
       "PsD-SYN": {
         "completed": 8,
-        "pending": 0,
-        "not_applicable": 1,
-        "no_specimen": 7,
+        "pending": 31,
+        "not_applicable": 0,
+        "no_specimen": 15,
         "qc_fail": 0,
-        "unknown": 37
+        "unknown": 0
       },
       "RA-SYN": {
         "completed": 8,
-        "pending": 0,
+        "pending": 169,
         "not_applicable": 0,
-        "no_specimen": 14,
+        "no_specimen": 81,
         "qc_fail": 0,
-        "unknown": 237
+        "unknown": 0
       },
       "SLE-KDY": {
         "completed": 0,
-        "pending": 0,
+        "pending": 92,
         "not_applicable": 16,
-        "no_specimen": 0,
+        "no_specimen": 152,
         "qc_fail": 0,
-        "unknown": 244
+        "unknown": 0
       },
       "SLE-SKN": {
         "completed": 11,
-        "pending": 0,
+        "pending": 48,
         "not_applicable": 0,
-        "no_specimen": 4,
+        "no_specimen": 17,
         "qc_fail": 1,
-        "unknown": 61
-      },
-      "SLE/PsD-SKN": {
-        "completed": 0,
-        "pending": 0,
-        "not_applicable": 0,
-        "no_specimen": 0,
-        "qc_fail": 0,
-        "unknown": 5
+        "unknown": 0
       },
       "SSc-SKN": {
         "completed": 0,
         "pending": 0,
         "not_applicable": 0,
-        "no_specimen": 0,
+        "no_specimen": 17,
         "qc_fail": 0,
-        "unknown": 17
+        "unknown": 0
       },
       "SjD-SGL": {
         "completed": 30,
-        "pending": 0,
+        "pending": 427,
         "not_applicable": 1,
-        "no_specimen": 5,
+        "no_specimen": 87,
         "qc_fail": 0,
-        "unknown": 511
+        "unknown": 0
+      },
+      "Unknown": {
+        "completed": 0,
+        "pending": 6,
+        "not_applicable": 0,
+        "no_specimen": 2,
+        "qc_fail": 0,
+        "unknown": 0
       }
     },
     "olink_serum": {
-      "Not yet retrieved": {
-        "completed": 0,
-        "pending": 0,
-        "not_applicable": 0,
-        "no_specimen": 0,
-        "qc_fail": 0,
-        "unknown": 10
-      },
       "PsD-EYE": {
         "completed": 0,
         "pending": 5,
@@ -1483,11 +1149,11 @@
       },
       "PsD-SKN": {
         "completed": 34,
-        "pending": 86,
+        "pending": 91,
         "not_applicable": 0,
-        "no_specimen": 14,
+        "no_specimen": 23,
         "qc_fail": 0,
-        "unknown": 12
+        "unknown": 0
       },
       "PsD-SKN/EYE": {
         "completed": 0,
@@ -1507,27 +1173,27 @@
       },
       "PsD-SYN": {
         "completed": 15,
-        "pending": 17,
+        "pending": 19,
         "not_applicable": 0,
-        "no_specimen": 18,
+        "no_specimen": 19,
         "qc_fail": 0,
-        "unknown": 3
+        "unknown": 1
       },
       "RA-SYN": {
         "completed": 48,
-        "pending": 90,
+        "pending": 102,
         "not_applicable": 0,
-        "no_specimen": 48,
+        "no_specimen": 108,
         "qc_fail": 0,
-        "unknown": 73
+        "unknown": 0
       },
       "SLE-KDY": {
         "completed": 199,
-        "pending": 4,
+        "pending": 17,
         "not_applicable": 0,
-        "no_specimen": 42,
+        "no_specimen": 44,
         "qc_fail": 0,
-        "unknown": 15
+        "unknown": 0
       },
       "SLE-SKN": {
         "completed": 61,
@@ -1536,14 +1202,6 @@
         "no_specimen": 13,
         "qc_fail": 0,
         "unknown": 0
-      },
-      "SLE/PsD-SKN": {
-        "completed": 0,
-        "pending": 0,
-        "not_applicable": 0,
-        "no_specimen": 0,
-        "qc_fail": 0,
-        "unknown": 5
       },
       "SSc-SKN": {
         "completed": 0,
@@ -1555,22 +1213,22 @@
       },
       "SjD-SGL": {
         "completed": 109,
-        "pending": 339,
+        "pending": 395,
         "not_applicable": 0,
-        "no_specimen": 91,
+        "no_specimen": 41,
         "qc_fail": 0,
-        "unknown": 8
+        "unknown": 0
+      },
+      "Unknown": {
+        "completed": 0,
+        "pending": 3,
+        "not_applicable": 0,
+        "no_specimen": 5,
+        "qc_fail": 0,
+        "unknown": 0
       }
     },
     "cytof_blood": {
-      "Not yet retrieved": {
-        "completed": 0,
-        "pending": 0,
-        "not_applicable": 0,
-        "no_specimen": 0,
-        "qc_fail": 0,
-        "unknown": 10
-      },
       "PsD-EYE": {
         "completed": 2,
         "pending": 0,
@@ -1583,9 +1241,9 @@
         "completed": 90,
         "pending": 3,
         "not_applicable": 0,
-        "no_specimen": 41,
+        "no_specimen": 55,
         "qc_fail": 0,
-        "unknown": 12
+        "unknown": 0
       },
       "PsD-SKN/EYE": {
         "completed": 1,
@@ -1607,41 +1265,33 @@
         "completed": 15,
         "pending": 3,
         "not_applicable": 0,
-        "no_specimen": 32,
+        "no_specimen": 35,
         "qc_fail": 0,
-        "unknown": 3
+        "unknown": 1
       },
       "RA-SYN": {
         "completed": 82,
-        "pending": 1,
+        "pending": 2,
         "not_applicable": 0,
-        "no_specimen": 103,
+        "no_specimen": 174,
         "qc_fail": 0,
-        "unknown": 73
+        "unknown": 0
       },
       "SLE-KDY": {
         "completed": 151,
         "pending": 1,
         "not_applicable": 0,
-        "no_specimen": 93,
+        "no_specimen": 108,
         "qc_fail": 0,
-        "unknown": 15
+        "unknown": 0
       },
       "SLE-SKN": {
         "completed": 39,
         "pending": 0,
         "not_applicable": 0,
-        "no_specimen": 36,
+        "no_specimen": 38,
         "qc_fail": 0,
-        "unknown": 2
-      },
-      "SLE/PsD-SKN": {
-        "completed": 0,
-        "pending": 0,
-        "not_applicable": 0,
-        "no_specimen": 0,
-        "qc_fail": 0,
-        "unknown": 5
+        "unknown": 0
       },
       "SSc-SKN": {
         "completed": 0,
@@ -1655,20 +1305,20 @@
         "completed": 141,
         "pending": 0,
         "not_applicable": 0,
-        "no_specimen": 398,
+        "no_specimen": 404,
         "qc_fail": 0,
-        "unknown": 8
-      }
-    },
-    "genotyping": {
-      "Not yet retrieved": {
+        "unknown": 0
+      },
+      "Unknown": {
         "completed": 0,
         "pending": 0,
         "not_applicable": 0,
-        "no_specimen": 0,
+        "no_specimen": 8,
         "qc_fail": 0,
-        "unknown": 10
-      },
+        "unknown": 0
+      }
+    },
+    "genotyping": {
       "PsD-EYE": {
         "completed": 5,
         "pending": 0,
@@ -1679,11 +1329,11 @@
       },
       "PsD-SKN": {
         "completed": 102,
-        "pending": 20,
+        "pending": 26,
         "not_applicable": 0,
-        "no_specimen": 12,
+        "no_specimen": 20,
         "qc_fail": 0,
-        "unknown": 12
+        "unknown": 0
       },
       "PsD-SKN/EYE": {
         "completed": 1,
@@ -1703,43 +1353,35 @@
       },
       "PsD-SYN": {
         "completed": 25,
-        "pending": 6,
+        "pending": 9,
         "not_applicable": 0,
         "no_specimen": 19,
         "qc_fail": 0,
-        "unknown": 3
+        "unknown": 1
       },
       "RA-SYN": {
         "completed": 89,
-        "pending": 49,
+        "pending": 65,
         "not_applicable": 0,
-        "no_specimen": 48,
+        "no_specimen": 104,
         "qc_fail": 0,
-        "unknown": 73
+        "unknown": 0
       },
       "SLE-KDY": {
         "completed": 69,
-        "pending": 131,
+        "pending": 149,
         "not_applicable": 0,
-        "no_specimen": 45,
+        "no_specimen": 42,
         "qc_fail": 0,
-        "unknown": 15
+        "unknown": 0
       },
       "SLE-SKN": {
         "completed": 23,
-        "pending": 25,
+        "pending": 28,
         "not_applicable": 0,
-        "no_specimen": 25,
+        "no_specimen": 24,
         "qc_fail": 2,
-        "unknown": 2
-      },
-      "SLE/PsD-SKN": {
-        "completed": 0,
-        "pending": 0,
-        "not_applicable": 0,
-        "no_specimen": 0,
-        "qc_fail": 0,
-        "unknown": 5
+        "unknown": 0
       },
       "SSc-SKN": {
         "completed": 0,
@@ -1751,22 +1393,22 @@
       },
       "SjD-SGL": {
         "completed": 353,
-        "pending": 85,
+        "pending": 87,
         "not_applicable": 0,
-        "no_specimen": 91,
+        "no_specimen": 95,
         "qc_fail": 10,
-        "unknown": 8
+        "unknown": 0
+      },
+      "Unknown": {
+        "completed": 0,
+        "pending": 3,
+        "not_applicable": 0,
+        "no_specimen": 5,
+        "qc_fail": 0,
+        "unknown": 0
       }
     },
     "omrf_lab": {
-      "Not yet retrieved": {
-        "completed": 0,
-        "pending": 0,
-        "not_applicable": 0,
-        "no_specimen": 0,
-        "qc_fail": 0,
-        "unknown": 10
-      },
       "PsD-EYE": {
         "completed": 4,
         "pending": 1,
@@ -1777,11 +1419,11 @@
       },
       "PsD-SKN": {
         "completed": 122,
-        "pending": 2,
+        "pending": 5,
         "not_applicable": 0,
         "no_specimen": 12,
         "qc_fail": 0,
-        "unknown": 10
+        "unknown": 9
       },
       "PsD-SKN/EYE": {
         "completed": 1,
@@ -1801,7 +1443,7 @@
       },
       "PsD-SYN": {
         "completed": 32,
-        "pending": 1,
+        "pending": 2,
         "not_applicable": 0,
         "no_specimen": 18,
         "qc_fail": 0,
@@ -1809,35 +1451,27 @@
       },
       "RA-SYN": {
         "completed": 133,
-        "pending": 12,
+        "pending": 22,
         "not_applicable": 0,
-        "no_specimen": 106,
-        "qc_fail": 0,
-        "unknown": 8
-      },
-      "SLE-KDY": {
-        "completed": 203,
-        "pending": 2,
-        "not_applicable": 0,
-        "no_specimen": 42,
-        "qc_fail": 0,
-        "unknown": 13
-      },
-      "SLE-SKN": {
-        "completed": 50,
-        "pending": 11,
-        "not_applicable": 0,
-        "no_specimen": 14,
+        "no_specimen": 101,
         "qc_fail": 0,
         "unknown": 2
       },
-      "SLE/PsD-SKN": {
-        "completed": 0,
-        "pending": 0,
+      "SLE-KDY": {
+        "completed": 203,
+        "pending": 12,
         "not_applicable": 0,
-        "no_specimen": 0,
+        "no_specimen": 42,
         "qc_fail": 0,
-        "unknown": 5
+        "unknown": 3
+      },
+      "SLE-SKN": {
+        "completed": 50,
+        "pending": 12,
+        "not_applicable": 0,
+        "no_specimen": 14,
+        "qc_fail": 0,
+        "unknown": 1
       },
       "SSc-SKN": {
         "completed": 0,
@@ -1849,22 +1483,22 @@
       },
       "SjD-SGL": {
         "completed": 451,
-        "pending": 2,
+        "pending": 3,
         "not_applicable": 0,
-        "no_specimen": 88,
+        "no_specimen": 90,
         "qc_fail": 0,
-        "unknown": 6
+        "unknown": 1
+      },
+      "Unknown": {
+        "completed": 0,
+        "pending": 3,
+        "not_applicable": 0,
+        "no_specimen": 3,
+        "qc_fail": 0,
+        "unknown": 2
       }
     },
     "brnaseq": {
-      "Not yet retrieved": {
-        "completed": 0,
-        "pending": 0,
-        "not_applicable": 0,
-        "no_specimen": 0,
-        "qc_fail": 0,
-        "unknown": 10
-      },
       "PsD-EYE": {
         "completed": 0,
         "pending": 5,
@@ -1875,11 +1509,11 @@
       },
       "PsD-SKN": {
         "completed": 49,
-        "pending": 68,
+        "pending": 79,
         "not_applicable": 0,
-        "no_specimen": 17,
+        "no_specimen": 20,
         "qc_fail": 0,
-        "unknown": 12
+        "unknown": 0
       },
       "PsD-SKN/EYE": {
         "completed": 0,
@@ -1899,43 +1533,35 @@
       },
       "PsD-SYN": {
         "completed": 15,
-        "pending": 15,
+        "pending": 19,
         "not_applicable": 0,
-        "no_specimen": 20,
+        "no_specimen": 19,
         "qc_fail": 0,
-        "unknown": 3
+        "unknown": 1
       },
       "RA-SYN": {
         "completed": 36,
-        "pending": 101,
+        "pending": 118,
         "not_applicable": 0,
-        "no_specimen": 48,
+        "no_specimen": 103,
         "qc_fail": 1,
-        "unknown": 73
+        "unknown": 0
       },
       "SLE-KDY": {
         "completed": 45,
-        "pending": 152,
+        "pending": 171,
         "not_applicable": 0,
-        "no_specimen": 46,
+        "no_specimen": 42,
         "qc_fail": 2,
-        "unknown": 15
+        "unknown": 0
       },
       "SLE-SKN": {
         "completed": 20,
-        "pending": 30,
+        "pending": 33,
         "not_applicable": 0,
-        "no_specimen": 25,
+        "no_specimen": 24,
         "qc_fail": 0,
-        "unknown": 2
-      },
-      "SLE/PsD-SKN": {
-        "completed": 0,
-        "pending": 0,
-        "not_applicable": 0,
-        "no_specimen": 0,
-        "qc_fail": 0,
-        "unknown": 5
+        "unknown": 0
       },
       "SSc-SKN": {
         "completed": 0,
@@ -1947,37 +1573,37 @@
       },
       "SjD-SGL": {
         "completed": 121,
-        "pending": 324,
+        "pending": 329,
         "not_applicable": 0,
-        "no_specimen": 94,
+        "no_specimen": 95,
         "qc_fail": 0,
-        "unknown": 8
+        "unknown": 0
+      },
+      "Unknown": {
+        "completed": 0,
+        "pending": 3,
+        "not_applicable": 0,
+        "no_specimen": 5,
+        "qc_fail": 0,
+        "unknown": 0
       }
     },
     "olink_urine": {
-      "Not yet retrieved": {
-        "completed": 0,
-        "pending": 0,
-        "not_applicable": 0,
-        "no_specimen": 0,
-        "qc_fail": 0,
-        "unknown": 10
-      },
       "PsD-EYE": {
         "completed": 0,
         "pending": 0,
         "not_applicable": 0,
-        "no_specimen": 6,
+        "no_specimen": 23,
         "qc_fail": 0,
-        "unknown": 17
+        "unknown": 0
       },
       "PsD-SKN": {
         "completed": 0,
         "pending": 0,
         "not_applicable": 0,
-        "no_specimen": 113,
+        "no_specimen": 148,
         "qc_fail": 0,
-        "unknown": 33
+        "unknown": 0
       },
       "PsD-SKN/EYE": {
         "completed": 0,
@@ -1999,68 +1625,60 @@
         "completed": 0,
         "pending": 0,
         "not_applicable": 0,
-        "no_specimen": 33,
+        "no_specimen": 54,
         "qc_fail": 0,
-        "unknown": 20
+        "unknown": 0
       },
       "RA-SYN": {
         "completed": 0,
         "pending": 0,
         "not_applicable": 0,
-        "no_specimen": 147,
+        "no_specimen": 258,
         "qc_fail": 0,
-        "unknown": 112
+        "unknown": 0
       },
       "SLE-KDY": {
         "completed": 55,
         "pending": 159,
         "not_applicable": 0,
-        "no_specimen": 33,
+        "no_specimen": 46,
         "qc_fail": 0,
-        "unknown": 13
+        "unknown": 0
       },
       "SLE-SKN": {
         "completed": 0,
         "pending": 0,
         "not_applicable": 0,
-        "no_specimen": 58,
+        "no_specimen": 77,
         "qc_fail": 0,
-        "unknown": 19
-      },
-      "SLE/PsD-SKN": {
-        "completed": 0,
-        "pending": 0,
-        "not_applicable": 0,
-        "no_specimen": 0,
-        "qc_fail": 0,
-        "unknown": 5
+        "unknown": 0
       },
       "SSc-SKN": {
         "completed": 0,
         "pending": 0,
         "not_applicable": 0,
-        "no_specimen": 0,
+        "no_specimen": 17,
         "qc_fail": 0,
-        "unknown": 17
+        "unknown": 0
       },
       "SjD-SGL": {
         "completed": 0,
         "pending": 0,
         "not_applicable": 0,
-        "no_specimen": 457,
+        "no_specimen": 545,
         "qc_fail": 0,
-        "unknown": 90
-      }
-    },
-    "mbioseq_stool": {
-      "Not yet retrieved": {
+        "unknown": 0
+      },
+      "Unknown": {
         "completed": 0,
         "pending": 0,
         "not_applicable": 0,
-        "no_specimen": 0,
+        "no_specimen": 8,
         "qc_fail": 0,
-        "unknown": 10
-      },
+        "unknown": 0
+      }
+    },
+    "mbioseq_stool": {
       "PsD-EYE": {
         "completed": 0,
         "pending": 0,
@@ -2075,7 +1693,7 @@
         "not_applicable": 0,
         "no_specimen": 0,
         "qc_fail": 0,
-        "unknown": 97
+        "unknown": 99
       },
       "PsD-SKN/EYE": {
         "completed": 0,
@@ -2099,10 +1717,10 @@
         "not_applicable": 0,
         "no_specimen": 0,
         "qc_fail": 0,
-        "unknown": 45
+        "unknown": 46
       },
       "RA-SYN": {
-        "completed": 19,
+        "completed": 18,
         "pending": 0,
         "not_applicable": 0,
         "no_specimen": 0,
@@ -2125,14 +1743,6 @@
         "qc_fail": 0,
         "unknown": 69
       },
-      "SLE/PsD-SKN": {
-        "completed": 0,
-        "pending": 0,
-        "not_applicable": 0,
-        "no_specimen": 0,
-        "qc_fail": 0,
-        "unknown": 5
-      },
       "SSc-SKN": {
         "completed": 0,
         "pending": 0,
@@ -2147,18 +1757,18 @@
         "not_applicable": 0,
         "no_specimen": 0,
         "qc_fail": 0,
-        "unknown": 438
-      }
-    },
-    "mbioseq_skin": {
-      "Not yet retrieved": {
+        "unknown": 436
+      },
+      "Unknown": {
         "completed": 0,
         "pending": 0,
         "not_applicable": 0,
         "no_specimen": 0,
         "qc_fail": 0,
-        "unknown": 10
-      },
+        "unknown": 8
+      }
+    },
+    "mbioseq_skin": {
       "PsD-EYE": {
         "completed": 1,
         "pending": 0,
@@ -2173,7 +1783,7 @@
         "not_applicable": 0,
         "no_specimen": 0,
         "qc_fail": 0,
-        "unknown": 81
+        "unknown": 83
       },
       "PsD-SKN/EYE": {
         "completed": 1,
@@ -2197,7 +1807,7 @@
         "not_applicable": 0,
         "no_specimen": 0,
         "qc_fail": 0,
-        "unknown": 45
+        "unknown": 46
       },
       "RA-SYN": {
         "completed": 0,
@@ -2205,7 +1815,7 @@
         "not_applicable": 0,
         "no_specimen": 0,
         "qc_fail": 0,
-        "unknown": 259
+        "unknown": 258
       },
       "SLE-KDY": {
         "completed": 0,
@@ -2223,14 +1833,6 @@
         "qc_fail": 0,
         "unknown": 43
       },
-      "SLE/PsD-SKN": {
-        "completed": 0,
-        "pending": 0,
-        "not_applicable": 0,
-        "no_specimen": 0,
-        "qc_fail": 0,
-        "unknown": 5
-      },
       "SSc-SKN": {
         "completed": 0,
         "pending": 0,
@@ -2245,18 +1847,18 @@
         "not_applicable": 0,
         "no_specimen": 0,
         "qc_fail": 0,
-        "unknown": 547
-      }
-    },
-    "anti_c1q": {
-      "Not yet retrieved": {
+        "unknown": 545
+      },
+      "Unknown": {
         "completed": 0,
         "pending": 0,
         "not_applicable": 0,
         "no_specimen": 0,
         "qc_fail": 0,
-        "unknown": 10
-      },
+        "unknown": 8
+      }
+    },
+    "anti_c1q": {
       "PsD-EYE": {
         "completed": 0,
         "pending": 0,
@@ -2271,7 +1873,7 @@
         "not_applicable": 137,
         "no_specimen": 0,
         "qc_fail": 0,
-        "unknown": 9
+        "unknown": 11
       },
       "PsD-SKN/EYE": {
         "completed": 0,
@@ -2295,15 +1897,15 @@
         "not_applicable": 52,
         "no_specimen": 0,
         "qc_fail": 0,
-        "unknown": 1
+        "unknown": 2
       },
       "RA-SYN": {
         "completed": 0,
         "pending": 0,
-        "not_applicable": 253,
+        "not_applicable": 248,
         "no_specimen": 0,
         "qc_fail": 0,
-        "unknown": 6
+        "unknown": 10
       },
       "SLE-KDY": {
         "completed": 197,
@@ -2321,14 +1923,6 @@
         "qc_fail": 0,
         "unknown": 2
       },
-      "SLE/PsD-SKN": {
-        "completed": 0,
-        "pending": 0,
-        "not_applicable": 5,
-        "no_specimen": 0,
-        "qc_fail": 0,
-        "unknown": 0
-      },
       "SSc-SKN": {
         "completed": 0,
         "pending": 0,
@@ -2340,10 +1934,18 @@
       "SjD-SGL": {
         "completed": 0,
         "pending": 0,
-        "not_applicable": 540,
+        "not_applicable": 539,
         "no_specimen": 0,
         "qc_fail": 0,
-        "unknown": 7
+        "unknown": 6
+      },
+      "Unknown": {
+        "completed": 0,
+        "pending": 0,
+        "not_applicable": 0,
+        "no_specimen": 0,
+        "qc_fail": 0,
+        "unknown": 8
       }
     }
   },
@@ -2359,27 +1961,27 @@
       },
       "EDP2": {
         "completed": 125,
-        "pending": 9,
+        "pending": 11,
+        "not_applicable": 0,
+        "no_specimen": 1,
+        "qc_fail": 0,
+        "unknown": 0
+      },
+      "NRP1": {
+        "completed": 103,
+        "pending": 0,
         "not_applicable": 0,
         "no_specimen": 0,
         "qc_fail": 0,
         "unknown": 0
       },
-      "NRP": {
-        "completed": 40,
-        "pending": 0,
-        "not_applicable": 0,
-        "no_specimen": 0,
-        "qc_fail": 0,
-        "unknown": 9
-      },
       "Undefined": {
-        "completed": 0,
-        "pending": 2,
+        "completed": 9,
+        "pending": 724,
         "not_applicable": 6,
-        "no_specimen": 0,
+        "no_specimen": 287,
         "qc_fail": 2,
-        "unknown": 1088
+        "unknown": 6
       }
     },
     "scffpe": {
@@ -2393,61 +1995,61 @@
       },
       "EDP2": {
         "completed": 114,
-        "pending": 19,
+        "pending": 22,
         "not_applicable": 0,
-        "no_specimen": 0,
+        "no_specimen": 1,
         "qc_fail": 0,
-        "unknown": 1
+        "unknown": 0
       },
-      "NRP": {
+      "NRP1": {
         "completed": 30,
-        "pending": 0,
+        "pending": 73,
         "not_applicable": 0,
         "no_specimen": 0,
         "qc_fail": 0,
-        "unknown": 19
+        "unknown": 0
       },
       "Undefined": {
-        "completed": 11,
-        "pending": 2,
+        "completed": 6,
+        "pending": 733,
         "not_applicable": 1,
-        "no_specimen": 0,
+        "no_specimen": 287,
         "qc_fail": 0,
-        "unknown": 1084
+        "unknown": 7
       }
     },
     "scrnaseq": {
       "EDP1": {
         "completed": 68,
-        "pending": 0,
-        "not_applicable": 16,
-        "no_specimen": 21,
+        "pending": 2,
+        "not_applicable": 15,
+        "no_specimen": 37,
         "qc_fail": 1,
-        "unknown": 17
+        "unknown": 0
       },
       "EDP2": {
         "completed": 0,
-        "pending": 0,
+        "pending": 127,
         "not_applicable": 2,
-        "no_specimen": 7,
+        "no_specimen": 8,
         "qc_fail": 0,
-        "unknown": 125
+        "unknown": 0
       },
-      "NRP": {
+      "NRP1": {
         "completed": 0,
-        "pending": 0,
+        "pending": 84,
         "not_applicable": 0,
-        "no_specimen": 0,
+        "no_specimen": 19,
         "qc_fail": 0,
-        "unknown": 49
+        "unknown": 0
       },
       "Undefined": {
         "completed": 1,
-        "pending": 0,
+        "pending": 673,
         "not_applicable": 0,
-        "no_specimen": 6,
+        "no_specimen": 360,
         "qc_fail": 0,
-        "unknown": 1091
+        "unknown": 0
       }
     },
     "olink_serum": {
@@ -2460,28 +2062,28 @@
         "unknown": 1
       },
       "EDP2": {
-        "completed": 121,
+        "completed": 123,
         "pending": 1,
         "not_applicable": 0,
-        "no_specimen": 12,
+        "no_specimen": 13,
         "qc_fail": 0,
         "unknown": 0
       },
-      "NRP": {
-        "completed": 11,
-        "pending": 26,
+      "NRP1": {
+        "completed": 47,
+        "pending": 38,
         "not_applicable": 0,
-        "no_specimen": 12,
+        "no_specimen": 18,
         "qc_fail": 0,
         "unknown": 0
       },
       "Undefined": {
-        "completed": 250,
-        "pending": 518,
+        "completed": 212,
+        "pending": 597,
         "not_applicable": 0,
-        "no_specimen": 205,
+        "no_specimen": 225,
         "qc_fail": 0,
-        "unknown": 125
+        "unknown": 0
       }
     },
     "cytof_blood": {
@@ -2494,28 +2096,28 @@
         "unknown": 1
       },
       "EDP2": {
-        "completed": 72,
+        "completed": 73,
         "pending": 2,
         "not_applicable": 0,
-        "no_specimen": 60,
+        "no_specimen": 62,
         "qc_fail": 0,
         "unknown": 0
       },
-      "NRP": {
-        "completed": 12,
+      "NRP1": {
+        "completed": 32,
         "pending": 0,
         "not_applicable": 0,
-        "no_specimen": 37,
+        "no_specimen": 71,
         "qc_fail": 0,
         "unknown": 0
       },
       "Undefined": {
-        "completed": 370,
-        "pending": 6,
+        "completed": 349,
+        "pending": 7,
         "not_applicable": 0,
-        "no_specimen": 595,
+        "no_specimen": 678,
         "qc_fail": 0,
-        "unknown": 127
+        "unknown": 0
       }
     },
     "genotyping": {
@@ -2528,28 +2130,28 @@
         "unknown": 1
       },
       "EDP2": {
-        "completed": 109,
+        "completed": 111,
         "pending": 7,
         "not_applicable": 0,
-        "no_specimen": 13,
+        "no_specimen": 14,
         "qc_fail": 5,
         "unknown": 0
       },
-      "NRP": {
-        "completed": 30,
-        "pending": 6,
+      "NRP1": {
+        "completed": 65,
+        "pending": 17,
         "not_applicable": 0,
-        "no_specimen": 12,
+        "no_specimen": 20,
         "qc_fail": 1,
         "unknown": 0
       },
       "Undefined": {
-        "completed": 446,
-        "pending": 303,
+        "completed": 409,
+        "pending": 343,
         "not_applicable": 0,
-        "no_specimen": 216,
+        "no_specimen": 276,
         "qc_fail": 6,
-        "unknown": 127
+        "unknown": 0
       }
     },
     "omrf_lab": {
@@ -2562,28 +2164,28 @@
         "unknown": 1
       },
       "EDP2": {
-        "completed": 121,
+        "completed": 123,
         "pending": 1,
         "not_applicable": 0,
-        "no_specimen": 12,
+        "no_specimen": 13,
         "qc_fail": 0,
         "unknown": 0
       },
-      "NRP": {
-        "completed": 37,
+      "NRP1": {
+        "completed": 83,
         "pending": 0,
         "not_applicable": 0,
-        "no_specimen": 12,
+        "no_specimen": 19,
         "qc_fail": 0,
-        "unknown": 0
+        "unknown": 1
       },
       "Undefined": {
-        "completed": 754,
-        "pending": 30,
+        "completed": 706,
+        "pending": 59,
         "not_applicable": 0,
-        "no_specimen": 259,
+        "no_specimen": 251,
         "qc_fail": 0,
-        "unknown": 55
+        "unknown": 18
       }
     },
     "brnaseq": {
@@ -2597,27 +2199,27 @@
       },
       "EDP2": {
         "completed": 34,
-        "pending": 87,
+        "pending": 89,
         "not_applicable": 0,
-        "no_specimen": 13,
+        "no_specimen": 14,
         "qc_fail": 0,
         "unknown": 0
       },
-      "NRP": {
-        "completed": 10,
-        "pending": 27,
+      "NRP1": {
+        "completed": 15,
+        "pending": 67,
         "not_applicable": 0,
-        "no_specimen": 12,
-        "qc_fail": 0,
+        "no_specimen": 20,
+        "qc_fail": 1,
         "unknown": 0
       },
       "Undefined": {
-        "completed": 158,
-        "pending": 584,
+        "completed": 153,
+        "pending": 604,
         "not_applicable": 0,
-        "no_specimen": 226,
-        "qc_fail": 3,
-        "unknown": 127
+        "no_specimen": 275,
+        "qc_fail": 2,
+        "unknown": 0
       }
     },
     "olink_urine": {
@@ -2625,33 +2227,33 @@
         "completed": 8,
         "pending": 2,
         "not_applicable": 0,
-        "no_specimen": 97,
+        "no_specimen": 113,
         "qc_fail": 0,
-        "unknown": 16
+        "unknown": 0
       },
       "EDP2": {
         "completed": 8,
         "pending": 5,
         "not_applicable": 0,
-        "no_specimen": 115,
+        "no_specimen": 124,
         "qc_fail": 0,
-        "unknown": 6
+        "unknown": 0
       },
-      "NRP": {
+      "NRP1": {
         "completed": 0,
-        "pending": 0,
+        "pending": 37,
         "not_applicable": 0,
-        "no_specimen": 37,
+        "no_specimen": 66,
         "qc_fail": 0,
-        "unknown": 12
+        "unknown": 0
       },
       "Undefined": {
         "completed": 39,
-        "pending": 152,
+        "pending": 115,
         "not_applicable": 0,
-        "no_specimen": 605,
+        "no_specimen": 880,
         "qc_fail": 0,
-        "unknown": 302
+        "unknown": 0
       }
     },
     "mbioseq_stool": {
@@ -2664,28 +2266,28 @@
         "unknown": 104
       },
       "EDP2": {
-        "completed": 28,
+        "completed": 30,
         "pending": 0,
         "not_applicable": 0,
         "no_specimen": 0,
         "qc_fail": 0,
-        "unknown": 106
+        "unknown": 107
       },
-      "NRP": {
-        "completed": 13,
+      "NRP1": {
+        "completed": 15,
         "pending": 0,
         "not_applicable": 0,
         "no_specimen": 0,
         "qc_fail": 0,
-        "unknown": 36
+        "unknown": 88
       },
       "Undefined": {
-        "completed": 144,
+        "completed": 139,
         "pending": 0,
         "not_applicable": 0,
         "no_specimen": 0,
         "qc_fail": 0,
-        "unknown": 954
+        "unknown": 895
       }
     },
     "mbioseq_skin": {
@@ -2703,15 +2305,15 @@
         "not_applicable": 0,
         "no_specimen": 0,
         "qc_fail": 0,
-        "unknown": 121
+        "unknown": 124
       },
-      "NRP": {
+      "NRP1": {
         "completed": 0,
         "pending": 0,
         "not_applicable": 0,
         "no_specimen": 0,
         "qc_fail": 0,
-        "unknown": 49
+        "unknown": 103
       },
       "Undefined": {
         "completed": 71,
@@ -2719,7 +2321,7 @@
         "not_applicable": 0,
         "no_specimen": 0,
         "qc_fail": 0,
-        "unknown": 1027
+        "unknown": 963
       }
     },
     "anti_c1q": {
@@ -2734,65 +2336,31 @@
       "EDP2": {
         "completed": 25,
         "pending": 0,
-        "not_applicable": 109,
+        "not_applicable": 112,
         "no_specimen": 0,
         "qc_fail": 0,
         "unknown": 0
       },
-      "NRP": {
-        "completed": 0,
+      "NRP1": {
+        "completed": 35,
         "pending": 0,
-        "not_applicable": 49,
+        "not_applicable": 67,
         "no_specimen": 0,
         "qc_fail": 0,
-        "unknown": 0
+        "unknown": 1
       },
       "Undefined": {
-        "completed": 200,
+        "completed": 165,
         "pending": 0,
-        "not_applicable": 855,
+        "not_applicable": 823,
         "no_specimen": 0,
         "qc_fail": 0,
-        "unknown": 43
+        "unknown": 46
       }
     }
   },
   "by_scope_pipeline": {
     "xenium_slide": {
-      "Not yet retrieved": {
-        "EDP1": {
-          "completed": 0,
-          "pending": 0,
-          "not_applicable": 0,
-          "no_specimen": 0,
-          "qc_fail": 0,
-          "unknown": 0
-        },
-        "EDP2": {
-          "completed": 0,
-          "pending": 0,
-          "not_applicable": 0,
-          "no_specimen": 0,
-          "qc_fail": 0,
-          "unknown": 0
-        },
-        "NRP": {
-          "completed": 0,
-          "pending": 0,
-          "not_applicable": 0,
-          "no_specimen": 0,
-          "qc_fail": 0,
-          "unknown": 0
-        },
-        "Undefined": {
-          "completed": 0,
-          "pending": 0,
-          "not_applicable": 0,
-          "no_specimen": 0,
-          "qc_fail": 0,
-          "unknown": 10
-        }
-      },
       "PsD-EYE": {
         "EDP1": {
           "completed": 0,
@@ -2810,7 +2378,7 @@
           "qc_fail": 0,
           "unknown": 0
         },
-        "NRP": {
+        "NRP1": {
           "completed": 0,
           "pending": 0,
           "not_applicable": 0,
@@ -2822,9 +2390,9 @@
           "completed": 0,
           "pending": 0,
           "not_applicable": 0,
-          "no_specimen": 0,
+          "no_specimen": 23,
           "qc_fail": 0,
-          "unknown": 23
+          "unknown": 0
         }
       },
       "PsD-SKN": {
@@ -2844,7 +2412,7 @@
           "qc_fail": 0,
           "unknown": 0
         },
-        "NRP": {
+        "NRP1": {
           "completed": 0,
           "pending": 0,
           "not_applicable": 0,
@@ -2854,11 +2422,11 @@
         },
         "Undefined": {
           "completed": 0,
-          "pending": 0,
+          "pending": 97,
           "not_applicable": 0,
-          "no_specimen": 0,
+          "no_specimen": 23,
           "qc_fail": 0,
-          "unknown": 118
+          "unknown": 0
         }
       },
       "PsD-SKN/EYE": {
@@ -2878,7 +2446,7 @@
           "qc_fail": 0,
           "unknown": 0
         },
-        "NRP": {
+        "NRP1": {
           "completed": 0,
           "pending": 0,
           "not_applicable": 0,
@@ -2888,11 +2456,11 @@
         },
         "Undefined": {
           "completed": 0,
-          "pending": 0,
+          "pending": 1,
           "not_applicable": 0,
           "no_specimen": 0,
           "qc_fail": 0,
-          "unknown": 1
+          "unknown": 0
         }
       },
       "PsD-SKN/SYN": {
@@ -2912,7 +2480,7 @@
           "qc_fail": 0,
           "unknown": 0
         },
-        "NRP": {
+        "NRP1": {
           "completed": 0,
           "pending": 0,
           "not_applicable": 0,
@@ -2922,11 +2490,11 @@
         },
         "Undefined": {
           "completed": 0,
-          "pending": 0,
+          "pending": 6,
           "not_applicable": 0,
           "no_specimen": 0,
           "qc_fail": 0,
-          "unknown": 6
+          "unknown": 0
         }
       },
       "PsD-SYN": {
@@ -2940,13 +2508,13 @@
         },
         "EDP2": {
           "completed": 0,
-          "pending": 9,
+          "pending": 11,
           "not_applicable": 0,
           "no_specimen": 0,
           "qc_fail": 0,
           "unknown": 0
         },
-        "NRP": {
+        "NRP1": {
           "completed": 0,
           "pending": 0,
           "not_applicable": 0,
@@ -2956,11 +2524,11 @@
         },
         "Undefined": {
           "completed": 0,
-          "pending": 2,
+          "pending": 19,
           "not_applicable": 0,
-          "no_specimen": 0,
+          "no_specimen": 6,
           "qc_fail": 1,
-          "unknown": 29
+          "unknown": 5
         }
       },
       "RA-SYN": {
@@ -2980,7 +2548,7 @@
           "qc_fail": 0,
           "unknown": 0
         },
-        "NRP": {
+        "NRP1": {
           "completed": 0,
           "pending": 0,
           "not_applicable": 0,
@@ -2990,11 +2558,11 @@
         },
         "Undefined": {
           "completed": 0,
-          "pending": 0,
+          "pending": 153,
           "not_applicable": 5,
-          "no_specimen": 0,
+          "no_specimen": 64,
           "qc_fail": 0,
-          "unknown": 218
+          "unknown": 0
         }
       },
       "SLE-KDY": {
@@ -3014,8 +2582,8 @@
           "qc_fail": 0,
           "unknown": 0
         },
-        "NRP": {
-          "completed": 0,
+        "NRP1": {
+          "completed": 37,
           "pending": 0,
           "not_applicable": 0,
           "no_specimen": 0,
@@ -3023,12 +2591,12 @@
           "unknown": 0
         },
         "Undefined": {
-          "completed": 0,
-          "pending": 0,
+          "completed": 9,
+          "pending": 35,
           "not_applicable": 0,
-          "no_specimen": 0,
+          "no_specimen": 149,
           "qc_fail": 0,
-          "unknown": 230
+          "unknown": 0
         }
       },
       "SLE-SKN": {
@@ -3048,7 +2616,7 @@
           "qc_fail": 0,
           "unknown": 0
         },
-        "NRP": {
+        "NRP1": {
           "completed": 0,
           "pending": 0,
           "not_applicable": 0,
@@ -3058,45 +2626,11 @@
         },
         "Undefined": {
           "completed": 0,
-          "pending": 0,
+          "pending": 36,
           "not_applicable": 0,
-          "no_specimen": 0,
-          "qc_fail": 0,
-          "unknown": 49
-        }
-      },
-      "SLE/PsD-SKN": {
-        "EDP1": {
-          "completed": 0,
-          "pending": 0,
-          "not_applicable": 0,
-          "no_specimen": 0,
+          "no_specimen": 13,
           "qc_fail": 0,
           "unknown": 0
-        },
-        "EDP2": {
-          "completed": 0,
-          "pending": 0,
-          "not_applicable": 0,
-          "no_specimen": 0,
-          "qc_fail": 0,
-          "unknown": 0
-        },
-        "NRP": {
-          "completed": 0,
-          "pending": 0,
-          "not_applicable": 0,
-          "no_specimen": 0,
-          "qc_fail": 0,
-          "unknown": 0
-        },
-        "Undefined": {
-          "completed": 0,
-          "pending": 0,
-          "not_applicable": 0,
-          "no_specimen": 0,
-          "qc_fail": 0,
-          "unknown": 5
         }
       },
       "SSc-SKN": {
@@ -3112,11 +2646,11 @@
           "completed": 0,
           "pending": 0,
           "not_applicable": 0,
-          "no_specimen": 0,
+          "no_specimen": 1,
           "qc_fail": 0,
           "unknown": 0
         },
-        "NRP": {
+        "NRP1": {
           "completed": 0,
           "pending": 0,
           "not_applicable": 0,
@@ -3130,7 +2664,7 @@
           "not_applicable": 0,
           "no_specimen": 0,
           "qc_fail": 0,
-          "unknown": 1
+          "unknown": 0
         }
       },
       "SjD-SGL": {
@@ -3150,26 +2684,24 @@
           "qc_fail": 0,
           "unknown": 0
         },
-        "NRP": {
-          "completed": 40,
+        "NRP1": {
+          "completed": 66,
           "pending": 0,
           "not_applicable": 0,
           "no_specimen": 0,
           "qc_fail": 0,
-          "unknown": 9
+          "unknown": 0
         },
         "Undefined": {
           "completed": 0,
-          "pending": 0,
+          "pending": 371,
           "not_applicable": 1,
-          "no_specimen": 0,
+          "no_specimen": 7,
           "qc_fail": 1,
-          "unknown": 398
+          "unknown": 1
         }
-      }
-    },
-    "scffpe": {
-      "Not yet retrieved": {
+      },
+      "Unknown": {
         "EDP1": {
           "completed": 0,
           "pending": 0,
@@ -3186,7 +2718,7 @@
           "qc_fail": 0,
           "unknown": 0
         },
-        "NRP": {
+        "NRP1": {
           "completed": 0,
           "pending": 0,
           "not_applicable": 0,
@@ -3196,13 +2728,15 @@
         },
         "Undefined": {
           "completed": 0,
-          "pending": 0,
+          "pending": 6,
           "not_applicable": 0,
-          "no_specimen": 0,
+          "no_specimen": 2,
           "qc_fail": 0,
-          "unknown": 10
+          "unknown": 0
         }
-      },
+      }
+    },
+    "scffpe": {
       "PsD-EYE": {
         "EDP1": {
           "completed": 0,
@@ -3220,7 +2754,7 @@
           "qc_fail": 0,
           "unknown": 0
         },
-        "NRP": {
+        "NRP1": {
           "completed": 0,
           "pending": 0,
           "not_applicable": 0,
@@ -3232,9 +2766,9 @@
           "completed": 0,
           "pending": 0,
           "not_applicable": 0,
-          "no_specimen": 0,
+          "no_specimen": 23,
           "qc_fail": 0,
-          "unknown": 23
+          "unknown": 0
         }
       },
       "PsD-SKN": {
@@ -3254,7 +2788,7 @@
           "qc_fail": 0,
           "unknown": 0
         },
-        "NRP": {
+        "NRP1": {
           "completed": 0,
           "pending": 0,
           "not_applicable": 0,
@@ -3264,11 +2798,11 @@
         },
         "Undefined": {
           "completed": 0,
-          "pending": 0,
+          "pending": 97,
           "not_applicable": 0,
-          "no_specimen": 0,
+          "no_specimen": 23,
           "qc_fail": 0,
-          "unknown": 118
+          "unknown": 0
         }
       },
       "PsD-SKN/EYE": {
@@ -3288,7 +2822,7 @@
           "qc_fail": 0,
           "unknown": 0
         },
-        "NRP": {
+        "NRP1": {
           "completed": 0,
           "pending": 0,
           "not_applicable": 0,
@@ -3298,11 +2832,11 @@
         },
         "Undefined": {
           "completed": 0,
-          "pending": 0,
+          "pending": 1,
           "not_applicable": 0,
           "no_specimen": 0,
           "qc_fail": 0,
-          "unknown": 1
+          "unknown": 0
         }
       },
       "PsD-SKN/SYN": {
@@ -3322,7 +2856,7 @@
           "qc_fail": 0,
           "unknown": 0
         },
-        "NRP": {
+        "NRP1": {
           "completed": 0,
           "pending": 0,
           "not_applicable": 0,
@@ -3332,11 +2866,11 @@
         },
         "Undefined": {
           "completed": 0,
-          "pending": 0,
+          "pending": 6,
           "not_applicable": 0,
           "no_specimen": 0,
           "qc_fail": 0,
-          "unknown": 6
+          "unknown": 0
         }
       },
       "PsD-SYN": {
@@ -3350,13 +2884,13 @@
         },
         "EDP2": {
           "completed": 0,
-          "pending": 9,
+          "pending": 11,
           "not_applicable": 0,
           "no_specimen": 0,
           "qc_fail": 0,
           "unknown": 0
         },
-        "NRP": {
+        "NRP1": {
           "completed": 0,
           "pending": 0,
           "not_applicable": 0,
@@ -3366,11 +2900,11 @@
         },
         "Undefined": {
           "completed": 1,
-          "pending": 2,
+          "pending": 19,
           "not_applicable": 0,
-          "no_specimen": 0,
+          "no_specimen": 6,
           "qc_fail": 0,
-          "unknown": 29
+          "unknown": 5
         }
       },
       "RA-SYN": {
@@ -3390,7 +2924,7 @@
           "qc_fail": 0,
           "unknown": 0
         },
-        "NRP": {
+        "NRP1": {
           "completed": 0,
           "pending": 0,
           "not_applicable": 0,
@@ -3400,11 +2934,11 @@
         },
         "Undefined": {
           "completed": 4,
-          "pending": 0,
+          "pending": 153,
           "not_applicable": 0,
-          "no_specimen": 0,
+          "no_specimen": 64,
           "qc_fail": 0,
-          "unknown": 219
+          "unknown": 1
         }
       },
       "SLE-KDY": {
@@ -3418,15 +2952,15 @@
         },
         "EDP2": {
           "completed": 15,
-          "pending": 0,
+          "pending": 1,
           "not_applicable": 0,
           "no_specimen": 0,
           "qc_fail": 0,
-          "unknown": 1
+          "unknown": 0
         },
-        "NRP": {
+        "NRP1": {
           "completed": 0,
-          "pending": 0,
+          "pending": 37,
           "not_applicable": 0,
           "no_specimen": 0,
           "qc_fail": 0,
@@ -3434,11 +2968,11 @@
         },
         "Undefined": {
           "completed": 0,
-          "pending": 0,
+          "pending": 44,
           "not_applicable": 0,
-          "no_specimen": 0,
+          "no_specimen": 149,
           "qc_fail": 0,
-          "unknown": 230
+          "unknown": 0
         }
       },
       "SLE-SKN": {
@@ -3458,7 +2992,7 @@
           "qc_fail": 0,
           "unknown": 0
         },
-        "NRP": {
+        "NRP1": {
           "completed": 0,
           "pending": 0,
           "not_applicable": 0,
@@ -3468,43 +3002,9 @@
         },
         "Undefined": {
           "completed": 0,
-          "pending": 0,
+          "pending": 36,
           "not_applicable": 0,
-          "no_specimen": 0,
-          "qc_fail": 0,
-          "unknown": 49
-        }
-      },
-      "SLE/PsD-SKN": {
-        "EDP1": {
-          "completed": 0,
-          "pending": 0,
-          "not_applicable": 0,
-          "no_specimen": 0,
-          "qc_fail": 0,
-          "unknown": 0
-        },
-        "EDP2": {
-          "completed": 0,
-          "pending": 0,
-          "not_applicable": 0,
-          "no_specimen": 0,
-          "qc_fail": 0,
-          "unknown": 0
-        },
-        "NRP": {
-          "completed": 0,
-          "pending": 0,
-          "not_applicable": 0,
-          "no_specimen": 0,
-          "qc_fail": 0,
-          "unknown": 0
-        },
-        "Undefined": {
-          "completed": 5,
-          "pending": 0,
-          "not_applicable": 0,
-          "no_specimen": 0,
+          "no_specimen": 13,
           "qc_fail": 0,
           "unknown": 0
         }
@@ -3522,11 +3022,11 @@
           "completed": 0,
           "pending": 0,
           "not_applicable": 0,
-          "no_specimen": 0,
+          "no_specimen": 1,
           "qc_fail": 0,
           "unknown": 0
         },
-        "NRP": {
+        "NRP1": {
           "completed": 0,
           "pending": 0,
           "not_applicable": 0,
@@ -3540,7 +3040,7 @@
           "not_applicable": 0,
           "no_specimen": 0,
           "qc_fail": 0,
-          "unknown": 1
+          "unknown": 0
         }
       },
       "SjD-SGL": {
@@ -3560,26 +3060,24 @@
           "qc_fail": 0,
           "unknown": 0
         },
-        "NRP": {
+        "NRP1": {
           "completed": 30,
-          "pending": 0,
+          "pending": 36,
           "not_applicable": 0,
           "no_specimen": 0,
           "qc_fail": 0,
-          "unknown": 19
+          "unknown": 0
         },
         "Undefined": {
           "completed": 1,
-          "pending": 0,
+          "pending": 371,
           "not_applicable": 1,
-          "no_specimen": 0,
+          "no_specimen": 7,
           "qc_fail": 0,
-          "unknown": 398
+          "unknown": 1
         }
-      }
-    },
-    "scrnaseq": {
-      "Not yet retrieved": {
+      },
+      "Unknown": {
         "EDP1": {
           "completed": 0,
           "pending": 0,
@@ -3596,7 +3094,7 @@
           "qc_fail": 0,
           "unknown": 0
         },
-        "NRP": {
+        "NRP1": {
           "completed": 0,
           "pending": 0,
           "not_applicable": 0,
@@ -3606,13 +3104,15 @@
         },
         "Undefined": {
           "completed": 0,
-          "pending": 0,
+          "pending": 6,
           "not_applicable": 0,
-          "no_specimen": 0,
+          "no_specimen": 2,
           "qc_fail": 0,
-          "unknown": 10
+          "unknown": 0
         }
-      },
+      }
+    },
+    "scrnaseq": {
       "PsD-EYE": {
         "EDP1": {
           "completed": 0,
@@ -3630,7 +3130,7 @@
           "qc_fail": 0,
           "unknown": 0
         },
-        "NRP": {
+        "NRP1": {
           "completed": 0,
           "pending": 0,
           "not_applicable": 0,
@@ -3642,9 +3142,9 @@
           "completed": 0,
           "pending": 0,
           "not_applicable": 0,
-          "no_specimen": 0,
+          "no_specimen": 23,
           "qc_fail": 0,
-          "unknown": 23
+          "unknown": 0
         }
       },
       "PsD-SKN": {
@@ -3658,13 +3158,13 @@
         },
         "EDP2": {
           "completed": 0,
-          "pending": 0,
+          "pending": 12,
           "not_applicable": 0,
           "no_specimen": 0,
           "qc_fail": 0,
-          "unknown": 12
+          "unknown": 0
         },
-        "NRP": {
+        "NRP1": {
           "completed": 0,
           "pending": 0,
           "not_applicable": 0,
@@ -3674,11 +3174,11 @@
         },
         "Undefined": {
           "completed": 0,
-          "pending": 0,
+          "pending": 94,
           "not_applicable": 0,
-          "no_specimen": 0,
+          "no_specimen": 26,
           "qc_fail": 0,
-          "unknown": 118
+          "unknown": 0
         }
       },
       "PsD-SKN/EYE": {
@@ -3698,7 +3198,7 @@
           "qc_fail": 0,
           "unknown": 0
         },
-        "NRP": {
+        "NRP1": {
           "completed": 0,
           "pending": 0,
           "not_applicable": 0,
@@ -3708,11 +3208,11 @@
         },
         "Undefined": {
           "completed": 0,
-          "pending": 0,
+          "pending": 1,
           "not_applicable": 0,
           "no_specimen": 0,
           "qc_fail": 0,
-          "unknown": 1
+          "unknown": 0
         }
       },
       "PsD-SKN/SYN": {
@@ -3732,7 +3232,7 @@
           "qc_fail": 0,
           "unknown": 0
         },
-        "NRP": {
+        "NRP1": {
           "completed": 0,
           "pending": 0,
           "not_applicable": 0,
@@ -3742,31 +3242,31 @@
         },
         "Undefined": {
           "completed": 0,
-          "pending": 0,
+          "pending": 6,
           "not_applicable": 0,
           "no_specimen": 0,
           "qc_fail": 0,
-          "unknown": 6
+          "unknown": 0
         }
       },
       "PsD-SYN": {
         "EDP1": {
           "completed": 8,
-          "pending": 0,
-          "not_applicable": 1,
+          "pending": 2,
+          "not_applicable": 0,
           "no_specimen": 2,
           "qc_fail": 0,
-          "unknown": 1
+          "unknown": 0
         },
         "EDP2": {
           "completed": 0,
-          "pending": 0,
+          "pending": 7,
           "not_applicable": 0,
           "no_specimen": 4,
           "qc_fail": 0,
-          "unknown": 5
+          "unknown": 0
         },
-        "NRP": {
+        "NRP1": {
           "completed": 0,
           "pending": 0,
           "not_applicable": 0,
@@ -3776,11 +3276,11 @@
         },
         "Undefined": {
           "completed": 0,
-          "pending": 0,
+          "pending": 22,
           "not_applicable": 0,
-          "no_specimen": 1,
+          "no_specimen": 9,
           "qc_fail": 0,
-          "unknown": 31
+          "unknown": 0
         }
       },
       "RA-SYN": {
@@ -3794,13 +3294,13 @@
         },
         "EDP2": {
           "completed": 0,
-          "pending": 0,
+          "pending": 19,
           "not_applicable": 0,
           "no_specimen": 0,
           "qc_fail": 0,
-          "unknown": 19
+          "unknown": 0
         },
-        "NRP": {
+        "NRP1": {
           "completed": 0,
           "pending": 0,
           "not_applicable": 0,
@@ -3810,11 +3310,11 @@
         },
         "Undefined": {
           "completed": 0,
-          "pending": 0,
+          "pending": 150,
           "not_applicable": 0,
-          "no_specimen": 5,
+          "no_specimen": 72,
           "qc_fail": 0,
-          "unknown": 218
+          "unknown": 0
         }
       },
       "SLE-KDY": {
@@ -3828,15 +3328,15 @@
         },
         "EDP2": {
           "completed": 0,
-          "pending": 0,
+          "pending": 14,
           "not_applicable": 2,
           "no_specimen": 0,
           "qc_fail": 0,
-          "unknown": 14
+          "unknown": 0
         },
-        "NRP": {
+        "NRP1": {
           "completed": 0,
-          "pending": 0,
+          "pending": 37,
           "not_applicable": 0,
           "no_specimen": 0,
           "qc_fail": 0,
@@ -3844,11 +3344,11 @@
         },
         "Undefined": {
           "completed": 0,
-          "pending": 0,
+          "pending": 41,
           "not_applicable": 0,
-          "no_specimen": 0,
+          "no_specimen": 152,
           "qc_fail": 0,
-          "unknown": 230
+          "unknown": 0
         }
       },
       "SLE-SKN": {
@@ -3862,13 +3362,13 @@
         },
         "EDP2": {
           "completed": 0,
-          "pending": 0,
+          "pending": 12,
           "not_applicable": 0,
           "no_specimen": 0,
           "qc_fail": 0,
-          "unknown": 12
+          "unknown": 0
         },
-        "NRP": {
+        "NRP1": {
           "completed": 0,
           "pending": 0,
           "not_applicable": 0,
@@ -3878,45 +3378,11 @@
         },
         "Undefined": {
           "completed": 0,
-          "pending": 0,
+          "pending": 36,
           "not_applicable": 0,
-          "no_specimen": 0,
-          "qc_fail": 0,
-          "unknown": 49
-        }
-      },
-      "SLE/PsD-SKN": {
-        "EDP1": {
-          "completed": 0,
-          "pending": 0,
-          "not_applicable": 0,
-          "no_specimen": 0,
+          "no_specimen": 13,
           "qc_fail": 0,
           "unknown": 0
-        },
-        "EDP2": {
-          "completed": 0,
-          "pending": 0,
-          "not_applicable": 0,
-          "no_specimen": 0,
-          "qc_fail": 0,
-          "unknown": 0
-        },
-        "NRP": {
-          "completed": 0,
-          "pending": 0,
-          "not_applicable": 0,
-          "no_specimen": 0,
-          "qc_fail": 0,
-          "unknown": 0
-        },
-        "Undefined": {
-          "completed": 0,
-          "pending": 0,
-          "not_applicable": 0,
-          "no_specimen": 0,
-          "qc_fail": 0,
-          "unknown": 5
         }
       },
       "SSc-SKN": {
@@ -3924,19 +3390,19 @@
           "completed": 0,
           "pending": 0,
           "not_applicable": 0,
-          "no_specimen": 0,
+          "no_specimen": 16,
           "qc_fail": 0,
-          "unknown": 16
+          "unknown": 0
         },
         "EDP2": {
           "completed": 0,
           "pending": 0,
           "not_applicable": 0,
-          "no_specimen": 0,
+          "no_specimen": 1,
           "qc_fail": 0,
           "unknown": 0
         },
-        "NRP": {
+        "NRP1": {
           "completed": 0,
           "pending": 0,
           "not_applicable": 0,
@@ -3950,7 +3416,7 @@
           "not_applicable": 0,
           "no_specimen": 0,
           "qc_fail": 0,
-          "unknown": 1
+          "unknown": 0
         }
       },
       "SjD-SGL": {
@@ -3964,32 +3430,30 @@
         },
         "EDP2": {
           "completed": 0,
-          "pending": 0,
+          "pending": 63,
           "not_applicable": 0,
           "no_specimen": 3,
           "qc_fail": 0,
-          "unknown": 63
+          "unknown": 0
         },
-        "NRP": {
+        "NRP1": {
           "completed": 0,
-          "pending": 0,
+          "pending": 47,
           "not_applicable": 0,
-          "no_specimen": 0,
+          "no_specimen": 19,
           "qc_fail": 0,
-          "unknown": 49
+          "unknown": 0
         },
         "Undefined": {
           "completed": 1,
-          "pending": 0,
+          "pending": 317,
           "not_applicable": 0,
-          "no_specimen": 0,
+          "no_specimen": 63,
           "qc_fail": 0,
-          "unknown": 399
+          "unknown": 0
         }
-      }
-    },
-    "olink_serum": {
-      "Not yet retrieved": {
+      },
+      "Unknown": {
         "EDP1": {
           "completed": 0,
           "pending": 0,
@@ -4006,7 +3470,7 @@
           "qc_fail": 0,
           "unknown": 0
         },
-        "NRP": {
+        "NRP1": {
           "completed": 0,
           "pending": 0,
           "not_applicable": 0,
@@ -4016,13 +3480,15 @@
         },
         "Undefined": {
           "completed": 0,
-          "pending": 0,
+          "pending": 6,
           "not_applicable": 0,
-          "no_specimen": 0,
+          "no_specimen": 2,
           "qc_fail": 0,
-          "unknown": 10
+          "unknown": 0
         }
-      },
+      }
+    },
+    "olink_serum": {
       "PsD-EYE": {
         "EDP1": {
           "completed": 0,
@@ -4040,7 +3506,7 @@
           "qc_fail": 0,
           "unknown": 0
         },
-        "NRP": {
+        "NRP1": {
           "completed": 0,
           "pending": 0,
           "not_applicable": 0,
@@ -4074,7 +3540,7 @@
           "qc_fail": 0,
           "unknown": 0
         },
-        "NRP": {
+        "NRP1": {
           "completed": 0,
           "pending": 0,
           "not_applicable": 0,
@@ -4084,11 +3550,11 @@
         },
         "Undefined": {
           "completed": 10,
-          "pending": 86,
+          "pending": 91,
           "not_applicable": 0,
-          "no_specimen": 10,
+          "no_specimen": 19,
           "qc_fail": 0,
-          "unknown": 12
+          "unknown": 0
         }
       },
       "PsD-SKN/EYE": {
@@ -4108,7 +3574,7 @@
           "qc_fail": 0,
           "unknown": 0
         },
-        "NRP": {
+        "NRP1": {
           "completed": 0,
           "pending": 0,
           "not_applicable": 0,
@@ -4142,7 +3608,7 @@
           "qc_fail": 0,
           "unknown": 0
         },
-        "NRP": {
+        "NRP1": {
           "completed": 0,
           "pending": 0,
           "not_applicable": 0,
@@ -4169,14 +3635,14 @@
           "unknown": 1
         },
         "EDP2": {
-          "completed": 2,
+          "completed": 4,
           "pending": 1,
           "not_applicable": 0,
           "no_specimen": 6,
           "qc_fail": 0,
           "unknown": 0
         },
-        "NRP": {
+        "NRP1": {
           "completed": 0,
           "pending": 0,
           "not_applicable": 0,
@@ -4185,12 +3651,12 @@
           "unknown": 0
         },
         "Undefined": {
-          "completed": 5,
-          "pending": 15,
+          "completed": 3,
+          "pending": 17,
           "not_applicable": 0,
-          "no_specimen": 10,
+          "no_specimen": 11,
           "qc_fail": 0,
-          "unknown": 2
+          "unknown": 0
         }
       },
       "RA-SYN": {
@@ -4210,7 +3676,7 @@
           "qc_fail": 0,
           "unknown": 0
         },
-        "NRP": {
+        "NRP1": {
           "completed": 0,
           "pending": 0,
           "not_applicable": 0,
@@ -4220,11 +3686,11 @@
         },
         "Undefined": {
           "completed": 17,
-          "pending": 90,
+          "pending": 102,
           "not_applicable": 0,
-          "no_specimen": 43,
+          "no_specimen": 103,
           "qc_fail": 0,
-          "unknown": 73
+          "unknown": 0
         }
       },
       "SLE-KDY": {
@@ -4244,21 +3710,21 @@
           "qc_fail": 0,
           "unknown": 0
         },
-        "NRP": {
-          "completed": 0,
+        "NRP1": {
+          "completed": 36,
           "pending": 0,
           "not_applicable": 0,
-          "no_specimen": 0,
+          "no_specimen": 1,
           "qc_fail": 0,
           "unknown": 0
         },
         "Undefined": {
-          "completed": 176,
-          "pending": 4,
+          "completed": 140,
+          "pending": 17,
           "not_applicable": 0,
-          "no_specimen": 35,
+          "no_specimen": 36,
           "qc_fail": 0,
-          "unknown": 15
+          "unknown": 0
         }
       },
       "SLE-SKN": {
@@ -4278,7 +3744,7 @@
           "qc_fail": 0,
           "unknown": 0
         },
-        "NRP": {
+        "NRP1": {
           "completed": 0,
           "pending": 0,
           "not_applicable": 0,
@@ -4295,40 +3761,6 @@
           "unknown": 0
         }
       },
-      "SLE/PsD-SKN": {
-        "EDP1": {
-          "completed": 0,
-          "pending": 0,
-          "not_applicable": 0,
-          "no_specimen": 0,
-          "qc_fail": 0,
-          "unknown": 0
-        },
-        "EDP2": {
-          "completed": 0,
-          "pending": 0,
-          "not_applicable": 0,
-          "no_specimen": 0,
-          "qc_fail": 0,
-          "unknown": 0
-        },
-        "NRP": {
-          "completed": 0,
-          "pending": 0,
-          "not_applicable": 0,
-          "no_specimen": 0,
-          "qc_fail": 0,
-          "unknown": 0
-        },
-        "Undefined": {
-          "completed": 0,
-          "pending": 0,
-          "not_applicable": 0,
-          "no_specimen": 0,
-          "qc_fail": 0,
-          "unknown": 5
-        }
-      },
       "SSc-SKN": {
         "EDP1": {
           "completed": 0,
@@ -4342,11 +3774,11 @@
           "completed": 0,
           "pending": 0,
           "not_applicable": 0,
-          "no_specimen": 0,
+          "no_specimen": 1,
           "qc_fail": 0,
           "unknown": 0
         },
-        "NRP": {
+        "NRP1": {
           "completed": 0,
           "pending": 0,
           "not_applicable": 0,
@@ -4358,7 +3790,7 @@
           "completed": 0,
           "pending": 0,
           "not_applicable": 0,
-          "no_specimen": 1,
+          "no_specimen": 0,
           "qc_fail": 0,
           "unknown": 0
         }
@@ -4380,26 +3812,24 @@
           "qc_fail": 0,
           "unknown": 0
         },
-        "NRP": {
+        "NRP1": {
           "completed": 11,
-          "pending": 26,
+          "pending": 38,
           "not_applicable": 0,
-          "no_specimen": 12,
+          "no_specimen": 17,
           "qc_fail": 0,
           "unknown": 0
         },
         "Undefined": {
           "completed": 4,
-          "pending": 312,
+          "pending": 356,
           "not_applicable": 0,
-          "no_specimen": 76,
+          "no_specimen": 21,
           "qc_fail": 0,
-          "unknown": 8
+          "unknown": 0
         }
-      }
-    },
-    "cytof_blood": {
-      "Not yet retrieved": {
+      },
+      "Unknown": {
         "EDP1": {
           "completed": 0,
           "pending": 0,
@@ -4416,7 +3846,7 @@
           "qc_fail": 0,
           "unknown": 0
         },
-        "NRP": {
+        "NRP1": {
           "completed": 0,
           "pending": 0,
           "not_applicable": 0,
@@ -4426,13 +3856,15 @@
         },
         "Undefined": {
           "completed": 0,
-          "pending": 0,
+          "pending": 3,
           "not_applicable": 0,
-          "no_specimen": 0,
+          "no_specimen": 5,
           "qc_fail": 0,
-          "unknown": 10
+          "unknown": 0
         }
-      },
+      }
+    },
+    "cytof_blood": {
       "PsD-EYE": {
         "EDP1": {
           "completed": 0,
@@ -4450,7 +3882,7 @@
           "qc_fail": 0,
           "unknown": 0
         },
-        "NRP": {
+        "NRP1": {
           "completed": 0,
           "pending": 0,
           "not_applicable": 0,
@@ -4484,7 +3916,7 @@
           "qc_fail": 0,
           "unknown": 0
         },
-        "NRP": {
+        "NRP1": {
           "completed": 0,
           "pending": 0,
           "not_applicable": 0,
@@ -4496,9 +3928,9 @@
           "completed": 66,
           "pending": 3,
           "not_applicable": 0,
-          "no_specimen": 37,
+          "no_specimen": 51,
           "qc_fail": 0,
-          "unknown": 12
+          "unknown": 0
         }
       },
       "PsD-SKN/EYE": {
@@ -4518,7 +3950,7 @@
           "qc_fail": 0,
           "unknown": 0
         },
-        "NRP": {
+        "NRP1": {
           "completed": 0,
           "pending": 0,
           "not_applicable": 0,
@@ -4552,7 +3984,7 @@
           "qc_fail": 0,
           "unknown": 0
         },
-        "NRP": {
+        "NRP1": {
           "completed": 0,
           "pending": 0,
           "not_applicable": 0,
@@ -4579,14 +4011,14 @@
           "unknown": 1
         },
         "EDP2": {
-          "completed": 0,
+          "completed": 1,
           "pending": 2,
           "not_applicable": 0,
-          "no_specimen": 7,
+          "no_specimen": 8,
           "qc_fail": 0,
           "unknown": 0
         },
-        "NRP": {
+        "NRP1": {
           "completed": 0,
           "pending": 0,
           "not_applicable": 0,
@@ -4595,12 +4027,12 @@
           "unknown": 0
         },
         "Undefined": {
-          "completed": 13,
+          "completed": 12,
           "pending": 1,
           "not_applicable": 0,
-          "no_specimen": 16,
+          "no_specimen": 18,
           "qc_fail": 0,
-          "unknown": 2
+          "unknown": 0
         }
       },
       "RA-SYN": {
@@ -4620,7 +4052,7 @@
           "qc_fail": 0,
           "unknown": 0
         },
-        "NRP": {
+        "NRP1": {
           "completed": 0,
           "pending": 0,
           "not_applicable": 0,
@@ -4630,11 +4062,11 @@
         },
         "Undefined": {
           "completed": 52,
-          "pending": 1,
+          "pending": 2,
           "not_applicable": 0,
-          "no_specimen": 97,
+          "no_specimen": 168,
           "qc_fail": 0,
-          "unknown": 73
+          "unknown": 0
         }
       },
       "SLE-KDY": {
@@ -4654,21 +4086,21 @@
           "qc_fail": 0,
           "unknown": 0
         },
-        "NRP": {
-          "completed": 0,
+        "NRP1": {
+          "completed": 19,
           "pending": 0,
           "not_applicable": 0,
-          "no_specimen": 0,
+          "no_specimen": 18,
           "qc_fail": 0,
           "unknown": 0
         },
         "Undefined": {
-          "completed": 128,
+          "completed": 109,
           "pending": 1,
           "not_applicable": 0,
-          "no_specimen": 86,
+          "no_specimen": 83,
           "qc_fail": 0,
-          "unknown": 15
+          "unknown": 0
         }
       },
       "SLE-SKN": {
@@ -4688,7 +4120,7 @@
           "qc_fail": 0,
           "unknown": 0
         },
-        "NRP": {
+        "NRP1": {
           "completed": 0,
           "pending": 0,
           "not_applicable": 0,
@@ -4700,43 +4132,9 @@
           "completed": 18,
           "pending": 0,
           "not_applicable": 0,
-          "no_specimen": 29,
-          "qc_fail": 0,
-          "unknown": 2
-        }
-      },
-      "SLE/PsD-SKN": {
-        "EDP1": {
-          "completed": 0,
-          "pending": 0,
-          "not_applicable": 0,
-          "no_specimen": 0,
+          "no_specimen": 31,
           "qc_fail": 0,
           "unknown": 0
-        },
-        "EDP2": {
-          "completed": 0,
-          "pending": 0,
-          "not_applicable": 0,
-          "no_specimen": 0,
-          "qc_fail": 0,
-          "unknown": 0
-        },
-        "NRP": {
-          "completed": 0,
-          "pending": 0,
-          "not_applicable": 0,
-          "no_specimen": 0,
-          "qc_fail": 0,
-          "unknown": 0
-        },
-        "Undefined": {
-          "completed": 0,
-          "pending": 0,
-          "not_applicable": 0,
-          "no_specimen": 0,
-          "qc_fail": 0,
-          "unknown": 5
         }
       },
       "SSc-SKN": {
@@ -4752,11 +4150,11 @@
           "completed": 0,
           "pending": 0,
           "not_applicable": 0,
-          "no_specimen": 0,
+          "no_specimen": 1,
           "qc_fail": 0,
           "unknown": 0
         },
-        "NRP": {
+        "NRP1": {
           "completed": 0,
           "pending": 0,
           "not_applicable": 0,
@@ -4768,7 +4166,7 @@
           "completed": 0,
           "pending": 0,
           "not_applicable": 0,
-          "no_specimen": 1,
+          "no_specimen": 0,
           "qc_fail": 0,
           "unknown": 0
         }
@@ -4790,26 +4188,24 @@
           "qc_fail": 0,
           "unknown": 0
         },
-        "NRP": {
-          "completed": 12,
+        "NRP1": {
+          "completed": 13,
           "pending": 0,
           "not_applicable": 0,
-          "no_specimen": 37,
+          "no_specimen": 53,
           "qc_fail": 0,
           "unknown": 0
         },
         "Undefined": {
-          "completed": 87,
+          "completed": 86,
           "pending": 0,
           "not_applicable": 0,
-          "no_specimen": 305,
+          "no_specimen": 295,
           "qc_fail": 0,
-          "unknown": 8
+          "unknown": 0
         }
-      }
-    },
-    "genotyping": {
-      "Not yet retrieved": {
+      },
+      "Unknown": {
         "EDP1": {
           "completed": 0,
           "pending": 0,
@@ -4826,7 +4222,7 @@
           "qc_fail": 0,
           "unknown": 0
         },
-        "NRP": {
+        "NRP1": {
           "completed": 0,
           "pending": 0,
           "not_applicable": 0,
@@ -4838,11 +4234,13 @@
           "completed": 0,
           "pending": 0,
           "not_applicable": 0,
-          "no_specimen": 0,
+          "no_specimen": 8,
           "qc_fail": 0,
-          "unknown": 10
+          "unknown": 0
         }
-      },
+      }
+    },
+    "genotyping": {
       "PsD-EYE": {
         "EDP1": {
           "completed": 0,
@@ -4860,7 +4258,7 @@
           "qc_fail": 0,
           "unknown": 0
         },
-        "NRP": {
+        "NRP1": {
           "completed": 0,
           "pending": 0,
           "not_applicable": 0,
@@ -4894,7 +4292,7 @@
           "qc_fail": 0,
           "unknown": 0
         },
-        "NRP": {
+        "NRP1": {
           "completed": 0,
           "pending": 0,
           "not_applicable": 0,
@@ -4904,11 +4302,11 @@
         },
         "Undefined": {
           "completed": 78,
-          "pending": 20,
+          "pending": 26,
           "not_applicable": 0,
-          "no_specimen": 8,
+          "no_specimen": 16,
           "qc_fail": 0,
-          "unknown": 12
+          "unknown": 0
         }
       },
       "PsD-SKN/EYE": {
@@ -4928,7 +4326,7 @@
           "qc_fail": 0,
           "unknown": 0
         },
-        "NRP": {
+        "NRP1": {
           "completed": 0,
           "pending": 0,
           "not_applicable": 0,
@@ -4962,7 +4360,7 @@
           "qc_fail": 0,
           "unknown": 0
         },
-        "NRP": {
+        "NRP1": {
           "completed": 0,
           "pending": 0,
           "not_applicable": 0,
@@ -4989,14 +4387,14 @@
           "unknown": 1
         },
         "EDP2": {
-          "completed": 2,
+          "completed": 4,
           "pending": 1,
           "not_applicable": 0,
           "no_specimen": 6,
           "qc_fail": 0,
           "unknown": 0
         },
-        "NRP": {
+        "NRP1": {
           "completed": 0,
           "pending": 0,
           "not_applicable": 0,
@@ -5005,12 +4403,12 @@
           "unknown": 0
         },
         "Undefined": {
-          "completed": 14,
-          "pending": 5,
+          "completed": 12,
+          "pending": 8,
           "not_applicable": 0,
           "no_specimen": 11,
           "qc_fail": 0,
-          "unknown": 2
+          "unknown": 0
         }
       },
       "RA-SYN": {
@@ -5030,7 +4428,7 @@
           "qc_fail": 0,
           "unknown": 0
         },
-        "NRP": {
+        "NRP1": {
           "completed": 0,
           "pending": 0,
           "not_applicable": 0,
@@ -5040,11 +4438,11 @@
         },
         "Undefined": {
           "completed": 61,
-          "pending": 46,
+          "pending": 62,
           "not_applicable": 0,
-          "no_specimen": 43,
+          "no_specimen": 99,
           "qc_fail": 0,
-          "unknown": 73
+          "unknown": 0
         }
       },
       "SLE-KDY": {
@@ -5064,21 +4462,21 @@
           "qc_fail": 0,
           "unknown": 0
         },
-        "NRP": {
-          "completed": 0,
-          "pending": 0,
+        "NRP1": {
+          "completed": 25,
+          "pending": 11,
           "not_applicable": 0,
-          "no_specimen": 0,
+          "no_specimen": 1,
           "qc_fail": 0,
           "unknown": 0
         },
         "Undefined": {
-          "completed": 47,
-          "pending": 130,
+          "completed": 22,
+          "pending": 137,
           "not_applicable": 0,
-          "no_specimen": 38,
+          "no_specimen": 34,
           "qc_fail": 0,
-          "unknown": 15
+          "unknown": 0
         }
       },
       "SLE-SKN": {
@@ -5098,7 +4496,7 @@
           "qc_fail": 2,
           "unknown": 0
         },
-        "NRP": {
+        "NRP1": {
           "completed": 0,
           "pending": 0,
           "not_applicable": 0,
@@ -5108,45 +4506,11 @@
         },
         "Undefined": {
           "completed": 3,
-          "pending": 23,
+          "pending": 26,
           "not_applicable": 0,
-          "no_specimen": 21,
-          "qc_fail": 0,
-          "unknown": 2
-        }
-      },
-      "SLE/PsD-SKN": {
-        "EDP1": {
-          "completed": 0,
-          "pending": 0,
-          "not_applicable": 0,
-          "no_specimen": 0,
+          "no_specimen": 20,
           "qc_fail": 0,
           "unknown": 0
-        },
-        "EDP2": {
-          "completed": 0,
-          "pending": 0,
-          "not_applicable": 0,
-          "no_specimen": 0,
-          "qc_fail": 0,
-          "unknown": 0
-        },
-        "NRP": {
-          "completed": 0,
-          "pending": 0,
-          "not_applicable": 0,
-          "no_specimen": 0,
-          "qc_fail": 0,
-          "unknown": 0
-        },
-        "Undefined": {
-          "completed": 0,
-          "pending": 0,
-          "not_applicable": 0,
-          "no_specimen": 0,
-          "qc_fail": 0,
-          "unknown": 5
         }
       },
       "SSc-SKN": {
@@ -5162,11 +4526,11 @@
           "completed": 0,
           "pending": 0,
           "not_applicable": 0,
-          "no_specimen": 0,
+          "no_specimen": 1,
           "qc_fail": 0,
           "unknown": 0
         },
-        "NRP": {
+        "NRP1": {
           "completed": 0,
           "pending": 0,
           "not_applicable": 0,
@@ -5178,7 +4542,7 @@
           "completed": 0,
           "pending": 0,
           "not_applicable": 0,
-          "no_specimen": 1,
+          "no_specimen": 0,
           "qc_fail": 0,
           "unknown": 0
         }
@@ -5200,26 +4564,24 @@
           "qc_fail": 3,
           "unknown": 0
         },
-        "NRP": {
-          "completed": 30,
+        "NRP1": {
+          "completed": 40,
           "pending": 6,
           "not_applicable": 0,
-          "no_specimen": 12,
+          "no_specimen": 19,
           "qc_fail": 1,
           "unknown": 0
         },
         "Undefined": {
-          "completed": 235,
-          "pending": 78,
+          "completed": 225,
+          "pending": 80,
           "not_applicable": 0,
-          "no_specimen": 73,
+          "no_specimen": 70,
           "qc_fail": 6,
-          "unknown": 8
+          "unknown": 0
         }
-      }
-    },
-    "omrf_lab": {
-      "Not yet retrieved": {
+      },
+      "Unknown": {
         "EDP1": {
           "completed": 0,
           "pending": 0,
@@ -5236,7 +4598,7 @@
           "qc_fail": 0,
           "unknown": 0
         },
-        "NRP": {
+        "NRP1": {
           "completed": 0,
           "pending": 0,
           "not_applicable": 0,
@@ -5246,13 +4608,15 @@
         },
         "Undefined": {
           "completed": 0,
-          "pending": 0,
+          "pending": 3,
           "not_applicable": 0,
-          "no_specimen": 0,
+          "no_specimen": 5,
           "qc_fail": 0,
-          "unknown": 10
+          "unknown": 0
         }
-      },
+      }
+    },
+    "omrf_lab": {
       "PsD-EYE": {
         "EDP1": {
           "completed": 0,
@@ -5270,7 +4634,7 @@
           "qc_fail": 0,
           "unknown": 0
         },
-        "NRP": {
+        "NRP1": {
           "completed": 0,
           "pending": 0,
           "not_applicable": 0,
@@ -5304,7 +4668,7 @@
           "qc_fail": 0,
           "unknown": 0
         },
-        "NRP": {
+        "NRP1": {
           "completed": 0,
           "pending": 0,
           "not_applicable": 0,
@@ -5314,11 +4678,11 @@
         },
         "Undefined": {
           "completed": 98,
-          "pending": 2,
+          "pending": 5,
           "not_applicable": 0,
           "no_specimen": 8,
           "qc_fail": 0,
-          "unknown": 10
+          "unknown": 9
         }
       },
       "PsD-SKN/EYE": {
@@ -5338,7 +4702,7 @@
           "qc_fail": 0,
           "unknown": 0
         },
-        "NRP": {
+        "NRP1": {
           "completed": 0,
           "pending": 0,
           "not_applicable": 0,
@@ -5372,7 +4736,7 @@
           "qc_fail": 0,
           "unknown": 0
         },
-        "NRP": {
+        "NRP1": {
           "completed": 0,
           "pending": 0,
           "not_applicable": 0,
@@ -5399,14 +4763,14 @@
           "unknown": 1
         },
         "EDP2": {
-          "completed": 2,
+          "completed": 4,
           "pending": 1,
           "not_applicable": 0,
           "no_specimen": 6,
           "qc_fail": 0,
           "unknown": 0
         },
-        "NRP": {
+        "NRP1": {
           "completed": 0,
           "pending": 0,
           "not_applicable": 0,
@@ -5415,8 +4779,8 @@
           "unknown": 0
         },
         "Undefined": {
-          "completed": 21,
-          "pending": 0,
+          "completed": 19,
+          "pending": 1,
           "not_applicable": 0,
           "no_specimen": 10,
           "qc_fail": 0,
@@ -5440,7 +4804,7 @@
           "qc_fail": 0,
           "unknown": 0
         },
-        "NRP": {
+        "NRP1": {
           "completed": 0,
           "pending": 0,
           "not_applicable": 0,
@@ -5450,11 +4814,11 @@
         },
         "Undefined": {
           "completed": 102,
-          "pending": 12,
+          "pending": 22,
           "not_applicable": 0,
-          "no_specimen": 101,
+          "no_specimen": 96,
           "qc_fail": 0,
-          "unknown": 8
+          "unknown": 2
         }
       },
       "SLE-KDY": {
@@ -5474,21 +4838,21 @@
           "qc_fail": 0,
           "unknown": 0
         },
-        "NRP": {
-          "completed": 0,
+        "NRP1": {
+          "completed": 36,
           "pending": 0,
           "not_applicable": 0,
-          "no_specimen": 0,
+          "no_specimen": 1,
           "qc_fail": 0,
           "unknown": 0
         },
         "Undefined": {
-          "completed": 180,
-          "pending": 2,
+          "completed": 144,
+          "pending": 12,
           "not_applicable": 0,
-          "no_specimen": 35,
+          "no_specimen": 34,
           "qc_fail": 0,
-          "unknown": 13
+          "unknown": 3
         }
       },
       "SLE-SKN": {
@@ -5508,7 +4872,7 @@
           "qc_fail": 0,
           "unknown": 0
         },
-        "NRP": {
+        "NRP1": {
           "completed": 0,
           "pending": 0,
           "not_applicable": 0,
@@ -5518,45 +4882,11 @@
         },
         "Undefined": {
           "completed": 26,
-          "pending": 11,
+          "pending": 12,
           "not_applicable": 0,
           "no_specimen": 10,
           "qc_fail": 0,
-          "unknown": 2
-        }
-      },
-      "SLE/PsD-SKN": {
-        "EDP1": {
-          "completed": 0,
-          "pending": 0,
-          "not_applicable": 0,
-          "no_specimen": 0,
-          "qc_fail": 0,
-          "unknown": 0
-        },
-        "EDP2": {
-          "completed": 0,
-          "pending": 0,
-          "not_applicable": 0,
-          "no_specimen": 0,
-          "qc_fail": 0,
-          "unknown": 0
-        },
-        "NRP": {
-          "completed": 0,
-          "pending": 0,
-          "not_applicable": 0,
-          "no_specimen": 0,
-          "qc_fail": 0,
-          "unknown": 0
-        },
-        "Undefined": {
-          "completed": 0,
-          "pending": 0,
-          "not_applicable": 0,
-          "no_specimen": 0,
-          "qc_fail": 0,
-          "unknown": 5
+          "unknown": 1
         }
       },
       "SSc-SKN": {
@@ -5572,11 +4902,11 @@
           "completed": 0,
           "pending": 0,
           "not_applicable": 0,
-          "no_specimen": 0,
+          "no_specimen": 1,
           "qc_fail": 0,
           "unknown": 0
         },
-        "NRP": {
+        "NRP1": {
           "completed": 0,
           "pending": 0,
           "not_applicable": 0,
@@ -5588,7 +4918,7 @@
           "completed": 0,
           "pending": 0,
           "not_applicable": 0,
-          "no_specimen": 1,
+          "no_specimen": 0,
           "qc_fail": 0,
           "unknown": 0
         }
@@ -5610,26 +4940,24 @@
           "qc_fail": 0,
           "unknown": 0
         },
-        "NRP": {
-          "completed": 37,
+        "NRP1": {
+          "completed": 47,
           "pending": 0,
           "not_applicable": 0,
-          "no_specimen": 12,
+          "no_specimen": 18,
           "qc_fail": 0,
-          "unknown": 0
+          "unknown": 1
         },
         "Undefined": {
-          "completed": 319,
-          "pending": 2,
+          "completed": 309,
+          "pending": 3,
           "not_applicable": 0,
-          "no_specimen": 73,
+          "no_specimen": 69,
           "qc_fail": 0,
-          "unknown": 6
+          "unknown": 0
         }
-      }
-    },
-    "brnaseq": {
-      "Not yet retrieved": {
+      },
+      "Unknown": {
         "EDP1": {
           "completed": 0,
           "pending": 0,
@@ -5646,7 +4974,7 @@
           "qc_fail": 0,
           "unknown": 0
         },
-        "NRP": {
+        "NRP1": {
           "completed": 0,
           "pending": 0,
           "not_applicable": 0,
@@ -5656,13 +4984,15 @@
         },
         "Undefined": {
           "completed": 0,
-          "pending": 0,
+          "pending": 3,
           "not_applicable": 0,
-          "no_specimen": 0,
+          "no_specimen": 3,
           "qc_fail": 0,
-          "unknown": 10
+          "unknown": 2
         }
-      },
+      }
+    },
+    "brnaseq": {
       "PsD-EYE": {
         "EDP1": {
           "completed": 0,
@@ -5680,7 +5010,7 @@
           "qc_fail": 0,
           "unknown": 0
         },
-        "NRP": {
+        "NRP1": {
           "completed": 0,
           "pending": 0,
           "not_applicable": 0,
@@ -5714,7 +5044,7 @@
           "qc_fail": 0,
           "unknown": 0
         },
-        "NRP": {
+        "NRP1": {
           "completed": 0,
           "pending": 0,
           "not_applicable": 0,
@@ -5724,11 +5054,11 @@
         },
         "Undefined": {
           "completed": 33,
-          "pending": 60,
+          "pending": 71,
           "not_applicable": 0,
-          "no_specimen": 13,
+          "no_specimen": 16,
           "qc_fail": 0,
-          "unknown": 12
+          "unknown": 0
         }
       },
       "PsD-SKN/EYE": {
@@ -5748,7 +5078,7 @@
           "qc_fail": 0,
           "unknown": 0
         },
-        "NRP": {
+        "NRP1": {
           "completed": 0,
           "pending": 0,
           "not_applicable": 0,
@@ -5782,7 +5112,7 @@
           "qc_fail": 0,
           "unknown": 0
         },
-        "NRP": {
+        "NRP1": {
           "completed": 0,
           "pending": 0,
           "not_applicable": 0,
@@ -5810,13 +5140,13 @@
         },
         "EDP2": {
           "completed": 0,
-          "pending": 3,
+          "pending": 5,
           "not_applicable": 0,
           "no_specimen": 6,
           "qc_fail": 0,
           "unknown": 0
         },
-        "NRP": {
+        "NRP1": {
           "completed": 0,
           "pending": 0,
           "not_applicable": 0,
@@ -5826,11 +5156,11 @@
         },
         "Undefined": {
           "completed": 6,
-          "pending": 12,
+          "pending": 14,
           "not_applicable": 0,
-          "no_specimen": 12,
+          "no_specimen": 11,
           "qc_fail": 0,
-          "unknown": 2
+          "unknown": 0
         }
       },
       "RA-SYN": {
@@ -5850,7 +5180,7 @@
           "qc_fail": 0,
           "unknown": 0
         },
-        "NRP": {
+        "NRP1": {
           "completed": 0,
           "pending": 0,
           "not_applicable": 0,
@@ -5860,11 +5190,11 @@
         },
         "Undefined": {
           "completed": 18,
-          "pending": 88,
+          "pending": 105,
           "not_applicable": 0,
-          "no_specimen": 43,
+          "no_specimen": 98,
           "qc_fail": 1,
-          "unknown": 73
+          "unknown": 0
         }
       },
       "SLE-KDY": {
@@ -5884,21 +5214,21 @@
           "qc_fail": 0,
           "unknown": 0
         },
-        "NRP": {
-          "completed": 0,
-          "pending": 0,
+        "NRP1": {
+          "completed": 4,
+          "pending": 31,
           "not_applicable": 0,
-          "no_specimen": 0,
-          "qc_fail": 0,
+          "no_specimen": 1,
+          "qc_fail": 1,
           "unknown": 0
         },
         "Undefined": {
-          "completed": 28,
-          "pending": 146,
+          "completed": 24,
+          "pending": 134,
           "not_applicable": 0,
-          "no_specimen": 39,
-          "qc_fail": 2,
-          "unknown": 15
+          "no_specimen": 34,
+          "qc_fail": 1,
+          "unknown": 0
         }
       },
       "SLE-SKN": {
@@ -5918,7 +5248,7 @@
           "qc_fail": 0,
           "unknown": 0
         },
-        "NRP": {
+        "NRP1": {
           "completed": 0,
           "pending": 0,
           "not_applicable": 0,
@@ -5928,45 +5258,11 @@
         },
         "Undefined": {
           "completed": 6,
-          "pending": 20,
+          "pending": 23,
           "not_applicable": 0,
-          "no_specimen": 21,
-          "qc_fail": 0,
-          "unknown": 2
-        }
-      },
-      "SLE/PsD-SKN": {
-        "EDP1": {
-          "completed": 0,
-          "pending": 0,
-          "not_applicable": 0,
-          "no_specimen": 0,
+          "no_specimen": 20,
           "qc_fail": 0,
           "unknown": 0
-        },
-        "EDP2": {
-          "completed": 0,
-          "pending": 0,
-          "not_applicable": 0,
-          "no_specimen": 0,
-          "qc_fail": 0,
-          "unknown": 0
-        },
-        "NRP": {
-          "completed": 0,
-          "pending": 0,
-          "not_applicable": 0,
-          "no_specimen": 0,
-          "qc_fail": 0,
-          "unknown": 0
-        },
-        "Undefined": {
-          "completed": 0,
-          "pending": 0,
-          "not_applicable": 0,
-          "no_specimen": 0,
-          "qc_fail": 0,
-          "unknown": 5
         }
       },
       "SSc-SKN": {
@@ -5982,11 +5278,11 @@
           "completed": 0,
           "pending": 0,
           "not_applicable": 0,
-          "no_specimen": 0,
+          "no_specimen": 1,
           "qc_fail": 0,
           "unknown": 0
         },
-        "NRP": {
+        "NRP1": {
           "completed": 0,
           "pending": 0,
           "not_applicable": 0,
@@ -5998,7 +5294,7 @@
           "completed": 0,
           "pending": 0,
           "not_applicable": 0,
-          "no_specimen": 1,
+          "no_specimen": 0,
           "qc_fail": 0,
           "unknown": 0
         }
@@ -6020,26 +5316,24 @@
           "qc_fail": 0,
           "unknown": 0
         },
-        "NRP": {
-          "completed": 10,
-          "pending": 27,
+        "NRP1": {
+          "completed": 11,
+          "pending": 36,
           "not_applicable": 0,
-          "no_specimen": 12,
+          "no_specimen": 19,
           "qc_fail": 0,
           "unknown": 0
         },
         "Undefined": {
-          "completed": 66,
-          "pending": 250,
+          "completed": 65,
+          "pending": 246,
           "not_applicable": 0,
-          "no_specimen": 76,
+          "no_specimen": 70,
           "qc_fail": 0,
-          "unknown": 8
+          "unknown": 0
         }
-      }
-    },
-    "olink_urine": {
-      "Not yet retrieved": {
+      },
+      "Unknown": {
         "EDP1": {
           "completed": 0,
           "pending": 0,
@@ -6056,7 +5350,7 @@
           "qc_fail": 0,
           "unknown": 0
         },
-        "NRP": {
+        "NRP1": {
           "completed": 0,
           "pending": 0,
           "not_applicable": 0,
@@ -6066,13 +5360,15 @@
         },
         "Undefined": {
           "completed": 0,
-          "pending": 0,
+          "pending": 3,
           "not_applicable": 0,
-          "no_specimen": 0,
+          "no_specimen": 5,
           "qc_fail": 0,
-          "unknown": 10
+          "unknown": 0
         }
-      },
+      }
+    },
+    "olink_urine": {
       "PsD-EYE": {
         "EDP1": {
           "completed": 0,
@@ -6090,7 +5386,7 @@
           "qc_fail": 0,
           "unknown": 0
         },
-        "NRP": {
+        "NRP1": {
           "completed": 0,
           "pending": 0,
           "not_applicable": 0,
@@ -6102,9 +5398,9 @@
           "completed": 0,
           "pending": 0,
           "not_applicable": 0,
-          "no_specimen": 6,
+          "no_specimen": 23,
           "qc_fail": 0,
-          "unknown": 17
+          "unknown": 0
         }
       },
       "PsD-SKN": {
@@ -6124,7 +5420,7 @@
           "qc_fail": 0,
           "unknown": 0
         },
-        "NRP": {
+        "NRP1": {
           "completed": 0,
           "pending": 0,
           "not_applicable": 0,
@@ -6136,9 +5432,9 @@
           "completed": 0,
           "pending": 0,
           "not_applicable": 0,
-          "no_specimen": 85,
+          "no_specimen": 120,
           "qc_fail": 0,
-          "unknown": 33
+          "unknown": 0
         }
       },
       "PsD-SKN/EYE": {
@@ -6158,7 +5454,7 @@
           "qc_fail": 0,
           "unknown": 0
         },
-        "NRP": {
+        "NRP1": {
           "completed": 0,
           "pending": 0,
           "not_applicable": 0,
@@ -6192,7 +5488,7 @@
           "qc_fail": 0,
           "unknown": 0
         },
-        "NRP": {
+        "NRP1": {
           "completed": 0,
           "pending": 0,
           "not_applicable": 0,
@@ -6222,11 +5518,11 @@
           "completed": 0,
           "pending": 0,
           "not_applicable": 0,
-          "no_specimen": 3,
+          "no_specimen": 11,
           "qc_fail": 0,
-          "unknown": 6
+          "unknown": 0
         },
-        "NRP": {
+        "NRP1": {
           "completed": 0,
           "pending": 0,
           "not_applicable": 0,
@@ -6238,9 +5534,9 @@
           "completed": 0,
           "pending": 0,
           "not_applicable": 0,
-          "no_specimen": 18,
+          "no_specimen": 31,
           "qc_fail": 0,
-          "unknown": 14
+          "unknown": 0
         }
       },
       "RA-SYN": {
@@ -6260,7 +5556,7 @@
           "qc_fail": 0,
           "unknown": 0
         },
-        "NRP": {
+        "NRP1": {
           "completed": 0,
           "pending": 0,
           "not_applicable": 0,
@@ -6272,9 +5568,9 @@
           "completed": 0,
           "pending": 0,
           "not_applicable": 0,
-          "no_specimen": 111,
+          "no_specimen": 222,
           "qc_fail": 0,
-          "unknown": 112
+          "unknown": 0
         }
       },
       "SLE-KDY": {
@@ -6294,9 +5590,9 @@
           "qc_fail": 0,
           "unknown": 0
         },
-        "NRP": {
+        "NRP1": {
           "completed": 0,
-          "pending": 0,
+          "pending": 37,
           "not_applicable": 0,
           "no_specimen": 0,
           "qc_fail": 0,
@@ -6304,11 +5600,11 @@
         },
         "Undefined": {
           "completed": 39,
-          "pending": 152,
+          "pending": 115,
           "not_applicable": 0,
-          "no_specimen": 26,
+          "no_specimen": 39,
           "qc_fail": 0,
-          "unknown": 13
+          "unknown": 0
         }
       },
       "SLE-SKN": {
@@ -6328,7 +5624,7 @@
           "qc_fail": 0,
           "unknown": 0
         },
-        "NRP": {
+        "NRP1": {
           "completed": 0,
           "pending": 0,
           "not_applicable": 0,
@@ -6340,43 +5636,9 @@
           "completed": 0,
           "pending": 0,
           "not_applicable": 0,
-          "no_specimen": 30,
-          "qc_fail": 0,
-          "unknown": 19
-        }
-      },
-      "SLE/PsD-SKN": {
-        "EDP1": {
-          "completed": 0,
-          "pending": 0,
-          "not_applicable": 0,
-          "no_specimen": 0,
+          "no_specimen": 49,
           "qc_fail": 0,
           "unknown": 0
-        },
-        "EDP2": {
-          "completed": 0,
-          "pending": 0,
-          "not_applicable": 0,
-          "no_specimen": 0,
-          "qc_fail": 0,
-          "unknown": 0
-        },
-        "NRP": {
-          "completed": 0,
-          "pending": 0,
-          "not_applicable": 0,
-          "no_specimen": 0,
-          "qc_fail": 0,
-          "unknown": 0
-        },
-        "Undefined": {
-          "completed": 0,
-          "pending": 0,
-          "not_applicable": 0,
-          "no_specimen": 0,
-          "qc_fail": 0,
-          "unknown": 5
         }
       },
       "SSc-SKN": {
@@ -6384,19 +5646,19 @@
           "completed": 0,
           "pending": 0,
           "not_applicable": 0,
-          "no_specimen": 0,
+          "no_specimen": 16,
           "qc_fail": 0,
-          "unknown": 16
+          "unknown": 0
         },
         "EDP2": {
           "completed": 0,
           "pending": 0,
           "not_applicable": 0,
-          "no_specimen": 0,
+          "no_specimen": 1,
           "qc_fail": 0,
           "unknown": 0
         },
-        "NRP": {
+        "NRP1": {
           "completed": 0,
           "pending": 0,
           "not_applicable": 0,
@@ -6410,7 +5672,7 @@
           "not_applicable": 0,
           "no_specimen": 0,
           "qc_fail": 0,
-          "unknown": 1
+          "unknown": 0
         }
       },
       "SjD-SGL": {
@@ -6430,26 +5692,24 @@
           "qc_fail": 0,
           "unknown": 0
         },
-        "NRP": {
+        "NRP1": {
           "completed": 0,
           "pending": 0,
           "not_applicable": 0,
-          "no_specimen": 37,
+          "no_specimen": 66,
           "qc_fail": 0,
-          "unknown": 12
+          "unknown": 0
         },
         "Undefined": {
           "completed": 0,
           "pending": 0,
           "not_applicable": 0,
-          "no_specimen": 322,
+          "no_specimen": 381,
           "qc_fail": 0,
-          "unknown": 78
+          "unknown": 0
         }
-      }
-    },
-    "mbioseq_stool": {
-      "Not yet retrieved": {
+      },
+      "Unknown": {
         "EDP1": {
           "completed": 0,
           "pending": 0,
@@ -6466,7 +5726,7 @@
           "qc_fail": 0,
           "unknown": 0
         },
-        "NRP": {
+        "NRP1": {
           "completed": 0,
           "pending": 0,
           "not_applicable": 0,
@@ -6478,11 +5738,13 @@
           "completed": 0,
           "pending": 0,
           "not_applicable": 0,
-          "no_specimen": 0,
+          "no_specimen": 8,
           "qc_fail": 0,
-          "unknown": 10
+          "unknown": 0
         }
-      },
+      }
+    },
+    "mbioseq_stool": {
       "PsD-EYE": {
         "EDP1": {
           "completed": 0,
@@ -6500,7 +5762,7 @@
           "qc_fail": 0,
           "unknown": 0
         },
-        "NRP": {
+        "NRP1": {
           "completed": 0,
           "pending": 0,
           "not_applicable": 0,
@@ -6534,7 +5796,7 @@
           "qc_fail": 0,
           "unknown": 5
         },
-        "NRP": {
+        "NRP1": {
           "completed": 0,
           "pending": 0,
           "not_applicable": 0,
@@ -6548,7 +5810,7 @@
           "not_applicable": 0,
           "no_specimen": 0,
           "qc_fail": 0,
-          "unknown": 85
+          "unknown": 87
         }
       },
       "PsD-SKN/EYE": {
@@ -6568,7 +5830,7 @@
           "qc_fail": 0,
           "unknown": 0
         },
-        "NRP": {
+        "NRP1": {
           "completed": 0,
           "pending": 0,
           "not_applicable": 0,
@@ -6602,7 +5864,7 @@
           "qc_fail": 0,
           "unknown": 0
         },
-        "NRP": {
+        "NRP1": {
           "completed": 0,
           "pending": 0,
           "not_applicable": 0,
@@ -6629,14 +5891,14 @@
           "unknown": 11
         },
         "EDP2": {
-          "completed": 0,
+          "completed": 2,
           "pending": 0,
           "not_applicable": 0,
           "no_specimen": 0,
           "qc_fail": 0,
           "unknown": 9
         },
-        "NRP": {
+        "NRP1": {
           "completed": 0,
           "pending": 0,
           "not_applicable": 0,
@@ -6645,12 +5907,12 @@
           "unknown": 0
         },
         "Undefined": {
-          "completed": 7,
+          "completed": 5,
           "pending": 0,
           "not_applicable": 0,
           "no_specimen": 0,
           "qc_fail": 0,
-          "unknown": 25
+          "unknown": 26
         }
       },
       "RA-SYN": {
@@ -6670,7 +5932,7 @@
           "qc_fail": 0,
           "unknown": 17
         },
-        "NRP": {
+        "NRP1": {
           "completed": 0,
           "pending": 0,
           "not_applicable": 0,
@@ -6679,7 +5941,7 @@
           "unknown": 0
         },
         "Undefined": {
-          "completed": 17,
+          "completed": 16,
           "pending": 0,
           "not_applicable": 0,
           "no_specimen": 0,
@@ -6704,21 +5966,21 @@
           "qc_fail": 0,
           "unknown": 14
         },
-        "NRP": {
-          "completed": 0,
+        "NRP1": {
+          "completed": 1,
           "pending": 0,
           "not_applicable": 0,
           "no_specimen": 0,
           "qc_fail": 0,
-          "unknown": 0
+          "unknown": 36
         },
         "Undefined": {
-          "completed": 8,
+          "completed": 7,
           "pending": 0,
           "not_applicable": 0,
           "no_specimen": 0,
           "qc_fail": 0,
-          "unknown": 222
+          "unknown": 186
         }
       },
       "SLE-SKN": {
@@ -6738,7 +6000,7 @@
           "qc_fail": 0,
           "unknown": 10
         },
-        "NRP": {
+        "NRP1": {
           "completed": 0,
           "pending": 0,
           "not_applicable": 0,
@@ -6753,40 +6015,6 @@
           "no_specimen": 0,
           "qc_fail": 0,
           "unknown": 45
-        }
-      },
-      "SLE/PsD-SKN": {
-        "EDP1": {
-          "completed": 0,
-          "pending": 0,
-          "not_applicable": 0,
-          "no_specimen": 0,
-          "qc_fail": 0,
-          "unknown": 0
-        },
-        "EDP2": {
-          "completed": 0,
-          "pending": 0,
-          "not_applicable": 0,
-          "no_specimen": 0,
-          "qc_fail": 0,
-          "unknown": 0
-        },
-        "NRP": {
-          "completed": 0,
-          "pending": 0,
-          "not_applicable": 0,
-          "no_specimen": 0,
-          "qc_fail": 0,
-          "unknown": 0
-        },
-        "Undefined": {
-          "completed": 0,
-          "pending": 0,
-          "not_applicable": 0,
-          "no_specimen": 0,
-          "qc_fail": 0,
-          "unknown": 5
         }
       },
       "SSc-SKN": {
@@ -6804,9 +6032,9 @@
           "not_applicable": 0,
           "no_specimen": 0,
           "qc_fail": 0,
-          "unknown": 0
+          "unknown": 1
         },
-        "NRP": {
+        "NRP1": {
           "completed": 0,
           "pending": 0,
           "not_applicable": 0,
@@ -6820,7 +6048,7 @@
           "not_applicable": 0,
           "no_specimen": 0,
           "qc_fail": 0,
-          "unknown": 1
+          "unknown": 0
         }
       },
       "SjD-SGL": {
@@ -6840,26 +6068,24 @@
           "qc_fail": 0,
           "unknown": 51
         },
-        "NRP": {
-          "completed": 13,
+        "NRP1": {
+          "completed": 14,
           "pending": 0,
           "not_applicable": 0,
           "no_specimen": 0,
           "qc_fail": 0,
-          "unknown": 36
+          "unknown": 52
         },
         "Undefined": {
-          "completed": 74,
+          "completed": 73,
           "pending": 0,
           "not_applicable": 0,
           "no_specimen": 0,
           "qc_fail": 0,
-          "unknown": 326
+          "unknown": 308
         }
-      }
-    },
-    "mbioseq_skin": {
-      "Not yet retrieved": {
+      },
+      "Unknown": {
         "EDP1": {
           "completed": 0,
           "pending": 0,
@@ -6876,7 +6102,7 @@
           "qc_fail": 0,
           "unknown": 0
         },
-        "NRP": {
+        "NRP1": {
           "completed": 0,
           "pending": 0,
           "not_applicable": 0,
@@ -6890,9 +6116,11 @@
           "not_applicable": 0,
           "no_specimen": 0,
           "qc_fail": 0,
-          "unknown": 10
+          "unknown": 8
         }
-      },
+      }
+    },
+    "mbioseq_skin": {
       "PsD-EYE": {
         "EDP1": {
           "completed": 0,
@@ -6910,7 +6138,7 @@
           "qc_fail": 0,
           "unknown": 0
         },
-        "NRP": {
+        "NRP1": {
           "completed": 0,
           "pending": 0,
           "not_applicable": 0,
@@ -6944,7 +6172,7 @@
           "qc_fail": 0,
           "unknown": 4
         },
-        "NRP": {
+        "NRP1": {
           "completed": 0,
           "pending": 0,
           "not_applicable": 0,
@@ -6958,7 +6186,7 @@
           "not_applicable": 0,
           "no_specimen": 0,
           "qc_fail": 0,
-          "unknown": 73
+          "unknown": 75
         }
       },
       "PsD-SKN/EYE": {
@@ -6978,7 +6206,7 @@
           "qc_fail": 0,
           "unknown": 0
         },
-        "NRP": {
+        "NRP1": {
           "completed": 0,
           "pending": 0,
           "not_applicable": 0,
@@ -7012,7 +6240,7 @@
           "qc_fail": 0,
           "unknown": 0
         },
-        "NRP": {
+        "NRP1": {
           "completed": 0,
           "pending": 0,
           "not_applicable": 0,
@@ -7044,9 +6272,9 @@
           "not_applicable": 0,
           "no_specimen": 0,
           "qc_fail": 0,
-          "unknown": 9
+          "unknown": 11
         },
-        "NRP": {
+        "NRP1": {
           "completed": 0,
           "pending": 0,
           "not_applicable": 0,
@@ -7060,7 +6288,7 @@
           "not_applicable": 0,
           "no_specimen": 0,
           "qc_fail": 0,
-          "unknown": 27
+          "unknown": 26
         }
       },
       "RA-SYN": {
@@ -7080,7 +6308,7 @@
           "qc_fail": 0,
           "unknown": 19
         },
-        "NRP": {
+        "NRP1": {
           "completed": 0,
           "pending": 0,
           "not_applicable": 0,
@@ -7094,7 +6322,7 @@
           "not_applicable": 0,
           "no_specimen": 0,
           "qc_fail": 0,
-          "unknown": 223
+          "unknown": 222
         }
       },
       "SLE-KDY": {
@@ -7114,13 +6342,13 @@
           "qc_fail": 0,
           "unknown": 16
         },
-        "NRP": {
+        "NRP1": {
           "completed": 0,
           "pending": 0,
           "not_applicable": 0,
           "no_specimen": 0,
           "qc_fail": 0,
-          "unknown": 0
+          "unknown": 37
         },
         "Undefined": {
           "completed": 0,
@@ -7128,7 +6356,7 @@
           "not_applicable": 0,
           "no_specimen": 0,
           "qc_fail": 0,
-          "unknown": 230
+          "unknown": 193
         }
       },
       "SLE-SKN": {
@@ -7148,7 +6376,7 @@
           "qc_fail": 0,
           "unknown": 7
         },
-        "NRP": {
+        "NRP1": {
           "completed": 0,
           "pending": 0,
           "not_applicable": 0,
@@ -7163,40 +6391,6 @@
           "no_specimen": 0,
           "qc_fail": 0,
           "unknown": 32
-        }
-      },
-      "SLE/PsD-SKN": {
-        "EDP1": {
-          "completed": 0,
-          "pending": 0,
-          "not_applicable": 0,
-          "no_specimen": 0,
-          "qc_fail": 0,
-          "unknown": 0
-        },
-        "EDP2": {
-          "completed": 0,
-          "pending": 0,
-          "not_applicable": 0,
-          "no_specimen": 0,
-          "qc_fail": 0,
-          "unknown": 0
-        },
-        "NRP": {
-          "completed": 0,
-          "pending": 0,
-          "not_applicable": 0,
-          "no_specimen": 0,
-          "qc_fail": 0,
-          "unknown": 0
-        },
-        "Undefined": {
-          "completed": 0,
-          "pending": 0,
-          "not_applicable": 0,
-          "no_specimen": 0,
-          "qc_fail": 0,
-          "unknown": 5
         }
       },
       "SSc-SKN": {
@@ -7214,9 +6408,9 @@
           "not_applicable": 0,
           "no_specimen": 0,
           "qc_fail": 0,
-          "unknown": 0
+          "unknown": 1
         },
-        "NRP": {
+        "NRP1": {
           "completed": 0,
           "pending": 0,
           "not_applicable": 0,
@@ -7230,7 +6424,7 @@
           "not_applicable": 0,
           "no_specimen": 0,
           "qc_fail": 0,
-          "unknown": 1
+          "unknown": 0
         }
       },
       "SjD-SGL": {
@@ -7250,13 +6444,13 @@
           "qc_fail": 0,
           "unknown": 66
         },
-        "NRP": {
+        "NRP1": {
           "completed": 0,
           "pending": 0,
           "not_applicable": 0,
           "no_specimen": 0,
           "qc_fail": 0,
-          "unknown": 49
+          "unknown": 66
         },
         "Undefined": {
           "completed": 0,
@@ -7264,12 +6458,10 @@
           "not_applicable": 0,
           "no_specimen": 0,
           "qc_fail": 0,
-          "unknown": 400
+          "unknown": 381
         }
-      }
-    },
-    "anti_c1q": {
-      "Not yet retrieved": {
+      },
+      "Unknown": {
         "EDP1": {
           "completed": 0,
           "pending": 0,
@@ -7286,7 +6478,7 @@
           "qc_fail": 0,
           "unknown": 0
         },
-        "NRP": {
+        "NRP1": {
           "completed": 0,
           "pending": 0,
           "not_applicable": 0,
@@ -7300,9 +6492,11 @@
           "not_applicable": 0,
           "no_specimen": 0,
           "qc_fail": 0,
-          "unknown": 10
+          "unknown": 8
         }
-      },
+      }
+    },
+    "anti_c1q": {
       "PsD-EYE": {
         "EDP1": {
           "completed": 0,
@@ -7320,7 +6514,7 @@
           "qc_fail": 0,
           "unknown": 0
         },
-        "NRP": {
+        "NRP1": {
           "completed": 0,
           "pending": 0,
           "not_applicable": 0,
@@ -7354,7 +6548,7 @@
           "qc_fail": 0,
           "unknown": 0
         },
-        "NRP": {
+        "NRP1": {
           "completed": 0,
           "pending": 0,
           "not_applicable": 0,
@@ -7368,7 +6562,7 @@
           "not_applicable": 109,
           "no_specimen": 0,
           "qc_fail": 0,
-          "unknown": 9
+          "unknown": 11
         }
       },
       "PsD-SKN/EYE": {
@@ -7388,7 +6582,7 @@
           "qc_fail": 0,
           "unknown": 0
         },
-        "NRP": {
+        "NRP1": {
           "completed": 0,
           "pending": 0,
           "not_applicable": 0,
@@ -7422,7 +6616,7 @@
           "qc_fail": 0,
           "unknown": 0
         },
-        "NRP": {
+        "NRP1": {
           "completed": 0,
           "pending": 0,
           "not_applicable": 0,
@@ -7451,12 +6645,12 @@
         "EDP2": {
           "completed": 0,
           "pending": 0,
-          "not_applicable": 9,
+          "not_applicable": 11,
           "no_specimen": 0,
           "qc_fail": 0,
           "unknown": 0
         },
-        "NRP": {
+        "NRP1": {
           "completed": 0,
           "pending": 0,
           "not_applicable": 0,
@@ -7467,10 +6661,10 @@
         "Undefined": {
           "completed": 0,
           "pending": 0,
-          "not_applicable": 31,
+          "not_applicable": 29,
           "no_specimen": 0,
           "qc_fail": 0,
-          "unknown": 1
+          "unknown": 2
         }
       },
       "RA-SYN": {
@@ -7490,7 +6684,7 @@
           "qc_fail": 0,
           "unknown": 0
         },
-        "NRP": {
+        "NRP1": {
           "completed": 0,
           "pending": 0,
           "not_applicable": 0,
@@ -7501,10 +6695,10 @@
         "Undefined": {
           "completed": 0,
           "pending": 0,
-          "not_applicable": 217,
+          "not_applicable": 212,
           "no_specimen": 0,
           "qc_fail": 0,
-          "unknown": 6
+          "unknown": 10
         }
       },
       "SLE-KDY": {
@@ -7524,18 +6718,18 @@
           "qc_fail": 0,
           "unknown": 0
         },
-        "NRP": {
-          "completed": 0,
+        "NRP1": {
+          "completed": 35,
           "pending": 0,
-          "not_applicable": 0,
+          "not_applicable": 2,
           "no_specimen": 0,
           "qc_fail": 0,
           "unknown": 0
         },
         "Undefined": {
-          "completed": 174,
+          "completed": 139,
           "pending": 0,
-          "not_applicable": 48,
+          "not_applicable": 46,
           "no_specimen": 0,
           "qc_fail": 0,
           "unknown": 8
@@ -7558,7 +6752,7 @@
           "qc_fail": 0,
           "unknown": 0
         },
-        "NRP": {
+        "NRP1": {
           "completed": 0,
           "pending": 0,
           "not_applicable": 0,
@@ -7575,40 +6769,6 @@
           "unknown": 2
         }
       },
-      "SLE/PsD-SKN": {
-        "EDP1": {
-          "completed": 0,
-          "pending": 0,
-          "not_applicable": 0,
-          "no_specimen": 0,
-          "qc_fail": 0,
-          "unknown": 0
-        },
-        "EDP2": {
-          "completed": 0,
-          "pending": 0,
-          "not_applicable": 0,
-          "no_specimen": 0,
-          "qc_fail": 0,
-          "unknown": 0
-        },
-        "NRP": {
-          "completed": 0,
-          "pending": 0,
-          "not_applicable": 0,
-          "no_specimen": 0,
-          "qc_fail": 0,
-          "unknown": 0
-        },
-        "Undefined": {
-          "completed": 0,
-          "pending": 0,
-          "not_applicable": 5,
-          "no_specimen": 0,
-          "qc_fail": 0,
-          "unknown": 0
-        }
-      },
       "SSc-SKN": {
         "EDP1": {
           "completed": 0,
@@ -7621,12 +6781,12 @@
         "EDP2": {
           "completed": 0,
           "pending": 0,
-          "not_applicable": 0,
+          "not_applicable": 1,
           "no_specimen": 0,
           "qc_fail": 0,
           "unknown": 0
         },
-        "NRP": {
+        "NRP1": {
           "completed": 0,
           "pending": 0,
           "not_applicable": 0,
@@ -7637,7 +6797,7 @@
         "Undefined": {
           "completed": 0,
           "pending": 0,
-          "not_applicable": 1,
+          "not_applicable": 0,
           "no_specimen": 0,
           "qc_fail": 0,
           "unknown": 0
@@ -7660,10 +6820,44 @@
           "qc_fail": 0,
           "unknown": 0
         },
-        "NRP": {
+        "NRP1": {
           "completed": 0,
           "pending": 0,
-          "not_applicable": 49,
+          "not_applicable": 65,
+          "no_specimen": 0,
+          "qc_fail": 0,
+          "unknown": 1
+        },
+        "Undefined": {
+          "completed": 0,
+          "pending": 0,
+          "not_applicable": 376,
+          "no_specimen": 0,
+          "qc_fail": 0,
+          "unknown": 5
+        }
+      },
+      "Unknown": {
+        "EDP1": {
+          "completed": 0,
+          "pending": 0,
+          "not_applicable": 0,
+          "no_specimen": 0,
+          "qc_fail": 0,
+          "unknown": 0
+        },
+        "EDP2": {
+          "completed": 0,
+          "pending": 0,
+          "not_applicable": 0,
+          "no_specimen": 0,
+          "qc_fail": 0,
+          "unknown": 0
+        },
+        "NRP1": {
+          "completed": 0,
+          "pending": 0,
+          "not_applicable": 0,
           "no_specimen": 0,
           "qc_fail": 0,
           "unknown": 0
@@ -7671,10 +6865,10 @@
         "Undefined": {
           "completed": 0,
           "pending": 0,
-          "not_applicable": 393,
+          "not_applicable": 0,
           "no_specimen": 0,
           "qc_fail": 0,
-          "unknown": 7
+          "unknown": 8
         }
       }
     }
