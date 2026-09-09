@@ -156,6 +156,7 @@
     text-transform: uppercase; letter-spacing: .02em; }
   table.data-table tbody tr:hover { background: var(--page); }
   .scroll-x { overflow-x: auto; }
+  .cell-muted { color: var(--text-muted); }
 
   .mini-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(280px, 1fr)); gap: 14px; }
   .mini-card { border: 1px solid var(--border); border-radius: 8px; padding: 12px 14px; }
@@ -195,6 +196,7 @@
   <nav class="maintabs">
     <button data-tab="recruitment" class="active">Recruitment</button>
     <button data-tab="technologies">Technologies</button>
+    <button data-tab="samples">Samples</button>
   </nav>
 
   <div class="kpi-row" id="kpiRow"></div>
@@ -278,6 +280,48 @@
     </div>
   </section>
 
+  <section class="panel" id="panel-samples">
+    <div class="card">
+      <div class="card-head">
+        <div>
+          <h2>Samples collected by type</h2>
+          <p class="sub">Raw count of visits where a specimen of that type was collected, across the selected disease teams and cohorts.</p>
+        </div>
+        <button class="table-toggle" data-target="sampleType">View as table</button>
+      </div>
+      <div id="sampleTypeChart"></div>
+      <div id="sampleTypeTable" class="scroll-x" style="display:none;"></div>
+    </div>
+
+    <div class="card">
+      <div class="card-head">
+        <div>
+          <h2>Samples collected by type, per disease team</h2>
+          <p class="sub">One small chart per selected disease team, showing collected samples for each selected sample type (under the selected cohorts). Hover a bar for exact counts.</p>
+        </div>
+        <button class="table-toggle" data-target="sampleByDisease">View as table</button>
+      </div>
+      <div id="sampleByDiseaseChart" class="mini-grid"></div>
+      <div id="sampleByDiseaseTable" class="scroll-x" style="display:none;"></div>
+    </div>
+
+    <div class="card">
+      <div class="card-head">
+        <div>
+          <h2>Sample availability by disease team &amp; cohort</h2>
+          <p class="sub">What was collected at each visit, broken down by disease team and cohort &mdash; the most direct view of what sample types are available for a given group.</p>
+        </div>
+      </div>
+      <div id="sampleCohortTable" class="scroll-x"></div>
+    </div>
+
+    <div class="card">
+      <h2>Data quality notes</h2>
+      <p class="sub">Worth a look before you lean on the sample-availability numbers.</p>
+      <div class="quality-notes" id="samplesQuality"></div>
+    </div>
+  </section>
+
   <footer class="foot">Rebuilt weekly from the lab&rsquo;s sample tracker via <code>build_data.py</code>. Source data never leaves the private tracker &mdash; only these aggregate counts are published.</footer>
 </div>
 
@@ -299,7 +343,8 @@
     return { completed: '--st-good', pending: '--st-warning', qc_fail: '--st-critical', other: '--st-other' }[key];
   }
 
-  var state = { data: null, selectedTech: new Set(), selectedDisease: new Set(), selectedPipeline: new Set(), activeMain: 'recruitment' };
+  var state = { data: null, selectedTech: new Set(), selectedDisease: new Set(), selectedPipeline: new Set(),
+    selectedCohort: new Set(), selectedSampleType: new Set(), activeMain: 'recruitment' };
   var tooltipEl = document.getElementById('tooltip');
 
   function fmt(n) { return n.toLocaleString('en-US'); }
@@ -386,9 +431,11 @@
     // hueA/hueB: endpoints in degrees (hueB may go negative - handled below -
     // so the sweep goes the "short way" through orange/red rather than
     // wrapping the long way around through blue/green).
-    disease:  { hueA: 232, hueB: 189, sat: [70, 62], light: [40, 60] },
-    pipeline: { hueA: 168, hueB: 112, sat: [62, 55], light: [34, 54] },
-    tech:     { hueA: 48,  hueB: -8,  sat: [88, 78], light: [46, 58] }
+    disease:    { hueA: 232, hueB: 189, sat: [70, 62], light: [40, 60] },
+    pipeline:   { hueA: 168, hueB: 112, sat: [62, 55], light: [34, 54] },
+    tech:       { hueA: 48,  hueB: -8,  sat: [88, 78], light: [46, 58] },
+    cohort:     { hueA: 280, hueB: 245, sat: [55, 50], light: [42, 62] },
+    sampletype: { hueA: 190, hueB: 155, sat: [65, 58], light: [36, 56] }
   };
   function pillGradient(kind, i, n) {
     var g = PILL_GRADIENTS[kind];
@@ -466,6 +513,25 @@
   function selectedTechs() { return state.data.technologies.filter(function (t) { return state.selectedTech.has(t.key); }); }
   function selectedDiseases() { return state.data.recruitment.by_disease.filter(function (d) { return state.selectedDisease.has(d.key); }); }
 
+  // ---------- Samples tab helpers ----------
+  // samples.by_cohort rows whose disease team AND cohort tag are both
+  // currently selected - the shared filtered dataset every Samples-tab
+  // chart/table builds from. A visit whose subject couldn't be matched on
+  // the "subjects" sheet has no disease_key/cohort to match here, so it
+  // never appears in this filtered view (see samples.unassigned_visits).
+  function filteredSampleCohorts() {
+    if (!state.data.samples) return [];
+    return state.data.samples.by_cohort.filter(function (c) {
+      return state.selectedDisease.has(c.disease_key) && state.selectedCohort.has(c.cohort);
+    });
+  }
+  function selectedSampleTypes() {
+    return state.data.samples.sample_types.filter(function (t) { return state.selectedSampleType.has(t.key); });
+  }
+  function sampleTypeCount(typeKey, cohorts) {
+    return cohorts.reduce(function (s, c) { return s + ((c.counts && c.counts[typeKey]) || 0); }, 0);
+  }
+
   // ---------- KPI ----------
   function renderKPI() {
     var row = document.getElementById('kpiRow');
@@ -486,7 +552,7 @@
         { label: 'Cohorts tracked', value: fmt(cohortCount) },
         { label: 'Subjects not yet placed in a cohort', value: fmt(state.data.recruitment.unassigned_subjects), flag: state.data.recruitment.unassigned_subjects > 0 }
       ];
-    } else {
+    } else if (state.activeMain === 'technologies') {
       var d = state.data;
       var scopes = scopesForSelectedDiseases(), pipelines = selectedPipelines();
       var completedSum = selectedTechs().reduce(function (s, t) { return s + techCountsFiltered(t.key, scopes, pipelines).completed; }, 0);
@@ -495,6 +561,18 @@
         { label: 'Total visits tracked', value: fmt(d.totals.visits) },
         { label: 'Technologies tracked', value: fmt(d.technologies.length) },
         { label: 'Samples completed (selected)', value: fmt(completedSum) }
+      ];
+    } else {
+      var cohorts = filteredSampleCohorts();
+      var types = selectedSampleTypes();
+      var collectedSum = cohorts.reduce(function (s, c) {
+        return s + types.reduce(function (s2, t) { return s2 + ((c.counts[t.key]) || 0); }, 0);
+      }, 0);
+      tiles = [
+        { label: 'Visits tracked', value: fmt(state.data.samples.total_visits), hero: true },
+        { label: 'Sample types tracked', value: fmt(state.data.samples.sample_types.length) },
+        { label: 'Cohorts tracked', value: fmt(cohorts.length) },
+        { label: 'Samples collected (selected)', value: fmt(collectedSum) }
       ];
     }
     tiles.forEach(function (t) {
@@ -591,15 +669,83 @@
     row.appendChild(flabel); row.appendChild(group); row.appendChild(metaWrap);
     return row;
   }
+  // All distinct cohort tag NAMES across the dataset (e.g. "PsD Eye" appears
+  // under Psoriasis, "Enabling Case" appears under several teams) - a flat,
+  // deduplicated list, since the Cohort pills filter by tag name regardless
+  // of which disease team(s) that tag happens to belong to.
+  function allCohortNames() {
+    var seen = {};
+    state.data.recruitment.by_cohort.forEach(function (c) { seen[c.cohort] = true; });
+    return Object.keys(seen).sort(function (a, b) { return a.localeCompare(b); });
+  }
+  function buildCohortFilterRow() {
+    var row = document.createElement('div'); row.className = 'filter-row filter-row--cohort';
+    var flabel = document.createElement('div'); flabel.className = 'flabel'; flabel.textContent = 'Cohorts shown';
+    var group = document.createElement('div'); group.className = 'pill-group';
+    var names = allCohortNames();
+    var n = names.length;
+    names.forEach(function (name, i) {
+      var b = document.createElement('button');
+      b.className = 'pill' + (state.selectedCohort.has(name) ? ' active' : '');
+      b.style.setProperty('--pill-color', pillGradient('cohort', i, n));
+      b.textContent = name; b.dataset.key = name;
+      b.addEventListener('click', function () {
+        if (state.selectedCohort.has(name)) state.selectedCohort.delete(name); else state.selectedCohort.add(name);
+        renderFilter(); renderAll();
+      });
+      group.appendChild(b);
+    });
+    var metaWrap = document.createElement('div'); metaWrap.style.cssText = 'display:flex; gap:6px;';
+    var allBtn = document.createElement('button'); allBtn.className = 'pill meta'; allBtn.textContent = 'All';
+    var noneBtn = document.createElement('button'); noneBtn.className = 'pill meta'; noneBtn.textContent = 'None';
+    allBtn.addEventListener('click', function () { state.selectedCohort = new Set(allCohortNames()); renderFilter(); renderAll(); });
+    noneBtn.addEventListener('click', function () { state.selectedCohort = new Set(); renderFilter(); renderAll(); });
+    metaWrap.appendChild(allBtn); metaWrap.appendChild(noneBtn);
+    row.appendChild(flabel); row.appendChild(group); row.appendChild(metaWrap);
+    return row;
+  }
+  function buildSampleTypeFilterRow() {
+    var row = document.createElement('div'); row.className = 'filter-row filter-row--sampletype';
+    var flabel = document.createElement('div'); flabel.className = 'flabel'; flabel.textContent = 'Sample types shown';
+    var group = document.createElement('div'); group.className = 'pill-group';
+    var types = state.data.samples.sample_types;
+    var n = types.length;
+    types.forEach(function (t, i) {
+      var b = document.createElement('button');
+      b.className = 'pill' + (state.selectedSampleType.has(t.key) ? ' active' : '');
+      b.style.setProperty('--pill-color', pillGradient('sampletype', i, n));
+      b.textContent = t.label; b.dataset.key = t.key;
+      b.addEventListener('click', function () {
+        if (state.selectedSampleType.has(t.key)) state.selectedSampleType.delete(t.key); else state.selectedSampleType.add(t.key);
+        renderFilter(); renderAll();
+      });
+      group.appendChild(b);
+    });
+    var metaWrap = document.createElement('div'); metaWrap.style.cssText = 'display:flex; gap:6px;';
+    var allBtn = document.createElement('button'); allBtn.className = 'pill meta'; allBtn.textContent = 'All';
+    var noneBtn = document.createElement('button'); noneBtn.className = 'pill meta'; noneBtn.textContent = 'None';
+    allBtn.addEventListener('click', function () {
+      state.selectedSampleType = new Set(types.map(function (t) { return t.key; }));
+      renderFilter(); renderAll();
+    });
+    noneBtn.addEventListener('click', function () { state.selectedSampleType = new Set(); renderFilter(); renderAll(); });
+    metaWrap.appendChild(allBtn); metaWrap.appendChild(noneBtn);
+    row.appendChild(flabel); row.appendChild(group); row.appendChild(metaWrap);
+    return row;
+  }
   function renderFilter() {
     var wrap = document.getElementById('filterRow');
     wrap.innerHTML = '';
     if (state.activeMain === 'recruitment') {
       wrap.appendChild(buildDiseaseFilterRow());
-    } else {
+    } else if (state.activeMain === 'technologies') {
       wrap.appendChild(buildDiseaseFilterRow());
       wrap.appendChild(buildPipelineFilterRow());
       wrap.appendChild(buildTechFilterRow());
+    } else {
+      wrap.appendChild(buildDiseaseFilterRow());
+      wrap.appendChild(buildCohortFilterRow());
+      wrap.appendChild(buildSampleTypeFilterRow());
     }
   }
 
@@ -625,7 +771,7 @@
         var table = document.getElementById(target + 'Table');
         var showing = table.style.display !== 'none';
         table.style.display = showing ? 'none' : 'block';
-        chart.style.display = showing ? ((target === 'cohort' || target === 'bydisease') ? 'grid' : 'block') : 'none';
+        chart.style.display = showing ? ((target === 'cohort' || target === 'bydisease' || target === 'sampleByDisease') ? 'grid' : 'block') : 'none';
         btn.textContent = showing ? 'View as table' : 'View as chart';
       });
     });
@@ -1039,6 +1185,160 @@
     document.getElementById('technologyQuality').innerHTML = html;
   }
 
+  // ==================== SAMPLES TAB ====================
+  function renderSampleTypeChart() {
+    var el = document.getElementById('sampleTypeChart');
+    el.innerHTML = '';
+    var cohorts = filteredSampleCohorts();
+    var rows = selectedSampleTypes().map(function (t) {
+      return { key: t.key, label: t.label, collected: sampleTypeCount(t.key, cohorts) };
+    }).sort(function (a, b) { return b.collected - a.collected; });
+    if (!rows.length) { el.textContent = 'No sample types selected (or no disease teams / cohorts selected).'; renderSampleTypeTable(rows); return; }
+
+    var maxCollected = niceMax(Math.max.apply(null, rows.map(function (r) { return r.collected; })));
+    var width = Math.max(el.clientWidth || 900, 480);
+    var rowH = 30, leftPad = 190, rightPad = 60, topPad = 8;
+    var height = topPad + rows.length * rowH + 8;
+    var chartW = width - leftPad - rightPad;
+    var svg = svgEl('svg', { width: width, height: height, viewBox: '0 0 ' + width + ' ' + height });
+    var gridColor = resolveVar('--grid');
+
+    [0, 0.25, 0.5, 0.75, 1].forEach(function (f) {
+      var x = leftPad + f * chartW;
+      svg.appendChild(svgEl('line', { x1: x, x2: x, y1: topPad, y2: height - 8, stroke: gridColor, 'stroke-width': 1 }));
+      var t = svgEl('text', { x: x, y: height - 2, class: 'axis-label', 'text-anchor': 'middle' });
+      t.textContent = fmt(Math.round(maxCollected * f)); svg.appendChild(t);
+    });
+
+    rows.forEach(function (r, i) {
+      var y = topPad + i * rowH, barH = 18, barY = y + (rowH - barH) / 2;
+      var w = Math.max(r.collected > 0 ? 2 : 0, (r.collected / maxCollected) * chartW);
+      var label = svgEl('text', { x: leftPad - 10, y: barY + barH / 2 + 4, class: 'bar-label', 'text-anchor': 'end' });
+      label.textContent = r.label; svg.appendChild(label);
+      var rect = svgEl('rect', { x: leftPad, y: barY, width: w, height: barH, rx: 4, fill: barRampColor(i, rows.length) });
+      svg.appendChild(rect);
+      var val = svgEl('text', { x: leftPad + w + 8, y: barY + barH / 2 + 4, class: 'bar-value' });
+      val.textContent = fmt(r.collected); svg.appendChild(val);
+      var hit = svgEl('rect', { x: leftPad, y: y, width: chartW, height: rowH, fill: 'transparent' });
+      hit.addEventListener('pointermove', function (ev) {
+        showTooltip(ev.clientX, ev.clientY, [['Sample type', r.label], ['Collected', fmt(r.collected)]]);
+      });
+      hit.addEventListener('pointerleave', hideTooltip);
+      svg.appendChild(hit);
+    });
+    el.appendChild(svg);
+    renderSampleTypeTable(rows);
+  }
+  function renderSampleTypeTable(rows) {
+    var el = document.getElementById('sampleTypeTable');
+    var body = rows.map(function (r) {
+      return '<tr><td>' + esc(r.label) + '</td><td>' + fmt(r.collected) + '</td></tr>';
+    }).join('');
+    el.innerHTML = '<table class="data-table"><thead><tr><th>Sample type</th><th>Collected</th></tr></thead><tbody>' + body + '</tbody></table>';
+  }
+
+  function renderSampleByDisease() {
+    var el = document.getElementById('sampleByDiseaseChart'); el.innerHTML = '';
+    var diseases = selectedDiseases().slice().sort(function (a, b) { return a.label.localeCompare(b.label); });
+    var types = selectedSampleTypes();
+    if (!diseases.length || !types.length) {
+      el.textContent = 'No disease teams / sample types selected (or no cohorts selected).';
+      renderSampleByDiseaseTable(diseases, types);
+      return;
+    }
+    var allCohorts = filteredSampleCohorts();
+    diseases.forEach(function (dz) {
+      var cohortsForTeam = allCohorts.filter(function (c) { return c.disease_key === dz.key; });
+      var rows = types.map(function (t) {
+        return { key: t.key, label: t.label, collected: sampleTypeCount(t.key, cohortsForTeam) };
+      }).sort(function (a, b) { return b.collected - a.collected; });
+      var totalCollected = rows.reduce(function (s, r) { return s + r.collected; }, 0);
+
+      var card = document.createElement('div'); card.className = 'mini-card';
+      var h3 = document.createElement('h3'); h3.textContent = dz.label; card.appendChild(h3);
+      var sub = document.createElement('p'); sub.className = 'mini-sub';
+      sub.textContent = fmt(totalCollected) + ' collected · ' + rows.length + ' sample type' + (rows.length === 1 ? '' : 's');
+      card.appendChild(sub);
+
+      var maxV = Math.max.apply(null, rows.map(function (r) { return r.collected; })) || 1;
+      var width = 300, rowH = 22, leftPad = 4, barLeftOffset = 118, rightPad = 34;
+      var height = rows.length * rowH + 6;
+      var chartW = width - barLeftOffset - rightPad;
+      var svg = svgEl('svg', { width: '100%', height: height, viewBox: '0 0 ' + width + ' ' + height });
+      rows.forEach(function (r, i) {
+        var y = i * rowH, barH = 13, barY = y + (rowH - barH) / 2;
+        var w = Math.max(r.collected > 0 ? 2 : 0, (r.collected / maxV) * chartW);
+        var label = svgEl('text', { x: leftPad, y: barY + barH / 2 + 3.5, class: 'bar-label', style: 'font-size:10.5px' });
+        var short = r.label.length > 17 ? r.label.slice(0, 16) + '…' : r.label;
+        label.textContent = short; svg.appendChild(label);
+        var rect = svgEl('rect', { x: barLeftOffset, y: barY, width: w, height: barH, rx: 3, fill: barRampColor(i, rows.length) });
+        svg.appendChild(rect);
+        var val = svgEl('text', { x: barLeftOffset + w + 5, y: barY + barH / 2 + 3.5, class: 'bar-value', style: 'font-size:10.5px' });
+        val.textContent = fmt(r.collected); svg.appendChild(val);
+        var hit = svgEl('rect', { x: 0, y: y, width: width, height: rowH, fill: 'transparent' });
+        hit.addEventListener('pointermove', function (ev) {
+          showTooltip(ev.clientX, ev.clientY, [['Disease team', dz.label], ['Sample type', r.label], ['Collected', fmt(r.collected)]]);
+        });
+        hit.addEventListener('pointerleave', hideTooltip);
+        svg.appendChild(hit);
+      });
+      card.appendChild(svg);
+      el.appendChild(card);
+    });
+    renderSampleByDiseaseTable(diseases, types);
+  }
+  function renderSampleByDiseaseTable(diseases, types) {
+    var el = document.getElementById('sampleByDiseaseTable');
+    var allCohorts = filteredSampleCohorts();
+    var head = '<tr><th>Disease team</th>' + types.map(function (t) { return '<th>' + esc(t.label) + '</th>'; }).join('') + '</tr>';
+    var body = diseases.map(function (dz) {
+      var cohortsForTeam = allCohorts.filter(function (c) { return c.disease_key === dz.key; });
+      var cells = types.map(function (t) { return '<td>' + fmt(sampleTypeCount(t.key, cohortsForTeam)) + '</td>'; }).join('');
+      return '<tr><td>' + esc(dz.label) + '</td>' + cells + '</tr>';
+    }).join('');
+    el.innerHTML = '<p class="note">Values are collected-sample counts, under the selected cohorts.</p><table class="data-table"><thead>' + head + '</thead><tbody>' + body + '</tbody></table>';
+  }
+
+  function renderSampleCohortTable() {
+    var el = document.getElementById('sampleCohortTable');
+    var cohorts = filteredSampleCohorts().slice().sort(function (a, b) {
+      return a.disease_label.localeCompare(b.disease_label) || a.cohort.toLowerCase().localeCompare(b.cohort.toLowerCase());
+    });
+    var types = selectedSampleTypes();
+    if (!cohorts.length || !types.length) {
+      el.innerHTML = '<p class="sub">No disease teams / cohorts / sample types selected.</p>';
+      return;
+    }
+    var head = '<tr><th>Disease team</th><th>Cohort</th><th>Visits</th>' +
+      types.map(function (t) { return '<th>' + esc(t.label) + '</th>'; }).join('') + '</tr>';
+    var body = cohorts.map(function (c) {
+      var cells = types.map(function (t) {
+        var n = c.counts[t.key] || 0;
+        return '<td' + (n > 0 ? '' : ' class="cell-muted"') + '>' + fmt(n) + '</td>';
+      }).join('');
+      return '<tr><td>' + esc(c.disease_label) + '</td><td>' + esc(c.cohort) + '</td><td>' + fmt(c.visits) + '</td>' + cells + '</tr>';
+    }).join('');
+    el.innerHTML = '<table class="data-table"><thead>' + head + '</thead><tbody>' + body + '</tbody></table>';
+  }
+
+  function renderSamplesQuality() {
+    var s = state.data.samples;
+    var html = '';
+    if (s.unassigned_visits > 0) {
+      html += '<p><span class="flag">' + fmt(s.unassigned_visits) + ' visit' + (s.unassigned_visits === 1 ? '' : 's') +
+        '</span> could not be matched to a subject on the "subjects" sheet, so ' + (s.unassigned_visits === 1 ? 'it' : 'they') +
+        ' can’t be placed in a disease team or cohort here and are left out of every chart and table on this tab — worth a look at the source data.</p>';
+    }
+    var zeroTypes = s.by_type.filter(function (t) { return t.collected === 0; });
+    if (zeroTypes.length) {
+      html += '<p>' + zeroTypes.map(function (t) { return esc(t.label); }).join(', ') + ' show' + (zeroTypes.length === 1 ? 's' : '') +
+        ' zero collected specimens across the whole dataset right now — that likely means the network hasn’t started collecting that type yet, not a tracking gap.</p>';
+    }
+    html += '<p>Disease team and cohort here are joined from each visit’s subject on the "subjects" sheet (the same <code>Data_Scope</code> and <code>Dashboard_Label</code> used on the Recruitment tab), not read directly off this row on the "visits" sheet — so a visit always uses its subject’s current, harmonized team and cohort. As on the Recruitment tab, a subject whose Data_Scope or Dashboard_Label spans more than one team or cohort is counted once in EACH matching one, so totals can add up to slightly more than a simple visit count.</p>';
+    html += '<p>A cell shows how many of that cohort’s tracked visits had that specimen type collected (“Y” on the source sheet) — not a percentage, since not every cohort or visit type collects every sample type. A low or blank cell can simply mean that type isn’t part of this cohort’s protocol, not that a sample is missing.</p>';
+    document.getElementById('samplesQuality').innerHTML = html;
+  }
+
   // ---------- Orchestration ----------
   function renderAll() {
     renderKPI();
@@ -1047,12 +1347,17 @@
       renderCohortStatusLegend();
       renderCohortChart();
       renderRecruitmentQuality();
-    } else {
+    } else if (state.activeMain === 'technologies') {
       renderOverview();
       renderStatusLegend();
       renderByTech();
       renderByDisease();
       renderTechnologyQuality();
+    } else {
+      renderSampleTypeChart();
+      renderSampleByDisease();
+      renderSampleCohortTable();
+      renderSamplesQuality();
     }
   }
 
@@ -1061,6 +1366,10 @@
     data.technologies.forEach(function (t) { state.selectedTech.add(t.key); });
     data.recruitment.by_disease.forEach(function (d) { state.selectedDisease.add(d.key); });
     data.pipelines.forEach(function (p) { state.selectedPipeline.add(p); });
+    if (data.samples) {
+      data.samples.sample_types.forEach(function (t) { state.selectedSampleType.add(t.key); });
+      allCohortNames().forEach(function (name) { state.selectedCohort.add(name); });
+    }
     var d = new Date(data.generated_at);
     document.getElementById('lastUpdated').textContent = 'Data last refreshed ' +
       d.toLocaleDateString('en-US', { year: 'numeric', month: 'long', day: 'numeric' });

@@ -47,6 +47,8 @@ DATA_START_ROW = 4
 # (Slide) labels were dropped or renamed - see README history / requests.)
 TECH_COLUMNS = [
     ("Xenium-Slide_Sample_ID", "xenium_slide", "Xenium"),
+    ("Post-Xenium_HE", "post_xenium_he", "Post-Xenium H&E"),
+    ("Post-Xenium_IMC", "post_xenium_imc", "Post Xenium IMC"),
     ("scFFPE_Sample_ID", "scffpe", "scFFPE"),
     ("scRNAseq_Sample_ID", "scrnaseq", "scRNA-seq"),
     ("Olink-Serum_Sample_ID", "olink_serum", "Olink (Serum)"),
@@ -59,6 +61,28 @@ TECH_COLUMNS = [
     ("mBioSeq-skin", "mbioseq_skin", "Microbiome (Skin)"),
     ("anti-C1Q_Sample_ID", "anti_c1q", "Anti-C1Q"),
 ]
+
+# Sample-type columns for the Samples tab -> (key, display label). These are
+# simple Y/blank flags on the "visits" sheet (was a specimen of this type
+# collected at this visit?), unlike TECH_COLUMNS above (which track a
+# multi-status assay pipeline per sample). Order here is the order they're
+# shown in on the dashboard (pills, tables, etc).
+SAMPLE_TYPE_COLUMNS = [
+    ("Tissue_Mold", "tissue_mold", "FFPE Tissue Block"),
+    ("Tissue_Cryo", "tissue_cryo", "Frozen Tissue Block"),
+    ("Serum", "serum", "Serum"),
+    ("PBMC", "pbmc", "PBMCs"),
+    ("Cytodelics", "cytodelics", "Fresh Frozen Tissue - Cytodelics"),
+    ("Pax", "pax", "PaxGene Tube"),
+    ("Urine", "urine", "Urine"),
+]
+
+
+def is_collected(value):
+    """Sample-type columns are just 'Y' (collected) or blank (not collected)."""
+    if value is None:
+        return False
+    return str(value).strip().upper() == "Y"
 
 STATUS_ORDER = ["completed", "pending", "not_applicable", "no_specimen", "qc_fail", "unknown"]
 STATUS_LABELS = {
@@ -404,13 +428,19 @@ def main():
             "pct_eligible": pct_elig,
         }
 
+    # Kept in TECH_COLUMNS order (not re-sorted by count) so the "Datasets
+    # shown" pills - and anything else that lists technologies without doing
+    # its own sort - show a stable order (e.g. the two Post-Xenium steps
+    # right after Xenium) rather than one that reshuffles week to week as
+    # completed counts change. The main "completed samples" bar chart and
+    # the per-disease-team panels both sort by count themselves in the UI,
+    # so they're unaffected by this order.
     technologies = []
     for _, key, label in TECH_COLUMNS:
         block = totals_block(tech_totals[key])
         block["key"] = key
         block["label"] = label
         technologies.append(block)
-    technologies.sort(key=lambda t: t["counts"]["completed"], reverse=True)
 
     scopes_sorted = sorted(s for s in scopes_seen if s != "Unknown") + (
         ["Unknown"] if "Unknown" in scopes_seen else []
@@ -447,6 +477,12 @@ def main():
     # subject touching both Lupus subgroups still counts once.
     combined_totals = defaultdict(lambda: {"subject_set": set(), "visits": 0, "label": "", "status": empty_recruit_status()})
     unassigned_subjects = 0
+    # Subject_ID -> {"scope":, "tags":} for EVERY subject on the "subjects"
+    # sheet (including Pre-Participation ones, unlike the recruitment totals
+    # below) - used by the Samples tab further down to attribute each visit
+    # row on the "visits" sheet to a disease team/cohort via a join, instead
+    # of trusting that sheet's own (older, less consistent) per-row values.
+    subject_join = {}
 
     if subj_ws is not None:
         subj_headers = [subj_ws.cell(row=HEADER_ROW, column=c).value for c in range(1, subj_ws.max_column + 1)]
@@ -469,6 +505,10 @@ def main():
             if sid is None:
                 continue  # blank row
 
+            scope = clean_label(subj_ws.cell(row=r, column=sscope_idx).value if sscope_idx else None)
+            tags = split_cohort_tags(subj_ws.cell(row=r, column=slabel_idx).value if slabel_idx else None)
+            subject_join[sid] = {"scope": scope, "tags": tags}
+
             type_raw = subj_ws.cell(row=r, column=stype_idx).value if stype_idx else None
             recruit_status = SUBJECT_STATUS_BY_TYPE.get(clean_label(type_raw, default=""))
             if recruit_status is None:
@@ -478,8 +518,6 @@ def main():
                 unassigned_subjects += 1
                 continue
 
-            scope = clean_label(subj_ws.cell(row=r, column=sscope_idx).value if sscope_idx else None)
-            tags = split_cohort_tags(subj_ws.cell(row=r, column=slabel_idx).value if slabel_idx else None)
             visits_raw = subj_ws.cell(row=r, column=svisits_idx).value if svisits_idx else None
             n_subject_visits = int(visits_raw) if isinstance(visits_raw, (int, float)) else 0
 
@@ -583,6 +621,91 @@ def main():
         "status_labels": RECRUIT_STATUS_LABELS,
     }
 
+    # ---------- Samples: what specimen types were collected, per visit ----------
+    # Walks the "visits" sheet again (one row per visit, same as the
+    # Technologies-tab loop above) but joins each row to its subject on the
+    # "subjects" sheet (via subject_join, built above) to get the disease
+    # team and cohort(s) - using the same harmonized values as the
+    # Recruitment tab, rather than that row's own (older, less consistent)
+    # Data_Scope/Visit_Cohort. A visit whose subject isn't found on the
+    # "subjects" sheet still counts in the overall per-type totals, just not
+    # in the by-disease-team/by-cohort breakdowns (see unassigned_visits).
+    missing_sample_cols = [col for col, _, _ in SAMPLE_TYPE_COLUMNS if col not in col_idx]
+    if missing_sample_cols:
+        print(f"WARNING: expected sample-type columns not found and will be skipped: "
+              f"{missing_sample_cols}", file=sys.stderr)
+
+    sample_type_totals = {key: 0 for _, key, _ in SAMPLE_TYPE_COLUMNS}
+    sample_by_disease = defaultdict(lambda: {
+        "visits": 0, "label": "", "counts": {key: 0 for _, key, _ in SAMPLE_TYPE_COLUMNS},
+    })
+    sample_by_cohort = defaultdict(lambda: {
+        "visits": 0, "disease_key": "", "disease_label": "",
+        "counts": {key: 0 for _, key, _ in SAMPLE_TYPE_COLUMNS},
+    })
+    sample_unassigned_visits = 0
+
+    for r in range(DATA_START_ROW, ws.max_row + 1):
+        subj = ws.cell(row=r, column=subject_idx).value if subject_idx else None
+        subj_clean = clean_label(subj, default=None)
+        row_has_any = any(
+            ws.cell(row=r, column=col_idx[col]).value is not None
+            for col, _, _ in TECH_COLUMNS
+            if col in col_idx
+        )
+        if subj_clean is None and not row_has_any:
+            continue  # same "is this a real visit row" check as the tech loop above
+
+        collected = {}
+        for col, key, _ in SAMPLE_TYPE_COLUMNS:
+            got = col in col_idx and is_collected(ws.cell(row=r, column=col_idx[col]).value)
+            collected[key] = got
+            if got:
+                sample_type_totals[key] += 1
+
+        join = subject_join.get(subj_clean) if subj_clean else None
+        if join is None:
+            sample_unassigned_visits += 1
+            continue
+
+        for disease_key, disease_label, _old_label, _old_group_key in derive_diseases(join["scope"]):
+            d = sample_by_disease[disease_key]
+            d["visits"] += 1
+            d["label"] = disease_label
+            for key, got in collected.items():
+                if got:
+                    d["counts"][key] += 1
+            for tag in sorted(set(join["tags"])):
+                ck = (disease_key, tag)
+                c = sample_by_cohort[ck]
+                c["visits"] += 1
+                c["disease_key"] = disease_key
+                c["disease_label"] = disease_label
+                for key, got in collected.items():
+                    if got:
+                        c["counts"][key] += 1
+
+    samples = {
+        "sample_types": [{"key": key, "label": label} for _, key, label in SAMPLE_TYPE_COLUMNS],
+        "by_type": [
+            {"key": key, "label": label, "collected": sample_type_totals[key], "total_visits": n_visits}
+            for _, key, label in SAMPLE_TYPE_COLUMNS
+        ],
+        "by_disease": sorted(
+            [{"key": k, "label": v["label"], "visits": v["visits"], "counts": v["counts"]}
+             for k, v in sample_by_disease.items()],
+            key=lambda d: d["label"],
+        ),
+        "by_cohort": sorted(
+            [{"disease_key": v["disease_key"], "disease_label": v["disease_label"], "cohort": ck[1],
+              "visits": v["visits"], "counts": v["counts"]}
+             for ck, v in sample_by_cohort.items()],
+            key=lambda d: (d["disease_label"], d["cohort"].lower()),
+        ),
+        "unassigned_visits": sample_unassigned_visits,
+        "total_visits": n_visits,
+    }
+
     by_scope_matrix = {
         key: {scope: tech_by_scope[key].get(scope, empty_status_counts()) for scope in scopes_sorted}
         for _, key, _ in TECH_COLUMNS
@@ -616,6 +739,7 @@ def main():
         "by_scope": by_scope_matrix,
         "by_pipeline": by_pipeline_matrix,
         "by_scope_pipeline": by_scope_pipeline_matrix,
+        "samples": samples,
     }
 
     with open(out_path, "w") as f:
@@ -625,6 +749,8 @@ def main():
     print(f"  subjects={len(subjects_seen)} visits={n_visits} technologies={len(technologies)}")
     print(f"  disease teams={len(by_disease)} cohorts={len(by_cohort_detail)} unassigned_subjects={unassigned_subjects}")
     print(f"  pipelines={pipelines_sorted}")
+    print(f"  sample types={len(samples['sample_types'])} sample-cohorts={len(samples['by_cohort'])} "
+          f"unassigned_visits={sample_unassigned_visits}")
 
 
 if __name__ == "__main__":

@@ -81,7 +81,25 @@ new folder every time you get an updated project folder from Claude.
   disease team showing completed samples by technology, filterable by
   disease team, Pipeline, and dataset. This still reads the visit-level
   `visits` tab, since it's tracking samples/assays per visit rather than
-  per subject.
+  per subject. The dataset list includes **Post-Xenium H&E** and
+  **Post Xenium IMC** (from the `Post-Xenium_HE` / `Post-Xenium_IMC`
+  columns), shown right after **Xenium** everywhere technologies are
+  listed.
+- **Samples** — what specimen types were actually collected, per visit,
+  broken down by disease team and cohort: FFPE Tissue Block, Frozen Tissue
+  Block, Serum, PBMCs, Fresh Frozen Tissue - Cytodelics, PaxGene Tube, and
+  Urine (from the `Tissue_Mold`, `Tissue_Cryo`, `Serum`, `PBMC`,
+  `Cytodelics`, `Pax`, and `Urine` columns on the `visits` tab — each is
+  just `Y`/blank per visit). A bar chart totals each sample type across the
+  selected disease teams/cohorts, a mini-chart-per-disease-team view
+  breaks that down further, and a matrix table shows raw counts by disease
+  team and cohort — the most direct view of what's actually available for
+  a given group. Disease team and cohort here come from a join back to the
+  `subjects` tab (the same harmonized `Data_Scope`/`Dashboard_Label` used on
+  the Recruitment tab), not from the `visits` tab's own, older cohort
+  column, so cohort names stay consistent across all three tabs. A handful
+  of visits that can't be matched to a subject are counted and called out
+  in the tab's data-quality notes rather than silently dropped.
 
 **About "disease team":** the source `Disease Team` column holds each row's
 study/protocol name (STAMP, ELLIPSS, AIM for RA, LOCKIT, SSc Pilot), not a
