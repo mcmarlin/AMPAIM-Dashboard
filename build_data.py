@@ -69,10 +69,10 @@ TECH_COLUMNS = [
 # shown in on the dashboard (pills, tables, etc).
 SAMPLE_TYPE_COLUMNS = [
     ("Tissue_Mold", "tissue_mold", "FFPE Tissue Block"),
-    ("Tissue_Cryo", "tissue_cryo", "Frozen Tissue Block"),
+    ("Tissue_Cryo", "tissue_cryo", "Fresh Frozen Tissue"),
     ("Serum", "serum", "Serum"),
     ("PBMC", "pbmc", "PBMCs"),
-    ("Cytodelics", "cytodelics", "Fresh Frozen Tissue - Cytodelics"),
+    ("Cytodelics", "cytodelics", "Frozen WB in Cytodelics (MDIPA)"),
     ("Pax", "pax", "PaxGene Tube"),
     ("Urine", "urine", "Urine"),
 ]

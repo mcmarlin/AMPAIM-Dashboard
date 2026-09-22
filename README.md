@@ -86,8 +86,8 @@ new folder every time you get an updated project folder from Claude.
   columns), shown right after **Xenium** everywhere technologies are
   listed.
 - **Samples** — what specimen types were actually collected, per visit,
-  broken down by disease team and cohort: FFPE Tissue Block, Frozen Tissue
-  Block, Serum, PBMCs, Fresh Frozen Tissue - Cytodelics, PaxGene Tube, and
+  broken down by disease team and cohort: FFPE Tissue Block, Fresh Frozen
+  Tissue, Serum, PBMCs, Frozen WB in Cytodelics (MDIPA), PaxGene Tube, and
   Urine (from the `Tissue_Mold`, `Tissue_Cryo`, `Serum`, `PBMC`,
   `Cytodelics`, `Pax`, and `Urine` columns on the `visits` tab — each is
   just `Y`/blank per visit). A bar chart totals each sample type across the

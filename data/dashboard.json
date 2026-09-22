@@ -1,5 +1,5 @@
 {
-  "generated_at": "2026-09-22T17:17:53Z",
+  "generated_at": "2026-09-22T17:50:05Z",
   "source_rows": 1412,
   "totals": {
     "subjects": 999,
@@ -7835,7 +7835,7 @@
       },
       {
         "key": "tissue_cryo",
-        "label": "Frozen Tissue Block"
+        "label": "Fresh Frozen Tissue"
       },
       {
         "key": "serum",
@@ -7847,7 +7847,7 @@
       },
       {
         "key": "cytodelics",
-        "label": "Fresh Frozen Tissue - Cytodelics"
+        "label": "Frozen WB in Cytodelics (MDIPA)"
       },
       {
         "key": "pax",
@@ -7867,7 +7867,7 @@
       },
       {
         "key": "tissue_cryo",
-        "label": "Frozen Tissue Block",
+        "label": "Fresh Frozen Tissue",
         "collected": 979,
         "total_visits": 1412
       },
@@ -7885,7 +7885,7 @@
       },
       {
         "key": "cytodelics",
-        "label": "Fresh Frozen Tissue - Cytodelics",
+        "label": "Frozen WB in Cytodelics (MDIPA)",
         "collected": 0,
         "total_visits": 1412
       },
