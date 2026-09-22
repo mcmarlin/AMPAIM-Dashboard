@@ -23,12 +23,20 @@ Usage:
 
 Defaults match build_data.py's own defaults.
 """
+import os
 import sys
 from collections import defaultdict
 
 import openpyxl
 from openpyxl.styles import Font
 
+# build_data.py lives in the project root, one directory up from this
+# script (automation/). Python only puts THIS script's own directory on
+# sys.path, not its parent - so "import build_data" fails with
+# "ModuleNotFoundError: No module named 'build_data'" unless the project
+# root is added explicitly here, regardless of what directory you run
+# this command from.
+sys.path.insert(0, os.path.dirname(os.path.dirname(os.path.abspath(__file__))))
 import build_data as bd
 
 
