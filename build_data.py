@@ -130,12 +130,29 @@ SPLIT_DISEASE_LABELS = {
 UNDEFINED_PIPELINE = "Undefined"
 
 # A subject's "Subject Type" (on the "subjects" tab) tells us their
-# recruitment status: "Enrolled" and "Enabling only" subjects are both
-# actively enrolled; "Archival only" subjects are archival specimens.
-# "Pre-Participation" (and anything else unrecognized) isn't mapped here at
-# all - those subjects aren't placed in a cohort, and are counted in
-# `unassigned_subjects` instead (see main()).
+# recruitment status: actively-enrolled subjects are counted as "enrolled",
+# archival specimens as "archival". "Pre-Participation" (and anything else
+# unrecognized) isn't mapped here at all - those subjects aren't placed in a
+# cohort, and are counted in `unassigned_subjects` instead (see main()).
+#
+# The source tracker has used two different vocabularies for this column
+# over time - both are mapped here so either a current or older export
+# works:
+#   - current (as of Sep 2026): Standard, Longitudinal, Enabling -> enrolled;
+#     Archival -> archival
+#   - older: Enrolled, Enabling only -> enrolled; Archival only -> archival
+# If the source tracker changes this vocabulary again, `unassigned_subjects`
+# in the build_data.py console output will jump toward the total subject
+# count (as it did when this comment was added) - that's the signal to
+# check here first, and to confirm the new mapping with whoever maintains
+# the tracker before guessing at it.
 SUBJECT_STATUS_BY_TYPE = {
+    # current vocabulary
+    "Standard": "enrolled",
+    "Longitudinal": "enrolled",
+    "Enabling": "enrolled",
+    "Archival": "archival",
+    # older vocabulary (kept for compatibility with older exports)
     "Enrolled": "enrolled",
     "Enabling only": "enrolled",
     "Archival only": "archival",
