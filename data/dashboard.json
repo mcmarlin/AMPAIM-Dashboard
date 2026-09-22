@@ -1,5 +1,5 @@
 {
-  "generated_at": "2026-09-22T17:50:05Z",
+  "generated_at": "2026-09-22T18:28:37Z",
   "source_rows": 1412,
   "totals": {
     "subjects": 999,
@@ -107,8 +107,8 @@
           "enrolled": 171,
           "archival": 32
         },
-        "expected": 200,
-        "expected_partial": true,
+        "expected": 205,
+        "expected_partial": false,
         "segments": [
           {
             "key": "psd_skn",
@@ -292,7 +292,7 @@
           "enrolled": 0,
           "archival": 5
         },
-        "expected": null
+        "expected": 5
       },
       {
         "disease_key": "psd_skn",
