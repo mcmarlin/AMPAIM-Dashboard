@@ -7,9 +7,17 @@ Disease Team x Cohort combination found in the new "subjects" tab, in the
 harmonized Dashboard_Label format, so the recruitment-target spreadsheet
 (data/Target_Recruitment_Numbers.xlsx) can be updated to match.
 
-"Disease Team" here uses the same ROLLED-UP team names the target
-spreadsheet already uses (e.g. "Lupus (SLE)", not "Lupus Kidney"/"Lupus
-Skin" separately), since that's the level Expected targets are set at.
+"Disease Team" here uses whatever label build_data.py's target_label_for()
+actually looks cohort-level targets up by - which for most disease teams is
+still the ROLLED-UP team name (e.g. "Rheumatoid Arthritis (RA)"), but for
+Lupus is now the fine, per-tissue label ("Lupus Kidney" / "Lupus Skin"
+separately, not one shared "Lupus (SLE)" row), so their same-named cohorts
+(e.g. both have an "Enabling Case" cohort) can get different targets. See
+TARGET_LOOKUP_OVERRIDE in build_data.py to add another disease team to this
+list, or COHORT_VIEW_MERGE if a team should instead be COMBINED on the
+"Cohorts within each disease team" dashboard view (as Psoriasis/Psoriatic
+Arthritis now are - that combine doesn't change how their targets are
+looked up, only how they're displayed, so it needs no entry here).
 "Cohort" is each individual Dashboard_Label tag. Where a (Disease Team,
 Cohort) pair matches an existing row in Target_Recruitment_Numbers.xlsx
 EXACTLY (case-insensitive), its Expected value is carried over automatically
@@ -67,20 +75,21 @@ def build_rows(dataset_path, target_path):
         scope = bd.clean_label(subj_ws.cell(row=r, column=sscope_idx).value)
         tags = bd.split_cohort_tags(subj_ws.cell(row=r, column=slabel_idx).value)
 
-        old_labels_seen = set()
-        for _disease_key, _disease_label, old_label, _old_group_key in bd.derive_diseases(scope):
-            if old_label in old_labels_seen:
+        target_labels_seen = set()
+        for disease_key, _disease_label, old_label, _old_group_key in bd.derive_diseases(scope):
+            target_label = bd.target_label_for(disease_key, old_label)
+            if target_label in target_labels_seen:
                 continue
-            old_labels_seen.add(old_label)
+            target_labels_seen.add(target_label)
             for tag in sorted(set(tags)):
-                combo_subjects[(old_label, tag)].add(sid)
+                combo_subjects[(target_label, tag)].add(sid)
 
     rows = []
-    for (old_label, cohort), sids in combo_subjects.items():
-        expected = bd.expected_for(old_label, cohort)
+    for (target_label, cohort), sids in combo_subjects.items():
+        expected = bd.expected_for(target_label, cohort)
         notes = "Carried over from old sheet (exact name match)" if expected is not None else ""
         rows.append({
-            "Disease Team": old_label,
+            "Disease Team": target_label,
             "Cohort": cohort,
             "Expected": expected if expected is not None else None,
             "Notes": notes,

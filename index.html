@@ -24,11 +24,16 @@
     --st-critical: #d03b3b;
     --st-other:    #898781;
     /* Categorical (identity, not magnitude/status) - used for the disease
-       subgroup segments and the enrolled/archival/unknown breakdown. */
+       subgroup segments and the enrolled/enabling/archival breakdown. */
     --cat-green:   #008300;
     --cat-orange:  #eb6834;
     --cat-aqua:    #1baf7a;
     --cat-yellow:  #eda100;
+    /* Complete / Not Complete (Schedule_Status) breakdown - deliberately a
+       different pair of hues from the enrolled/enabling/archival set above,
+       so the two toggled views of the same bars are never confusable. */
+    --cat-purple:  #7c5cd6;
+    --cat-rose:    #c93c72;
   }
   @media (prefers-color-scheme: dark) {
     :root:where(:not([data-theme="light"])) {
@@ -46,11 +51,13 @@
       --cat-orange:  #d95926;
       --cat-aqua:    #199e70;
       --cat-yellow:  #c98500;
+      --cat-purple:  #9a82e0;
+      --cat-rose:    #dd6a95;
     }
   }
   * { box-sizing: border-box; }
   html, body { margin: 0; padding: 0; background: var(--page); color: var(--text-primary);
-    font-family: system-ui, -apple-system, "Segoe UI", sans-serif; }
+    font-family: Arial, "Helvetica Neue", Helvetica, sans-serif; }
   body { padding: 24px 20px 64px; }
   .wrap { max-width: 1180px; margin: 0 auto; }
 
@@ -219,9 +226,15 @@
       <div class="card-head">
         <div>
           <h2>Cohorts within each disease team</h2>
-          <p class="sub">Subjects per cohort (A&ndash;Z), grouped by disease subgroup, as a share of that cohort&rsquo;s recruitment target. A subject in more than one cohort is counted in each &mdash; but only once in the subgroup total above.</p>
+          <p class="sub" id="cohortSub">Subjects per cohort (A&ndash;Z), grouped by disease subgroup, as a share of that cohort&rsquo;s recruitment target. A subject in more than one cohort is counted in each &mdash; but only once in the subgroup total above. Psoriasis and Psoriatic Arthritis are combined into one Psoriatic Disease (PsD) card here.</p>
         </div>
-        <button class="table-toggle" data-target="cohort">View as table</button>
+        <div style="display:flex; align-items:center; gap:10px; flex-wrap:wrap;">
+          <div class="seg-toggle" id="cohortViewToggle">
+            <button data-view="status" class="active">Enrolled / Archival</button>
+            <button data-view="schedule">Complete / Not-Complete</button>
+          </div>
+          <button class="table-toggle" data-target="cohort">View as table</button>
+        </div>
       </div>
       <div class="legend" id="cohortStatusLegend"></div>
       <div id="cohortChart" class="mini-grid"></div>
@@ -344,7 +357,7 @@
   }
 
   var state = { data: null, selectedTech: new Set(), selectedDisease: new Set(), selectedPipeline: new Set(),
-    selectedCohort: new Set(), selectedSampleType: new Set(), activeMain: 'recruitment' };
+    selectedCohort: new Set(), selectedSampleType: new Set(), activeMain: 'recruitment', cohortView: 'status' };
   var tooltipEl = document.getElementById('tooltip');
 
   function fmt(n) { return n.toLocaleString('en-US'); }
@@ -455,12 +468,36 @@
     sle_kdy: '--cat-orange', sle_skn: '--cat-aqua',
     psd_syn: '--cat-orange', psd_skn: '--cat-aqua',
   };
-  var RECRUIT_STATUS_COLOR_VARS = { enrolled: '--seq-450', archival: '--cat-green' };
-  var RECRUIT_STATUS_LABELS = { enrolled: 'Enrolled', archival: 'Archival' };
+  var RECRUIT_STATUS_COLOR_VARS = { enrolled: '--seq-450', enabling: '--cat-yellow', archival: '--cat-green' };
+  var SCHEDULE_STATUS_COLOR_VARS = { complete: '--cat-purple', not_complete: '--cat-rose' };
   function byDiseaseMap() {
     var m = {};
     state.data.recruitment.by_disease.forEach(function (d) { m[d.key] = d; });
     return m;
+  }
+  // "Cohorts within each disease team" merges Psoriasis + Psoriatic
+  // Arthritis into one "Psoriatic Disease (PsD)" card/table (see
+  // build_data.py's COHORT_VIEW_MERGE / recruitment.cohort_view) - this maps
+  // a fine disease-filter-pill key to that merged view's key (identity for
+  // every team that ISN'T merged, Lupus included).
+  var COHORT_VIEW_GROUP_MAP = { psd_syn: 'psd', psd_skn: 'psd' };
+  function cohortViewGroupKey(fineKey) { return COHORT_VIEW_GROUP_MAP[fineKey] || fineKey; }
+  // The merged cohort_view.by_disease entries whose underlying fine team(s)
+  // are currently selected via the Disease teams pills - selecting EITHER
+  // Psoriasis or Psoriatic Arthritis surfaces the one combined PsD card,
+  // never two.
+  function selectedCohortViewGroups() {
+    var byKey = {};
+    state.data.recruitment.cohort_view.by_disease.forEach(function (d) { byKey[d.key] = d; });
+    var seen = {}, out = [];
+    state.data.recruitment.by_disease.forEach(function (d) {
+      if (!state.selectedDisease.has(d.key)) return;
+      var gk = cohortViewGroupKey(d.key);
+      if (seen[gk] || !byKey[gk]) return;
+      seen[gk] = true;
+      out.push(byKey[gk]);
+    });
+    return out;
   }
   // Rolls the currently-selected fine-grained disease subgroups back up to
   // their combined disease-team bar (see build_data.py by_disease_group) -
@@ -776,12 +813,24 @@
       });
     });
   }
+  function initCohortViewToggle() {
+    document.querySelectorAll('#cohortViewToggle button').forEach(function (btn) {
+      btn.addEventListener('click', function () {
+        if (state.cohortView === btn.dataset.view) return;
+        state.cohortView = btn.dataset.view;
+        document.querySelectorAll('#cohortViewToggle button').forEach(function (b) {
+          b.classList.toggle('active', b === btn);
+        });
+        renderCohortChart();
+      });
+    });
+  }
 
   // ==================== RECRUITMENT TAB ====================
-  function expectedLabel(subjects, expected, partial) {
+  function expectedLabel(subjects, expected) {
     if (expected === null || expected === undefined) return fmt(subjects) + ' subjects (no target set)';
     var pctv = expected > 0 ? Math.round(100 * subjects / expected) : 0;
-    return fmt(subjects) + ' of ' + fmt(expected) + ' (' + pctv + '%)' + (partial ? ' — partial target' : '');
+    return fmt(subjects) + ' of ' + fmt(expected) + ' (' + pctv + '%)';
   }
 
   function renderDiseaseChart() {
@@ -830,7 +879,7 @@
           var rows = [[multi ? seg.label : g.label, fmt(seg.subjects) + ' subjects']];
           if (multi) rows.push(['Share of ' + g.label, fmt(g.subjects) + ' subjects total']);
           rows.push(['Enrolled', fmt(g.status.enrolled)], ['Archival', fmt(g.status.archival)]);
-          if (hasTarget) rows.push(['Team target', fmt(g.expected) + (g.expected_partial ? ' (partial)' : '')]);
+          if (hasTarget) rows.push(['Team target', fmt(g.expected)]);
           showTooltip(ev.clientX, ev.clientY, rows);
         });
         hit.addEventListener('pointerleave', hideTooltip);
@@ -839,7 +888,7 @@
       });
 
       var val = svgEl('text', { x: leftPad + chartW + 10, y: barY + barH / 2 + 4, class: 'bar-value' });
-      val.textContent = expectedLabel(g.subjects, g.expected, g.expected_partial); svg.appendChild(val);
+      val.textContent = expectedLabel(g.subjects, g.expected); svg.appendChild(val);
     });
     el.appendChild(svg);
     renderDiseaseTable(groups);
@@ -851,7 +900,7 @@
         ? g.segments.map(function (s) { return s.label + ': ' + fmt(s.subjects); }).join(', ')
         : '–';
       return '<tr><td>' + esc(g.label) + '</td><td>' + fmt(g.subjects) + '</td>' +
-        '<td>' + (g.expected != null ? fmt(g.expected) + (g.expected_partial ? ' (partial)' : '') : 'Not yet set') + '</td>' +
+        '<td>' + (g.expected != null ? fmt(g.expected) : 'Not yet set') + '</td>' +
         '<td>' + fmt(g.status.enrolled) + '</td><td>' + fmt(g.status.archival) + '</td>' +
         '<td>' + fmt(g.visits) + '</td><td>' + esc(segLabel) + '</td></tr>';
     }).join('');
@@ -859,25 +908,42 @@
       '<th>Enrolled</th><th>Archival</th><th>Visits</th><th>Subgroups</th></tr></thead><tbody>' + rows + '</tbody></table>';
   }
 
+  // Which status axis the "Cohorts within each disease team" card currently
+  // shows - either Enrolled/Enabling/Archival (recruitment.status_order,
+  // field "status") or Complete/Not-Complete (recruitment.schedule_status_
+  // order, field "schedule_status") - see the #cohortViewToggle buttons and
+  // initCohortViewToggle(). Centralized here so the legend/chart/table/
+  // tooltip all stay in sync with the toggle.
+  function activeCohortStatus() {
+    var rec = state.data.recruitment;
+    if (state.cohortView === 'schedule') {
+      return { field: 'schedule_status', order: rec.schedule_status_order, labels: rec.schedule_status_labels, colors: SCHEDULE_STATUS_COLOR_VARS };
+    }
+    return { field: 'status', order: rec.status_order, labels: rec.status_labels, colors: RECRUIT_STATUS_COLOR_VARS };
+  }
+
   function renderCohortStatusLegend() {
     var el = document.getElementById('cohortStatusLegend');
     el.innerHTML = '';
-    state.data.recruitment.status_order.forEach(function (k) {
+    var view = activeCohortStatus();
+    view.order.forEach(function (k) {
       var item = document.createElement('div'); item.className = 'item';
-      var sw = document.createElement('span'); sw.className = 'swatch'; sw.style.background = resolveVar(RECRUIT_STATUS_COLOR_VARS[k]);
-      var lb = document.createElement('span'); lb.textContent = RECRUIT_STATUS_LABELS[k];
+      var sw = document.createElement('span'); sw.className = 'swatch'; sw.style.background = resolveVar(view.colors[k]);
+      var lb = document.createElement('span'); lb.textContent = view.labels[k];
       item.appendChild(sw); item.appendChild(lb); el.appendChild(item);
     });
   }
 
   function renderCohortChart() {
+    renderCohortStatusLegend();
+    var view = activeCohortStatus();
     var el = document.getElementById('cohortChart');
     el.innerHTML = '';
-    var diseases = selectedDiseases().slice().sort(function (a, b) { return a.label.localeCompare(b.label); });
-    if (!diseases.length) { el.textContent = 'No disease teams selected.'; renderCohortTable(diseases); return; }
+    var diseases = selectedCohortViewGroups().slice().sort(function (a, b) { return a.label.localeCompare(b.label); });
+    if (!diseases.length) { el.textContent = 'No disease teams selected.'; renderCohortTable(diseases, view); return; }
 
     diseases.forEach(function (dz) {
-      var cohorts = state.data.recruitment.by_cohort
+      var cohorts = state.data.recruitment.cohort_view.by_cohort
         .filter(function (c) { return c.disease_key === dz.key; })
         .slice().sort(function (a, b) { return a.cohort.toLowerCase().localeCompare(b.cohort.toLowerCase()); });
       var card = document.createElement('div'); card.className = 'mini-card';
@@ -891,7 +957,7 @@
       var height = cohorts.length * rowH + 6;
       var chartW = width - barLeftOffset - rightPad;
       var svg = svgEl('svg', { width: '100%', height: height, viewBox: '0 0 ' + width + ' ' + height });
-      var order = state.data.recruitment.status_order;
+      var order = view.order;
       cohorts.forEach(function (c, i) {
         var y = i * rowH, barH = 14, barY = y + (rowH - barH) / 2;
         var label = svgEl('text', { x: leftPad, y: barY + barH / 2 + 3.5, class: 'bar-label', style: 'font-size:10.5px' });
@@ -904,14 +970,15 @@
         var frac = hasTarget ? Math.min(1, c.subjects / c.expected) : (c.subjects / maxSubj);
         var filledW = c.subjects > 0 ? Math.max(2, frac * chartW) : 0;
         var gap = 1.5, xCursor = barLeftOffset;
+        var statuses = c[view.field];
         order.forEach(function (statusKey, si) {
-          var n = c.status[statusKey] || 0;
+          var n = statuses[statusKey] || 0;
           if (!n) return;
-          var isLastNonzero = order.slice(si + 1).every(function (k) { return !(c.status[k] || 0); });
+          var isLastNonzero = order.slice(si + 1).every(function (k) { return !(statuses[k] || 0); });
           var segFrac = c.subjects > 0 ? n / c.subjects : 0;
           var segW = Math.max(0, segFrac * filledW - (isLastNonzero ? 0 : gap));
           if (segW <= 0) return;
-          svg.appendChild(svgEl('rect', { x: xCursor, y: barY, width: segW, height: barH, rx: 2, fill: resolveVar(RECRUIT_STATUS_COLOR_VARS[statusKey]) }));
+          svg.appendChild(svgEl('rect', { x: xCursor, y: barY, width: segW, height: barH, rx: 2, fill: resolveVar(view.colors[statusKey]) }));
           xCursor += segFrac * filledW;
         });
 
@@ -920,8 +987,8 @@
 
         var hit = svgEl('rect', { x: 0, y: y, width: width, height: rowH, fill: 'transparent' });
         hit.addEventListener('pointermove', function (ev) {
-          var rows = [['Cohort', c.cohort], ['Disease team', dz.label], ['Subjects', expectedLabel(c.subjects, c.expected, false)]];
-          rows.push(['Enrolled', fmt(c.status.enrolled)], ['Archival', fmt(c.status.archival)]);
+          var rows = [['Cohort', c.cohort], ['Disease team', dz.label], ['Subjects', expectedLabel(c.subjects, c.expected)]];
+          order.forEach(function (k) { rows.push([view.labels[k], fmt(statuses[k])]); });
           rows.push(['Visits', fmt(c.visits)]);
           showTooltip(ev.clientX, ev.clientY, rows);
         });
@@ -931,23 +998,27 @@
       card.appendChild(svg);
       el.appendChild(card);
     });
-    renderCohortTable(diseases);
+    renderCohortTable(diseases, view);
   }
-  function renderCohortTable(diseases) {
+  function renderCohortTable(diseases, view) {
+    view = view || activeCohortStatus();
     var el = document.getElementById('cohortTable');
     var keys = diseases.map(function (d) { return d.key; });
-    var rows = state.data.recruitment.by_cohort
+    var statusCols = view.order.map(function (k) { return '<th>' + esc(view.labels[k]) + '</th>'; }).join('');
+    var rows = state.data.recruitment.cohort_view.by_cohort
       .filter(function (c) { return keys.indexOf(c.disease_key) !== -1; })
       .slice().sort(function (a, b) {
         return a.disease_label.localeCompare(b.disease_label) || a.cohort.toLowerCase().localeCompare(b.cohort.toLowerCase());
       })
       .map(function (c) {
+        var statuses = c[view.field];
+        var statusCells = view.order.map(function (k) { return '<td>' + fmt(statuses[k]) + '</td>'; }).join('');
         return '<tr><td>' + esc(c.disease_label) + '</td><td>' + esc(c.cohort) + '</td><td>' + fmt(c.subjects) + '</td>' +
           '<td>' + (c.expected != null ? fmt(c.expected) : 'Not yet set') + '</td>' +
-          '<td>' + fmt(c.status.enrolled) + '</td><td>' + fmt(c.status.archival) + '</td><td>' + fmt(c.visits) + '</td></tr>';
+          statusCells + '<td>' + fmt(c.visits) + '</td></tr>';
       }).join('');
     el.innerHTML = '<table class="data-table"><thead><tr><th>Disease team</th><th>Cohort</th><th>Subjects</th><th>Target</th>' +
-      '<th>Enrolled</th><th>Archival</th><th>Visits</th></tr></thead><tbody>' + rows + '</tbody></table>';
+      statusCols + '<th>Visits</th></tr></thead><tbody>' + rows + '</tbody></table>';
   }
 
   function renderRecruitmentQuality() {
@@ -963,7 +1034,13 @@
     }
     html += '<p>Disease team here is derived from the <code>Data_Scope</code> value (e.g. <code>SLE-KDY</code> → Lupus Kidney, <code>PsD-SKN</code> → Psoriasis), not the source <code>Disease Team</code> column — that column holds each row’s study/protocol name (STAMP, ELLIPSS, AIM for RA, LOCKIT, SSc Pilot), not a diagnosis, so it isn’t the grouping used here. Lupus and Psoriatic Disease are split into finer subgroups by tissue; a subject whose Data_Scope spans more than one tissue (or more than one disease) is counted in each matching subgroup, but only once in that subgroup’s own total. That can occasionally make the subgroups under one disease team add up to slightly more than the team’s combined subject count above — that’s expected, not double-counting.</p>';
     html += '<p>A subject who carries more than one cohort tag (e.g. both “PsD Eye” and “PsD axSpA”) is counted once in each of those cohorts, but only once in its subgroup’s total — so cohort counts within a subgroup can add up to more than that subgroup’s subject total.</p>';
-    html += '<p>Recruitment targets (the “of N” figures) come from the network’s recruitment target numbers, given per cohort at the whole-disease-team level — so Lupus Kidney and Lupus Skin share one Lupus target, and the Psoriatic Disease subgroups share one PsD target, shown as segments of that one bar. Individual cohort targets are exact; a bar marked “partial target” has at least one cohort with no target defined yet, so its true target is at least the number shown.</p>';
+    html += '<p>Recruitment targets (the “of N” figures) come from the network’s recruitment target numbers. The top chart’s targets are given per cohort at the whole-disease-team level, so Lupus Kidney and Lupus Skin share one combined Lupus target, and the Psoriatic Disease subgroups share one combined PsD target, shown as segments of that one bar. The “Cohorts within each disease team” targets below are more granular: Lupus Kidney and Lupus Skin each have their own separate target per cohort (so, for example, their two “Enabling Case” cohorts can have different targets), and Psoriasis/Psoriatic Arthritis are combined into one Psoriatic Disease (PsD) card there.</p>';
+    html += '<p>“Enabling” subjects (<code>Subject Type</code> = “Enabling”) are now their own status, separate from Enrolled and Archival, since they’re a meaningfully different population.</p>';
+    if (!rec.schedule_status_available) {
+      html += '<p><span class="flag">The “Complete / Not-Complete” view isn’t available yet</span> — this export’s <code>subjects</code> sheet has no <code>Schedule_Status</code> column, so every subject shows as “Not Complete” there until a newer export adds it.</p>';
+    } else {
+      html += '<p>The “Complete / Not-Complete” toggle on “Cohorts within each disease team” reflects each subject’s <code>Schedule_Status</code> value (“Complete” vs. blank/anything else) — a separate question from their Enrolled/Enabling/Archival status above.</p>';
+    }
     document.getElementById('recruitmentQuality').innerHTML = html;
   }
 
@@ -1344,7 +1421,6 @@
     renderKPI();
     if (state.activeMain === 'recruitment') {
       renderDiseaseChart();
-      renderCohortStatusLegend();
       renderCohortChart();
       renderRecruitmentQuality();
     } else if (state.activeMain === 'technologies') {
@@ -1374,7 +1450,7 @@
     document.getElementById('lastUpdated').textContent = 'Data last refreshed ' +
       d.toLocaleDateString('en-US', { year: 'numeric', month: 'long', day: 'numeric' });
 
-    initMainTabs(); initTableToggles();
+    initMainTabs(); initTableToggles(); initCohortViewToggle();
     renderFilter();
     window.addEventListener('resize', debounce(renderAll, 150));
     renderAll();

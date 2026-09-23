@@ -68,14 +68,20 @@ new folder every time you get an updated project folder from Claude.
 - **Recruitment** — how many subjects are enrolled, broken down by disease
   team/subgroup and then by cohort within each. This now reads straight off
   the `subjects` tab of the weekly export — one row per subject, no more
-  hunting for a particular enrollment visit. A subject's status (Enrolled vs.
-  Archival) comes from their `Subject Type`, and their cohort(s) come from
-  their `Dashboard_Label` tag(s) — a simplified, harmonized version of the
-  original cohort labels, still shown as "Cohort" in the dashboard. Bars show
-  progress toward the network's recruitment targets; the top chart also
-  splits Lupus (Kidney/Skin) and Psoriatic Disease (Arthritis/Psoriasis) into
-  colored segments, and cohort bars are further split into Enrolled vs.
-  Archival subjects.
+  hunting for a particular enrollment visit. A subject's status comes from
+  their `Subject Type` (Enrolled/Longitudinal → Enrolled, Enabling →
+  Enabling, Archival → Archival — Enabling is its own status, not folded
+  into Enrolled), and their cohort(s) come from their `Dashboard_Label`
+  tag(s) — a simplified, harmonized version of the original cohort labels,
+  still shown as "Cohort" in the dashboard. Bars show progress toward the
+  network's recruitment targets; the top chart also splits Lupus
+  (Kidney/Skin) and Psoriatic Disease (Arthritis/Psoriasis) into colored
+  segments, and cohort bars are further split into Enrolled/Enabling/
+  Archival subjects. The "Cohorts within each disease team" card has a
+  toggle to switch those same bars to a Complete/Not-Complete view instead,
+  based on each subject's `Schedule_Status` value, and combines Psoriasis +
+  Psoriatic Arthritis into one Psoriatic Disease (PsD) card/table there
+  (the top chart still shows them split).
 - **Technologies** — completion by technology, a full status breakdown
   (completed / pending / QC fail / not applicable), and a small chart per
   disease team showing completed samples by technology, filterable by
@@ -208,7 +214,11 @@ in their own small spreadsheet. To update one:
    **Disease Team** or **Cohort** values, or a target won't be found for that
    cohort — the **Cohort** values need to match the new `Dashboard_Label`
    tags from the `subjects` tab (see "Generating a fresh Disease Team x
-   Cohort reference" below if you need the current list).
+   Cohort reference" below if you need the current list). As of the v2.6
+   update, **Lupus Kidney** and **Lupus Skin** need their own separate rows
+   here (their same-named cohorts, like "Enabling Case", can now have
+   different targets) rather than sharing "Lupus (SLE)" rows like before —
+   every other disease team's **Disease Team** value is unchanged.
 3. Save the file, in place, still named `Target_Recruitment_Numbers.xlsx`,
    still in the `Data` folder.
 4. Run steps 2 and 3 of the weekly update above (rebuild, then upload just

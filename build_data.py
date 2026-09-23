@@ -130,17 +130,20 @@ SPLIT_DISEASE_LABELS = {
 UNDEFINED_PIPELINE = "Undefined"
 
 # A subject's "Subject Type" (on the "subjects" tab) tells us their
-# recruitment status: actively-enrolled subjects are counted as "enrolled",
-# archival specimens as "archival". "Pre-Participation" (and anything else
-# unrecognized) isn't mapped here at all - those subjects aren't placed in a
-# cohort, and are counted in `unassigned_subjects` instead (see main()).
+# recruitment status: actively-enrolled subjects are "enrolled", archival
+# specimens are "archival", and Enabling subjects (a meaningfully different
+# population from the other two) get their own "enabling" bucket.
+# "Pre-Participation" (and anything else unrecognized) isn't mapped here at
+# all - those subjects aren't placed in a cohort, and are counted in
+# `unassigned_subjects` instead (see main()).
 #
 # The source tracker has used two different vocabularies for this column
 # over time - both are mapped here so either a current or older export
 # works:
-#   - current (as of Sep 2026): Standard, Longitudinal, Enabling -> enrolled;
-#     Archival -> archival
-#   - older: Enrolled, Enabling only -> enrolled; Archival only -> archival
+#   - current (as of Sep 2026): Standard, Longitudinal -> enrolled;
+#     Enabling -> enabling; Archival -> archival
+#   - older: Enrolled -> enrolled; Enabling only -> enabling;
+#     Archival only -> archival
 # If the source tracker changes this vocabulary again, `unassigned_subjects`
 # in the build_data.py console output will jump toward the total subject
 # count (as it did when this comment was added) - that's the signal to
@@ -150,15 +153,36 @@ SUBJECT_STATUS_BY_TYPE = {
     # current vocabulary
     "Standard": "enrolled",
     "Longitudinal": "enrolled",
-    "Enabling": "enrolled",
+    "Enabling": "enabling",
     "Archival": "archival",
     # older vocabulary (kept for compatibility with older exports)
     "Enrolled": "enrolled",
-    "Enabling only": "enrolled",
+    "Enabling only": "enabling",
     "Archival only": "archival",
 }
-RECRUIT_STATUS_ORDER = ["enrolled", "archival"]
-RECRUIT_STATUS_LABELS = {"enrolled": "Enrolled", "archival": "Archival"}
+RECRUIT_STATUS_ORDER = ["enrolled", "enabling", "archival"]
+RECRUIT_STATUS_LABELS = {"enrolled": "Enrolled", "enabling": "Enabling", "archival": "Archival"}
+
+# A subject's "Schedule_Status" (on the "subjects" tab, added ~Sep 2026) is a
+# SEPARATE axis from Subject Type above - whether they've completed all
+# their scheduled visits yet, not their enrollment/archival status. Only
+# "Complete" is a real value seen so far; blank/anything else means their
+# visit schedule isn't finished. This column may not exist on older exports
+# (see SCHEDULE_STATUS_COL below) - when it's missing, every subject falls
+# back to "not_complete", which just means this alternate view isn't useful
+# until the export includes the column (a data-quality note on the
+# dashboard calls this out).
+SCHEDULE_STATUS_COL = "Schedule_Status"
+SCHEDULE_STATUS_ORDER = ["complete", "not_complete"]
+SCHEDULE_STATUS_LABELS = {"complete": "Complete", "not_complete": "Not Complete"}
+
+
+def schedule_status_for(raw_value):
+    return "complete" if clean_label(raw_value, default="") == "Complete" else "not_complete"
+
+
+def empty_schedule_status():
+    return {k: 0 for k in SCHEDULE_STATUS_ORDER}
 
 # How many subjects are ultimately expected in each cohort, per the network's
 # recruitment targets. Loaded at runtime (see load_expected_recruitment(),
@@ -264,6 +288,59 @@ def derive_diseases(scope_label):
             if key not in seen:
                 seen[key] = (key, label, old_label, old_group_key)
     return list(seen.values())
+
+
+# For "Cohorts within each disease team" specifically, Psoriasis (PsD-SKN)
+# and Psoriatic Arthritis (PsD-SYN) are combined into one "Psoriatic Disease
+# (PsD)" card/table rather than shown separately - unlike Lupus Kidney/Skin,
+# which stay split there. Everything else (including Lupus) keeps its normal
+# fine-grained key/label in this view. This affects ONLY the merged
+# recruitment.cohort_view output built in main() - the fine-grained
+# by_disease/by_cohort output used elsewhere (disease filter pills, KPI
+# totals, the top "Subjects enrolled by disease team" bar, Samples tab,
+# etc.) is untouched.
+COHORT_VIEW_MERGE = {
+    "psd_syn": "psd",
+    "psd_skn": "psd",
+}
+COHORT_VIEW_MERGE_LABELS = {
+    "psd": "Psoriatic Disease (PsD)",
+}
+
+# Individual cohort-level recruitment targets are normally looked up by a
+# disease team's pre-split "old_label" (e.g. both Lupus subgroups share
+# "Lupus (SLE)"). Lupus Kidney and Lupus Skin need their OWN separate
+# targets even for a same-named cohort (e.g. both have an "Enabling Case"
+# cohort), so their cohort-level targets are looked up by their own fine
+# label instead - meaning Target_Recruitment_Numbers.xlsx needs separate
+# "Lupus Kidney" / "Lupus Skin" rows now rather than shared "Lupus (SLE)"
+# rows for cohort-level targets. Psoriatic Disease doesn't need this
+# override: its subgroups are combined into one row in the cohort view
+# above, so there's only ever one row per cohort name there again.
+TARGET_LOOKUP_OVERRIDE = {
+    "sle_kdy": "Lupus Kidney",
+    "sle_skn": "Lupus Skin",
+}
+
+
+def target_label_for(disease_key, old_label):
+    """Which label to use as the "Disease Team" key when looking up a
+    cohort's recruitment target - see TARGET_LOOKUP_OVERRIDE above."""
+    return TARGET_LOOKUP_OVERRIDE.get(disease_key, old_label)
+
+
+def cohort_view_group(disease_key, disease_label, old_label):
+    """
+    (key, label, target_label) for the merged "Cohorts within each disease
+    team" view - see COHORT_VIEW_MERGE above. Defaults to this disease
+    team's own fine-grained key/label (with Lupus's target-label override
+    applied) when it isn't one of the merged groups.
+    """
+    merged_key = COHORT_VIEW_MERGE.get(disease_key)
+    if merged_key:
+        merged_label = COHORT_VIEW_MERGE_LABELS[merged_key]
+        return merged_key, merged_label, target_label_for(merged_key, merged_label)
+    return disease_key, disease_label, target_label_for(disease_key, old_label)
 
 
 def classify(value):
@@ -493,6 +570,20 @@ def main():
     # above derive_diseases). Subject membership here is a real set, so a
     # subject touching both Lupus subgroups still counts once.
     combined_totals = defaultdict(lambda: {"subject_set": set(), "visits": 0, "label": "", "status": empty_recruit_status()})
+    # The merged view used ONLY by "Cohorts within each disease team" - see
+    # cohort_view_group()/COHORT_VIEW_MERGE above. Same shape as
+    # disease_totals/cohort_totals, plus a "target_label" (which label to
+    # use when looking up that row's recruitment target - see
+    # TARGET_LOOKUP_OVERRIDE) and a "schedule_status" breakdown alongside
+    # the usual enrolled/enabling/archival "status".
+    cohort_view_disease_totals = defaultdict(lambda: {
+        "subjects": 0, "visits": 0, "label": "", "target_label": "",
+        "status": empty_recruit_status(), "schedule_status": empty_schedule_status(),
+    })
+    cohort_view_cohort_totals = defaultdict(lambda: {
+        "subjects": 0, "visits": 0, "disease_key": "", "disease_label": "", "target_label": "",
+        "status": empty_recruit_status(), "schedule_status": empty_schedule_status(),
+    })
     unassigned_subjects = 0
     # Subject_ID -> {"scope":, "tags":} for EVERY subject on the "subjects"
     # sheet (including Pre-Participation ones, unlike the recruitment totals
@@ -515,6 +606,11 @@ def main():
         slabel_idx = subj_col_idx.get("Dashboard_Label")
         stype_idx = subj_col_idx.get("Subject Type")
         svisits_idx = subj_col_idx.get("Visits")
+        sched_idx = subj_col_idx.get(SCHEDULE_STATUS_COL)
+        if sched_idx is None:
+            print(f"WARNING: 'subjects' sheet has no {SCHEDULE_STATUS_COL!r} column - the "
+                  f"Recruitment tab's Complete/Not Complete view will show every subject as "
+                  f"\"Not Complete\" until it's present.", file=sys.stderr)
 
         for r in range(DATA_START_ROW, subj_ws.max_row + 1):
             sid_raw = subj_ws.cell(row=r, column=sid_idx).value if sid_idx else None
@@ -537,8 +633,10 @@ def main():
 
             visits_raw = subj_ws.cell(row=r, column=svisits_idx).value if svisits_idx else None
             n_subject_visits = int(visits_raw) if isinstance(visits_raw, (int, float)) else 0
+            sched_status = schedule_status_for(subj_ws.cell(row=r, column=sched_idx).value if sched_idx else None)
 
             touched_groups = {}
+            touched_cv = {}  # cv_key -> (cv_label, cv_target_label) - see cohort_view_group()
             # A subject can land in more than one disease-team bucket - see
             # derive_diseases() for the combo Data_Scope cases ("PsD-SKN/SYN",
             # "SLE/PsD-SKN", etc). They're counted once in EACH matching team,
@@ -552,6 +650,8 @@ def main():
                 disease_totals[disease_key]["old_group_key"] = old_group_key
                 disease_totals[disease_key]["status"][recruit_status] += 1
                 touched_groups[old_group_key] = old_label
+                cv_key, cv_label, cv_target_label = cohort_view_group(disease_key, disease_label, old_label)
+                touched_cv[cv_key] = (cv_label, cv_target_label)
                 # ...and within that team, counts in EVERY cohort tag they
                 # carry (a subject in both "[PsD Eye]" and "[PsD axSpA]" adds
                 # 1 to each).
@@ -572,17 +672,47 @@ def main():
                 g["visits"] += n_subject_visits
                 g["label"] = old_label
                 g["status"][recruit_status] += 1
+            # Same dedup idea, for the merged "Cohorts within each disease
+            # team" view: touched_cv only has ONE entry per merged group
+            # even if this subject hit it via more than one underlying
+            # subgroup (e.g. both PsD tissues), so this subject - and each
+            # of its cohort tags - is only counted once per merged group.
+            for cv_key, (cv_label, cv_target_label) in touched_cv.items():
+                cvd = cohort_view_disease_totals[cv_key]
+                cvd["subjects"] += 1
+                cvd["visits"] += n_subject_visits
+                cvd["label"] = cv_label
+                cvd["target_label"] = cv_target_label
+                cvd["status"][recruit_status] += 1
+                cvd["schedule_status"][sched_status] += 1
+                for tag in sorted(set(tags)):
+                    cvck = (cv_key, tag)
+                    c = cohort_view_cohort_totals[cvck]
+                    c["subjects"] += 1
+                    c["visits"] += n_subject_visits
+                    c["disease_key"] = cv_key
+                    c["disease_label"] = cv_label
+                    c["target_label"] = cv_target_label
+                    c["status"][recruit_status] += 1
+                    c["schedule_status"][sched_status] += 1
 
-    def disease_expected(old_label, cohort_names):
+    def disease_expected(member_keys, cohort_totals_by_key):
         """
-        Sum this disease team's cohort-level recruitment targets. Returns
-        (total_or_None, partial): partial=True means at least one
-        contributing cohort has no target defined yet, so the sum is a
-        floor (actual target is >= this), not the full picture.
+        Sum this disease team's cohort-level recruitment targets, one lookup
+        per distinct (disease subgroup, cohort) pair that actually has
+        subjects - so a cohort name repeated across subgroups (e.g. Lupus's
+        "Enabling Case" under both Kidney and Skin) is summed correctly
+        instead of counted once. Returns (total_or_None, partial):
+        partial=True means at least one contributing cohort has no target
+        defined yet, so the sum is a floor (actual target is >= this), not
+        the full picture.
         """
         total, any_known, any_unknown = 0, False, False
-        for name in cohort_names:
-            v = expected_for(old_label, name)
+        for ck, cv in cohort_totals_by_key.items():
+            if cv["disease_key"] not in member_keys:
+                continue
+            label = target_label_for(cv["disease_key"], cv["old_label"])
+            v = expected_for(label, ck[1])
             if v is None:
                 any_unknown = True
             else:
@@ -613,8 +743,7 @@ def main():
              for k in member_keys],
             key=lambda s: s["subjects"], reverse=True,
         )
-        cohort_names = {ck[1] for ck, cv in cohort_totals.items() if cv["disease_key"] in member_keys}
-        expected, partial = disease_expected(g["label"], cohort_names)
+        expected, partial = disease_expected(member_keys, cohort_totals)
         by_disease_group.append({
             "key": gk, "label": g["label"], "subjects": len(g["subject_set"]), "visits": g["visits"],
             "status": g["status"], "expected": expected, "expected_partial": partial, "segments": segments,
@@ -624,18 +753,46 @@ def main():
     by_cohort_detail = sorted(
         [{"disease_key": v["disease_key"], "disease_label": v["disease_label"], "cohort": ck[1],
           "subjects": v["subjects"], "visits": v["visits"], "status": v["status"],
-          "expected": expected_for(v["old_label"], ck[1])}
+          "expected": expected_for(target_label_for(v["disease_key"], v["old_label"]), ck[1])}
          for ck, v in cohort_totals.items()],
         # Alphabetical by cohort name within each disease team.
         key=lambda d: (d["disease_label"], d["cohort"].lower()),
     )
+
+    # The merged "Cohorts within each disease team" view - same shape as
+    # by_disease/by_cohort above, built from cohort_view_disease_totals/
+    # cohort_view_cohort_totals instead (Psoriasis + Psoriatic Arthritis
+    # combined into one "Psoriatic Disease (PsD)" entry; everything else,
+    # Lupus included, unchanged from the fine-grained view). This is what
+    # the "Cohorts within each disease team" card/table renders from; the
+    # by_disease/by_cohort above stay fine-grained for everything else
+    # (filter pills, KPI totals, the top disease-team bar, Samples tab).
+    cohort_view_by_disease = sorted(
+        [{"key": k, "label": v["label"], "subjects": v["subjects"], "visits": v["visits"],
+          "status": v["status"], "schedule_status": v["schedule_status"]}
+         for k, v in cohort_view_disease_totals.items()],
+        key=lambda d: d["subjects"], reverse=True,
+    )
+    cohort_view_by_cohort = sorted(
+        [{"disease_key": v["disease_key"], "disease_label": v["disease_label"], "cohort": ck[1],
+          "subjects": v["subjects"], "visits": v["visits"], "status": v["status"],
+          "schedule_status": v["schedule_status"],
+          "expected": expected_for(v["target_label"], ck[1])}
+         for ck, v in cohort_view_cohort_totals.items()],
+        key=lambda d: (d["disease_label"], d["cohort"].lower()),
+    )
+
     recruitment = {
         "by_disease": by_disease,
         "by_disease_group": by_disease_group,
         "by_cohort": by_cohort_detail,
+        "cohort_view": {"by_disease": cohort_view_by_disease, "by_cohort": cohort_view_by_cohort},
         "unassigned_subjects": unassigned_subjects,
         "status_order": RECRUIT_STATUS_ORDER,
         "status_labels": RECRUIT_STATUS_LABELS,
+        "schedule_status_order": SCHEDULE_STATUS_ORDER,
+        "schedule_status_labels": SCHEDULE_STATUS_LABELS,
+        "schedule_status_available": sched_idx is not None if subj_ws is not None else False,
     }
 
     # ---------- Samples: what specimen types were collected, per visit ----------
