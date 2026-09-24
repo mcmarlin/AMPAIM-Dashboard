@@ -20,8 +20,10 @@ status. No subject IDs, no diagnoses, no demographics, no free-text notes.
 **Never upload the raw `.xlsx` export to the public dashboard repo on
 GitHub** — not even temporarily. GitHub remembers every version of every file
 ever uploaded, so deleting it afterward doesn't remove it from the repo's
-history (see "Removing a file you accidentally uploaded" below — a plain
-delete isn't enough for anything sensitive). The real safeguard is keeping
+history — a plain delete isn't enough for anything sensitive; if it ever
+happens by mistake, stop and either make the repo private immediately or
+contact GitHub support about fully purging it from history, and check with
+your PI/data manager. The real safeguard is keeping
 both spreadsheets (`AMP-AIM_Dataset_Weekly_Update.xlsx` and `Target_Recruitment_Numbers.xlsx`)
 in your `Data` folder — see "Where your files live" below — which sits
 *outside* the project folder you upload from, so there's nothing to
@@ -36,7 +38,7 @@ index.html            the dashboard itself (one self-contained file)
 data/dashboard.json   generated aggregate data — this is what's public, and all that's public
 build_data.py         reads your two spreadsheets, writes dashboard.json
 requirements.txt      Python dependency (openpyxl) for build_data.py
-automation/           optional: fully automated weekly refresh (see below)
+automation/           generate_cohort_reference.py — see "Generating a fresh Disease Team x Cohort reference" below
 ```
 
 ## Where your files live
@@ -247,43 +249,6 @@ python3 automation/generate_cohort_reference.py "../Data/AMP-AIM_Dataset_Weekly_
 This is a reference file only — it's never read by the dashboard itself.
 Copy the Expected values you want to keep over into
 `Target_Recruitment_Numbers.xlsx` by hand.
-
-## Removing a file you accidentally uploaded
-
-If you drag a file into the wrong folder on GitHub (like the stray root-level
-`dashboard.json` some updates can create — see step 3 above), removing it is
-another drag-and-drop-style flow, no command line needed:
-
-1. Go to https://github.com/mcmarlin/AMPAIM-Dashboard and click through the
-   folders to the file (for a file sitting at the repo root, it's right
-   there on the front page).
-2. Click the file's name to open it.
-3. Click the trash-can icon in the top-right of the file view (or the **...**
-   menu → **Delete file**).
-4. Scroll down and click **Commit changes** (committing directly to `main`
-   is fine for this).
-
-That's the right move for an ordinary mistaken upload — an extra copy of
-`dashboard.json`, an unwanted image, and so on. **It is not enough for
-anything sensitive.** GitHub keeps every previous version of every file
-forever, so a deleted file is still sitting in the repo's history and
-recoverable by anyone — this matters most for `AMP-AIM_Dataset_Weekly_Update.xlsx`,
-which must never be uploaded here at all (see "Why this is aggregate-only" above).
-If that ever happens by mistake, deleting it isn't sufficient — stop and
-either make the repo private immediately or contact GitHub support about
-fully purging it from history, and check with your PI/data manager.
-
-## Fully automated weekly refresh (optional)
-
-This is a different, more advanced path than the drag-and-drop workflow
-above — it needs git and a command line, so it's worth doing only if that's
-comfortable for you. If you'd rather not run a command by hand each week,
-`automation/private-repo-update-and-deploy.yml` sets up a GitHub Action that
-does it for you — but it needs to live in a **separate private repo** that
-holds your raw spreadsheet (never the public one). See the comments at the
-top of that file for the one-time setup. Once configured, updating the
-spreadsheet in the private repo is the entire weekly workflow; the public
-dashboard refreshes itself.
 
 ## Local preview / troubleshooting
 
