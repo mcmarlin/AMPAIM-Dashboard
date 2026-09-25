@@ -698,20 +698,33 @@ def main():
 
     def disease_expected(member_keys, cohort_totals_by_key):
         """
-        Sum this disease team's cohort-level recruitment targets, one lookup
-        per distinct (disease subgroup, cohort) pair that actually has
-        subjects - so a cohort name repeated across subgroups (e.g. Lupus's
-        "Enabling Case" under both Kidney and Skin) is summed correctly
-        instead of counted once. Returns (total_or_None, partial):
-        partial=True means at least one contributing cohort has no target
-        defined yet, so the sum is a floor (actual target is >= this), not
-        the full picture.
+        Sum this disease team's cohort-level recruitment targets - one
+        lookup per distinct (TARGET LABEL, cohort) pair, not per (disease
+        subgroup, cohort) pair. Those aren't the same thing: Lupus Kidney and
+        Lupus Skin have DIFFERENT target labels (via TARGET_LOOKUP_OVERRIDE),
+        so their same-named "Enabling Case" cohort correctly gets summed
+        once per subgroup (two different targets). PsD's subgroups share the
+        SAME target label (no override) - and a cohort tag like "PsD Skin"
+        or "PsD Synovium" isn't tissue-locked, so the same cohort can show
+        up under BOTH the psd_syn and psd_skn subgroups (whichever tissue
+        each contributing subject's Data_Scope happens to touch). Without
+        deduping by the actual lookup key, that cohort's single target would
+        get added in twice - once per subgroup - inflating the combined PsD
+        target well past what Target_Recruitment_Numbers.xlsx actually says.
+        Returns (total_or_None, partial): partial=True means at least one
+        contributing cohort has no target defined yet, so the sum is a floor
+        (actual target is >= this), not the full picture.
         """
         total, any_known, any_unknown = 0, False, False
+        seen = set()
         for ck, cv in cohort_totals_by_key.items():
             if cv["disease_key"] not in member_keys:
                 continue
             label = target_label_for(cv["disease_key"], cv["old_label"])
+            target_key = (label, ck[1].strip().lower())
+            if target_key in seen:
+                continue  # same (target label, cohort) already counted via another subgroup
+            seen.add(target_key)
             v = expected_for(label, ck[1])
             if v is None:
                 any_unknown = True

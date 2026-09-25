@@ -1,5 +1,5 @@
 {
-  "generated_at": "2026-09-25T14:31:58Z",
+  "generated_at": "2026-09-25T14:48:02Z",
   "source_rows": 1412,
   "totals": {
     "subjects": 999,
@@ -196,7 +196,7 @@
           "enabling": 3,
           "archival": 32
         },
-        "expected": 437,
+        "expected": 236,
         "expected_partial": false,
         "segments": [
           {
