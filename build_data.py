@@ -731,9 +731,10 @@ def main():
     )
 
     # Rolled back up to the original disease team - one shared Expected
-    # Recruitment target per team, with the fine-grained subgroups above
-    # broken out as "segments" so a single progress-toward-target bar can
-    # still show the Kidney/Skin (or Arthritis/Psoriasis/Uveitis) split.
+    # Recruitment target per team. "segments" (fine subgroups, e.g. Kidney/
+    # Skin) is kept for internal bookkeeping (disease-filter-pill math), but
+    # the dashboard's "Subjects enrolled by disease team" bar itself now
+    # stacks by individual COHORT instead - see "cohort_segments" below.
     subgroup_to_group = {k: v["old_group_key"] for k, v in disease_totals.items()}
     by_disease_group = []
     for gk, g in combined_totals.items():
@@ -744,9 +745,31 @@ def main():
             key=lambda s: s["subjects"], reverse=True,
         )
         expected, partial = disease_expected(member_keys, cohort_totals)
+        # Per-cohort breakdown for the stacked bar - literally the sum of
+        # the "Cohorts within each disease team" card(s) for this team's
+        # member subgroup(s), rolled up under whichever cohort_view group(s)
+        # they map to (merged into one for PsD, one-per-subgroup for
+        # everyone else - see cohort_view_group()). cohort_view_cohort_totals
+        # is already deduplicated per (cv_key, cohort tag), so no subject is
+        # double-counted within a single segment; a subject carrying more
+        # than one cohort tag still shows up in each of those segments,
+        # exactly like the cards below - the bar's own displayed total stays
+        # the true, deduplicated `subjects` count above regardless.
+        cv_keys_for_group = sorted(set(
+            cohort_view_group(k, disease_totals[k]["label"], disease_totals[k]["old_label"])[0]
+            for k in member_keys
+        ))
+        cohort_segments = sorted(
+            [{"disease_key": v2["disease_key"], "disease_label": v2["disease_label"], "cohort": ck[1],
+              "subjects": v2["subjects"], "visits": v2["visits"], "status": v2["status"],
+              "expected": expected_for(v2["target_label"], ck[1])}
+             for ck, v2 in cohort_view_cohort_totals.items() if v2["disease_key"] in cv_keys_for_group],
+            key=lambda d: (d["disease_label"], d["cohort"].lower()),
+        )
         by_disease_group.append({
             "key": gk, "label": g["label"], "subjects": len(g["subject_set"]), "visits": g["visits"],
-            "status": g["status"], "expected": expected, "expected_partial": partial, "segments": segments,
+            "status": g["status"], "expected": expected, "expected_partial": partial,
+            "segments": segments, "cohort_segments": cohort_segments,
         })
     by_disease_group.sort(key=lambda d: d["subjects"], reverse=True)
 

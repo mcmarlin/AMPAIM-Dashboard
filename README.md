@@ -76,10 +76,14 @@ new folder every time you get an updated project folder from Claude.
   into Enrolled), and their cohort(s) come from their `Dashboard_Label`
   tag(s) — a simplified, harmonized version of the original cohort labels,
   still shown as "Cohort" in the dashboard. Bars show progress toward the
-  network's recruitment targets; the top chart also splits Lupus
-  (Kidney/Skin) and Psoriatic Disease (Arthritis/Psoriasis) into colored
-  segments, and cohort bars are further split into Enrolled/Enabling/
-  Archival subjects. The "Cohorts within each disease team" card has a
+  network's recruitment targets; the top "Subjects enrolled by disease team"
+  bar is stacked by each team's individual cohorts (Lupus Kidney and Lupus
+  Skin's cohorts combine into one Lupus bar; Psoriasis and Psoriatic
+  Arthritis's cohorts combine into one Psoriatic Disease (PsD) bar), each
+  cohort its own color — hover a segment, or use "View as table," for the
+  exact numbers. Cohort bars on the card below are further split into
+  Enrolled/Enabling/Archival subjects. The "Cohorts within each disease
+  team" card has a
   toggle to switch those same bars to a Complete/Not-Complete view instead,
   based on each subject's `Schedule_Status` value, and combines Psoriasis +
   Psoriatic Arthritis into one Psoriatic Disease (PsD) card/table there

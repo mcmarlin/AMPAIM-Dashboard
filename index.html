@@ -23,12 +23,17 @@
     --st-warning:  #fab219;
     --st-critical: #d03b3b;
     --st-other:    #898781;
-    /* Categorical (identity, not magnitude/status) - used for the disease
-       subgroup segments and the enrolled/enabling/archival breakdown. */
+    /* Categorical (identity, not magnitude/status) - used for the
+       per-cohort bar segments and the enrolled/enabling/archival
+       breakdown. --seq-450 (blue) is slot 1 of this same 8-hue order -
+       see COHORT_SEGMENT_COLOR_ORDER in the script below. */
     --cat-green:   #008300;
     --cat-orange:  #eb6834;
     --cat-aqua:    #1baf7a;
     --cat-yellow:  #eda100;
+    --cat-magenta: #e87ba4;
+    --cat-violet:  #4a3aa7;
+    --cat-red:     #e34948;
     /* Complete / Not Complete (Schedule_Status) breakdown - deliberately a
        different pair of hues from the enrolled/enabling/archival set above,
        so the two toggled views of the same bars are never confusable. */
@@ -51,6 +56,9 @@
       --cat-orange:  #d95926;
       --cat-aqua:    #199e70;
       --cat-yellow:  #c98500;
+      --cat-magenta: #d55181;
+      --cat-violet:  #9085e9;
+      --cat-red:     #e66767;
       --cat-purple:  #9a82e0;
       --cat-rose:    #dd6a95;
     }
@@ -215,7 +223,7 @@
       <div class="card-head">
         <div>
           <h2>Subjects enrolled by disease team</h2>
-          <p class="sub">Each subject is counted once, from their own row on the subjects tracking sheet. Bar length is progress toward the recruitment target; Lupus and Psoriatic Disease are further split into their subgroups as colored segments. Hover a segment for its exact numbers.</p>
+          <p class="sub">Each subject is counted once, from their own row on the subjects tracking sheet. Bar length is progress toward the recruitment target; each team&rsquo;s bar is further broken into its individual cohorts as colored segments. Hover a segment for its exact numbers.</p>
         </div>
         <button class="table-toggle" data-target="disease">View as table</button>
       </div>
@@ -229,7 +237,7 @@
           <h2>Cohorts within each disease team</h2>
           <p class="sub" id="cohortSub">Subjects per cohort (A&ndash;Z), grouped by disease subgroup, as a share of that cohort&rsquo;s recruitment target. A subject in more than one cohort is counted in each &mdash; but only once in the subgroup total above. Psoriasis and Psoriatic Arthritis are combined into one Psoriatic Disease (PsD) card here.</p>
         </div>
-        <div style="display:flex; flex-direction:column; align-items:flex-end; gap:6px;">
+        <div style="display:flex; flex-direction:column; align-items:flex-start; gap:6px;">
           <div class="seg-toggle" id="cohortViewToggle">
             <button data-view="status" class="active">Enrolled / Archival</button>
             <button data-view="schedule">Complete / Not-Complete</button>
@@ -463,12 +471,17 @@
   }
   function zeroRecruitCounts() { var o = {}; state.data.recruitment.status_order.forEach(function (k) { o[k] = 0; }); return o; }
   function addRecruitInto(dst, src) { state.data.recruitment.status_order.forEach(function (k) { dst[k] = (dst[k] || 0) + ((src && src[k]) || 0); }); return dst; }
-  // Fixed identity->color mapping (never by rank/position) for the disease
-  // subgroup segments, and for the enrolled/archival/unknown breakdown.
-  var SEGMENT_COLOR_VARS = {
-    sle_kdy: '--cat-orange', sle_skn: '--cat-aqua',
-    psd_syn: '--cat-orange', psd_skn: '--cat-aqua',
-  };
+  // Fixed categorical order (never cycled/reassigned by rank) for the
+  // "Subjects enrolled by disease team" bar's per-cohort segments - each
+  // disease team's own bar assigns these by position in its own (stably
+  // sorted) cohort list, so the same cohort always lands on the same color
+  // across renders. A color here isn't a claim that it means the same
+  // cohort on another team's bar - each bar is its own chart.
+  var COHORT_SEGMENT_COLOR_ORDER = [
+    '--seq-450', '--cat-orange', '--cat-aqua', '--cat-yellow',
+    '--cat-magenta', '--cat-green', '--cat-violet', '--cat-red',
+  ];
+  function cohortSegmentColor(i) { return resolveVar(COHORT_SEGMENT_COLOR_ORDER[i % COHORT_SEGMENT_COLOR_ORDER.length]); }
   var RECRUIT_STATUS_COLOR_VARS = { enrolled: '--seq-450', enabling: '--cat-yellow', archival: '--cat-green' };
   var SCHEDULE_STATUS_COLOR_VARS = { complete: '--cat-purple', not_complete: '--cat-rose' };
   function byDiseaseMap() {
@@ -511,6 +524,15 @@
       if (!selectedSegKeys.length) return null;
       var segs = selectedSegKeys.map(function (s) { return byKey[s.key]; }).filter(Boolean);
       var segmentsOut = segs.map(function (x) { return { key: x.key, label: x.label, subjects: x.subjects }; });
+      // Cohort-level breakdown for the stacked bar - kept to whichever
+      // cohort_view group(s) the currently-selected subgroup(s) map to (see
+      // cohortViewGroupKey()): identity for every team except PsD, which -
+      // same simplification as the "Cohorts within each disease team" card
+      // below - always shows its one combined cohort list once either PsD
+      // subgroup is selected.
+      var selectedCvKeys = {};
+      selectedSegKeys.forEach(function (s) { selectedCvKeys[cohortViewGroupKey(s.key)] = true; });
+      var cohortSegmentsOut = (g.cohort_segments || []).filter(function (cs) { return selectedCvKeys[cs.disease_key]; });
       // When every subgroup in this team is selected (the common case), use
       // the exact, already-deduplicated combined total from build_data.py -
       // NOT a sum of the fine subgroups, which double-counts any subject who
@@ -522,6 +544,7 @@
         return {
           key: g.key, label: g.label, expected: g.expected, expected_partial: g.expected_partial,
           subjects: g.subjects, visits: g.visits, status: g.status, segments: segmentsOut,
+          cohort_segments: cohortSegmentsOut,
         };
       }
       var subjects = segs.reduce(function (s, x) { return s + x.subjects; }, 0);
@@ -531,6 +554,7 @@
       return {
         key: g.key, label: g.label, expected: g.expected, expected_partial: g.expected_partial,
         subjects: subjects, visits: visits, status: status, segments: segmentsOut,
+        cohort_segments: cohortSegmentsOut,
       };
     }).filter(Boolean);
   }
@@ -857,36 +881,45 @@
       var hasTarget = g.expected !== null && g.expected !== undefined && g.expected > 0;
       var frac = hasTarget ? Math.min(1, g.subjects / g.expected) : (g.subjects / maxSubj);
       var filledW = g.subjects > 0 ? Math.max(3, frac * chartW) : 0;
-      var multi = g.segments.length > 1;
+      var segs = g.cohort_segments || [];
       var gap = 2, xCursor = leftPad;
       // Segment widths are shares of the filled bar, not shares of g.subjects
-      // directly - a subject whose Data_Scope spans more than one tissue is
-      // counted in EACH matching segment (see derive_diseases()), so
-      // seg.subjects can sum to more than g.subjects. Normalizing by that sum
-      // instead keeps the segments always adding up to exactly filledW, so
-      // they never run past the bar's own (possibly target-capped) width.
-      var segSubjTotal = g.segments.reduce(function (s, seg) { return s + seg.subjects; }, 0) || g.subjects || 1;
+      // directly - a subject carrying more than one cohort tag (or whose
+      // Data_Scope spans more than one tissue) is counted in EACH matching
+      // cohort segment, so seg.subjects can sum to more than g.subjects.
+      // Normalizing by that sum instead keeps the segments always adding up
+      // to exactly filledW; the bar's own displayed total (right of the bar)
+      // stays the true, deduplicated subject count regardless.
+      var segSubjTotal = segs.reduce(function (s, seg) { return s + seg.subjects; }, 0) || g.subjects || 1;
 
-      g.segments.forEach(function (seg, si) {
+      segs.forEach(function (seg, si) {
         var segFrac = segSubjTotal > 0 ? seg.subjects / segSubjTotal : 0;
-        var isLast = si === g.segments.length - 1;
+        var isLast = si === segs.length - 1;
         var segW = Math.max(0, segFrac * filledW - (isLast ? 0 : gap));
         if (segW <= 0) return;
-        var color = multi ? resolveVar(SEGMENT_COLOR_VARS[seg.key] || '--seq-450') : resolveVar('--seq-450');
+        var color = cohortSegmentColor(si);
         var rect = svgEl('rect', { x: xCursor, y: barY, width: segW, height: barH, rx: 3, fill: color });
         svg.appendChild(rect);
         var hit = svgEl('rect', { x: xCursor, y: barY, width: segW + (isLast ? 0 : gap), height: barH, fill: 'transparent' });
         hit.addEventListener('pointermove', function (ev) {
-          var rows = [[multi ? seg.label : g.label, fmt(seg.subjects) + ' subjects']];
-          if (multi) rows.push(['Share of ' + g.label, fmt(g.subjects) + ' subjects total']);
-          rows.push(['Enrolled', fmt(g.status.enrolled)], ['Archival', fmt(g.status.archival)]);
-          if (hasTarget) rows.push(['Team target', fmt(g.expected)]);
+          var rows = [[seg.cohort, fmt(seg.subjects) + ' subjects']];
+          if (seg.disease_label !== g.label) rows.push(['Part of', seg.disease_label]);
+          state.data.recruitment.status_order.forEach(function (k) {
+            rows.push([state.data.recruitment.status_labels[k], fmt(seg.status[k])]);
+          });
+          rows.push(['Cohort target', seg.expected != null ? fmt(seg.expected) : 'Not yet set']);
+          rows.push(['Team total', expectedLabel(g.subjects, g.expected)]);
           showTooltip(ev.clientX, ev.clientY, rows);
         });
         hit.addEventListener('pointerleave', hideTooltip);
         svg.appendChild(hit);
         xCursor += segFrac * filledW;
       });
+      if (!segs.length && filledW > 0) {
+        // No cohort data at all for this team (shouldn't normally happen) -
+        // paint one flat block so the bar still reads rather than going blank.
+        svg.appendChild(svgEl('rect', { x: leftPad, y: barY, width: filledW, height: barH, rx: 4, fill: resolveVar('--seq-450') }));
+      }
 
       var val = svgEl('text', { x: leftPad + chartW + 10, y: barY + barH / 2 + 4, class: 'bar-value' });
       val.textContent = expectedLabel(g.subjects, g.expected); svg.appendChild(val);
@@ -897,8 +930,12 @@
   function renderDiseaseTable(groups) {
     var el = document.getElementById('diseaseTable');
     var rows = groups.map(function (g) {
-      var segLabel = g.segments.length > 1
-        ? g.segments.map(function (s) { return s.label + ': ' + fmt(s.subjects); }).join(', ')
+      var segs = g.cohort_segments || [];
+      var segLabel = segs.length
+        ? segs.map(function (s) {
+            var name = s.disease_label !== g.label ? s.cohort + ' [' + s.disease_label + ']' : s.cohort;
+            return name + ': ' + fmt(s.subjects);
+          }).join(', ')
         : '–';
       return '<tr><td>' + esc(g.label) + '</td><td>' + fmt(g.subjects) + '</td>' +
         '<td>' + (g.expected != null ? fmt(g.expected) : 'Not yet set') + '</td>' +
@@ -906,7 +943,7 @@
         '<td>' + fmt(g.visits) + '</td><td>' + esc(segLabel) + '</td></tr>';
     }).join('');
     el.innerHTML = '<table class="data-table"><thead><tr><th>Disease team</th><th>Subjects</th><th>Target</th>' +
-      '<th>Enrolled</th><th>Archival</th><th>Visits</th><th>Subgroups</th></tr></thead><tbody>' + rows + '</tbody></table>';
+      '<th>Enrolled</th><th>Archival</th><th>Visits</th><th>Cohorts</th></tr></thead><tbody>' + rows + '</tbody></table>';
   }
 
   // Which status axis the "Cohorts within each disease team" card currently
@@ -1035,7 +1072,7 @@
     }
     html += '<p>Disease team here is derived from the <code>Data_Scope</code> value (e.g. <code>SLE-KDY</code> → Lupus Kidney, <code>PsD-SKN</code> → Psoriasis), not the source <code>Disease Team</code> column — that column holds each row’s study/protocol name (STAMP, ELLIPSS, AIM for RA, LOCKIT, SSc Pilot), not a diagnosis, so it isn’t the grouping used here. Lupus and Psoriatic Disease are split into finer subgroups by tissue; a subject whose Data_Scope spans more than one tissue (or more than one disease) is counted in each matching subgroup, but only once in that subgroup’s own total. That can occasionally make the subgroups under one disease team add up to slightly more than the team’s combined subject count above — that’s expected, not double-counting.</p>';
     html += '<p>A subject who carries more than one cohort tag (e.g. both “PsD Eye” and “PsD axSpA”) is counted once in each of those cohorts, but only once in its subgroup’s total — so cohort counts within a subgroup can add up to more than that subgroup’s subject total.</p>';
-    html += '<p>Recruitment targets (the “of N” figures) come from the network’s recruitment target numbers. The top chart’s targets are given per cohort at the whole-disease-team level, so Lupus Kidney and Lupus Skin share one combined Lupus target, and the Psoriatic Disease subgroups share one combined PsD target, shown as segments of that one bar. The “Cohorts within each disease team” targets below are more granular: Lupus Kidney and Lupus Skin each have their own separate target per cohort (so, for example, their two “Enabling Case” cohorts can have different targets), and Psoriasis/Psoriatic Arthritis are combined into one Psoriatic Disease (PsD) card there.</p>';
+    html += '<p>Recruitment targets (the “of N” figures) come from the network’s recruitment target numbers, set per individual cohort. The top chart’s team target is the sum of its own cohorts’ targets — the same cohorts shown as that bar’s colored segments — so Lupus Kidney and Lupus Skin each contribute their own cohorts (including two separately-targeted “Enabling Case” cohorts) to one combined Lupus bar, and Psoriasis/Psoriatic Arthritis’s cohorts combine into one Psoriatic Disease (PsD) bar. The “Cohorts within each disease team” card below breaks the same cohorts back out by subgroup — Lupus Kidney and Lupus Skin as separate cards, and Psoriasis/Psoriatic Arthritis still combined into one Psoriatic Disease (PsD) card.</p>';
     html += '<p>“Enabling” subjects (<code>Subject Type</code> = “Enabling”) are now their own status, separate from Enrolled and Archival, since they’re a meaningfully different population.</p>';
     if (!rec.schedule_status_available) {
       html += '<p><span class="flag">The “Complete / Not-Complete” view isn’t available yet</span> — this export’s <code>subjects</code> sheet has no <code>Schedule_Status</code> column, so every subject shows as “Not Complete” there until a newer export adds it.</p>';
