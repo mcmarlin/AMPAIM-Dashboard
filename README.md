@@ -155,7 +155,11 @@ new folder every time you get an updated project folder from Claude.
   bead is how many of that row's datasets have reached or passed that
   stage, and the label to the right names the single furthest stage any of
   them has reached (the same idea as the one-line status shown on each
-  Auxiliary Projects row below). Use "View as table" for the exact,
+  Auxiliary Projects row below). Hover any individual bead (not just the
+  row) to see which disease teams make up that bead's count, and how many
+  datasets each one contributes — e.g. hovering the "3" on a Pre-Release
+  bead might show Lupus Kidney, Lupus Skin, and Sjögren's Disease, one
+  dataset each. Use "View as table" for the exact,
   non-cumulative stage each dataset is sitting at right now instead. Rows
   with no Project (currently 11) are grouped separately under "Auxiliary
   Projects," one card per Team, each row kept to its own `Dataset name` +

@@ -1368,9 +1368,7 @@
     html += '<p>Recruitment targets (the “of N” figures) come from the network’s recruitment target numbers, set per individual cohort. The top chart’s team target is the sum of its own cohorts’ targets — the same cohorts shown as that bar’s colored segments — so Lupus Kidney and Lupus Skin each contribute their own cohorts (including two separately-targeted “Enabling Case” cohorts) to one combined Lupus bar, and Psoriasis/Psoriatic Arthritis’s cohorts combine into one Psoriatic Disease (PsD) bar. The “Cohorts within each disease team” card below breaks the same cohorts back out by subgroup — Lupus Kidney and Lupus Skin as separate cards, and Psoriasis/Psoriatic Arthritis still combined into one Psoriatic Disease (PsD) card.</p>';
     var partialTeams = rec.by_disease_group.filter(function (g) { return g.expected_partial && g.expected != null; });
     if (partialTeams.length) {
-      html += '<p><span class="flag">' + partialTeams.map(function (g) { return esc(g.label); }).join(', ') +
-        '</span> ' + (partialTeams.length === 1 ? 'has' : 'have') + ' at least one cohort with no target set yet. The team target and percentage above only count the cohorts that DO have one, so ' +
-        (partialTeams.length === 1 ? 'its' : 'their') + ' percentage can look inflated (or run over 100%) compared to how the team is really doing against a complete target — see the “Cohorts within each disease team” card below for each cohort’s own target (and which ones don’t have one yet). Fill in the missing cohort(s) in <code>Target_Recruitment_Numbers.xlsx</code> to get a complete team target here.</p>';
+      html += '<p>Some cohorts don’t have a recruitment target set yet, so completion estimates for their team may not be fully accurate. See the “Cohorts within each disease team” card below for specific target values, where available.</p>';
     }
     html += '<p>“Enabling” subjects (<code>Subject Type</code> = “Enabling”) are now their own status, separate from Enrolled and Archival, since they’re a meaningfully different population.</p>';
     if (!rec.schedule_status_available) {
@@ -1796,14 +1794,41 @@
     var segs = order.map(function (key) {
       var count = cumulative[key] || 0;
       if (!count) {
-        return '<span class="seg" title="Reached ' + esc(labels[key]) + ' or later: 0"></span>';
+        return '<span class="seg" data-stage="' + key + '" title="Reached ' + esc(labels[key]) + ' or later: 0"></span>';
       }
       var bg = resolveVar(DATA_STAGE_COLOR_VARS[key]);
       var fg = contrastTextColor(bg);
-      return '<span class="seg has-count" style="background:' + bg + ';border-color:' + bg + ';color:' + fg + '" title="Reached ' +
+      return '<span class="seg has-count" data-stage="' + key + '" style="background:' + bg + ';border-color:' + bg + ';color:' + fg + '" title="Reached ' +
         esc(labels[key]) + ' or later: ' + fmt(count) + (total ? ' of ' + fmt(total) : '') + '">' + fmt(count) + '</span>';
     }).join('');
     return '<div class="stage-track counted">' + segs + '</div>';
+  }
+  // Which selected disease teams contribute to one specific bead (techKey +
+  // Level + stage, within one pipeline card) - a bead's own number is a sum
+  // across every currently-selected Scope's row count at that stage OR
+  // LATER (see cumulativeStageCounts), so this walks the same scopes and
+  // reports each one's own cumulative count at that stage, grouped by the
+  // disease team label(s) that scope maps to (only the ones actually
+  // selected in the Disease teams filter - a scope mapping to more than one
+  // team, e.g. a genuine overlap scope, contributes its count to each
+  // selected team, same dual-counting convention used everywhere else on
+  // this tab). Returns [{label, count}], largest first.
+  function dataProjectStageTeams(techKey, projectLabel, level, stageKey) {
+    var byLabel = {}, out = [];
+    scopesForSelectedDataDiseases().forEach(function (scope) {
+      var node = ((state.data.data_tab.by_scope_pipeline_level[techKey] || {})[scope] || {})[projectLabel];
+      var counts = node && node[level];
+      if (!counts) return;
+      var count = cumulativeStageCounts(counts)[stageKey] || 0;
+      if (!count) return;
+      (state.data.data_tab.scope_disease[scope] || []).forEach(function (sd) {
+        if (!state.selectedDataDisease.has(sd.key)) return;
+        if (byLabel[sd.label] === undefined) { byLabel[sd.label] = out.length; out.push({ label: sd.label, count: 0 }); }
+        out[byLabel[sd.label]].count += count;
+      });
+    });
+    out.sort(function (a, b) { return b.count - a.count || a.label.localeCompare(b.label); });
+    return out;
   }
   // The furthest stage ANY of a row's underlying datasets has reached (the
   // same "highest bead lit" idea as the cumulative track above, just as a
@@ -1871,17 +1896,28 @@
           var lvName = document.createElement('span'); lvName.className = 'stage-name'; lvName.textContent = lr.level;
           labelWrap.appendChild(lvName);
           var trackWrap = document.createElement('div'); trackWrap.innerHTML = buildStageTrackCounts(lr.counts, lr.total);
+          var trackEl = trackWrap.firstChild;
           var valEl = document.createElement('div'); valEl.className = 'stage-track-value';
           var topStage = highestReachedStage(lr.counts);
           valEl.textContent = topStage ? labels[topStage] : '—';
-          row.appendChild(labelWrap); row.appendChild(trackWrap.firstChild); row.appendChild(valEl);
-          row.addEventListener('pointermove', function (ev) {
-            var rows = [['Pipeline', p.label], ['Dataset', t.label], ['Level', lr.level], ['— currently at —', '']];
-            order.forEach(function (key) { if (lr.counts[key]) rows.push([labels[key], fmt(lr.counts[key])]); });
-            rows.push(['Total', fmt(lr.total)]);
-            showTooltip(ev.clientX, ev.clientY, rows);
+          row.appendChild(labelWrap); row.appendChild(trackEl); row.appendChild(valEl);
+          // Per-bead hover (not per-row) - which box you're over decides
+          // which stage's breakdown you see, since each bead is its own
+          // cumulative "reached this stage or later" count.
+          trackEl.querySelectorAll('.seg').forEach(function (segEl) {
+            var stageKey = segEl.dataset.stage;
+            segEl.addEventListener('pointermove', function (ev) {
+              var teams = dataProjectStageTeams(t.key, p.label, lr.level, stageKey);
+              var rows = [['Pipeline', p.label], ['Dataset', t.label], ['Level', lr.level], ['Status', labels[stageKey] + ' or later']];
+              if (teams.length) {
+                teams.forEach(function (tm) { rows.push([tm.label, fmt(tm.count)]); });
+              } else {
+                rows.push(['Disease teams', 'None yet']);
+              }
+              showTooltip(ev.clientX, ev.clientY, rows);
+            });
+            segEl.addEventListener('pointerleave', hideTooltip);
           });
-          row.addEventListener('pointerleave', hideTooltip);
           block.appendChild(row);
         });
         card.appendChild(block);
