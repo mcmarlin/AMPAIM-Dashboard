@@ -857,9 +857,24 @@ def main():
             # stable order across rebuilds.
             key=lambda d: (-d["subjects"], d["disease_label"], d["cohort"].lower()),
         )
+        # v3.0.2: a separate "effective" target for the BAR'S FILL WIDTH only
+        # (never shown as a number) - any cohort with no real target set
+        # contributes its own current subject count instead of an unknown
+        # gap, so the bar reads as "on track" for that slice rather than
+        # misleadingly short. Built from cohort_segments (already the
+        # correctly-deduplicated, merged-cohort-view list used for display),
+        # so it inherits the same one-entry-per-shared-cohort handling as
+        # the real `expected` sum above. `expected`/`expected_partial` above
+        # stay real-target-only - that's what the text label and the
+        # data-quality note still go by.
+        expected_effective = sum(
+            (cs["expected"] if cs["expected"] is not None else cs["subjects"])
+            for cs in cohort_segments
+        )
         by_disease_group.append({
             "key": gk, "label": g["label"], "subjects": len(g["subject_set"]), "visits": g["visits"],
             "status": g["status"], "expected": expected, "expected_partial": partial,
+            "expected_effective": expected_effective,
             "segments": segments, "cohort_segments": cohort_segments,
         })
     by_disease_group.sort(key=lambda d: d["subjects"], reverse=True)
