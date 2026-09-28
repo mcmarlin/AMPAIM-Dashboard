@@ -39,6 +39,21 @@
        so the two toggled views of the same bars are never confusable. */
     --cat-purple:  #7c5cd6;
     --cat-rose:    #c93c72;
+    /* Data tab: the 5 dataset release stages, Pending -> Released. A STATUS
+       ramp (grey = hasn't started, up through two shades of green = further
+       along than not), not a plain sequential magnitude ramp, so each stage
+       keeps its own hue rather than one hue's lightness alone - validated
+       with the dataviz skill's validate_palette.js (categorical CVD-separation
+       check; passes at light/dark ΔE 9.4/8.6, "legal with secondary
+       encoding" floor for the closest adjacent pair). Pending's low chroma
+       is deliberate (a real status, not miscolored), and every bead also
+       carries its own count/label text (see contrastTextColor()) and a
+       table view, so color is never the only channel. */
+    --data-stage-pending:     #9a9a94;
+    --data-stage-generated:   #3987e5;
+    --data-stage-staged:      #eda100;
+    --data-stage-prerelease:  #4c9a4c;
+    --data-stage-released:    #0f6b0f;
   }
   @media (prefers-color-scheme: dark) {
     :root:where(:not([data-theme="light"])) {
@@ -61,6 +76,11 @@
       --cat-red:     #e66767;
       --cat-purple:  #9a82e0;
       --cat-rose:    #dd6a95;
+      --data-stage-pending:     #8a8a83;
+      --data-stage-generated:   #3987e5;
+      --data-stage-staged:      #c98500;
+      --data-stage-prerelease:  #6fbf6f;
+      --data-stage-released:    #177a30;
     }
   }
   * { box-sizing: border-box; }
@@ -387,7 +407,7 @@
       <div class="card-head">
         <div>
           <h2>Datasets by project</h2>
-          <p class="sub" id="dataProjectsSub">One card per pipeline. Each dataset is broken out by Level, with a progress track from Pending to Released - the number in a bead is how many rows have reached or passed that stage (a row further along still counts toward every earlier bead), across the selected disease teams.</p>
+          <p class="sub" id="dataProjectsSub">One card per pipeline. Each dataset is broken out by Level, with a progress track from Pending to Released - the number in a bead is how many of that Level's datasets have reached or passed that stage (a dataset further along still counts toward every earlier bead), across the selected disease teams. The label to the right is the furthest stage any of them has reached.</p>
         </div>
         <button class="table-toggle" data-target="dataProjects">View as table</button>
       </div>
@@ -573,12 +593,13 @@
   function cohortSegmentColor(i) { return resolveVar(COHORT_SEGMENT_COLOR_ORDER[i % COHORT_SEGMENT_COLOR_ORDER.length]); }
   var RECRUIT_STATUS_COLOR_VARS = { enrolled: '--seq-450', enabling: '--cat-yellow', archival: '--cat-green' };
   var SCHEDULE_STATUS_COLOR_VARS = { complete: '--cat-purple', not_complete: '--cat-rose' };
-  // Data tab: an ordinal (not categorical) ramp - one hue, light-to-dark,
-  // for the five ordered release stages (Pending is least progressed, not
-  // "unknown", so it still gets a real step rather than plain grey).
+  // Data tab: a status ramp for the five ordered release stages - grey
+  // (not started) through blue and yellow to two shades of green (further
+  // along) - see the --data-stage-* custom properties near the top of the
+  // file for the palette rationale.
   var DATA_STAGE_COLOR_VARS = {
-    pending: '--seq-250', generated: '--seq-350', staged: '--seq-450',
-    pre_release: '--seq-550', released: '--seq-600',
+    pending: '--data-stage-pending', generated: '--data-stage-generated', staged: '--data-stage-staged',
+    pre_release: '--data-stage-prerelease', released: '--data-stage-released',
   };
   function byDiseaseMap() {
     var m = {};
@@ -629,16 +650,6 @@
       var selectedCvKeys = {};
       selectedSegKeys.forEach(function (s) { selectedCvKeys[cohortViewGroupKey(s.key)] = true; });
       var cohortSegmentsOut = (g.cohort_segments || []).filter(function (cs) { return selectedCvKeys[cs.disease_key]; });
-      // v3.0.2: the bar's FILL WIDTH uses an "effective" target - any cohort
-      // with no real target set contributes its own current subject count
-      // instead of an unknown gap (see build_data.py's expected_effective) -
-      // recomputed here from cohortSegmentsOut so it stays correct even
-      // when only some subgroups are selected. Never shown as a number;
-      // g.expected/g.expected_partial (real targets only) still drive the
-      // text label below.
-      var expectedEffective = cohortSegmentsOut.reduce(function (s, cs) {
-        return s + (cs.expected != null ? cs.expected : cs.subjects);
-      }, 0);
       // When every subgroup in this team is selected (the common case), use
       // the exact, already-deduplicated combined total from build_data.py -
       // NOT a sum of the fine subgroups, which double-counts any subject who
@@ -649,7 +660,6 @@
       if (segs.length === g.segments.length) {
         return {
           key: g.key, label: g.label, expected: g.expected, expected_partial: g.expected_partial,
-          expected_effective: expectedEffective,
           subjects: g.subjects, visits: g.visits, status: g.status, segments: segmentsOut,
           cohort_segments: cohortSegmentsOut,
         };
@@ -660,7 +670,6 @@
       segs.forEach(function (x) { addRecruitInto(status, x.status); });
       return {
         key: g.key, label: g.label, expected: g.expected, expected_partial: g.expected_partial,
-        expected_effective: expectedEffective,
         subjects: subjects, visits: visits, status: status, segments: segmentsOut,
         cohort_segments: cohortSegmentsOut,
       };
@@ -787,9 +796,9 @@
       var totalDatasetRows = dTechs.reduce(function (s, t) { return s + dataStageTotal(dataCountsFiltered(t.key, dScopes, dPipelines)); }, 0);
       var releasedSum = dTechs.reduce(function (s, t) { return s + (dataCountsFiltered(t.key, dScopes, dPipelines).released || 0); }, 0);
       tiles = [
-        { label: 'Dataset rows tracked', value: fmt(totalDatasetRows), hero: true },
+        { label: 'Datasets tracked', value: fmt(totalDatasetRows), hero: true },
         { label: 'Released', value: fmt(releasedSum) },
-        { label: 'Datasets tracked', value: fmt(dTechs.length) },
+        { label: 'Technologies tracked', value: fmt(dTechs.length) },
         { label: 'Pipelines tracked', value: fmt(dPipelines.length) }
       ];
     }
@@ -1117,18 +1126,16 @@
   }
 
   // ==================== RECRUITMENT TAB ====================
-  // v3.0.1 fix: a team's combined "expected" (see build_data.py
-  // disease_expected()) is a SUM across its cohorts' individual targets -
-  // when even one contributing cohort has no target set yet, that sum is a
-  // floor, not the real target (expected_partial=true), so scaling or
-  // labeling against it as if it were complete produces nonsense (a team
-  // showing "1221%" of a target that's actually mostly undefined). Both the
-  // label and the chart below now treat a partial sum the same as "no
-  // target set" rather than a trustworthy denominator.
-  function expectedLabel(subjects, expected, partial) {
-    if (expected === null || expected === undefined) return fmt(subjects) + ' subjects (no target set)';
-    if (partial) return fmt(subjects) + ' subjects (target incomplete - at least ' + fmt(expected) + ')';
-    var pctv = expected > 0 ? Math.round(100 * subjects / expected) : 0;
+  // v3.0.3: a team's "expected" (see build_data.py) is simply the sum of
+  // whichever of its cohorts have a real target set - cohorts with no
+  // target yet don't contribute to this sum (or to the bar's fill), but
+  // their subjects still count toward the numerator, so a team missing most
+  // of its cohort targets can show well over 100%. That's intentional, not
+  // a bug: the per-cohort targets (and which cohorts actually have one) are
+  // visible in the "Cohorts within each disease team" card below.
+  function expectedLabel(subjects, expected) {
+    if (expected === null || expected === undefined || expected === 0) return fmt(subjects) + ' subjects (no target set)';
+    var pctv = Math.round(100 * subjects / expected);
     return fmt(subjects) + ' of ' + fmt(expected) + ' (' + pctv + '%)';
   }
 
@@ -1152,13 +1159,14 @@
 
       svg.appendChild(svgEl('rect', { x: leftPad, y: barY, width: chartW, height: barH, rx: 4, fill: resolveVar('--grid') }));
 
-      // The bar's FILL uses expected_effective (real targets where set, a
-      // cohort's own subject count filled in where not - v3.0.2) so a team
-      // with an incomplete target still renders proportionally rather than
-      // full or tiny; the "of N (%)" TEXT below still goes by the real
-      // g.expected/g.expected_partial only, never the effective number.
-      var hasEffectiveTarget = g.expected_effective !== null && g.expected_effective !== undefined && g.expected_effective > 0;
-      var frac = hasEffectiveTarget ? Math.min(1, g.subjects / g.expected_effective) : (g.subjects / maxSubj);
+      // The bar's fill and the "of N (%)" text both go by the same real
+      // target - the sum of whichever cohorts have one set (v3.0.3). A team
+      // with no cohort targets at all falls back to scaling against the
+      // largest bar on the chart, same as before there was any target data;
+      // fraction is capped at 1 so an inflated percentage (see expectedLabel)
+      // still just reads as a full bar rather than overflowing it.
+      var hasTarget = g.expected !== null && g.expected !== undefined && g.expected > 0;
+      var frac = hasTarget ? Math.min(1, g.subjects / g.expected) : (g.subjects / maxSubj);
       var filledW = g.subjects > 0 ? Math.max(3, frac * chartW) : 0;
       var segs = g.cohort_segments || [];
       var gap = 2, xCursor = leftPad;
@@ -1187,7 +1195,7 @@
             rows.push([state.data.recruitment.status_labels[k], fmt(seg.status[k])]);
           });
           rows.push(['Cohort target', seg.expected != null ? fmt(seg.expected) : 'Not yet set']);
-          rows.push(['Team total', expectedLabel(g.subjects, g.expected, g.expected_partial)]);
+          rows.push(['Team total', expectedLabel(g.subjects, g.expected)]);
           showTooltip(ev.clientX, ev.clientY, rows);
         });
         hit.addEventListener('pointerleave', hideTooltip);
@@ -1201,7 +1209,7 @@
       }
 
       var val = svgEl('text', { x: leftPad + chartW + 10, y: barY + barH / 2 + 4, class: 'bar-value' });
-      val.textContent = expectedLabel(g.subjects, g.expected, g.expected_partial); svg.appendChild(val);
+      val.textContent = expectedLabel(g.subjects, g.expected); svg.appendChild(val);
     });
     el.appendChild(svg);
     renderDiseaseTable(groups);
@@ -1216,7 +1224,7 @@
             return name + ': ' + fmt(s.subjects);
           }).join(', ')
         : '–';
-      var targetCell = g.expected == null ? 'Not yet set' : (g.expected_partial ? 'At least ' + fmt(g.expected) + ' (incomplete)' : fmt(g.expected));
+      var targetCell = g.expected == null ? 'Not yet set' : fmt(g.expected);
       return '<tr><td>' + esc(g.label) + '</td><td>' + fmt(g.subjects) + '</td>' +
         '<td>' + targetCell + '</td>' +
         '<td>' + fmt(g.status.enrolled) + '</td><td>' + fmt(g.status.archival) + '</td>' +
@@ -1361,9 +1369,8 @@
     var partialTeams = rec.by_disease_group.filter(function (g) { return g.expected_partial && g.expected != null; });
     if (partialTeams.length) {
       html += '<p><span class="flag">' + partialTeams.map(function (g) { return esc(g.label); }).join(', ') +
-        '</span> ' + (partialTeams.length === 1 ? 'has' : 'have') + ' at least one cohort with no target set yet, so ' +
-        (partialTeams.length === 1 ? 'its' : 'their') + ' team target above is a floor (“at least N”), not the real number, and no percentage is shown. ' +
-        'For the bar itself, a cohort with no target is simply assumed to be at its own current subject count (i.e. shown as filled/on-track for its own slice, not short) — so the bar reflects real progress for cohorts with a target and gives the benefit of the doubt to the rest. Fill in the missing cohort(s) in <code>Target_Recruitment_Numbers.xlsx</code> to get a real, complete percentage there.</p>';
+        '</span> ' + (partialTeams.length === 1 ? 'has' : 'have') + ' at least one cohort with no target set yet. The team target and percentage above only count the cohorts that DO have one, so ' +
+        (partialTeams.length === 1 ? 'its' : 'their') + ' percentage can look inflated (or run over 100%) compared to how the team is really doing against a complete target — see the “Cohorts within each disease team” card below for each cohort’s own target (and which ones don’t have one yet). Fill in the missing cohort(s) in <code>Target_Recruitment_Numbers.xlsx</code> to get a complete team target here.</p>';
     }
     html += '<p>“Enabling” subjects (<code>Subject Type</code> = “Enabling”) are now their own status, separate from Enrolled and Archival, since they’re a meaningfully different population.</p>';
     if (!rec.schedule_status_available) {
@@ -1798,6 +1805,17 @@
     }).join('');
     return '<div class="stage-track counted">' + segs + '</div>';
   }
+  // The furthest stage ANY of a row's underlying datasets has reached (the
+  // same "highest bead lit" idea as the cumulative track above, just as a
+  // word instead of a number) - shown to the right of each dataset/Level
+  // row, mirroring how Auxiliary Projects shows its one reached stage.
+  function highestReachedStage(counts) {
+    var order = state.data.data_tab.stage_order;
+    for (var i = order.length - 1; i >= 0; i--) {
+      if (counts[order[i]] > 0) return order[i];
+    }
+    return null;
+  }
   function renderDataProjects() {
     var el = document.getElementById('dataProjectsChart'); el.innerHTML = '';
     var scopes = scopesForSelectedDataDiseases();
@@ -1829,13 +1847,13 @@
       var card = document.createElement('div'); card.className = 'mini-card data-project-card';
       var h3 = document.createElement('h3'); h3.textContent = p.label; card.appendChild(h3);
       var sub = document.createElement('p'); sub.className = 'mini-sub';
-      sub.textContent = fmt(totalAll) + ' dataset row' + (totalAll === 1 ? '' : 's') + ' · ' + fmt(releasedAll) + ' released · ' +
+      sub.textContent = fmt(totalAll) + ' dataset' + (totalAll === 1 ? '' : 's') + ' · ' + fmt(releasedAll) + ' released · ' +
         techs.length + ' technolog' + (techs.length === 1 ? 'y' : 'ies');
       card.appendChild(sub);
 
       if (!techs.length) {
         var empty = document.createElement('p'); empty.className = 'mini-sub';
-        empty.textContent = 'No dataset rows for the selected disease teams / datasets.';
+        empty.textContent = 'No datasets match the current filters.';
         card.appendChild(empty); el.appendChild(card); return;
       }
 
@@ -1844,7 +1862,7 @@
         var head = document.createElement('div'); head.className = 'tech-block-head';
         var name = document.createElement('span'); name.className = 'tech-name'; name.textContent = t.label;
         var total = document.createElement('span'); total.className = 'tech-total';
-        total.textContent = fmt(t.total) + ' row' + (t.total === 1 ? '' : 's');
+        total.textContent = fmt(t.total) + ' dataset' + (t.total === 1 ? '' : 's');
         head.appendChild(name); head.appendChild(total); block.appendChild(head);
 
         t.levelRows.forEach(function (lr) {
@@ -1854,7 +1872,8 @@
           labelWrap.appendChild(lvName);
           var trackWrap = document.createElement('div'); trackWrap.innerHTML = buildStageTrackCounts(lr.counts, lr.total);
           var valEl = document.createElement('div'); valEl.className = 'stage-track-value';
-          valEl.textContent = fmt(lr.total) + ' row' + (lr.total === 1 ? '' : 's');
+          var topStage = highestReachedStage(lr.counts);
+          valEl.textContent = topStage ? labels[topStage] : '—';
           row.appendChild(labelWrap); row.appendChild(trackWrap.firstChild); row.appendChild(valEl);
           row.addEventListener('pointermove', function (ev) {
             var rows = [['Pipeline', p.label], ['Dataset', t.label], ['Level', lr.level], ['— currently at —', '']];
@@ -1889,7 +1908,7 @@
         });
       });
     });
-    if (!body) { el.innerHTML = '<p class="sub">No dataset rows for the selected pipelines / disease teams / datasets.</p>'; return; }
+    if (!body) { el.innerHTML = '<p class="sub">No datasets match the current filters.</p>'; return; }
     el.innerHTML = '<table class="data-table"><thead>' + head + '</thead><tbody>' + body + '</tbody></table>';
   }
 
@@ -1967,11 +1986,11 @@
   function renderDataQuality() {
     var d = state.data.data_tab;
     var html = '';
-    html += '<p>This tab tracks <strong>' + fmt(d.total_rows) + '</strong> rows from the network&rsquo;s &ldquo;data&rdquo; tracker &mdash; one row per dataset/disease-team/level combination. &ldquo;Datasets by project&rdquo; rolls those rows up per technology and Level within each pipeline, combining only disease team/scope away. Each bead&rsquo;s number is how many of that dataset/Level&rsquo;s rows have reached or passed that stage (a row now at Pre-Release still counts toward Pending/Generated/Staged too, since it completed those on the way), across whichever disease teams are selected above &mdash; hover a row for the exact stage each of its rows is sitting at right now.</p>';
+    html += '<p>This tab tracks <strong>' + fmt(d.total_rows) + '</strong> datasets from the network&rsquo;s &ldquo;data&rdquo; tracker &mdash; one dataset per Technology/disease-team/Level combination. &ldquo;Datasets by project&rdquo; rolls those up by Technology and Level within each pipeline, combining only disease team/scope away; the label beside each Level&rsquo;s track is the furthest stage any of its datasets has reached. Each bead&rsquo;s number is how many of that Level&rsquo;s datasets have reached or passed that stage (a dataset now at Pre-Release still counts toward Pending/Generated/Staged too, since it completed those on the way), across whichever disease teams are selected above &mdash; hover a row for the exact stage each of its datasets is sitting at right now.</p>';
     var pendingCount = 0;
     Object.keys(d.totals).forEach(function (k) { pendingCount += (d.totals[k].pending || 0); });
     if (pendingCount > 0) {
-      html += '<p><strong>' + fmt(pendingCount) + '</strong> dataset rows are still at the Pending stage (a blank or &ldquo;Pending&rdquo; Latest Status) across the whole tracker.</p>';
+      html += '<p><strong>' + fmt(pendingCount) + '</strong> datasets are still at the Pending stage (a blank or &ldquo;Pending&rdquo; Latest Status) across the whole tracker.</p>';
     }
     var mainKeys = {};
     state.data.recruitment.by_disease.forEach(function (dz) { mainKeys[dz.key] = true; });

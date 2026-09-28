@@ -114,6 +114,14 @@ DISEASE_LABELS = {
     "SjD": "Sjögren's Disease (SjD)",
     "SSc": "Systemic Sclerosis (SSc)",
     "SLE/PsD": "SLE / PsD (combined)",
+    "CTRL": "Controls",
+    # Data tab only (its own "Scope" column, not the subjects tab's
+    # Data_Scope) - "AMP RA/SLE" is one specific named study scope, not two
+    # diseases sharing a cell, so it must be looked up as a WHOLE string
+    # (see the short-circuit near the top of derive_diseases()) rather than
+    # going through the generic "/"-splitting meant for genuine per-subject
+    # overlap-syndrome scopes like "SLE/PsD-SKN".
+    "AMP RA/SLE": "AMP RA/SLE",
 }
 
 # SLE and PsD are further split by tissue (the part of Data_Scope after the
@@ -346,6 +354,16 @@ def derive_diseases(scope_label):
         prefix_part, tissue_part = scope_label.split("-", 1)
     else:
         prefix_part, tissue_part = scope_label, ""
+    # A literal combo string that's explicitly mapped to its OWN single team
+    # (e.g. "AMP RA/SLE") short-circuits the generic "/"-splitting below -
+    # not every "/" means "split into two teams"; some scope values just
+    # happen to have one in their name. See DISEASE_LABELS's comment.
+    if "/" in prefix_part and prefix_part in DISEASE_LABELS:
+        old_label = DISEASE_LABELS[prefix_part]
+        old_group_key = prefix_part.lower().replace(" ", "_").replace("/", "_")
+        split = SPLIT_DISEASE_LABELS.get((prefix_part, tissue_part))
+        key, label = split if split else (old_group_key, old_label)
+        return [(key, label, old_label, old_group_key)]
     prefixes = [p.strip() for p in prefix_part.split("/") if p.strip()] or [prefix_part.strip()]
     tissues = [t.strip() for t in tissue_part.split("/") if t.strip()] or [""]
 
@@ -857,24 +875,17 @@ def main():
             # stable order across rebuilds.
             key=lambda d: (-d["subjects"], d["disease_label"], d["cohort"].lower()),
         )
-        # v3.0.2: a separate "effective" target for the BAR'S FILL WIDTH only
-        # (never shown as a number) - any cohort with no real target set
-        # contributes its own current subject count instead of an unknown
-        # gap, so the bar reads as "on track" for that slice rather than
-        # misleadingly short. Built from cohort_segments (already the
-        # correctly-deduplicated, merged-cohort-view list used for display),
-        # so it inherits the same one-entry-per-shared-cohort handling as
-        # the real `expected` sum above. `expected`/`expected_partial` above
-        # stay real-target-only - that's what the text label and the
-        # data-quality note still go by.
-        expected_effective = sum(
-            (cs["expected"] if cs["expected"] is not None else cs["subjects"])
-            for cs in cohort_segments
-        )
+        # v3.0.3: the team's target is simply the sum of whichever of its
+        # cohorts have a real target set (this IS `expected` above - no
+        # separate "effective" fill-width number any more, per feedback that
+        # a plain percentage against only-the-targeted cohorts is easier to
+        # reason about than a bar that renders full for an unknown gap).
+        # Someone curious why a percentage looks off (a team with only 1 of
+        # 6 cohorts targeted can show well over 100%) can see each cohort's
+        # own target in the "Cohorts within each disease team" card below.
         by_disease_group.append({
             "key": gk, "label": g["label"], "subjects": len(g["subject_set"]), "visits": g["visits"],
             "status": g["status"], "expected": expected, "expected_partial": partial,
-            "expected_effective": expected_effective,
             "segments": segments, "cohort_segments": cohort_segments,
         })
     by_disease_group.sort(key=lambda d: d["subjects"], reverse=True)

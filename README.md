@@ -76,14 +76,22 @@ new folder every time you get an updated project folder from Claude.
   into Enrolled), and their cohort(s) come from their `Dashboard_Label`
   tag(s) — a simplified, harmonized version of the original cohort labels,
   still shown as "Cohort" in the dashboard. Bars show progress toward the
-  network's recruitment targets. If a cohort has no target set yet in
-  `Target_Recruitment_Numbers.xlsx`, its bar is drawn as full (its target is
-  treated as equal to however many subjects it already has, just for that
-  bar's width) rather than short against some other scale — the point is a
-  bar that's short always means "behind target," never "no target entered
-  yet." No fabricated number is ever shown as text for these — a team or
-  cohort with no target (or an incomplete set of targets) still shows a
-  bare subject count or an "at least N" floor, never a made-up percentage.
+  network's recruitment targets. The top "Subjects enrolled by disease
+  team" bar's team target is simply the sum of whichever of that team's
+  cohorts have a target set in `Target_Recruitment_Numbers.xlsx` — cohorts
+  with no target yet don't add to that sum, but their subjects still count
+  toward the numerator, so a team missing most of its cohort targets can
+  show well over 100% (e.g. Rheumatoid Arthritis currently shows "171 of
+  14 (1221%)," since only 2 of its 6 cohorts have a target defined). That's
+  expected, not a bug — the "Cohorts within each disease team" card below
+  shows each cohort's own target (and flags which ones don't have one yet)
+  if a number here looks off and you want to see why. A team with NO
+  cohort targets at all (e.g. Lupus, SSc currently) shows "not yet set"
+  instead of a percentage. Cohort bars on that lower card are a separate,
+  more forgiving view: a cohort with no target there is simply assumed to
+  be at its own current subject count for that bar's width only (so it
+  reads as full/on-track rather than arbitrarily short), and never shows a
+  fabricated number — just a bare subject count.
   The top "Subjects enrolled by disease team"
   bar is stacked by each team's individual cohorts (Lupus Kidney and Lupus
   Skin's cohorts combine into one Lupus bar; Psoriasis and Psoriatic
@@ -128,20 +136,28 @@ new folder every time you get an updated project folder from Claude.
   mirror the Technologies tab but come from the `data` tab's own `Scope`,
   `Project`, and `Technology` columns — a dataset's progress comes from its
   `Latest Status` column, in order Pending (blank or "Pending") → Generated
-  → Staged → Pre-Release → Released. "Datasets by project" gives
-  EDP1/EDP2/NRP1/NRP2 their own card (sized and laid out like the
-  Auxiliary Projects cards below, three across side by side, as tall as
-  they need to be), and breaks each dataset out by Level (Lv1–Lv4) rather
-  than aggregating Levels away, since a single Technology can appear as
-  several rows split by tissue and Level. Each dataset/Level row gets its
-  own progress track of five beads, Pending through Released — a row
-  further along still lights up every earlier bead too (a dataset sitting
-  at Pre-Release has, by definition, already been through Pending,
-  Generated, and Staged, so those beads show it), and the number in a lit
-  bead is how many of that row's underlying data rows have reached or
-  passed that stage. Use "View as table" for the exact, non-cumulative
-  stage each row's data is sitting at right now instead. Rows with no
-  Project (currently 11) are grouped separately under "Auxiliary
+  → Staged → Pre-Release → Released, each stage its own color (grey
+  through blue, amber, and two shades of green) on every progress track on
+  this tab. A Scope value that's a single named study/dataset scope rather
+  than a real disease name (currently `AMP RA/SLE`, `CTRL-SYN` → shown as
+  "Controls", `Multiple`) gets its own one-piece disease-team pill rather
+  than being split apart or dropped — see `DISEASE_LABELS`'s comment in
+  `build_data.py` if a future scope value needs the same treatment.
+  "Datasets by project" gives EDP1/EDP2/NRP1/NRP2 their own card (sized and
+  laid out like the Auxiliary Projects cards below, three across side by
+  side, as tall as they need to be), and breaks each dataset out by Level
+  (Lv1–Lv4) rather than aggregating Levels away, since a single Technology
+  can appear as several rows split by tissue and Level. Each dataset/Level
+  row gets its own progress track of five beads, Pending through Released
+  — a dataset further along still lights up every earlier bead too (one
+  sitting at Pre-Release has, by definition, already been through Pending,
+  Generated, and Staged, so those beads show it too), the number in a lit
+  bead is how many of that row's datasets have reached or passed that
+  stage, and the label to the right names the single furthest stage any of
+  them has reached (the same idea as the one-line status shown on each
+  Auxiliary Projects row below). Use "View as table" for the exact,
+  non-cumulative stage each dataset is sitting at right now instead. Rows
+  with no Project (currently 11) are grouped separately under "Auxiliary
   Projects," one card per Team, each row kept to its own `Dataset name` +
   Technology (with Level shown alongside) since each is its own one-off
   dataset rather than an aggregate — its track shows the single stage it's

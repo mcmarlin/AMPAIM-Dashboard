@@ -1,5 +1,5 @@
 {
-  "generated_at": "2026-09-28T18:02:16Z",
+  "generated_at": "2026-09-28T19:02:51Z",
   "source_rows": 1412,
   "totals": {
     "subjects": 999,
@@ -98,7 +98,6 @@
         },
         "expected": 450,
         "expected_partial": false,
-        "expected_effective": 450,
         "segments": [
           {
             "key": "sjd",
@@ -199,7 +198,6 @@
         },
         "expected": 205,
         "expected_partial": false,
-        "expected_effective": 205,
         "segments": [
           {
             "key": "psd_skn",
@@ -292,7 +290,6 @@
         },
         "expected": 216,
         "expected_partial": true,
-        "expected_effective": 224,
         "segments": [
           {
             "key": "ra",
@@ -393,7 +390,6 @@
         },
         "expected": 151,
         "expected_partial": false,
-        "expected_effective": 151,
         "segments": [
           {
             "key": "sle_kdy",
@@ -525,7 +521,6 @@
         },
         "expected": 17,
         "expected_partial": false,
-        "expected_effective": 17,
         "segments": [
           {
             "key": "ssc",
@@ -7825,7 +7820,7 @@
       "CTRL-SYN": [
         {
           "key": "ctrl",
-          "label": "CTRL"
+          "label": "Controls"
         }
       ],
       "PsD-SKN": [
@@ -7866,12 +7861,8 @@
       ],
       "AMP RA/SLE": [
         {
-          "key": "amp_ra",
-          "label": "AMP RA"
-        },
-        {
-          "key": "sle",
-          "label": "Lupus (SLE)"
+          "key": "amp_ra_sle",
+          "label": "AMP RA/SLE"
         }
       ]
     },
