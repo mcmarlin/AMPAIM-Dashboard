@@ -242,6 +242,19 @@ def data_project_sort_key(label):
     return (1, label)
 
 
+# Level values seen on the "data" sheet so far (Lv1-4, a combined "Lv3-4",
+# and "Lv(all)" for datasets that don't split by level) - hinted order so
+# they read low-to-high rather than alphabetically (which would put
+# "Lv(all)" before "Lv1").
+LEVEL_ORDER_HINT = ["Lv1", "Lv2", "Lv3", "Lv3-4", "Lv4", "Lv(all)"]
+
+
+def level_sort_key(level):
+    if level in LEVEL_ORDER_HINT:
+        return (0, LEVEL_ORDER_HINT.index(level))
+    return (1, level)
+
+
 def data_tech_key(label):
     return label.lower().replace(" ", "_").replace("(", "").replace(")", "").replace("/", "_")
 
@@ -991,16 +1004,18 @@ def main():
     # Project, not tied to any of those four), "Technology" is the dataset
     # type, and "Latest Status" is where that deliverable currently stands
     # (see STAGE_ORDER above). A row's Level (Lv1-4, Lv(all), ...) is kept on
-    # each Auxiliary entry but NOT broken out separately for the four named
-    # projects - their dataset progress is aggregated across Level (and
-    # across disease team, for the per-project summaries) into one stage
-    # count per Technology, so many small (Scope x Level) rows collapse into
-    # one readable bar per dataset type per project.
+    # each Auxiliary entry, AND (as of v3.0.1) broken out per-Level for the
+    # four named projects too - every (Technology, Level) pair gets its own
+    # stage progress row there, since a Technology can be split into several
+    # rows by tissue/Level that don't all reach the same stage at once; only
+    # disease team (Scope) is aggregated away in that per-project view.
     data_totals = defaultdict(empty_stage_counts)  # tech_key -> stage_counts (unfiltered, every row)
     data_by_scope = {}  # tech_key -> {scope_raw: stage_counts}
     data_by_pipeline = {}  # tech_key -> {project_label: stage_counts}
     data_by_scope_pipeline = {}  # tech_key -> {scope_raw: {project_label: stage_counts}}
+    data_by_scope_pipeline_level = {}  # tech_key -> {scope_raw: {project_label: {level: stage_counts}}}
     data_project_tech_totals = defaultdict(lambda: defaultdict(empty_stage_counts))  # project_label -> tech_key -> stage_counts
+    data_project_tech_levels = defaultdict(lambda: defaultdict(set))  # project_label -> tech_key -> {level, ...}
     data_tech_labels = {}
     data_scopes_seen = set()
     data_projects_seen = set()
@@ -1053,7 +1068,10 @@ def main():
             data_by_scope.setdefault(tech_key, {}).setdefault(scope_raw, empty_stage_counts())[stage] += 1
             data_by_pipeline.setdefault(tech_key, {}).setdefault(project_label, empty_stage_counts())[stage] += 1
             data_by_scope_pipeline.setdefault(tech_key, {}).setdefault(scope_raw, {}).setdefault(project_label, empty_stage_counts())[stage] += 1
+            data_by_scope_pipeline_level.setdefault(tech_key, {}).setdefault(scope_raw, {}) \
+                .setdefault(project_label, {}).setdefault(level, empty_stage_counts())[stage] += 1
             data_project_tech_totals[project_label][tech_key][stage] += 1
+            data_project_tech_levels[project_label][tech_key].add(level)
 
             if project_label == AUXILIARY_PROJECT_LABEL:
                 data_auxiliary.append({
@@ -1078,7 +1096,8 @@ def main():
             continue  # Auxiliary gets its own (non-aggregated) list below, not a project card
         tech_map = data_project_tech_totals[project_label]
         techs = sorted(
-            [{"key": tk, "label": data_tech_labels[tk], "total": sum(counts.values()), "stage_counts": counts}
+            [{"key": tk, "label": data_tech_labels[tk], "total": sum(counts.values()), "stage_counts": counts,
+              "levels": sorted(data_project_tech_levels[project_label][tk], key=level_sort_key)}
              for tk, counts in tech_map.items()],
             key=lambda t: t["total"], reverse=True,
         )
@@ -1104,6 +1123,10 @@ def main():
         "by_scope_pipeline": {
             k: {s: {p: dict(c) for p, c in pv.items()} for s, pv in v.items()}
             for k, v in data_by_scope_pipeline.items()
+        },
+        "by_scope_pipeline_level": {
+            k: {s: {p: {lv: dict(c) for lv, c in lvv.items()} for p, lvv in pv.items()} for s, pv in v.items()}
+            for k, v in data_by_scope_pipeline_level.items()
         },
         "by_project": data_by_project,
         "auxiliary_label": AUXILIARY_PROJECT_LABEL,

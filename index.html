@@ -167,6 +167,27 @@
   .stage-track .seg { width: 15px; height: 9px; border-radius: 2px; border: 1px solid var(--border); background: transparent; }
   .stage-track-value { flex: none; font-size: 11.5px; font-weight: 600; color: var(--text-primary); min-width: 68px; text-align: right; }
 
+  /* "Datasets by project" (v3.0.1): each dataset's own Level rows, same
+     beads-on-a-string idea as the Auxiliary track above, but each bead can
+     represent MORE than one underlying row (a Technology+Level pair is
+     still split by disease team/scope) - so a bead shows a count rather
+     than just filled/hollow. Reworked to read like a small table: one
+     block per project, one sub-block per dataset (Technology), one row per
+     Level. */
+  .data-project-list { display: flex; flex-direction: column; gap: 14px; }
+  .data-project-card .mini-sub { margin-bottom: 12px; }
+  .tech-block { padding-top: 10px; margin-top: 10px; border-top: 1px solid var(--grid); }
+  .tech-block:first-of-type { padding-top: 0; margin-top: 0; border-top: none; }
+  .tech-block-head { display: flex; align-items: baseline; justify-content: space-between; gap: 10px; margin-bottom: 4px; }
+  .tech-block-head .tech-name { font-size: 12.5px; font-weight: 600; color: var(--text-primary); }
+  .tech-block-head .tech-total { font-size: 11px; color: var(--text-muted); }
+  .stage-track.counted { gap: 5px; }
+  .stage-track.counted .seg {
+    width: 27px; height: 19px; border-radius: 4px; display: flex; align-items: center; justify-content: center;
+    font-size: 10.5px; font-weight: 700; border: 1px dashed var(--border); background: transparent; color: var(--text-muted);
+  }
+  .stage-track.counted .seg.has-count { border-style: solid; }
+
   svg { display: block; overflow: visible; font-family: inherit; }
   .bar-label { font-size: 11.5px; fill: var(--text-secondary); }
   .bar-value { font-size: 11.5px; fill: var(--text-primary); font-weight: 600; }
@@ -362,25 +383,13 @@
     <div class="card">
       <div class="card-head">
         <div>
-          <h2>Datasets by stage</h2>
-          <p class="sub">Every generated-dataset row from the network&rsquo;s data tracker, classified by how far it&rsquo;s gotten toward release, across the selected disease teams and pipelines.</p>
-        </div>
-        <button class="table-toggle" data-target="dataOverview">View as table</button>
-      </div>
-      <div class="legend" id="dataStageLegend"></div>
-      <div id="dataOverviewChart"></div>
-      <div id="dataOverviewTable" class="scroll-x" style="display:none;"></div>
-    </div>
-
-    <div class="card">
-      <div class="card-head">
-        <div>
           <h2>Datasets by project</h2>
-          <p class="sub" id="dataProjectsSub">One card per pipeline, showing each expected dataset and how far it&rsquo;s gotten across the selected disease teams. Hover a segment for exact counts.</p>
+          <p class="sub" id="dataProjectsSub">One card per pipeline. Each dataset is broken out by Level, with a progress track from Pending to Released - the number in a bead is how many rows are at that stage, across the selected disease teams.</p>
         </div>
         <button class="table-toggle" data-target="dataProjects">View as table</button>
       </div>
-      <div id="dataProjectsChart" class="mini-grid"></div>
+      <div class="legend" id="dataStageLegend"></div>
+      <div id="dataProjectsChart" class="data-project-list"></div>
       <div id="dataProjectsTable" class="scroll-x" style="display:none;"></div>
     </div>
 
@@ -433,6 +442,23 @@
   function pct(n) { return (n === null || n === undefined) ? '–' : n.toFixed(1) + '%'; }
   function resolveVar(name) { return (getComputedStyle(document.documentElement).getPropertyValue(name).trim()) || '#999'; }
   function esc(s) { var d = document.createElement('div'); d.textContent = s; return d.innerHTML; }
+  // WCAG relative luminance -> whichever of black/white ink has the higher
+  // contrast ratio against a given fill. Used for text sitting directly on
+  // a colored swatch (e.g. the counted stage-track beads on the Data tab)
+  // instead of guessing/hardcoding per color step, per the dataviz skill's
+  // "compute it, don't eyeball it" rule.
+  function relLuminance(hex) {
+    hex = hex.replace('#', '');
+    if (hex.length === 3) hex = hex.split('').map(function (c) { return c + c; }).join('');
+    var r = parseInt(hex.substr(0, 2), 16) / 255, g = parseInt(hex.substr(2, 2), 16) / 255, b = parseInt(hex.substr(4, 2), 16) / 255;
+    function lin(c) { return c <= 0.03928 ? c / 12.92 : Math.pow((c + 0.055) / 1.055, 2.4); }
+    return 0.2126 * lin(r) + 0.7152 * lin(g) + 0.0722 * lin(b);
+  }
+  function contrastTextColor(hex) {
+    var L = relLuminance(hex);
+    var withWhite = 1.05 / (L + 0.05), withBlack = (L + 0.05) / 0.05;
+    return withWhite >= withBlack ? '#fff' : '#14171a';
+  }
 
   function showTooltip(x, y, rowsHtml) {
     tooltipEl.innerHTML = '';
@@ -662,6 +688,19 @@
       var node = (state.data.data_tab.by_scope_pipeline[techKey] || {})[scope];
       if (!node) return;
       pipelineList.forEach(function (pipeline) { addStageInto(sum, node[pipeline]); });
+    });
+    return sum;
+  }
+  // Same idea as dataCountsFiltered, but keeps a single Level's rows
+  // separate rather than aggregating every Level for a Technology together
+  // (see build_data.py's by_scope_pipeline_level) - one pipeline at a time,
+  // since "Datasets by project" always looks at one project card at a time.
+  function dataLevelCountsFiltered(techKey, scopeList, projectLabel, level) {
+    var sum = zeroStageCounts();
+    scopeList.forEach(function (scope) {
+      var node = ((state.data.data_tab.by_scope_pipeline_level[techKey] || {})[scope] || {})[projectLabel];
+      if (!node) return;
+      addStageInto(sum, node[level]);
     });
     return sum;
   }
@@ -1042,7 +1081,10 @@
         var table = document.getElementById(target + 'Table');
         var showing = table.style.display !== 'none';
         table.style.display = showing ? 'none' : 'block';
-        chart.style.display = showing ? ((target === 'cohort' || target === 'bydisease' || target === 'sampleByDisease' || target === 'dataProjects' || target === 'dataAuxiliary') ? 'grid' : 'block') : 'none';
+        var restoreDisplay = 'block';
+        if (target === 'cohort' || target === 'bydisease' || target === 'sampleByDisease' || target === 'dataAuxiliary') restoreDisplay = 'grid';
+        else if (target === 'dataProjects') restoreDisplay = 'flex';
+        chart.style.display = showing ? restoreDisplay : 'none';
         btn.textContent = showing ? 'View as table' : 'View as chart';
       });
     });
@@ -1061,8 +1103,17 @@
   }
 
   // ==================== RECRUITMENT TAB ====================
-  function expectedLabel(subjects, expected) {
+  // v3.0.1 fix: a team's combined "expected" (see build_data.py
+  // disease_expected()) is a SUM across its cohorts' individual targets -
+  // when even one contributing cohort has no target set yet, that sum is a
+  // floor, not the real target (expected_partial=true), so scaling or
+  // labeling against it as if it were complete produces nonsense (a team
+  // showing "1221%" of a target that's actually mostly undefined). Both the
+  // label and the chart below now treat a partial sum the same as "no
+  // target set" rather than a trustworthy denominator.
+  function expectedLabel(subjects, expected, partial) {
     if (expected === null || expected === undefined) return fmt(subjects) + ' subjects (no target set)';
+    if (partial) return fmt(subjects) + ' subjects (target incomplete - at least ' + fmt(expected) + ')';
     var pctv = expected > 0 ? Math.round(100 * subjects / expected) : 0;
     return fmt(subjects) + ' of ' + fmt(expected) + ' (' + pctv + '%)';
   }
@@ -1087,7 +1138,7 @@
 
       svg.appendChild(svgEl('rect', { x: leftPad, y: barY, width: chartW, height: barH, rx: 4, fill: resolveVar('--grid') }));
 
-      var hasTarget = g.expected !== null && g.expected !== undefined && g.expected > 0;
+      var hasTarget = g.expected !== null && g.expected !== undefined && g.expected > 0 && !g.expected_partial;
       var frac = hasTarget ? Math.min(1, g.subjects / g.expected) : (g.subjects / maxSubj);
       var filledW = g.subjects > 0 ? Math.max(3, frac * chartW) : 0;
       var segs = g.cohort_segments || [];
@@ -1117,7 +1168,7 @@
             rows.push([state.data.recruitment.status_labels[k], fmt(seg.status[k])]);
           });
           rows.push(['Cohort target', seg.expected != null ? fmt(seg.expected) : 'Not yet set']);
-          rows.push(['Team total', expectedLabel(g.subjects, g.expected)]);
+          rows.push(['Team total', expectedLabel(g.subjects, g.expected, g.expected_partial)]);
           showTooltip(ev.clientX, ev.clientY, rows);
         });
         hit.addEventListener('pointerleave', hideTooltip);
@@ -1131,7 +1182,7 @@
       }
 
       var val = svgEl('text', { x: leftPad + chartW + 10, y: barY + barH / 2 + 4, class: 'bar-value' });
-      val.textContent = expectedLabel(g.subjects, g.expected); svg.appendChild(val);
+      val.textContent = expectedLabel(g.subjects, g.expected, g.expected_partial); svg.appendChild(val);
     });
     el.appendChild(svg);
     renderDiseaseTable(groups);
@@ -1146,8 +1197,9 @@
             return name + ': ' + fmt(s.subjects);
           }).join(', ')
         : '–';
+      var targetCell = g.expected == null ? 'Not yet set' : (g.expected_partial ? 'At least ' + fmt(g.expected) + ' (incomplete)' : fmt(g.expected));
       return '<tr><td>' + esc(g.label) + '</td><td>' + fmt(g.subjects) + '</td>' +
-        '<td>' + (g.expected != null ? fmt(g.expected) : 'Not yet set') + '</td>' +
+        '<td>' + targetCell + '</td>' +
         '<td>' + fmt(g.status.enrolled) + '</td><td>' + fmt(g.status.archival) + '</td>' +
         '<td>' + fmt(g.visits) + '</td><td>' + esc(segLabel) + '</td></tr>';
     }).join('');
@@ -1282,6 +1334,13 @@
     html += '<p>Disease team here is derived from the <code>Data_Scope</code> value (e.g. <code>SLE-KDY</code> → Lupus Kidney, <code>PsD-SKN</code> → Psoriasis), not the source <code>Disease Team</code> column — that column holds each row’s study/protocol name (STAMP, ELLIPSS, AIM for RA, LOCKIT, SSc Pilot), not a diagnosis, so it isn’t the grouping used here. Lupus and Psoriatic Disease are split into finer subgroups by tissue; a subject whose Data_Scope spans more than one tissue (or more than one disease) is counted in each matching subgroup, but only once in that subgroup’s own total. That can occasionally make the subgroups under one disease team add up to slightly more than the team’s combined subject count above — that’s expected, not double-counting.</p>';
     html += '<p>A subject who carries more than one cohort tag (e.g. both “PsD Eye” and “PsD axSpA”) is counted once in each of those cohorts, but only once in its subgroup’s total — so cohort counts within a subgroup can add up to more than that subgroup’s subject total.</p>';
     html += '<p>Recruitment targets (the “of N” figures) come from the network’s recruitment target numbers, set per individual cohort. The top chart’s team target is the sum of its own cohorts’ targets — the same cohorts shown as that bar’s colored segments — so Lupus Kidney and Lupus Skin each contribute their own cohorts (including two separately-targeted “Enabling Case” cohorts) to one combined Lupus bar, and Psoriasis/Psoriatic Arthritis’s cohorts combine into one Psoriatic Disease (PsD) bar. The “Cohorts within each disease team” card below breaks the same cohorts back out by subgroup — Lupus Kidney and Lupus Skin as separate cards, and Psoriasis/Psoriatic Arthritis still combined into one Psoriatic Disease (PsD) card.</p>';
+    var partialTeams = rec.by_disease_group.filter(function (g) { return g.expected_partial && g.expected != null; });
+    if (partialTeams.length) {
+      html += '<p><span class="flag">' + partialTeams.map(function (g) { return esc(g.label); }).join(', ') +
+        '</span> ' + (partialTeams.length === 1 ? 'has' : 'have') + ' at least one cohort with no target set yet, so ' +
+        (partialTeams.length === 1 ? 'its' : 'their') + ' team target above is a floor (“at least N”), not the real number — ' +
+        'the top chart doesn’t scale or show a percentage against it until every contributing cohort has a target. Fill in the missing cohort(s) in <code>Target_Recruitment_Numbers.xlsx</code> to get a real percentage there.</p>';
+    }
     html += '<p>“Enabling” subjects (<code>Subject Type</code> = “Enabling”) are now their own status, separate from Enrolled and Archival, since they’re a meaningfully different population.</p>';
     if (!rec.schedule_status_available) {
       html += '<p><span class="flag">The “Complete / Not-Complete” view isn’t available yet</span> — this export’s <code>subjects</code> sheet has no <code>Schedule_Status</code> column, so every subject shows as “Not Complete” there until a newer export adds it.</p>';
@@ -1674,63 +1733,30 @@
     });
   }
 
-  // "Datasets by stage" - one 100%-stacked bar per Technology (aggregated
-  // across every selected disease team, pipeline, and Level - see
-  // build_data.py's data_tab construction), same visual pattern as the
-  // Technologies tab's "Status breakdown by technology" chart, but stacked
-  // by the 5 ordered release stages instead of the sample-status categories.
-  function renderDataOverview() {
-    var el = document.getElementById('dataOverviewChart'); el.innerHTML = '';
-    var scopes = scopesForSelectedDataDiseases(), pipelines = selectedDataPipelines();
-    var rows = selectedDataTechs().map(function (t) {
-      var counts = dataCountsFiltered(t.key, scopes, pipelines);
-      return { key: t.key, label: t.label, counts: counts, total: dataStageTotal(counts) };
-    }).sort(function (a, b) { return b.total - a.total; });
-    if (!rows.length) { el.textContent = 'No datasets selected (or no disease teams / pipelines selected).'; renderDataOverviewTable(rows); return; }
-    var width = Math.max(el.clientWidth || 900, 480);
-    var rowH = 34, leftPad = 190, rightPad = 60, topPad = 8;
-    var height = topPad + rows.length * rowH + 8;
-    var chartW = width - leftPad - rightPad, gap = 2;
-    var svg = svgEl('svg', { width: width, height: height, viewBox: '0 0 ' + width + ' ' + height });
+  // "Datasets by project" (v3.0.1 rework) - one card per EDP1/EDP2/NRP1/
+  // NRP2 pipeline; within each, one block per Technology (dataset), and
+  // within THAT, one row per Level - a "bead string" progress track from
+  // Pending to Released, same idea as the Auxiliary Projects track below,
+  // except each bead here can represent more than one underlying row (a
+  // Technology+Level pair is still split by disease team/scope, so more
+  // than one row can share a bead), so the bead shows that count rather
+  // than just a solid/hollow fill. Level is no longer aggregated away, only
+  // disease team/scope is - so this reads like a small graphical table:
+  // dataset x level x stage.
+  function buildStageTrackCounts(counts, total) {
     var order = state.data.data_tab.stage_order, labels = state.data.data_tab.stage_labels;
-
-    rows.forEach(function (t, i) {
-      var y = topPad + i * rowH, barH = 20, barY = y + (rowH - barH) / 2;
-      var label = svgEl('text', { x: leftPad - 10, y: barY + barH / 2 + 4, class: 'bar-label', 'text-anchor': 'end' });
-      label.textContent = t.label; svg.appendChild(label);
-      if (!t.total) { return; }
-      var x = leftPad;
-      order.forEach(function (key, si) {
-        var count = t.counts[key] || 0, w = (count / t.total) * chartW;
-        if (w <= 0) return;
-        var segW = Math.max(0, w - (si < order.length - 1 ? gap : 0));
-        var rect = svgEl('rect', { x: x, y: barY, width: Math.max(segW, 0), height: barH, fill: resolveVar(DATA_STAGE_COLOR_VARS[key]),
-          rx: (si === 0 || si === order.length - 1) ? 4 : 0 });
-        var tipRows = [['Dataset', t.label], [labels[key], fmt(count) + ' (' + (100 * count / t.total).toFixed(1) + '%)']];
-        rect.addEventListener('pointermove', function (ev) { showTooltip(ev.clientX, ev.clientY, tipRows); });
-        rect.addEventListener('pointerleave', hideTooltip);
-        svg.appendChild(rect); x += w;
-      });
-      var val = svgEl('text', { x: leftPad + chartW + 8, y: barY + barH / 2 + 4, class: 'bar-value' });
-      val.textContent = fmt(t.total); svg.appendChild(val);
-    });
-    el.appendChild(svg);
-    renderDataOverviewTable(rows);
-  }
-  function renderDataOverviewTable(rows) {
-    var el = document.getElementById('dataOverviewTable');
-    var order = state.data.data_tab.stage_order, labels = state.data.data_tab.stage_labels;
-    var head = '<tr><th>Dataset</th>' + order.map(function (k) { return '<th>' + esc(labels[k]) + '</th>'; }).join('') + '<th>Total</th></tr>';
-    var body = rows.map(function (t) {
-      return '<tr><td>' + esc(t.label) + '</td>' + order.map(function (k) { return '<td>' + fmt(t.counts[k] || 0) + '</td>'; }).join('') + '<td>' + fmt(t.total) + '</td></tr>';
+    var segs = order.map(function (key) {
+      var count = counts[key] || 0;
+      if (!count) {
+        return '<span class="seg" title="' + esc(labels[key]) + ': 0"></span>';
+      }
+      var bg = resolveVar(DATA_STAGE_COLOR_VARS[key]);
+      var fg = contrastTextColor(bg);
+      return '<span class="seg has-count" style="background:' + bg + ';border-color:' + bg + ';color:' + fg + '" title="' +
+        esc(labels[key]) + ': ' + fmt(count) + (total ? ' of ' + fmt(total) : '') + '">' + fmt(count) + '</span>';
     }).join('');
-    el.innerHTML = '<table class="data-table"><thead>' + head + '</thead><tbody>' + body + '</tbody></table>';
+    return '<div class="stage-track counted">' + segs + '</div>';
   }
-
-  // "Datasets by project" - one card per EDP1/EDP2/NRP1/NRP2 pipeline, each
-  // showing its Technologies as their own 100%-stacked stage bar (same
-  // stage colors/order as the overview above), filtered to whichever
-  // disease teams and datasets are currently selected.
   function renderDataProjects() {
     var el = document.getElementById('dataProjectsChart'); el.innerHTML = '';
     var scopes = scopesForSelectedDataDiseases();
@@ -1743,52 +1769,63 @@
       return;
     }
     var order = state.data.data_tab.stage_order, labels = state.data.data_tab.stage_labels;
-    projects.forEach(function (p) {
-      var rows = p.technologies.filter(function (t) { return selectedTechKeys[t.key]; }).map(function (t) {
-        var counts = dataCountsFiltered(t.key, scopes, [p.label]);
-        return { key: t.key, label: t.label, counts: counts, total: dataStageTotal(counts) };
-      }).filter(function (r) { return r.total > 0; }).sort(function (a, b) { return b.total - a.total; });
-      var totalAll = rows.reduce(function (s, r) { return s + r.total; }, 0);
-      var releasedAll = rows.reduce(function (s, r) { return s + (r.counts.released || 0); }, 0);
 
-      var card = document.createElement('div'); card.className = 'mini-card';
+    projects.forEach(function (p) {
+      var techs = p.technologies.filter(function (t) { return selectedTechKeys[t.key]; }).map(function (t) {
+        var levelRows = t.levels.map(function (level) {
+          var counts = dataLevelCountsFiltered(t.key, scopes, p.label, level);
+          return { level: level, counts: counts, total: dataStageTotal(counts) };
+        }).filter(function (lr) { return lr.total > 0; });
+        var techTotal = levelRows.reduce(function (s, lr) { return s + lr.total; }, 0);
+        return { key: t.key, label: t.label, levelRows: levelRows, total: techTotal };
+      }).filter(function (t) { return t.total > 0; }).sort(function (a, b) { return b.total - a.total; });
+
+      var totalAll = techs.reduce(function (s, t) { return s + t.total; }, 0);
+      var releasedAll = techs.reduce(function (s, t) {
+        return s + t.levelRows.reduce(function (s2, lr) { return s2 + (lr.counts.released || 0); }, 0);
+      }, 0);
+
+      var card = document.createElement('div'); card.className = 'mini-card data-project-card';
       var h3 = document.createElement('h3'); h3.textContent = p.label; card.appendChild(h3);
       var sub = document.createElement('p'); sub.className = 'mini-sub';
       sub.textContent = fmt(totalAll) + ' dataset row' + (totalAll === 1 ? '' : 's') + ' · ' + fmt(releasedAll) + ' released · ' +
-        rows.length + ' technolog' + (rows.length === 1 ? 'y' : 'ies');
+        techs.length + ' technolog' + (techs.length === 1 ? 'y' : 'ies');
       card.appendChild(sub);
 
-      if (!rows.length) {
+      if (!techs.length) {
         var empty = document.createElement('p'); empty.className = 'mini-sub';
         empty.textContent = 'No dataset rows for the selected disease teams / datasets.';
         card.appendChild(empty); el.appendChild(card); return;
       }
 
-      var width = 300, rowH = 22, leftPad = 4, barLeftOffset = 118, rightPad = 34;
-      var height = rows.length * rowH + 6;
-      var chartW = width - barLeftOffset - rightPad, gap = 1.5;
-      var svg = svgEl('svg', { width: '100%', height: height, viewBox: '0 0 ' + width + ' ' + height });
-      rows.forEach(function (r, i) {
-        var y = i * rowH, barH = 13, barY = y + (rowH - barH) / 2;
-        var label = svgEl('text', { x: leftPad, y: barY + barH / 2 + 3.5, class: 'bar-label', style: 'font-size:10.5px' });
-        var short = r.label.length > 17 ? r.label.slice(0, 16) + '…' : r.label;
-        label.textContent = short; svg.appendChild(label);
-        var x = barLeftOffset;
-        order.forEach(function (key, si) {
-          var count = r.counts[key] || 0, w = (count / r.total) * chartW;
-          if (w <= 0) return;
-          var segW = Math.max(0, w - (si < order.length - 1 ? gap : 0));
-          var rect = svgEl('rect', { x: x, y: barY, width: Math.max(segW, 0), height: barH, fill: resolveVar(DATA_STAGE_COLOR_VARS[key]),
-            rx: (si === 0 || si === order.length - 1) ? 3 : 0 });
-          var tipRows = [['Pipeline', p.label], ['Dataset', r.label], [labels[key], fmt(count) + ' (' + (100 * count / r.total).toFixed(1) + '%)']];
-          rect.addEventListener('pointermove', function (ev) { showTooltip(ev.clientX, ev.clientY, tipRows); });
-          rect.addEventListener('pointerleave', hideTooltip);
-          svg.appendChild(rect); x += w;
+      techs.forEach(function (t) {
+        var block = document.createElement('div'); block.className = 'tech-block';
+        var head = document.createElement('div'); head.className = 'tech-block-head';
+        var name = document.createElement('span'); name.className = 'tech-name'; name.textContent = t.label;
+        var total = document.createElement('span'); total.className = 'tech-total';
+        total.textContent = fmt(t.total) + ' row' + (t.total === 1 ? '' : 's');
+        head.appendChild(name); head.appendChild(total); block.appendChild(head);
+
+        t.levelRows.forEach(function (lr) {
+          var row = document.createElement('div'); row.className = 'stage-row';
+          var labelWrap = document.createElement('div'); labelWrap.className = 'stage-label';
+          var lvName = document.createElement('span'); lvName.className = 'stage-name'; lvName.textContent = lr.level;
+          labelWrap.appendChild(lvName);
+          var trackWrap = document.createElement('div'); trackWrap.innerHTML = buildStageTrackCounts(lr.counts, lr.total);
+          var valEl = document.createElement('div'); valEl.className = 'stage-track-value';
+          valEl.textContent = fmt(lr.total) + ' row' + (lr.total === 1 ? '' : 's');
+          row.appendChild(labelWrap); row.appendChild(trackWrap.firstChild); row.appendChild(valEl);
+          row.addEventListener('pointermove', function (ev) {
+            var rows = [['Pipeline', p.label], ['Dataset', t.label], ['Level', lr.level]];
+            order.forEach(function (key) { rows.push([labels[key], fmt(lr.counts[key] || 0)]); });
+            rows.push(['Total', fmt(lr.total)]);
+            showTooltip(ev.clientX, ev.clientY, rows);
+          });
+          row.addEventListener('pointerleave', hideTooltip);
+          block.appendChild(row);
         });
-        var val = svgEl('text', { x: barLeftOffset + chartW + 5, y: barY + barH / 2 + 3.5, class: 'bar-value', style: 'font-size:10.5px' });
-        val.textContent = fmt(r.total); svg.appendChild(val);
+        card.appendChild(block);
       });
-      card.appendChild(svg);
       el.appendChild(card);
     });
     renderDataProjectsTable(projects, scopes, selectedTechKeys);
@@ -1797,15 +1834,18 @@
     var el = document.getElementById('dataProjectsTable');
     var order = state.data.data_tab.stage_order, labels = state.data.data_tab.stage_labels;
     if (!projects.length || !scopes.length) { el.innerHTML = '<p class="sub">No pipelines / disease teams selected.</p>'; return; }
-    var head = '<tr><th>Pipeline</th><th>Dataset</th>' + order.map(function (k) { return '<th>' + esc(labels[k]) + '</th>'; }).join('') + '<th>Total</th></tr>';
+    var head = '<tr><th>Pipeline</th><th>Dataset</th><th>Level</th>' +
+      order.map(function (k) { return '<th>' + esc(labels[k]) + '</th>'; }).join('') + '<th>Total</th></tr>';
     var body = '';
     projects.forEach(function (p) {
       p.technologies.filter(function (t) { return selectedTechKeys[t.key]; }).forEach(function (t) {
-        var counts = dataCountsFiltered(t.key, scopes, [p.label]);
-        var total = dataStageTotal(counts);
-        if (!total) return;
-        body += '<tr><td>' + esc(p.label) + '</td><td>' + esc(t.label) + '</td>' +
-          order.map(function (k) { return '<td>' + fmt(counts[k] || 0) + '</td>'; }).join('') + '<td>' + fmt(total) + '</td></tr>';
+        t.levels.forEach(function (level) {
+          var counts = dataLevelCountsFiltered(t.key, scopes, p.label, level);
+          var total = dataStageTotal(counts);
+          if (!total) return;
+          body += '<tr><td>' + esc(p.label) + '</td><td>' + esc(t.label) + '</td><td>' + esc(level) + '</td>' +
+            order.map(function (k) { return '<td>' + fmt(counts[k] || 0) + '</td>'; }).join('') + '<td>' + fmt(total) + '</td></tr>';
+        });
       });
     });
     if (!body) { el.innerHTML = '<p class="sub">No dataset rows for the selected pipelines / disease teams / datasets.</p>'; return; }
@@ -1886,7 +1926,7 @@
   function renderDataQuality() {
     var d = state.data.data_tab;
     var html = '';
-    html += '<p>This tab tracks <strong>' + fmt(d.total_rows) + '</strong> rows from the network&rsquo;s &ldquo;data&rdquo; tracker &mdash; one row per dataset/disease-team/level combination. &ldquo;Datasets by project&rdquo; rolls those rows up per technology within each pipeline, combining every Level (Lv1&ndash;Lv4) and disease team into one stage-count bar; the Level for each row is still shown on every Auxiliary Projects entry and in the table views.</p>';
+    html += '<p>This tab tracks <strong>' + fmt(d.total_rows) + '</strong> rows from the network&rsquo;s &ldquo;data&rdquo; tracker &mdash; one row per dataset/disease-team/level combination. &ldquo;Datasets by project&rdquo; rolls those rows up per technology and Level within each pipeline, combining only disease team/scope away &mdash; a bead&rsquo;s number is how many disease-team rows are at that stage for that dataset and Level, across whichever disease teams are selected above.</p>';
     var pendingCount = 0;
     Object.keys(d.totals).forEach(function (k) { pendingCount += (d.totals[k].pending || 0); });
     if (pendingCount > 0) {
@@ -1924,7 +1964,6 @@
       renderSamplesQuality();
     } else {
       renderDataStageLegend();
-      renderDataOverview();
       renderDataProjects();
       renderDataAuxiliary();
       renderDataQuality();
