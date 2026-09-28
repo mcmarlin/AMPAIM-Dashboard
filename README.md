@@ -112,6 +112,28 @@ new folder every time you get an updated project folder from Claude.
   column, so cohort names stay consistent across all three tabs. A handful
   of visits that can't be matched to a subject are counted and called out
   in the tab's data-quality notes rather than silently dropped.
+- **Data** — what's been generated and how far it's gotten toward release,
+  per dataset. This reads the `data` tab of the weekly export (added
+  September 2026) — note that tab's headers sit on row 2, one row higher
+  than `subjects`/`visits`, since it's laid out differently; `build_data.py`
+  already knows this. "Disease Teams," "Pipelines," and "Datasets" here
+  mirror the Technologies tab but come from the `data` tab's own `Scope`,
+  `Project`, and `Technology` columns — a dataset's progress comes from its
+  `Latest Status` column, in order Pending (blank or "Pending") → Generated
+  → Staged → Pre-Release → Released. "Datasets by stage" is a
+  network-wide, per-dataset breakdown, same style as the Technologies tab's
+  status chart. "Datasets by project" gives EDP1/EDP2/NRP1/NRP2 their own
+  card, each showing its expected datasets and how far each has gotten —
+  aggregated across every disease team and Level (Lv1–Lv4) into one bar per
+  dataset, since a single Technology can appear as several rows split by
+  tissue and Level. Rows with no Project (currently 11) are grouped
+  separately under "Auxiliary Projects," one card per Team, each row kept
+  to its own `Dataset name` + Technology (with Level shown alongside) since
+  each is its own one-off dataset rather than an aggregate — its track
+  shows the single stage it's reached rather than a count breakdown. This
+  is a first pass at how to visualize dataset progress; if the progress-bar
+  or stage-track styling isn't quite what you pictured, say so and it can
+  be reworked.
 
 **About "disease team":** the source `Disease Team` column holds each row's
 study/protocol name (STAMP, ELLIPSS, AIM for RA, LOCKIT, SSc Pilot), not a

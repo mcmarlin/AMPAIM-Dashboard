@@ -41,6 +41,12 @@ import openpyxl
 HEADER_ROW = 3
 DATA_START_ROW = 4
 
+# The "data" sheet (added ~Sep 2026, tracks dataset generation/release
+# progress - see the "Data" tab section below) has its own layout: headers
+# on row 2, not row 3 like "subjects"/"visits" above.
+DATA_SHEET_HEADER_ROW = 2
+DATA_SHEET_DATA_START_ROW = 3
+
 # Technology (sample/assay) columns -> (key, display label)
 # Trimmed to the 12 technologies actually tracked on the dashboard. (Plain
 # Xenium, both "-NL" / Non-lesional columns, and the old OMRF Lab / Xenium
@@ -183,6 +189,62 @@ def schedule_status_for(raw_value):
 
 def empty_schedule_status():
     return {k: 0 for k in SCHEDULE_STATUS_ORDER}
+
+
+# ---------- Data tab: dataset generation/release progress ----------
+# A dataset deliverable's "Latest Status" (on the "data" sheet) moves through
+# five ordered stages on its way to public release. Blank/unrecognized values
+# are treated as "Pending" (not yet started), the safest default rather than
+# silently dropping the row.
+STAGE_ORDER = ["pending", "generated", "staged", "pre_release", "released"]
+STAGE_LABELS = {
+    "pending": "Pending", "generated": "Generated", "staged": "Staged",
+    "pre_release": "Pre-Release", "released": "Released",
+}
+
+
+def stage_for(raw_value):
+    s = clean_label(raw_value, default="").strip().lower()
+    if s in ("", "pending"):
+        return "pending"
+    if s == "generated":
+        return "generated"
+    if s == "staged":
+        return "staged"
+    if s in ("pre-release", "prerelease", "pre release"):
+        return "pre_release"
+    if s == "released":
+        return "released"
+    return "pending"  # unrecognized value - safest to treat as not-yet-started
+
+
+def empty_stage_counts():
+    return {k: 0 for k in STAGE_ORDER}
+
+
+# A blank "Project" on the data sheet means the dataset isn't tied to one of
+# the four named projects (EDP1/EDP2/NRP1/NRP2) - it's a smaller one-off
+# ("Auxiliary") deliverable instead, and gets its own card rather than
+# folding into (or breaking) the four project cards.
+AUXILIARY_PROJECT_LABEL = "Auxiliary Projects"
+DATA_PROJECT_ORDER_HINT = ["EDP1", "EDP2", "NRP1", "NRP2"]
+
+
+def data_project_label(raw):
+    return clean_label(raw, default=AUXILIARY_PROJECT_LABEL)
+
+
+def data_project_sort_key(label):
+    if label in DATA_PROJECT_ORDER_HINT:
+        return (0, DATA_PROJECT_ORDER_HINT.index(label))
+    if label == AUXILIARY_PROJECT_LABEL:
+        return (2, 0)
+    return (1, label)
+
+
+def data_tech_key(label):
+    return label.lower().replace(" ", "_").replace("(", "").replace(")", "").replace("/", "_")
+
 
 # How many subjects are ultimately expected in each cohort, per the network's
 # recruitment targets. Loaded at runtime (see load_expected_recruitment(),
@@ -777,7 +839,10 @@ def main():
               "subjects": v2["subjects"], "visits": v2["visits"], "status": v2["status"],
               "expected": expected_for(v2["target_label"], ck[1])}
              for ck, v2 in cohort_view_cohort_totals.items() if v2["disease_key"] in cv_keys_for_group],
-            key=lambda d: (d["disease_label"], d["cohort"].lower()),
+            # Largest cohort first within each team's stack (v3.0 request) -
+            # tie-broken alphabetically so equal-sized cohorts stay in a
+            # stable order across rebuilds.
+            key=lambda d: (-d["subjects"], d["disease_label"], d["cohort"].lower()),
         )
         by_disease_group.append({
             "key": gk, "label": g["label"], "subjects": len(g["subject_set"]), "visits": g["visits"],
@@ -916,6 +981,136 @@ def main():
         "total_visits": n_visits,
     }
 
+    # ---------- Data tab: dataset generation/release progress ----------
+    # Reads the "data" sheet (added ~Sep 2026) - one row per generated
+    # dataset deliverable (Team/Project/Scope/Technology/Level), headers on
+    # row 2 (not row 3 like subjects/visits above - this sheet was added
+    # later with its own layout). "Scope" gives the disease team (same
+    # derive_diseases() logic used everywhere else), "Project" gives the
+    # pipeline (EDP1/EDP2/NRP1/NRP2; a blank Project means an Auxiliary
+    # Project, not tied to any of those four), "Technology" is the dataset
+    # type, and "Latest Status" is where that deliverable currently stands
+    # (see STAGE_ORDER above). A row's Level (Lv1-4, Lv(all), ...) is kept on
+    # each Auxiliary entry but NOT broken out separately for the four named
+    # projects - their dataset progress is aggregated across Level (and
+    # across disease team, for the per-project summaries) into one stage
+    # count per Technology, so many small (Scope x Level) rows collapse into
+    # one readable bar per dataset type per project.
+    data_totals = defaultdict(empty_stage_counts)  # tech_key -> stage_counts (unfiltered, every row)
+    data_by_scope = {}  # tech_key -> {scope_raw: stage_counts}
+    data_by_pipeline = {}  # tech_key -> {project_label: stage_counts}
+    data_by_scope_pipeline = {}  # tech_key -> {scope_raw: {project_label: stage_counts}}
+    data_project_tech_totals = defaultdict(lambda: defaultdict(empty_stage_counts))  # project_label -> tech_key -> stage_counts
+    data_tech_labels = {}
+    data_scopes_seen = set()
+    data_projects_seen = set()
+    data_scope_disease = {}
+    data_auxiliary = []  # individual, non-aggregated rows for the Auxiliary Projects card
+    n_data_rows = 0
+
+    if "data" in wb.sheetnames:
+        data_ws = wb["data"]
+        data_headers = [data_ws.cell(row=DATA_SHEET_HEADER_ROW, column=c).value for c in range(1, data_ws.max_column + 1)]
+        data_col_idx = {h: i + 1 for i, h in enumerate(data_headers) if h}
+        required_data_cols = ["Scope", "Project", "Technology", "Latest Status", "Dataset name", "Team", "Level"]
+        missing_data_cols = [c for c in required_data_cols if c not in data_col_idx]
+        if missing_data_cols:
+            print(f"WARNING: 'data' sheet is missing column(s) {missing_data_cols} - "
+                  f"the Data tab will be incomplete.", file=sys.stderr)
+
+        dscope_idx = data_col_idx.get("Scope")
+        dproj_idx = data_col_idx.get("Project")
+        dtech_idx = data_col_idx.get("Technology")
+        dstatus_idx = data_col_idx.get("Latest Status")
+        dname_idx = data_col_idx.get("Dataset name")
+        dteam_idx = data_col_idx.get("Team")
+        dlevel_idx = data_col_idx.get("Level")
+
+        for r in range(DATA_SHEET_DATA_START_ROW, data_ws.max_row + 1):
+            tech_raw = data_ws.cell(row=r, column=dtech_idx).value if dtech_idx else None
+            name_raw = data_ws.cell(row=r, column=dname_idx).value if dname_idx else None
+            if tech_raw is None and name_raw is None:
+                continue  # blank row
+
+            tech = clean_label(tech_raw, default="Unknown")
+            tech_key = data_tech_key(tech)
+            data_tech_labels[tech_key] = tech
+
+            scope_raw = clean_label(data_ws.cell(row=r, column=dscope_idx).value if dscope_idx else None)
+            project_label = data_project_label(data_ws.cell(row=r, column=dproj_idx).value if dproj_idx else None)
+            stage = stage_for(data_ws.cell(row=r, column=dstatus_idx).value if dstatus_idx else None)
+            name = clean_label(data_ws.cell(row=r, column=dname_idx).value if dname_idx else None, default=tech)
+            team = clean_label(data_ws.cell(row=r, column=dteam_idx).value if dteam_idx else None, default="")
+            level = clean_label(data_ws.cell(row=r, column=dlevel_idx).value if dlevel_idx else None, default="")
+
+            n_data_rows += 1
+            data_scopes_seen.add(scope_raw)
+            data_projects_seen.add(project_label)
+            if scope_raw not in data_scope_disease:
+                data_scope_disease[scope_raw] = [{"key": k, "label": l} for k, l, _old, _grp in derive_diseases(scope_raw)]
+
+            data_totals[tech_key][stage] += 1
+            data_by_scope.setdefault(tech_key, {}).setdefault(scope_raw, empty_stage_counts())[stage] += 1
+            data_by_pipeline.setdefault(tech_key, {}).setdefault(project_label, empty_stage_counts())[stage] += 1
+            data_by_scope_pipeline.setdefault(tech_key, {}).setdefault(scope_raw, {}).setdefault(project_label, empty_stage_counts())[stage] += 1
+            data_project_tech_totals[project_label][tech_key][stage] += 1
+
+            if project_label == AUXILIARY_PROJECT_LABEL:
+                data_auxiliary.append({
+                    "name": name, "team": team, "technology": tech, "technology_key": tech_key,
+                    "scope": scope_raw, "level": level, "stage": stage,
+                })
+    else:
+        print("WARNING: no 'data' sheet found - the Data tab will show no datasets.", file=sys.stderr)
+
+    data_tech_list = sorted(
+        [{"key": k, "label": v} for k, v in data_tech_labels.items()],
+        key=lambda t: t["label"].lower(),
+    )
+    data_scopes_sorted = sorted(s for s in data_scopes_seen if s != "Unknown") + (
+        ["Unknown"] if "Unknown" in data_scopes_seen else []
+    )
+    data_projects_sorted = sorted(data_projects_seen, key=data_project_sort_key)
+
+    data_by_project = []
+    for project_label in data_projects_sorted:
+        if project_label == AUXILIARY_PROJECT_LABEL:
+            continue  # Auxiliary gets its own (non-aggregated) list below, not a project card
+        tech_map = data_project_tech_totals[project_label]
+        techs = sorted(
+            [{"key": tk, "label": data_tech_labels[tk], "total": sum(counts.values()), "stage_counts": counts}
+             for tk, counts in tech_map.items()],
+            key=lambda t: t["total"], reverse=True,
+        )
+        data_by_project.append({
+            "key": project_label.lower().replace(" ", "_"),
+            "label": project_label,
+            "total": sum(t["total"] for t in techs),
+            "technologies": techs,
+        })
+
+    data_auxiliary_sorted = sorted(data_auxiliary, key=lambda a: (a["team"], a["technology"].lower(), a["name"].lower()))
+
+    data_tab = {
+        "technologies": data_tech_list,
+        "scopes": data_scopes_sorted,
+        "scope_disease": data_scope_disease,
+        "pipelines": data_projects_sorted,
+        "stage_order": STAGE_ORDER,
+        "stage_labels": STAGE_LABELS,
+        "totals": {k: dict(v) for k, v in data_totals.items()},
+        "by_scope": {k: {s: dict(c) for s, c in v.items()} for k, v in data_by_scope.items()},
+        "by_pipeline": {k: {p: dict(c) for p, c in v.items()} for k, v in data_by_pipeline.items()},
+        "by_scope_pipeline": {
+            k: {s: {p: dict(c) for p, c in pv.items()} for s, pv in v.items()}
+            for k, v in data_by_scope_pipeline.items()
+        },
+        "by_project": data_by_project,
+        "auxiliary_label": AUXILIARY_PROJECT_LABEL,
+        "auxiliary": data_auxiliary_sorted,
+        "total_rows": n_data_rows,
+    }
+
     by_scope_matrix = {
         key: {scope: tech_by_scope[key].get(scope, empty_status_counts()) for scope in scopes_sorted}
         for _, key, _ in TECH_COLUMNS
@@ -950,6 +1145,7 @@ def main():
         "by_pipeline": by_pipeline_matrix,
         "by_scope_pipeline": by_scope_pipeline_matrix,
         "samples": samples,
+        "data_tab": data_tab,
     }
 
     with open(out_path, "w") as f:
@@ -961,6 +1157,8 @@ def main():
     print(f"  pipelines={pipelines_sorted}")
     print(f"  sample types={len(samples['sample_types'])} sample-cohorts={len(samples['by_cohort'])} "
           f"unassigned_visits={sample_unassigned_visits}")
+    print(f"  data rows={n_data_rows} datasets={len(data_tech_list)} projects={[p['label'] for p in data_by_project]} "
+          f"auxiliary={len(data_auxiliary_sorted)}")
 
 
 if __name__ == "__main__":

@@ -1,5 +1,5 @@
 {
-  "generated_at": "2026-09-25T14:48:02Z",
+  "generated_at": "2026-09-28T15:56:28Z",
   "source_rows": 1412,
   "totals": {
     "subjects": 999,
@@ -96,7 +96,7 @@
           "enabling": 11,
           "archival": 0
         },
-        "expected": 458,
+        "expected": 450,
         "expected_partial": false,
         "segments": [
           {
@@ -106,6 +106,45 @@
           }
         ],
         "cohort_segments": [
+          {
+            "disease_key": "sjd",
+            "disease_label": "Sj\u00f6gren's Disease (SjD)",
+            "cohort": "SjD Cross-Sectional",
+            "subjects": 297,
+            "visits": 297,
+            "status": {
+              "enrolled": 297,
+              "enabling": 0,
+              "archival": 0
+            },
+            "expected": 293
+          },
+          {
+            "disease_key": "sjd",
+            "disease_label": "Sj\u00f6gren's Disease (SjD)",
+            "cohort": "SjD Longitudinal",
+            "subjects": 106,
+            "visits": 187,
+            "status": {
+              "enrolled": 106,
+              "enabling": 0,
+              "archival": 0
+            },
+            "expected": 100
+          },
+          {
+            "disease_key": "sjd",
+            "disease_label": "Sj\u00f6gren's Disease (SjD)",
+            "cohort": "Healthy Control",
+            "subjects": 47,
+            "visits": 47,
+            "status": {
+              "enrolled": 47,
+              "enabling": 0,
+              "archival": 0
+            },
+            "expected": 43
+          },
           {
             "disease_key": "sjd",
             "disease_label": "Sj\u00f6gren's Disease (SjD)",
@@ -135,45 +174,6 @@
           {
             "disease_key": "sjd",
             "disease_label": "Sj\u00f6gren's Disease (SjD)",
-            "cohort": "Healthy Control",
-            "subjects": 47,
-            "visits": 47,
-            "status": {
-              "enrolled": 47,
-              "enabling": 0,
-              "archival": 0
-            },
-            "expected": 49
-          },
-          {
-            "disease_key": "sjd",
-            "disease_label": "Sj\u00f6gren's Disease (SjD)",
-            "cohort": "SjD Cross-Sectional",
-            "subjects": 297,
-            "visits": 297,
-            "status": {
-              "enrolled": 297,
-              "enabling": 0,
-              "archival": 0
-            },
-            "expected": 294
-          },
-          {
-            "disease_key": "sjd",
-            "disease_label": "Sj\u00f6gren's Disease (SjD)",
-            "cohort": "SjD Longitudinal",
-            "subjects": 106,
-            "visits": 187,
-            "status": {
-              "enrolled": 106,
-              "enabling": 0,
-              "archival": 0
-            },
-            "expected": 101
-          },
-          {
-            "disease_key": "sjd",
-            "disease_label": "Sj\u00f6gren's Disease (SjD)",
             "cohort": "SjD RRNL",
             "subjects": 3,
             "visits": 3,
@@ -196,8 +196,8 @@
           "enabling": 3,
           "archival": 32
         },
-        "expected": 236,
-        "expected_partial": false,
+        "expected": 170,
+        "expected_partial": true,
         "segments": [
           {
             "key": "psd_skn",
@@ -214,15 +214,41 @@
           {
             "disease_key": "psd",
             "disease_label": "Psoriatic Disease (PsD)",
-            "cohort": "Healthy Control",
-            "subjects": 5,
-            "visits": 5,
+            "cohort": "PsD Skin",
+            "subjects": 118,
+            "visits": 145,
             "status": {
-              "enrolled": 0,
-              "enabling": 0,
-              "archival": 5
+              "enrolled": 115,
+              "enabling": 3,
+              "archival": 0
             },
-            "expected": 5
+            "expected": 130
+          },
+          {
+            "disease_key": "psd",
+            "disease_label": "Psoriatic Disease (PsD)",
+            "cohort": "PsD Synovium",
+            "subjects": 56,
+            "visits": 68,
+            "status": {
+              "enrolled": 30,
+              "enabling": 0,
+              "archival": 26
+            },
+            "expected": 30
+          },
+          {
+            "disease_key": "psd",
+            "disease_label": "Psoriatic Disease (PsD)",
+            "cohort": "PsD Uveitis",
+            "subjects": 19,
+            "visits": 19,
+            "status": {
+              "enrolled": 19,
+              "enabling": 0,
+              "archival": 0
+            },
+            "expected": null
           },
           {
             "disease_key": "psd",
@@ -240,41 +266,15 @@
           {
             "disease_key": "psd",
             "disease_label": "Psoriatic Disease (PsD)",
-            "cohort": "PsD Skin",
-            "subjects": 118,
-            "visits": 145,
+            "cohort": "Healthy Control",
+            "subjects": 5,
+            "visits": 5,
             "status": {
-              "enrolled": 115,
-              "enabling": 3,
-              "archival": 0
-            },
-            "expected": 120
-          },
-          {
-            "disease_key": "psd",
-            "disease_label": "Psoriatic Disease (PsD)",
-            "cohort": "PsD Synovium",
-            "subjects": 56,
-            "visits": 68,
-            "status": {
-              "enrolled": 30,
+              "enrolled": 0,
               "enabling": 0,
-              "archival": 26
+              "archival": 5
             },
-            "expected": 71
-          },
-          {
-            "disease_key": "psd",
-            "disease_label": "Psoriatic Disease (PsD)",
-            "cohort": "PsD Uveitis",
-            "subjects": 19,
-            "visits": 19,
-            "status": {
-              "enrolled": 19,
-              "enabling": 0,
-              "archival": 0
-            },
-            "expected": 30
+            "expected": null
           }
         ]
       },
@@ -288,7 +288,7 @@
           "enabling": 10,
           "archival": 42
         },
-        "expected": 219,
+        "expected": 14,
         "expected_partial": true,
         "segments": [
           {
@@ -298,6 +298,45 @@
           }
         ],
         "cohort_segments": [
+          {
+            "disease_key": "ra",
+            "disease_label": "Rheumatoid Arthritis (RA)",
+            "cohort": "RA C1 Early RA",
+            "subjects": 86,
+            "visits": 167,
+            "status": {
+              "enrolled": 51,
+              "enabling": 0,
+              "archival": 35
+            },
+            "expected": null
+          },
+          {
+            "disease_key": "ra",
+            "disease_label": "Rheumatoid Arthritis (RA)",
+            "cohort": "RA C3 Refractory",
+            "subjects": 48,
+            "visits": 47,
+            "status": {
+              "enrolled": 48,
+              "enabling": 0,
+              "archival": 0
+            },
+            "expected": null
+          },
+          {
+            "disease_key": "ra",
+            "disease_label": "Rheumatoid Arthritis (RA)",
+            "cohort": "RA C2 MTX-IR",
+            "subjects": 15,
+            "visits": 21,
+            "status": {
+              "enrolled": 15,
+              "enabling": 0,
+              "archival": 0
+            },
+            "expected": null
+          },
           {
             "disease_key": "ra",
             "disease_label": "Rheumatoid Arthritis (RA)",
@@ -314,58 +353,6 @@
           {
             "disease_key": "ra",
             "disease_label": "Rheumatoid Arthritis (RA)",
-            "cohort": "Healthy Control",
-            "subjects": 4,
-            "visits": 4,
-            "status": {
-              "enrolled": 0,
-              "enabling": 0,
-              "archival": 4
-            },
-            "expected": 4
-          },
-          {
-            "disease_key": "ra",
-            "disease_label": "Rheumatoid Arthritis (RA)",
-            "cohort": "RA C1 Early RA",
-            "subjects": 86,
-            "visits": 167,
-            "status": {
-              "enrolled": 51,
-              "enabling": 0,
-              "archival": 35
-            },
-            "expected": 100
-          },
-          {
-            "disease_key": "ra",
-            "disease_label": "Rheumatoid Arthritis (RA)",
-            "cohort": "RA C2 MTX-IR",
-            "subjects": 15,
-            "visits": 21,
-            "status": {
-              "enrolled": 15,
-              "enabling": 0,
-              "archival": 0
-            },
-            "expected": 55
-          },
-          {
-            "disease_key": "ra",
-            "disease_label": "Rheumatoid Arthritis (RA)",
-            "cohort": "RA C3 Refractory",
-            "subjects": 48,
-            "visits": 47,
-            "status": {
-              "enrolled": 48,
-              "enabling": 0,
-              "archival": 0
-            },
-            "expected": 50
-          },
-          {
-            "disease_key": "ra",
-            "disease_label": "Rheumatoid Arthritis (RA)",
             "cohort": "RA Cohort Pending",
             "subjects": 8,
             "visits": 8,
@@ -375,6 +362,19 @@
               "archival": 3
             },
             "expected": null
+          },
+          {
+            "disease_key": "ra",
+            "disease_label": "Rheumatoid Arthritis (RA)",
+            "cohort": "Healthy Control",
+            "subjects": 4,
+            "visits": 4,
+            "status": {
+              "enrolled": 0,
+              "enabling": 0,
+              "archival": 4
+            },
+            "expected": 4
           }
         ]
       },
@@ -388,8 +388,8 @@
           "enabling": 30,
           "archival": 15
         },
-        "expected": 151,
-        "expected_partial": false,
+        "expected": null,
+        "expected_partial": true,
         "segments": [
           {
             "key": "sle_kdy",
@@ -406,32 +406,6 @@
           {
             "disease_key": "sle_kdy",
             "disease_label": "Lupus Kidney",
-            "cohort": "Enabling Case",
-            "subjects": 15,
-            "visits": 15,
-            "status": {
-              "enrolled": 0,
-              "enabling": 15,
-              "archival": 0
-            },
-            "expected": 15
-          },
-          {
-            "disease_key": "sle_kdy",
-            "disease_label": "Lupus Kidney",
-            "cohort": "Enabling Control",
-            "subjects": 8,
-            "visits": 8,
-            "status": {
-              "enrolled": 0,
-              "enabling": 8,
-              "archival": 0
-            },
-            "expected": 8
-          },
-          {
-            "disease_key": "sle_kdy",
-            "disease_label": "Lupus Kidney",
             "cohort": "KP1",
             "subjects": 41,
             "visits": 131,
@@ -440,7 +414,7 @@
               "enabling": 0,
               "archival": 0
             },
-            "expected": 31
+            "expected": null
           },
           {
             "disease_key": "sle_kdy",
@@ -453,33 +427,7 @@
               "enabling": 0,
               "archival": 0
             },
-            "expected": 36
-          },
-          {
-            "disease_key": "sle_skn",
-            "disease_label": "Lupus Skin",
-            "cohort": "Enabling Case",
-            "subjects": 7,
-            "visits": 7,
-            "status": {
-              "enrolled": 0,
-              "enabling": 7,
-              "archival": 0
-            },
-            "expected": 7
-          },
-          {
-            "disease_key": "sle_skn",
-            "disease_label": "Lupus Skin",
-            "cohort": "Healthy Control",
-            "subjects": 4,
-            "visits": 4,
-            "status": {
-              "enrolled": 0,
-              "enabling": 0,
-              "archival": 4
-            },
-            "expected": 4
+            "expected": null
           },
           {
             "disease_key": "sle_skn",
@@ -492,7 +440,20 @@
               "enabling": 0,
               "archival": 11
             },
-            "expected": 30
+            "expected": null
+          },
+          {
+            "disease_key": "sle_kdy",
+            "disease_label": "Lupus Kidney",
+            "cohort": "Enabling Case",
+            "subjects": 15,
+            "visits": 15,
+            "status": {
+              "enrolled": 0,
+              "enabling": 15,
+              "archival": 0
+            },
+            "expected": null
           },
           {
             "disease_key": "sle_skn",
@@ -505,7 +466,46 @@
               "enabling": 0,
               "archival": 0
             },
-            "expected": 20
+            "expected": null
+          },
+          {
+            "disease_key": "sle_kdy",
+            "disease_label": "Lupus Kidney",
+            "cohort": "Enabling Control",
+            "subjects": 8,
+            "visits": 8,
+            "status": {
+              "enrolled": 0,
+              "enabling": 8,
+              "archival": 0
+            },
+            "expected": null
+          },
+          {
+            "disease_key": "sle_skn",
+            "disease_label": "Lupus Skin",
+            "cohort": "Enabling Case",
+            "subjects": 7,
+            "visits": 7,
+            "status": {
+              "enrolled": 0,
+              "enabling": 7,
+              "archival": 0
+            },
+            "expected": null
+          },
+          {
+            "disease_key": "sle_skn",
+            "disease_label": "Lupus Skin",
+            "cohort": "Healthy Control",
+            "subjects": 4,
+            "visits": 4,
+            "status": {
+              "enrolled": 0,
+              "enabling": 0,
+              "archival": 4
+            },
+            "expected": null
           }
         ]
       },
@@ -519,8 +519,8 @@
           "enabling": 0,
           "archival": 17
         },
-        "expected": 17,
-        "expected_partial": false,
+        "expected": null,
+        "expected_partial": true,
         "segments": [
           {
             "key": "ssc",
@@ -532,19 +532,6 @@
           {
             "disease_key": "ssc",
             "disease_label": "Systemic Sclerosis (SSc)",
-            "cohort": "Healthy Control",
-            "subjects": 5,
-            "visits": 5,
-            "status": {
-              "enrolled": 0,
-              "enabling": 0,
-              "archival": 5
-            },
-            "expected": 5
-          },
-          {
-            "disease_key": "ssc",
-            "disease_label": "Systemic Sclerosis (SSc)",
             "cohort": "SSc Case",
             "subjects": 12,
             "visits": 12,
@@ -553,7 +540,20 @@
               "enabling": 0,
               "archival": 12
             },
-            "expected": 12
+            "expected": null
+          },
+          {
+            "disease_key": "ssc",
+            "disease_label": "Systemic Sclerosis (SSc)",
+            "cohort": "Healthy Control",
+            "subjects": 5,
+            "visits": 5,
+            "status": {
+              "enrolled": 0,
+              "enabling": 0,
+              "archival": 5
+            },
+            "expected": null
           }
         ]
       }
@@ -570,7 +570,7 @@
           "enabling": 15,
           "archival": 0
         },
-        "expected": 15
+        "expected": null
       },
       {
         "disease_key": "sle_kdy",
@@ -583,7 +583,7 @@
           "enabling": 8,
           "archival": 0
         },
-        "expected": 8
+        "expected": null
       },
       {
         "disease_key": "sle_kdy",
@@ -596,7 +596,7 @@
           "enabling": 0,
           "archival": 0
         },
-        "expected": 31
+        "expected": null
       },
       {
         "disease_key": "sle_kdy",
@@ -609,7 +609,7 @@
           "enabling": 0,
           "archival": 0
         },
-        "expected": 36
+        "expected": null
       },
       {
         "disease_key": "sle_skn",
@@ -622,7 +622,7 @@
           "enabling": 7,
           "archival": 0
         },
-        "expected": 7
+        "expected": null
       },
       {
         "disease_key": "sle_skn",
@@ -635,7 +635,7 @@
           "enabling": 0,
           "archival": 4
         },
-        "expected": 4
+        "expected": null
       },
       {
         "disease_key": "sle_skn",
@@ -648,7 +648,7 @@
           "enabling": 0,
           "archival": 11
         },
-        "expected": 30
+        "expected": null
       },
       {
         "disease_key": "sle_skn",
@@ -661,7 +661,7 @@
           "enabling": 0,
           "archival": 0
         },
-        "expected": 20
+        "expected": null
       },
       {
         "disease_key": "psd_skn",
@@ -674,7 +674,7 @@
           "enabling": 0,
           "archival": 5
         },
-        "expected": 5
+        "expected": null
       },
       {
         "disease_key": "psd_skn",
@@ -700,7 +700,7 @@
           "enabling": 3,
           "archival": 0
         },
-        "expected": 120
+        "expected": 130
       },
       {
         "disease_key": "psd_skn",
@@ -713,7 +713,7 @@
           "enabling": 0,
           "archival": 3
         },
-        "expected": 71
+        "expected": 30
       },
       {
         "disease_key": "psd_skn",
@@ -726,7 +726,7 @@
           "enabling": 0,
           "archival": 0
         },
-        "expected": 30
+        "expected": null
       },
       {
         "disease_key": "psd_syn",
@@ -752,7 +752,7 @@
           "enabling": 0,
           "archival": 0
         },
-        "expected": 120
+        "expected": 130
       },
       {
         "disease_key": "psd_syn",
@@ -765,7 +765,7 @@
           "enabling": 0,
           "archival": 26
         },
-        "expected": 71
+        "expected": 30
       },
       {
         "disease_key": "ra",
@@ -804,7 +804,7 @@
           "enabling": 0,
           "archival": 35
         },
-        "expected": 100
+        "expected": null
       },
       {
         "disease_key": "ra",
@@ -817,7 +817,7 @@
           "enabling": 0,
           "archival": 0
         },
-        "expected": 55
+        "expected": null
       },
       {
         "disease_key": "ra",
@@ -830,7 +830,7 @@
           "enabling": 0,
           "archival": 0
         },
-        "expected": 50
+        "expected": null
       },
       {
         "disease_key": "ra",
@@ -882,7 +882,7 @@
           "enabling": 0,
           "archival": 0
         },
-        "expected": 49
+        "expected": 43
       },
       {
         "disease_key": "sjd",
@@ -895,7 +895,7 @@
           "enabling": 0,
           "archival": 0
         },
-        "expected": 294
+        "expected": 293
       },
       {
         "disease_key": "sjd",
@@ -908,7 +908,7 @@
           "enabling": 0,
           "archival": 0
         },
-        "expected": 101
+        "expected": 100
       },
       {
         "disease_key": "sjd",
@@ -934,7 +934,7 @@
           "enabling": 0,
           "archival": 5
         },
-        "expected": 5
+        "expected": null
       },
       {
         "disease_key": "ssc",
@@ -947,7 +947,7 @@
           "enabling": 0,
           "archival": 12
         },
-        "expected": 12
+        "expected": null
       }
     ],
     "cohort_view": {
@@ -1059,7 +1059,7 @@
             "complete": 15,
             "not_complete": 0
           },
-          "expected": 15
+          "expected": null
         },
         {
           "disease_key": "sle_kdy",
@@ -1076,7 +1076,7 @@
             "complete": 8,
             "not_complete": 0
           },
-          "expected": 8
+          "expected": null
         },
         {
           "disease_key": "sle_kdy",
@@ -1093,7 +1093,7 @@
             "complete": 0,
             "not_complete": 41
           },
-          "expected": 31
+          "expected": null
         },
         {
           "disease_key": "sle_kdy",
@@ -1110,7 +1110,7 @@
             "complete": 0,
             "not_complete": 31
           },
-          "expected": 36
+          "expected": null
         },
         {
           "disease_key": "sle_skn",
@@ -1127,7 +1127,7 @@
             "complete": 7,
             "not_complete": 0
           },
-          "expected": 7
+          "expected": null
         },
         {
           "disease_key": "sle_skn",
@@ -1144,7 +1144,7 @@
             "complete": 4,
             "not_complete": 0
           },
-          "expected": 4
+          "expected": null
         },
         {
           "disease_key": "sle_skn",
@@ -1161,7 +1161,7 @@
             "complete": 11,
             "not_complete": 12
           },
-          "expected": 30
+          "expected": null
         },
         {
           "disease_key": "sle_skn",
@@ -1178,7 +1178,7 @@
             "complete": 0,
             "not_complete": 15
           },
-          "expected": 20
+          "expected": null
         },
         {
           "disease_key": "psd",
@@ -1195,7 +1195,7 @@
             "complete": 5,
             "not_complete": 0
           },
-          "expected": 5
+          "expected": null
         },
         {
           "disease_key": "psd",
@@ -1229,7 +1229,7 @@
             "complete": 3,
             "not_complete": 115
           },
-          "expected": 120
+          "expected": 130
         },
         {
           "disease_key": "psd",
@@ -1246,7 +1246,7 @@
             "complete": 26,
             "not_complete": 30
           },
-          "expected": 71
+          "expected": 30
         },
         {
           "disease_key": "psd",
@@ -1263,7 +1263,7 @@
             "complete": 0,
             "not_complete": 19
           },
-          "expected": 30
+          "expected": null
         },
         {
           "disease_key": "ra",
@@ -1314,7 +1314,7 @@
             "complete": 35,
             "not_complete": 51
           },
-          "expected": 100
+          "expected": null
         },
         {
           "disease_key": "ra",
@@ -1331,7 +1331,7 @@
             "complete": 0,
             "not_complete": 15
           },
-          "expected": 55
+          "expected": null
         },
         {
           "disease_key": "ra",
@@ -1348,7 +1348,7 @@
             "complete": 0,
             "not_complete": 48
           },
-          "expected": 50
+          "expected": null
         },
         {
           "disease_key": "ra",
@@ -1416,7 +1416,7 @@
             "complete": 0,
             "not_complete": 47
           },
-          "expected": 49
+          "expected": 43
         },
         {
           "disease_key": "sjd",
@@ -1433,7 +1433,7 @@
             "complete": 0,
             "not_complete": 297
           },
-          "expected": 294
+          "expected": 293
         },
         {
           "disease_key": "sjd",
@@ -1450,7 +1450,7 @@
             "complete": 2,
             "not_complete": 104
           },
-          "expected": 101
+          "expected": 100
         },
         {
           "disease_key": "sjd",
@@ -1484,7 +1484,7 @@
             "complete": 5,
             "not_complete": 0
           },
-          "expected": 5
+          "expected": null
         },
         {
           "disease_key": "ssc",
@@ -1501,7 +1501,7 @@
             "complete": 12,
             "not_complete": 0
           },
-          "expected": 12
+          "expected": null
         }
       ]
     },
@@ -7709,5 +7709,2921 @@
     ],
     "unassigned_visits": 0,
     "total_visits": 1412
+  },
+  "data_tab": {
+    "technologies": [
+      {
+        "key": "central_labs",
+        "label": "Central Labs"
+      },
+      {
+        "key": "clinical_edc",
+        "label": "Clinical EDC"
+      },
+      {
+        "key": "cytof_blood",
+        "label": "CyTOF (blood)"
+      },
+      {
+        "key": "genetics",
+        "label": "Genetics"
+      },
+      {
+        "key": "olink_serum",
+        "label": "Olink (serum)"
+      },
+      {
+        "key": "olink_urine",
+        "label": "Olink (urine)"
+      },
+      {
+        "key": "post-xenium_h&e",
+        "label": "Post-Xenium H&E"
+      },
+      {
+        "key": "post-xenium_halo",
+        "label": "Post-Xenium HALO"
+      },
+      {
+        "key": "post-xenium_imc",
+        "label": "Post-Xenium IMC"
+      },
+      {
+        "key": "promis-29",
+        "label": "PROMIS-29"
+      },
+      {
+        "key": "scffpe",
+        "label": "scFFPE"
+      },
+      {
+        "key": "scrnaseq_cryo",
+        "label": "scRNAseq (Cryo)"
+      },
+      {
+        "key": "serum_c1q",
+        "label": "Serum C1Q"
+      },
+      {
+        "key": "sihc",
+        "label": "sIHC"
+      },
+      {
+        "key": "somascan",
+        "label": "SomaScan"
+      },
+      {
+        "key": "tissue_h&e",
+        "label": "Tissue H&E"
+      },
+      {
+        "key": "transcriptomics_blood",
+        "label": "Transcriptomics (blood)"
+      },
+      {
+        "key": "xenium",
+        "label": "Xenium"
+      }
+    ],
+    "scopes": [
+      "AMP RA/SLE",
+      "CTRL-SYN",
+      "Multiple",
+      "PsD-SKN",
+      "PsD-SYN",
+      "RA-SYN",
+      "SLE",
+      "SLE-KDY",
+      "SLE-SKN",
+      "SSc-SKN",
+      "SjD-SGL"
+    ],
+    "scope_disease": {
+      "SLE-KDY": [
+        {
+          "key": "sle_kdy",
+          "label": "Lupus Kidney"
+        }
+      ],
+      "SLE-SKN": [
+        {
+          "key": "sle_skn",
+          "label": "Lupus Skin"
+        }
+      ],
+      "RA-SYN": [
+        {
+          "key": "ra",
+          "label": "Rheumatoid Arthritis (RA)"
+        }
+      ],
+      "CTRL-SYN": [
+        {
+          "key": "ctrl",
+          "label": "CTRL"
+        }
+      ],
+      "PsD-SKN": [
+        {
+          "key": "psd_skn",
+          "label": "Psoriasis"
+        }
+      ],
+      "PsD-SYN": [
+        {
+          "key": "psd_syn",
+          "label": "Psoriatic Arthritis"
+        }
+      ],
+      "SjD-SGL": [
+        {
+          "key": "sjd",
+          "label": "Sj\u00f6gren's Disease (SjD)"
+        }
+      ],
+      "SSc-SKN": [
+        {
+          "key": "ssc",
+          "label": "Systemic Sclerosis (SSc)"
+        }
+      ],
+      "Multiple": [
+        {
+          "key": "multiple",
+          "label": "Multiple"
+        }
+      ],
+      "SLE": [
+        {
+          "key": "sle",
+          "label": "Lupus (SLE)"
+        }
+      ],
+      "AMP RA/SLE": [
+        {
+          "key": "amp_ra",
+          "label": "AMP RA"
+        },
+        {
+          "key": "sle",
+          "label": "Lupus (SLE)"
+        }
+      ]
+    },
+    "pipelines": [
+      "EDP1",
+      "EDP2",
+      "NRP1",
+      "Auxiliary Projects"
+    ],
+    "stage_order": [
+      "pending",
+      "generated",
+      "staged",
+      "pre_release",
+      "released"
+    ],
+    "stage_labels": {
+      "pending": "Pending",
+      "generated": "Generated",
+      "staged": "Staged",
+      "pre_release": "Pre-Release",
+      "released": "Released"
+    },
+    "totals": {
+      "tissue_h&e": {
+        "pending": 2,
+        "generated": 6,
+        "staged": 0,
+        "pre_release": 0,
+        "released": 0
+      },
+      "xenium": {
+        "pending": 41,
+        "generated": 0,
+        "staged": 0,
+        "pre_release": 44,
+        "released": 0
+      },
+      "post-xenium_h&e": {
+        "pending": 8,
+        "generated": 0,
+        "staged": 0,
+        "pre_release": 14,
+        "released": 0
+      },
+      "post-xenium_imc": {
+        "pending": 9,
+        "generated": 0,
+        "staged": 0,
+        "pre_release": 13,
+        "released": 0
+      },
+      "post-xenium_halo": {
+        "pending": 16,
+        "generated": 0,
+        "staged": 1,
+        "pre_release": 0,
+        "released": 0
+      },
+      "scffpe": {
+        "pending": 28,
+        "generated": 0,
+        "staged": 0,
+        "pre_release": 32,
+        "released": 0
+      },
+      "transcriptomics_blood": {
+        "pending": 8,
+        "generated": 0,
+        "staged": 0,
+        "pre_release": 0,
+        "released": 0
+      },
+      "clinical_edc": {
+        "pending": 6,
+        "generated": 0,
+        "staged": 0,
+        "pre_release": 12,
+        "released": 0
+      },
+      "scrnaseq_cryo": {
+        "pending": 61,
+        "generated": 0,
+        "staged": 0,
+        "pre_release": 7,
+        "released": 0
+      },
+      "serum_c1q": {
+        "pending": 1,
+        "generated": 0,
+        "staged": 0,
+        "pre_release": 0,
+        "released": 0
+      },
+      "olink_serum": {
+        "pending": 0,
+        "generated": 0,
+        "staged": 0,
+        "pre_release": 2,
+        "released": 0
+      },
+      "cytof_blood": {
+        "pending": 0,
+        "generated": 0,
+        "staged": 0,
+        "pre_release": 1,
+        "released": 0
+      },
+      "genetics": {
+        "pending": 0,
+        "generated": 0,
+        "staged": 0,
+        "pre_release": 1,
+        "released": 0
+      },
+      "central_labs": {
+        "pending": 0,
+        "generated": 0,
+        "staged": 0,
+        "pre_release": 1,
+        "released": 0
+      },
+      "promis-29": {
+        "pending": 1,
+        "generated": 0,
+        "staged": 0,
+        "pre_release": 0,
+        "released": 0
+      },
+      "somascan": {
+        "pending": 0,
+        "generated": 0,
+        "staged": 0,
+        "pre_release": 1,
+        "released": 0
+      },
+      "olink_urine": {
+        "pending": 0,
+        "generated": 0,
+        "staged": 0,
+        "pre_release": 2,
+        "released": 0
+      },
+      "sihc": {
+        "pending": 1,
+        "generated": 0,
+        "staged": 1,
+        "pre_release": 0,
+        "released": 0
+      }
+    },
+    "by_scope": {
+      "tissue_h&e": {
+        "SLE-KDY": {
+          "pending": 1,
+          "generated": 1,
+          "staged": 0,
+          "pre_release": 0,
+          "released": 0
+        },
+        "SLE-SKN": {
+          "pending": 1,
+          "generated": 1,
+          "staged": 0,
+          "pre_release": 0,
+          "released": 0
+        },
+        "RA-SYN": {
+          "pending": 0,
+          "generated": 1,
+          "staged": 0,
+          "pre_release": 0,
+          "released": 0
+        },
+        "PsD-SKN": {
+          "pending": 0,
+          "generated": 1,
+          "staged": 0,
+          "pre_release": 0,
+          "released": 0
+        },
+        "PsD-SYN": {
+          "pending": 0,
+          "generated": 1,
+          "staged": 0,
+          "pre_release": 0,
+          "released": 0
+        },
+        "SjD-SGL": {
+          "pending": 0,
+          "generated": 1,
+          "staged": 0,
+          "pre_release": 0,
+          "released": 0
+        }
+      },
+      "xenium": {
+        "SLE-KDY": {
+          "pending": 3,
+          "generated": 0,
+          "staged": 0,
+          "pre_release": 6,
+          "released": 0
+        },
+        "SLE-SKN": {
+          "pending": 5,
+          "generated": 0,
+          "staged": 0,
+          "pre_release": 7,
+          "released": 0
+        },
+        "RA-SYN": {
+          "pending": 6,
+          "generated": 0,
+          "staged": 0,
+          "pre_release": 6,
+          "released": 0
+        },
+        "CTRL-SYN": {
+          "pending": 4,
+          "generated": 0,
+          "staged": 0,
+          "pre_release": 4,
+          "released": 0
+        },
+        "PsD-SKN": {
+          "pending": 7,
+          "generated": 0,
+          "staged": 0,
+          "pre_release": 5,
+          "released": 0
+        },
+        "PsD-SYN": {
+          "pending": 8,
+          "generated": 0,
+          "staged": 0,
+          "pre_release": 4,
+          "released": 0
+        },
+        "SjD-SGL": {
+          "pending": 4,
+          "generated": 0,
+          "staged": 0,
+          "pre_release": 8,
+          "released": 0
+        },
+        "SSc-SKN": {
+          "pending": 4,
+          "generated": 0,
+          "staged": 0,
+          "pre_release": 4,
+          "released": 0
+        }
+      },
+      "post-xenium_h&e": {
+        "SLE-KDY": {
+          "pending": 0,
+          "generated": 0,
+          "staged": 0,
+          "pre_release": 3,
+          "released": 0
+        },
+        "SLE-SKN": {
+          "pending": 1,
+          "generated": 0,
+          "staged": 0,
+          "pre_release": 2,
+          "released": 0
+        },
+        "RA-SYN": {
+          "pending": 1,
+          "generated": 0,
+          "staged": 0,
+          "pre_release": 2,
+          "released": 0
+        },
+        "CTRL-SYN": {
+          "pending": 1,
+          "generated": 0,
+          "staged": 0,
+          "pre_release": 1,
+          "released": 0
+        },
+        "PsD-SKN": {
+          "pending": 1,
+          "generated": 0,
+          "staged": 0,
+          "pre_release": 2,
+          "released": 0
+        },
+        "PsD-SYN": {
+          "pending": 2,
+          "generated": 0,
+          "staged": 0,
+          "pre_release": 1,
+          "released": 0
+        },
+        "SjD-SGL": {
+          "pending": 1,
+          "generated": 0,
+          "staged": 0,
+          "pre_release": 2,
+          "released": 0
+        },
+        "SSc-SKN": {
+          "pending": 1,
+          "generated": 0,
+          "staged": 0,
+          "pre_release": 1,
+          "released": 0
+        }
+      },
+      "post-xenium_imc": {
+        "SLE-KDY": {
+          "pending": 1,
+          "generated": 0,
+          "staged": 0,
+          "pre_release": 2,
+          "released": 0
+        },
+        "SLE-SKN": {
+          "pending": 1,
+          "generated": 0,
+          "staged": 0,
+          "pre_release": 2,
+          "released": 0
+        },
+        "RA-SYN": {
+          "pending": 1,
+          "generated": 0,
+          "staged": 0,
+          "pre_release": 2,
+          "released": 0
+        },
+        "CTRL-SYN": {
+          "pending": 1,
+          "generated": 0,
+          "staged": 0,
+          "pre_release": 1,
+          "released": 0
+        },
+        "PsD-SKN": {
+          "pending": 1,
+          "generated": 0,
+          "staged": 0,
+          "pre_release": 2,
+          "released": 0
+        },
+        "PsD-SYN": {
+          "pending": 2,
+          "generated": 0,
+          "staged": 0,
+          "pre_release": 1,
+          "released": 0
+        },
+        "SjD-SGL": {
+          "pending": 1,
+          "generated": 0,
+          "staged": 0,
+          "pre_release": 2,
+          "released": 0
+        },
+        "SSc-SKN": {
+          "pending": 1,
+          "generated": 0,
+          "staged": 0,
+          "pre_release": 1,
+          "released": 0
+        }
+      },
+      "post-xenium_halo": {
+        "SLE-KDY": {
+          "pending": 1,
+          "generated": 0,
+          "staged": 1,
+          "pre_release": 0,
+          "released": 0
+        },
+        "SLE-SKN": {
+          "pending": 3,
+          "generated": 0,
+          "staged": 0,
+          "pre_release": 0,
+          "released": 0
+        },
+        "RA-SYN": {
+          "pending": 3,
+          "generated": 0,
+          "staged": 0,
+          "pre_release": 0,
+          "released": 0
+        },
+        "PsD-SKN": {
+          "pending": 3,
+          "generated": 0,
+          "staged": 0,
+          "pre_release": 0,
+          "released": 0
+        },
+        "PsD-SYN": {
+          "pending": 3,
+          "generated": 0,
+          "staged": 0,
+          "pre_release": 0,
+          "released": 0
+        },
+        "SjD-SGL": {
+          "pending": 3,
+          "generated": 0,
+          "staged": 0,
+          "pre_release": 0,
+          "released": 0
+        }
+      },
+      "scffpe": {
+        "SLE-KDY": {
+          "pending": 3,
+          "generated": 0,
+          "staged": 0,
+          "pre_release": 6,
+          "released": 0
+        },
+        "SLE-SKN": {
+          "pending": 3,
+          "generated": 0,
+          "staged": 0,
+          "pre_release": 6,
+          "released": 0
+        },
+        "RA-SYN": {
+          "pending": 4,
+          "generated": 0,
+          "staged": 0,
+          "pre_release": 5,
+          "released": 0
+        },
+        "PsD-SKN": {
+          "pending": 4,
+          "generated": 0,
+          "staged": 0,
+          "pre_release": 5,
+          "released": 0
+        },
+        "PsD-SYN": {
+          "pending": 6,
+          "generated": 0,
+          "staged": 0,
+          "pre_release": 3,
+          "released": 0
+        },
+        "SjD-SGL": {
+          "pending": 3,
+          "generated": 0,
+          "staged": 0,
+          "pre_release": 6,
+          "released": 0
+        },
+        "SSc-SKN": {
+          "pending": 5,
+          "generated": 0,
+          "staged": 0,
+          "pre_release": 1,
+          "released": 0
+        }
+      },
+      "transcriptomics_blood": {
+        "SLE-KDY": {
+          "pending": 2,
+          "generated": 0,
+          "staged": 0,
+          "pre_release": 0,
+          "released": 0
+        },
+        "SLE-SKN": {
+          "pending": 2,
+          "generated": 0,
+          "staged": 0,
+          "pre_release": 0,
+          "released": 0
+        },
+        "RA-SYN": {
+          "pending": 1,
+          "generated": 0,
+          "staged": 0,
+          "pre_release": 0,
+          "released": 0
+        },
+        "PsD-SKN": {
+          "pending": 1,
+          "generated": 0,
+          "staged": 0,
+          "pre_release": 0,
+          "released": 0
+        },
+        "PsD-SYN": {
+          "pending": 1,
+          "generated": 0,
+          "staged": 0,
+          "pre_release": 0,
+          "released": 0
+        },
+        "SjD-SGL": {
+          "pending": 1,
+          "generated": 0,
+          "staged": 0,
+          "pre_release": 0,
+          "released": 0
+        }
+      },
+      "clinical_edc": {
+        "SLE-KDY": {
+          "pending": 1,
+          "generated": 0,
+          "staged": 0,
+          "pre_release": 2,
+          "released": 0
+        },
+        "SLE-SKN": {
+          "pending": 1,
+          "generated": 0,
+          "staged": 0,
+          "pre_release": 2,
+          "released": 0
+        },
+        "RA-SYN": {
+          "pending": 1,
+          "generated": 0,
+          "staged": 0,
+          "pre_release": 2,
+          "released": 0
+        },
+        "PsD-SKN": {
+          "pending": 1,
+          "generated": 0,
+          "staged": 0,
+          "pre_release": 2,
+          "released": 0
+        },
+        "PsD-SYN": {
+          "pending": 1,
+          "generated": 0,
+          "staged": 0,
+          "pre_release": 2,
+          "released": 0
+        },
+        "SjD-SGL": {
+          "pending": 1,
+          "generated": 0,
+          "staged": 0,
+          "pre_release": 2,
+          "released": 0
+        }
+      },
+      "scrnaseq_cryo": {
+        "SLE-SKN": {
+          "pending": 11,
+          "generated": 0,
+          "staged": 0,
+          "pre_release": 1,
+          "released": 0
+        },
+        "RA-SYN": {
+          "pending": 11,
+          "generated": 0,
+          "staged": 0,
+          "pre_release": 1,
+          "released": 0
+        },
+        "PsD-SKN": {
+          "pending": 11,
+          "generated": 0,
+          "staged": 0,
+          "pre_release": 1,
+          "released": 0
+        },
+        "PsD-SYN": {
+          "pending": 11,
+          "generated": 0,
+          "staged": 0,
+          "pre_release": 1,
+          "released": 0
+        },
+        "SjD-SGL": {
+          "pending": 9,
+          "generated": 0,
+          "staged": 0,
+          "pre_release": 3,
+          "released": 0
+        },
+        "SSc-SKN": {
+          "pending": 8,
+          "generated": 0,
+          "staged": 0,
+          "pre_release": 0,
+          "released": 0
+        }
+      },
+      "serum_c1q": {
+        "SLE-KDY": {
+          "pending": 1,
+          "generated": 0,
+          "staged": 0,
+          "pre_release": 0,
+          "released": 0
+        }
+      },
+      "olink_serum": {
+        "Multiple": {
+          "pending": 0,
+          "generated": 0,
+          "staged": 0,
+          "pre_release": 2,
+          "released": 0
+        }
+      },
+      "cytof_blood": {
+        "Multiple": {
+          "pending": 0,
+          "generated": 0,
+          "staged": 0,
+          "pre_release": 1,
+          "released": 0
+        }
+      },
+      "genetics": {
+        "Multiple": {
+          "pending": 0,
+          "generated": 0,
+          "staged": 0,
+          "pre_release": 1,
+          "released": 0
+        }
+      },
+      "central_labs": {
+        "Multiple": {
+          "pending": 0,
+          "generated": 0,
+          "staged": 0,
+          "pre_release": 1,
+          "released": 0
+        }
+      },
+      "promis-29": {
+        "Multiple": {
+          "pending": 1,
+          "generated": 0,
+          "staged": 0,
+          "pre_release": 0,
+          "released": 0
+        }
+      },
+      "somascan": {
+        "Multiple": {
+          "pending": 0,
+          "generated": 0,
+          "staged": 0,
+          "pre_release": 1,
+          "released": 0
+        }
+      },
+      "olink_urine": {
+        "SLE": {
+          "pending": 0,
+          "generated": 0,
+          "staged": 0,
+          "pre_release": 1,
+          "released": 0
+        },
+        "AMP RA/SLE": {
+          "pending": 0,
+          "generated": 0,
+          "staged": 0,
+          "pre_release": 1,
+          "released": 0
+        }
+      },
+      "sihc": {
+        "SLE": {
+          "pending": 0,
+          "generated": 0,
+          "staged": 1,
+          "pre_release": 0,
+          "released": 0
+        },
+        "AMP RA/SLE": {
+          "pending": 1,
+          "generated": 0,
+          "staged": 0,
+          "pre_release": 0,
+          "released": 0
+        }
+      }
+    },
+    "by_pipeline": {
+      "tissue_h&e": {
+        "EDP1": {
+          "pending": 0,
+          "generated": 6,
+          "staged": 0,
+          "pre_release": 0,
+          "released": 0
+        },
+        "NRP1": {
+          "pending": 2,
+          "generated": 0,
+          "staged": 0,
+          "pre_release": 0,
+          "released": 0
+        }
+      },
+      "xenium": {
+        "EDP1": {
+          "pending": 0,
+          "generated": 0,
+          "staged": 0,
+          "pre_release": 32,
+          "released": 0
+        },
+        "EDP2": {
+          "pending": 10,
+          "generated": 0,
+          "staged": 0,
+          "pre_release": 11,
+          "released": 0
+        },
+        "NRP1": {
+          "pending": 31,
+          "generated": 0,
+          "staged": 0,
+          "pre_release": 1,
+          "released": 0
+        }
+      },
+      "post-xenium_h&e": {
+        "EDP1": {
+          "pending": 0,
+          "generated": 0,
+          "staged": 0,
+          "pre_release": 8,
+          "released": 0
+        },
+        "EDP2": {
+          "pending": 1,
+          "generated": 0,
+          "staged": 0,
+          "pre_release": 5,
+          "released": 0
+        },
+        "NRP1": {
+          "pending": 7,
+          "generated": 0,
+          "staged": 0,
+          "pre_release": 1,
+          "released": 0
+        }
+      },
+      "post-xenium_imc": {
+        "EDP1": {
+          "pending": 0,
+          "generated": 0,
+          "staged": 0,
+          "pre_release": 8,
+          "released": 0
+        },
+        "EDP2": {
+          "pending": 1,
+          "generated": 0,
+          "staged": 0,
+          "pre_release": 5,
+          "released": 0
+        },
+        "NRP1": {
+          "pending": 8,
+          "generated": 0,
+          "staged": 0,
+          "pre_release": 0,
+          "released": 0
+        }
+      },
+      "post-xenium_halo": {
+        "EDP1": {
+          "pending": 5,
+          "generated": 0,
+          "staged": 1,
+          "pre_release": 0,
+          "released": 0
+        },
+        "NRP1": {
+          "pending": 6,
+          "generated": 0,
+          "staged": 0,
+          "pre_release": 0,
+          "released": 0
+        },
+        "EDP2": {
+          "pending": 5,
+          "generated": 0,
+          "staged": 0,
+          "pre_release": 0,
+          "released": 0
+        }
+      },
+      "scffpe": {
+        "EDP1": {
+          "pending": 2,
+          "generated": 0,
+          "staged": 0,
+          "pre_release": 19,
+          "released": 0
+        },
+        "EDP2": {
+          "pending": 5,
+          "generated": 0,
+          "staged": 0,
+          "pre_release": 13,
+          "released": 0
+        },
+        "NRP1": {
+          "pending": 21,
+          "generated": 0,
+          "staged": 0,
+          "pre_release": 0,
+          "released": 0
+        }
+      },
+      "transcriptomics_blood": {
+        "EDP1": {
+          "pending": 6,
+          "generated": 0,
+          "staged": 0,
+          "pre_release": 0,
+          "released": 0
+        },
+        "NRP1": {
+          "pending": 2,
+          "generated": 0,
+          "staged": 0,
+          "pre_release": 0,
+          "released": 0
+        }
+      },
+      "clinical_edc": {
+        "EDP1": {
+          "pending": 0,
+          "generated": 0,
+          "staged": 0,
+          "pre_release": 6,
+          "released": 0
+        },
+        "EDP2": {
+          "pending": 0,
+          "generated": 0,
+          "staged": 0,
+          "pre_release": 6,
+          "released": 0
+        },
+        "NRP1": {
+          "pending": 6,
+          "generated": 0,
+          "staged": 0,
+          "pre_release": 0,
+          "released": 0
+        }
+      },
+      "scrnaseq_cryo": {
+        "EDP1": {
+          "pending": 17,
+          "generated": 0,
+          "staged": 0,
+          "pre_release": 7,
+          "released": 0
+        },
+        "EDP2": {
+          "pending": 20,
+          "generated": 0,
+          "staged": 0,
+          "pre_release": 0,
+          "released": 0
+        },
+        "NRP1": {
+          "pending": 24,
+          "generated": 0,
+          "staged": 0,
+          "pre_release": 0,
+          "released": 0
+        }
+      },
+      "serum_c1q": {
+        "Auxiliary Projects": {
+          "pending": 1,
+          "generated": 0,
+          "staged": 0,
+          "pre_release": 0,
+          "released": 0
+        }
+      },
+      "olink_serum": {
+        "EDP1": {
+          "pending": 0,
+          "generated": 0,
+          "staged": 0,
+          "pre_release": 1,
+          "released": 0
+        },
+        "Auxiliary Projects": {
+          "pending": 0,
+          "generated": 0,
+          "staged": 0,
+          "pre_release": 1,
+          "released": 0
+        }
+      },
+      "cytof_blood": {
+        "Auxiliary Projects": {
+          "pending": 0,
+          "generated": 0,
+          "staged": 0,
+          "pre_release": 1,
+          "released": 0
+        }
+      },
+      "genetics": {
+        "Auxiliary Projects": {
+          "pending": 0,
+          "generated": 0,
+          "staged": 0,
+          "pre_release": 1,
+          "released": 0
+        }
+      },
+      "central_labs": {
+        "Auxiliary Projects": {
+          "pending": 0,
+          "generated": 0,
+          "staged": 0,
+          "pre_release": 1,
+          "released": 0
+        }
+      },
+      "promis-29": {
+        "Auxiliary Projects": {
+          "pending": 1,
+          "generated": 0,
+          "staged": 0,
+          "pre_release": 0,
+          "released": 0
+        }
+      },
+      "somascan": {
+        "Auxiliary Projects": {
+          "pending": 0,
+          "generated": 0,
+          "staged": 0,
+          "pre_release": 1,
+          "released": 0
+        }
+      },
+      "olink_urine": {
+        "Auxiliary Projects": {
+          "pending": 0,
+          "generated": 0,
+          "staged": 0,
+          "pre_release": 2,
+          "released": 0
+        }
+      },
+      "sihc": {
+        "Auxiliary Projects": {
+          "pending": 1,
+          "generated": 0,
+          "staged": 1,
+          "pre_release": 0,
+          "released": 0
+        }
+      }
+    },
+    "by_scope_pipeline": {
+      "tissue_h&e": {
+        "SLE-KDY": {
+          "EDP1": {
+            "pending": 0,
+            "generated": 1,
+            "staged": 0,
+            "pre_release": 0,
+            "released": 0
+          },
+          "NRP1": {
+            "pending": 1,
+            "generated": 0,
+            "staged": 0,
+            "pre_release": 0,
+            "released": 0
+          }
+        },
+        "SLE-SKN": {
+          "EDP1": {
+            "pending": 0,
+            "generated": 1,
+            "staged": 0,
+            "pre_release": 0,
+            "released": 0
+          },
+          "NRP1": {
+            "pending": 1,
+            "generated": 0,
+            "staged": 0,
+            "pre_release": 0,
+            "released": 0
+          }
+        },
+        "RA-SYN": {
+          "EDP1": {
+            "pending": 0,
+            "generated": 1,
+            "staged": 0,
+            "pre_release": 0,
+            "released": 0
+          }
+        },
+        "PsD-SKN": {
+          "EDP1": {
+            "pending": 0,
+            "generated": 1,
+            "staged": 0,
+            "pre_release": 0,
+            "released": 0
+          }
+        },
+        "PsD-SYN": {
+          "EDP1": {
+            "pending": 0,
+            "generated": 1,
+            "staged": 0,
+            "pre_release": 0,
+            "released": 0
+          }
+        },
+        "SjD-SGL": {
+          "EDP1": {
+            "pending": 0,
+            "generated": 1,
+            "staged": 0,
+            "pre_release": 0,
+            "released": 0
+          }
+        }
+      },
+      "xenium": {
+        "SLE-KDY": {
+          "EDP1": {
+            "pending": 0,
+            "generated": 0,
+            "staged": 0,
+            "pre_release": 4,
+            "released": 0
+          },
+          "EDP2": {
+            "pending": 0,
+            "generated": 0,
+            "staged": 0,
+            "pre_release": 1,
+            "released": 0
+          },
+          "NRP1": {
+            "pending": 3,
+            "generated": 0,
+            "staged": 0,
+            "pre_release": 1,
+            "released": 0
+          }
+        },
+        "SLE-SKN": {
+          "EDP1": {
+            "pending": 0,
+            "generated": 0,
+            "staged": 0,
+            "pre_release": 4,
+            "released": 0
+          },
+          "EDP2": {
+            "pending": 1,
+            "generated": 0,
+            "staged": 0,
+            "pre_release": 3,
+            "released": 0
+          },
+          "NRP1": {
+            "pending": 4,
+            "generated": 0,
+            "staged": 0,
+            "pre_release": 0,
+            "released": 0
+          }
+        },
+        "RA-SYN": {
+          "EDP1": {
+            "pending": 0,
+            "generated": 0,
+            "staged": 0,
+            "pre_release": 4,
+            "released": 0
+          },
+          "EDP2": {
+            "pending": 2,
+            "generated": 0,
+            "staged": 0,
+            "pre_release": 2,
+            "released": 0
+          },
+          "NRP1": {
+            "pending": 4,
+            "generated": 0,
+            "staged": 0,
+            "pre_release": 0,
+            "released": 0
+          }
+        },
+        "CTRL-SYN": {
+          "EDP1": {
+            "pending": 0,
+            "generated": 0,
+            "staged": 0,
+            "pre_release": 4,
+            "released": 0
+          },
+          "NRP1": {
+            "pending": 4,
+            "generated": 0,
+            "staged": 0,
+            "pre_release": 0,
+            "released": 0
+          }
+        },
+        "PsD-SKN": {
+          "EDP1": {
+            "pending": 0,
+            "generated": 0,
+            "staged": 0,
+            "pre_release": 4,
+            "released": 0
+          },
+          "EDP2": {
+            "pending": 3,
+            "generated": 0,
+            "staged": 0,
+            "pre_release": 1,
+            "released": 0
+          },
+          "NRP1": {
+            "pending": 4,
+            "generated": 0,
+            "staged": 0,
+            "pre_release": 0,
+            "released": 0
+          }
+        },
+        "PsD-SYN": {
+          "EDP1": {
+            "pending": 0,
+            "generated": 0,
+            "staged": 0,
+            "pre_release": 4,
+            "released": 0
+          },
+          "EDP2": {
+            "pending": 4,
+            "generated": 0,
+            "staged": 0,
+            "pre_release": 0,
+            "released": 0
+          },
+          "NRP1": {
+            "pending": 4,
+            "generated": 0,
+            "staged": 0,
+            "pre_release": 0,
+            "released": 0
+          }
+        },
+        "SjD-SGL": {
+          "EDP1": {
+            "pending": 0,
+            "generated": 0,
+            "staged": 0,
+            "pre_release": 4,
+            "released": 0
+          },
+          "EDP2": {
+            "pending": 0,
+            "generated": 0,
+            "staged": 0,
+            "pre_release": 4,
+            "released": 0
+          },
+          "NRP1": {
+            "pending": 4,
+            "generated": 0,
+            "staged": 0,
+            "pre_release": 0,
+            "released": 0
+          }
+        },
+        "SSc-SKN": {
+          "EDP1": {
+            "pending": 0,
+            "generated": 0,
+            "staged": 0,
+            "pre_release": 4,
+            "released": 0
+          },
+          "NRP1": {
+            "pending": 4,
+            "generated": 0,
+            "staged": 0,
+            "pre_release": 0,
+            "released": 0
+          }
+        }
+      },
+      "post-xenium_h&e": {
+        "SLE-KDY": {
+          "EDP1": {
+            "pending": 0,
+            "generated": 0,
+            "staged": 0,
+            "pre_release": 1,
+            "released": 0
+          },
+          "EDP2": {
+            "pending": 0,
+            "generated": 0,
+            "staged": 0,
+            "pre_release": 1,
+            "released": 0
+          },
+          "NRP1": {
+            "pending": 0,
+            "generated": 0,
+            "staged": 0,
+            "pre_release": 1,
+            "released": 0
+          }
+        },
+        "SLE-SKN": {
+          "EDP1": {
+            "pending": 0,
+            "generated": 0,
+            "staged": 0,
+            "pre_release": 1,
+            "released": 0
+          },
+          "EDP2": {
+            "pending": 0,
+            "generated": 0,
+            "staged": 0,
+            "pre_release": 1,
+            "released": 0
+          },
+          "NRP1": {
+            "pending": 1,
+            "generated": 0,
+            "staged": 0,
+            "pre_release": 0,
+            "released": 0
+          }
+        },
+        "RA-SYN": {
+          "EDP1": {
+            "pending": 0,
+            "generated": 0,
+            "staged": 0,
+            "pre_release": 1,
+            "released": 0
+          },
+          "EDP2": {
+            "pending": 0,
+            "generated": 0,
+            "staged": 0,
+            "pre_release": 1,
+            "released": 0
+          },
+          "NRP1": {
+            "pending": 1,
+            "generated": 0,
+            "staged": 0,
+            "pre_release": 0,
+            "released": 0
+          }
+        },
+        "CTRL-SYN": {
+          "EDP1": {
+            "pending": 0,
+            "generated": 0,
+            "staged": 0,
+            "pre_release": 1,
+            "released": 0
+          },
+          "NRP1": {
+            "pending": 1,
+            "generated": 0,
+            "staged": 0,
+            "pre_release": 0,
+            "released": 0
+          }
+        },
+        "PsD-SKN": {
+          "EDP1": {
+            "pending": 0,
+            "generated": 0,
+            "staged": 0,
+            "pre_release": 1,
+            "released": 0
+          },
+          "EDP2": {
+            "pending": 0,
+            "generated": 0,
+            "staged": 0,
+            "pre_release": 1,
+            "released": 0
+          },
+          "NRP1": {
+            "pending": 1,
+            "generated": 0,
+            "staged": 0,
+            "pre_release": 0,
+            "released": 0
+          }
+        },
+        "PsD-SYN": {
+          "EDP1": {
+            "pending": 0,
+            "generated": 0,
+            "staged": 0,
+            "pre_release": 1,
+            "released": 0
+          },
+          "EDP2": {
+            "pending": 1,
+            "generated": 0,
+            "staged": 0,
+            "pre_release": 0,
+            "released": 0
+          },
+          "NRP1": {
+            "pending": 1,
+            "generated": 0,
+            "staged": 0,
+            "pre_release": 0,
+            "released": 0
+          }
+        },
+        "SjD-SGL": {
+          "EDP1": {
+            "pending": 0,
+            "generated": 0,
+            "staged": 0,
+            "pre_release": 1,
+            "released": 0
+          },
+          "EDP2": {
+            "pending": 0,
+            "generated": 0,
+            "staged": 0,
+            "pre_release": 1,
+            "released": 0
+          },
+          "NRP1": {
+            "pending": 1,
+            "generated": 0,
+            "staged": 0,
+            "pre_release": 0,
+            "released": 0
+          }
+        },
+        "SSc-SKN": {
+          "EDP1": {
+            "pending": 0,
+            "generated": 0,
+            "staged": 0,
+            "pre_release": 1,
+            "released": 0
+          },
+          "NRP1": {
+            "pending": 1,
+            "generated": 0,
+            "staged": 0,
+            "pre_release": 0,
+            "released": 0
+          }
+        }
+      },
+      "post-xenium_imc": {
+        "SLE-KDY": {
+          "EDP1": {
+            "pending": 0,
+            "generated": 0,
+            "staged": 0,
+            "pre_release": 1,
+            "released": 0
+          },
+          "EDP2": {
+            "pending": 0,
+            "generated": 0,
+            "staged": 0,
+            "pre_release": 1,
+            "released": 0
+          },
+          "NRP1": {
+            "pending": 1,
+            "generated": 0,
+            "staged": 0,
+            "pre_release": 0,
+            "released": 0
+          }
+        },
+        "SLE-SKN": {
+          "EDP1": {
+            "pending": 0,
+            "generated": 0,
+            "staged": 0,
+            "pre_release": 1,
+            "released": 0
+          },
+          "EDP2": {
+            "pending": 0,
+            "generated": 0,
+            "staged": 0,
+            "pre_release": 1,
+            "released": 0
+          },
+          "NRP1": {
+            "pending": 1,
+            "generated": 0,
+            "staged": 0,
+            "pre_release": 0,
+            "released": 0
+          }
+        },
+        "RA-SYN": {
+          "EDP1": {
+            "pending": 0,
+            "generated": 0,
+            "staged": 0,
+            "pre_release": 1,
+            "released": 0
+          },
+          "EDP2": {
+            "pending": 0,
+            "generated": 0,
+            "staged": 0,
+            "pre_release": 1,
+            "released": 0
+          },
+          "NRP1": {
+            "pending": 1,
+            "generated": 0,
+            "staged": 0,
+            "pre_release": 0,
+            "released": 0
+          }
+        },
+        "CTRL-SYN": {
+          "EDP1": {
+            "pending": 0,
+            "generated": 0,
+            "staged": 0,
+            "pre_release": 1,
+            "released": 0
+          },
+          "NRP1": {
+            "pending": 1,
+            "generated": 0,
+            "staged": 0,
+            "pre_release": 0,
+            "released": 0
+          }
+        },
+        "PsD-SKN": {
+          "EDP1": {
+            "pending": 0,
+            "generated": 0,
+            "staged": 0,
+            "pre_release": 1,
+            "released": 0
+          },
+          "EDP2": {
+            "pending": 0,
+            "generated": 0,
+            "staged": 0,
+            "pre_release": 1,
+            "released": 0
+          },
+          "NRP1": {
+            "pending": 1,
+            "generated": 0,
+            "staged": 0,
+            "pre_release": 0,
+            "released": 0
+          }
+        },
+        "PsD-SYN": {
+          "EDP1": {
+            "pending": 0,
+            "generated": 0,
+            "staged": 0,
+            "pre_release": 1,
+            "released": 0
+          },
+          "EDP2": {
+            "pending": 1,
+            "generated": 0,
+            "staged": 0,
+            "pre_release": 0,
+            "released": 0
+          },
+          "NRP1": {
+            "pending": 1,
+            "generated": 0,
+            "staged": 0,
+            "pre_release": 0,
+            "released": 0
+          }
+        },
+        "SjD-SGL": {
+          "EDP1": {
+            "pending": 0,
+            "generated": 0,
+            "staged": 0,
+            "pre_release": 1,
+            "released": 0
+          },
+          "EDP2": {
+            "pending": 0,
+            "generated": 0,
+            "staged": 0,
+            "pre_release": 1,
+            "released": 0
+          },
+          "NRP1": {
+            "pending": 1,
+            "generated": 0,
+            "staged": 0,
+            "pre_release": 0,
+            "released": 0
+          }
+        },
+        "SSc-SKN": {
+          "EDP1": {
+            "pending": 0,
+            "generated": 0,
+            "staged": 0,
+            "pre_release": 1,
+            "released": 0
+          },
+          "NRP1": {
+            "pending": 1,
+            "generated": 0,
+            "staged": 0,
+            "pre_release": 0,
+            "released": 0
+          }
+        }
+      },
+      "post-xenium_halo": {
+        "SLE-KDY": {
+          "EDP1": {
+            "pending": 0,
+            "generated": 0,
+            "staged": 1,
+            "pre_release": 0,
+            "released": 0
+          },
+          "NRP1": {
+            "pending": 1,
+            "generated": 0,
+            "staged": 0,
+            "pre_release": 0,
+            "released": 0
+          }
+        },
+        "SLE-SKN": {
+          "EDP1": {
+            "pending": 1,
+            "generated": 0,
+            "staged": 0,
+            "pre_release": 0,
+            "released": 0
+          },
+          "EDP2": {
+            "pending": 1,
+            "generated": 0,
+            "staged": 0,
+            "pre_release": 0,
+            "released": 0
+          },
+          "NRP1": {
+            "pending": 1,
+            "generated": 0,
+            "staged": 0,
+            "pre_release": 0,
+            "released": 0
+          }
+        },
+        "RA-SYN": {
+          "EDP1": {
+            "pending": 1,
+            "generated": 0,
+            "staged": 0,
+            "pre_release": 0,
+            "released": 0
+          },
+          "EDP2": {
+            "pending": 1,
+            "generated": 0,
+            "staged": 0,
+            "pre_release": 0,
+            "released": 0
+          },
+          "NRP1": {
+            "pending": 1,
+            "generated": 0,
+            "staged": 0,
+            "pre_release": 0,
+            "released": 0
+          }
+        },
+        "PsD-SKN": {
+          "EDP1": {
+            "pending": 1,
+            "generated": 0,
+            "staged": 0,
+            "pre_release": 0,
+            "released": 0
+          },
+          "EDP2": {
+            "pending": 1,
+            "generated": 0,
+            "staged": 0,
+            "pre_release": 0,
+            "released": 0
+          },
+          "NRP1": {
+            "pending": 1,
+            "generated": 0,
+            "staged": 0,
+            "pre_release": 0,
+            "released": 0
+          }
+        },
+        "PsD-SYN": {
+          "EDP1": {
+            "pending": 1,
+            "generated": 0,
+            "staged": 0,
+            "pre_release": 0,
+            "released": 0
+          },
+          "EDP2": {
+            "pending": 1,
+            "generated": 0,
+            "staged": 0,
+            "pre_release": 0,
+            "released": 0
+          },
+          "NRP1": {
+            "pending": 1,
+            "generated": 0,
+            "staged": 0,
+            "pre_release": 0,
+            "released": 0
+          }
+        },
+        "SjD-SGL": {
+          "EDP1": {
+            "pending": 1,
+            "generated": 0,
+            "staged": 0,
+            "pre_release": 0,
+            "released": 0
+          },
+          "EDP2": {
+            "pending": 1,
+            "generated": 0,
+            "staged": 0,
+            "pre_release": 0,
+            "released": 0
+          },
+          "NRP1": {
+            "pending": 1,
+            "generated": 0,
+            "staged": 0,
+            "pre_release": 0,
+            "released": 0
+          }
+        }
+      },
+      "scffpe": {
+        "SLE-KDY": {
+          "EDP1": {
+            "pending": 0,
+            "generated": 0,
+            "staged": 0,
+            "pre_release": 3,
+            "released": 0
+          },
+          "EDP2": {
+            "pending": 0,
+            "generated": 0,
+            "staged": 0,
+            "pre_release": 3,
+            "released": 0
+          },
+          "NRP1": {
+            "pending": 3,
+            "generated": 0,
+            "staged": 0,
+            "pre_release": 0,
+            "released": 0
+          }
+        },
+        "SLE-SKN": {
+          "EDP1": {
+            "pending": 0,
+            "generated": 0,
+            "staged": 0,
+            "pre_release": 3,
+            "released": 0
+          },
+          "EDP2": {
+            "pending": 0,
+            "generated": 0,
+            "staged": 0,
+            "pre_release": 3,
+            "released": 0
+          },
+          "NRP1": {
+            "pending": 3,
+            "generated": 0,
+            "staged": 0,
+            "pre_release": 0,
+            "released": 0
+          }
+        },
+        "RA-SYN": {
+          "EDP1": {
+            "pending": 0,
+            "generated": 0,
+            "staged": 0,
+            "pre_release": 3,
+            "released": 0
+          },
+          "EDP2": {
+            "pending": 1,
+            "generated": 0,
+            "staged": 0,
+            "pre_release": 2,
+            "released": 0
+          },
+          "NRP1": {
+            "pending": 3,
+            "generated": 0,
+            "staged": 0,
+            "pre_release": 0,
+            "released": 0
+          }
+        },
+        "PsD-SKN": {
+          "EDP1": {
+            "pending": 0,
+            "generated": 0,
+            "staged": 0,
+            "pre_release": 3,
+            "released": 0
+          },
+          "EDP2": {
+            "pending": 1,
+            "generated": 0,
+            "staged": 0,
+            "pre_release": 2,
+            "released": 0
+          },
+          "NRP1": {
+            "pending": 3,
+            "generated": 0,
+            "staged": 0,
+            "pre_release": 0,
+            "released": 0
+          }
+        },
+        "PsD-SYN": {
+          "EDP1": {
+            "pending": 0,
+            "generated": 0,
+            "staged": 0,
+            "pre_release": 3,
+            "released": 0
+          },
+          "EDP2": {
+            "pending": 3,
+            "generated": 0,
+            "staged": 0,
+            "pre_release": 0,
+            "released": 0
+          },
+          "NRP1": {
+            "pending": 3,
+            "generated": 0,
+            "staged": 0,
+            "pre_release": 0,
+            "released": 0
+          }
+        },
+        "SjD-SGL": {
+          "EDP1": {
+            "pending": 0,
+            "generated": 0,
+            "staged": 0,
+            "pre_release": 3,
+            "released": 0
+          },
+          "EDP2": {
+            "pending": 0,
+            "generated": 0,
+            "staged": 0,
+            "pre_release": 3,
+            "released": 0
+          },
+          "NRP1": {
+            "pending": 3,
+            "generated": 0,
+            "staged": 0,
+            "pre_release": 0,
+            "released": 0
+          }
+        },
+        "SSc-SKN": {
+          "EDP1": {
+            "pending": 2,
+            "generated": 0,
+            "staged": 0,
+            "pre_release": 1,
+            "released": 0
+          },
+          "NRP1": {
+            "pending": 3,
+            "generated": 0,
+            "staged": 0,
+            "pre_release": 0,
+            "released": 0
+          }
+        }
+      },
+      "transcriptomics_blood": {
+        "SLE-KDY": {
+          "EDP1": {
+            "pending": 1,
+            "generated": 0,
+            "staged": 0,
+            "pre_release": 0,
+            "released": 0
+          },
+          "NRP1": {
+            "pending": 1,
+            "generated": 0,
+            "staged": 0,
+            "pre_release": 0,
+            "released": 0
+          }
+        },
+        "SLE-SKN": {
+          "EDP1": {
+            "pending": 1,
+            "generated": 0,
+            "staged": 0,
+            "pre_release": 0,
+            "released": 0
+          },
+          "NRP1": {
+            "pending": 1,
+            "generated": 0,
+            "staged": 0,
+            "pre_release": 0,
+            "released": 0
+          }
+        },
+        "RA-SYN": {
+          "EDP1": {
+            "pending": 1,
+            "generated": 0,
+            "staged": 0,
+            "pre_release": 0,
+            "released": 0
+          }
+        },
+        "PsD-SKN": {
+          "EDP1": {
+            "pending": 1,
+            "generated": 0,
+            "staged": 0,
+            "pre_release": 0,
+            "released": 0
+          }
+        },
+        "PsD-SYN": {
+          "EDP1": {
+            "pending": 1,
+            "generated": 0,
+            "staged": 0,
+            "pre_release": 0,
+            "released": 0
+          }
+        },
+        "SjD-SGL": {
+          "EDP1": {
+            "pending": 1,
+            "generated": 0,
+            "staged": 0,
+            "pre_release": 0,
+            "released": 0
+          }
+        }
+      },
+      "clinical_edc": {
+        "SLE-KDY": {
+          "EDP1": {
+            "pending": 0,
+            "generated": 0,
+            "staged": 0,
+            "pre_release": 1,
+            "released": 0
+          },
+          "EDP2": {
+            "pending": 0,
+            "generated": 0,
+            "staged": 0,
+            "pre_release": 1,
+            "released": 0
+          },
+          "NRP1": {
+            "pending": 1,
+            "generated": 0,
+            "staged": 0,
+            "pre_release": 0,
+            "released": 0
+          }
+        },
+        "SLE-SKN": {
+          "EDP1": {
+            "pending": 0,
+            "generated": 0,
+            "staged": 0,
+            "pre_release": 1,
+            "released": 0
+          },
+          "EDP2": {
+            "pending": 0,
+            "generated": 0,
+            "staged": 0,
+            "pre_release": 1,
+            "released": 0
+          },
+          "NRP1": {
+            "pending": 1,
+            "generated": 0,
+            "staged": 0,
+            "pre_release": 0,
+            "released": 0
+          }
+        },
+        "RA-SYN": {
+          "EDP1": {
+            "pending": 0,
+            "generated": 0,
+            "staged": 0,
+            "pre_release": 1,
+            "released": 0
+          },
+          "EDP2": {
+            "pending": 0,
+            "generated": 0,
+            "staged": 0,
+            "pre_release": 1,
+            "released": 0
+          },
+          "NRP1": {
+            "pending": 1,
+            "generated": 0,
+            "staged": 0,
+            "pre_release": 0,
+            "released": 0
+          }
+        },
+        "PsD-SKN": {
+          "EDP1": {
+            "pending": 0,
+            "generated": 0,
+            "staged": 0,
+            "pre_release": 1,
+            "released": 0
+          },
+          "EDP2": {
+            "pending": 0,
+            "generated": 0,
+            "staged": 0,
+            "pre_release": 1,
+            "released": 0
+          },
+          "NRP1": {
+            "pending": 1,
+            "generated": 0,
+            "staged": 0,
+            "pre_release": 0,
+            "released": 0
+          }
+        },
+        "PsD-SYN": {
+          "EDP1": {
+            "pending": 0,
+            "generated": 0,
+            "staged": 0,
+            "pre_release": 1,
+            "released": 0
+          },
+          "EDP2": {
+            "pending": 0,
+            "generated": 0,
+            "staged": 0,
+            "pre_release": 1,
+            "released": 0
+          },
+          "NRP1": {
+            "pending": 1,
+            "generated": 0,
+            "staged": 0,
+            "pre_release": 0,
+            "released": 0
+          }
+        },
+        "SjD-SGL": {
+          "EDP1": {
+            "pending": 0,
+            "generated": 0,
+            "staged": 0,
+            "pre_release": 1,
+            "released": 0
+          },
+          "EDP2": {
+            "pending": 0,
+            "generated": 0,
+            "staged": 0,
+            "pre_release": 1,
+            "released": 0
+          },
+          "NRP1": {
+            "pending": 1,
+            "generated": 0,
+            "staged": 0,
+            "pre_release": 0,
+            "released": 0
+          }
+        }
+      },
+      "scrnaseq_cryo": {
+        "SLE-SKN": {
+          "EDP1": {
+            "pending": 3,
+            "generated": 0,
+            "staged": 0,
+            "pre_release": 1,
+            "released": 0
+          },
+          "EDP2": {
+            "pending": 4,
+            "generated": 0,
+            "staged": 0,
+            "pre_release": 0,
+            "released": 0
+          },
+          "NRP1": {
+            "pending": 4,
+            "generated": 0,
+            "staged": 0,
+            "pre_release": 0,
+            "released": 0
+          }
+        },
+        "RA-SYN": {
+          "EDP1": {
+            "pending": 3,
+            "generated": 0,
+            "staged": 0,
+            "pre_release": 1,
+            "released": 0
+          },
+          "EDP2": {
+            "pending": 4,
+            "generated": 0,
+            "staged": 0,
+            "pre_release": 0,
+            "released": 0
+          },
+          "NRP1": {
+            "pending": 4,
+            "generated": 0,
+            "staged": 0,
+            "pre_release": 0,
+            "released": 0
+          }
+        },
+        "PsD-SKN": {
+          "EDP1": {
+            "pending": 3,
+            "generated": 0,
+            "staged": 0,
+            "pre_release": 1,
+            "released": 0
+          },
+          "EDP2": {
+            "pending": 4,
+            "generated": 0,
+            "staged": 0,
+            "pre_release": 0,
+            "released": 0
+          },
+          "NRP1": {
+            "pending": 4,
+            "generated": 0,
+            "staged": 0,
+            "pre_release": 0,
+            "released": 0
+          }
+        },
+        "PsD-SYN": {
+          "EDP1": {
+            "pending": 3,
+            "generated": 0,
+            "staged": 0,
+            "pre_release": 1,
+            "released": 0
+          },
+          "EDP2": {
+            "pending": 4,
+            "generated": 0,
+            "staged": 0,
+            "pre_release": 0,
+            "released": 0
+          },
+          "NRP1": {
+            "pending": 4,
+            "generated": 0,
+            "staged": 0,
+            "pre_release": 0,
+            "released": 0
+          }
+        },
+        "SjD-SGL": {
+          "EDP1": {
+            "pending": 1,
+            "generated": 0,
+            "staged": 0,
+            "pre_release": 3,
+            "released": 0
+          },
+          "EDP2": {
+            "pending": 4,
+            "generated": 0,
+            "staged": 0,
+            "pre_release": 0,
+            "released": 0
+          },
+          "NRP1": {
+            "pending": 4,
+            "generated": 0,
+            "staged": 0,
+            "pre_release": 0,
+            "released": 0
+          }
+        },
+        "SSc-SKN": {
+          "EDP1": {
+            "pending": 4,
+            "generated": 0,
+            "staged": 0,
+            "pre_release": 0,
+            "released": 0
+          },
+          "NRP1": {
+            "pending": 4,
+            "generated": 0,
+            "staged": 0,
+            "pre_release": 0,
+            "released": 0
+          }
+        }
+      },
+      "serum_c1q": {
+        "SLE-KDY": {
+          "Auxiliary Projects": {
+            "pending": 1,
+            "generated": 0,
+            "staged": 0,
+            "pre_release": 0,
+            "released": 0
+          }
+        }
+      },
+      "olink_serum": {
+        "Multiple": {
+          "EDP1": {
+            "pending": 0,
+            "generated": 0,
+            "staged": 0,
+            "pre_release": 1,
+            "released": 0
+          },
+          "Auxiliary Projects": {
+            "pending": 0,
+            "generated": 0,
+            "staged": 0,
+            "pre_release": 1,
+            "released": 0
+          }
+        }
+      },
+      "cytof_blood": {
+        "Multiple": {
+          "Auxiliary Projects": {
+            "pending": 0,
+            "generated": 0,
+            "staged": 0,
+            "pre_release": 1,
+            "released": 0
+          }
+        }
+      },
+      "genetics": {
+        "Multiple": {
+          "Auxiliary Projects": {
+            "pending": 0,
+            "generated": 0,
+            "staged": 0,
+            "pre_release": 1,
+            "released": 0
+          }
+        }
+      },
+      "central_labs": {
+        "Multiple": {
+          "Auxiliary Projects": {
+            "pending": 0,
+            "generated": 0,
+            "staged": 0,
+            "pre_release": 1,
+            "released": 0
+          }
+        }
+      },
+      "promis-29": {
+        "Multiple": {
+          "Auxiliary Projects": {
+            "pending": 1,
+            "generated": 0,
+            "staged": 0,
+            "pre_release": 0,
+            "released": 0
+          }
+        }
+      },
+      "somascan": {
+        "Multiple": {
+          "Auxiliary Projects": {
+            "pending": 0,
+            "generated": 0,
+            "staged": 0,
+            "pre_release": 1,
+            "released": 0
+          }
+        }
+      },
+      "olink_urine": {
+        "SLE": {
+          "Auxiliary Projects": {
+            "pending": 0,
+            "generated": 0,
+            "staged": 0,
+            "pre_release": 1,
+            "released": 0
+          }
+        },
+        "AMP RA/SLE": {
+          "Auxiliary Projects": {
+            "pending": 0,
+            "generated": 0,
+            "staged": 0,
+            "pre_release": 1,
+            "released": 0
+          }
+        }
+      },
+      "sihc": {
+        "SLE": {
+          "Auxiliary Projects": {
+            "pending": 0,
+            "generated": 0,
+            "staged": 1,
+            "pre_release": 0,
+            "released": 0
+          }
+        },
+        "AMP RA/SLE": {
+          "Auxiliary Projects": {
+            "pending": 1,
+            "generated": 0,
+            "staged": 0,
+            "pre_release": 0,
+            "released": 0
+          }
+        }
+      }
+    },
+    "by_project": [
+      {
+        "key": "edp1",
+        "label": "EDP1",
+        "total": 118,
+        "technologies": [
+          {
+            "key": "xenium",
+            "label": "Xenium",
+            "total": 32,
+            "stage_counts": {
+              "pending": 0,
+              "generated": 0,
+              "staged": 0,
+              "pre_release": 32,
+              "released": 0
+            }
+          },
+          {
+            "key": "scrnaseq_cryo",
+            "label": "scRNAseq (Cryo)",
+            "total": 24,
+            "stage_counts": {
+              "pending": 17,
+              "generated": 0,
+              "staged": 0,
+              "pre_release": 7,
+              "released": 0
+            }
+          },
+          {
+            "key": "scffpe",
+            "label": "scFFPE",
+            "total": 21,
+            "stage_counts": {
+              "pending": 2,
+              "generated": 0,
+              "staged": 0,
+              "pre_release": 19,
+              "released": 0
+            }
+          },
+          {
+            "key": "post-xenium_h&e",
+            "label": "Post-Xenium H&E",
+            "total": 8,
+            "stage_counts": {
+              "pending": 0,
+              "generated": 0,
+              "staged": 0,
+              "pre_release": 8,
+              "released": 0
+            }
+          },
+          {
+            "key": "post-xenium_imc",
+            "label": "Post-Xenium IMC",
+            "total": 8,
+            "stage_counts": {
+              "pending": 0,
+              "generated": 0,
+              "staged": 0,
+              "pre_release": 8,
+              "released": 0
+            }
+          },
+          {
+            "key": "tissue_h&e",
+            "label": "Tissue H&E",
+            "total": 6,
+            "stage_counts": {
+              "pending": 0,
+              "generated": 6,
+              "staged": 0,
+              "pre_release": 0,
+              "released": 0
+            }
+          },
+          {
+            "key": "post-xenium_halo",
+            "label": "Post-Xenium HALO",
+            "total": 6,
+            "stage_counts": {
+              "pending": 5,
+              "generated": 0,
+              "staged": 1,
+              "pre_release": 0,
+              "released": 0
+            }
+          },
+          {
+            "key": "transcriptomics_blood",
+            "label": "Transcriptomics (blood)",
+            "total": 6,
+            "stage_counts": {
+              "pending": 6,
+              "generated": 0,
+              "staged": 0,
+              "pre_release": 0,
+              "released": 0
+            }
+          },
+          {
+            "key": "clinical_edc",
+            "label": "Clinical EDC",
+            "total": 6,
+            "stage_counts": {
+              "pending": 0,
+              "generated": 0,
+              "staged": 0,
+              "pre_release": 6,
+              "released": 0
+            }
+          },
+          {
+            "key": "olink_serum",
+            "label": "Olink (serum)",
+            "total": 1,
+            "stage_counts": {
+              "pending": 0,
+              "generated": 0,
+              "staged": 0,
+              "pre_release": 1,
+              "released": 0
+            }
+          }
+        ]
+      },
+      {
+        "key": "edp2",
+        "label": "EDP2",
+        "total": 82,
+        "technologies": [
+          {
+            "key": "xenium",
+            "label": "Xenium",
+            "total": 21,
+            "stage_counts": {
+              "pending": 10,
+              "generated": 0,
+              "staged": 0,
+              "pre_release": 11,
+              "released": 0
+            }
+          },
+          {
+            "key": "scrnaseq_cryo",
+            "label": "scRNAseq (Cryo)",
+            "total": 20,
+            "stage_counts": {
+              "pending": 20,
+              "generated": 0,
+              "staged": 0,
+              "pre_release": 0,
+              "released": 0
+            }
+          },
+          {
+            "key": "scffpe",
+            "label": "scFFPE",
+            "total": 18,
+            "stage_counts": {
+              "pending": 5,
+              "generated": 0,
+              "staged": 0,
+              "pre_release": 13,
+              "released": 0
+            }
+          },
+          {
+            "key": "clinical_edc",
+            "label": "Clinical EDC",
+            "total": 6,
+            "stage_counts": {
+              "pending": 0,
+              "generated": 0,
+              "staged": 0,
+              "pre_release": 6,
+              "released": 0
+            }
+          },
+          {
+            "key": "post-xenium_h&e",
+            "label": "Post-Xenium H&E",
+            "total": 6,
+            "stage_counts": {
+              "pending": 1,
+              "generated": 0,
+              "staged": 0,
+              "pre_release": 5,
+              "released": 0
+            }
+          },
+          {
+            "key": "post-xenium_imc",
+            "label": "Post-Xenium IMC",
+            "total": 6,
+            "stage_counts": {
+              "pending": 1,
+              "generated": 0,
+              "staged": 0,
+              "pre_release": 5,
+              "released": 0
+            }
+          },
+          {
+            "key": "post-xenium_halo",
+            "label": "Post-Xenium HALO",
+            "total": 5,
+            "stage_counts": {
+              "pending": 5,
+              "generated": 0,
+              "staged": 0,
+              "pre_release": 0,
+              "released": 0
+            }
+          }
+        ]
+      },
+      {
+        "key": "nrp1",
+        "label": "NRP1",
+        "total": 109,
+        "technologies": [
+          {
+            "key": "xenium",
+            "label": "Xenium",
+            "total": 32,
+            "stage_counts": {
+              "pending": 31,
+              "generated": 0,
+              "staged": 0,
+              "pre_release": 1,
+              "released": 0
+            }
+          },
+          {
+            "key": "scrnaseq_cryo",
+            "label": "scRNAseq (Cryo)",
+            "total": 24,
+            "stage_counts": {
+              "pending": 24,
+              "generated": 0,
+              "staged": 0,
+              "pre_release": 0,
+              "released": 0
+            }
+          },
+          {
+            "key": "scffpe",
+            "label": "scFFPE",
+            "total": 21,
+            "stage_counts": {
+              "pending": 21,
+              "generated": 0,
+              "staged": 0,
+              "pre_release": 0,
+              "released": 0
+            }
+          },
+          {
+            "key": "post-xenium_h&e",
+            "label": "Post-Xenium H&E",
+            "total": 8,
+            "stage_counts": {
+              "pending": 7,
+              "generated": 0,
+              "staged": 0,
+              "pre_release": 1,
+              "released": 0
+            }
+          },
+          {
+            "key": "post-xenium_imc",
+            "label": "Post-Xenium IMC",
+            "total": 8,
+            "stage_counts": {
+              "pending": 8,
+              "generated": 0,
+              "staged": 0,
+              "pre_release": 0,
+              "released": 0
+            }
+          },
+          {
+            "key": "post-xenium_halo",
+            "label": "Post-Xenium HALO",
+            "total": 6,
+            "stage_counts": {
+              "pending": 6,
+              "generated": 0,
+              "staged": 0,
+              "pre_release": 0,
+              "released": 0
+            }
+          },
+          {
+            "key": "clinical_edc",
+            "label": "Clinical EDC",
+            "total": 6,
+            "stage_counts": {
+              "pending": 6,
+              "generated": 0,
+              "staged": 0,
+              "pre_release": 0,
+              "released": 0
+            }
+          },
+          {
+            "key": "tissue_h&e",
+            "label": "Tissue H&E",
+            "total": 2,
+            "stage_counts": {
+              "pending": 2,
+              "generated": 0,
+              "staged": 0,
+              "pre_release": 0,
+              "released": 0
+            }
+          },
+          {
+            "key": "transcriptomics_blood",
+            "label": "Transcriptomics (blood)",
+            "total": 2,
+            "stage_counts": {
+              "pending": 2,
+              "generated": 0,
+              "staged": 0,
+              "pre_release": 0,
+              "released": 0
+            }
+          }
+        ]
+      }
+    ],
+    "auxiliary_label": "Auxiliary Projects",
+    "auxiliary": [
+      {
+        "name": "AMP AIM Multiple Central Labs Lv(all)",
+        "team": "AMP AIM",
+        "technology": "Central Labs",
+        "technology_key": "central_labs",
+        "scope": "Multiple",
+        "level": "Lv(all)",
+        "stage": "pre_release"
+      },
+      {
+        "name": "AMP AIM Multiple CyTOF (blood) Lv(all)",
+        "team": "AMP AIM",
+        "technology": "CyTOF (blood)",
+        "technology_key": "cytof_blood",
+        "scope": "Multiple",
+        "level": "Lv(all)",
+        "stage": "pre_release"
+      },
+      {
+        "name": "AMP AIM Multiple Genetics Lv(all)",
+        "team": "AMP AIM",
+        "technology": "Genetics",
+        "technology_key": "genetics",
+        "scope": "Multiple",
+        "level": "Lv(all)",
+        "stage": "pre_release"
+      },
+      {
+        "name": "AMP AIM Multiple PROMIS-29 Lv1",
+        "team": "AMP AIM",
+        "technology": "PROMIS-29",
+        "technology_key": "promis-29",
+        "scope": "Multiple",
+        "level": "Lv1",
+        "stage": "pending"
+      },
+      {
+        "name": "AMP AIM SLE-KDY Serum C1Q Lv1",
+        "team": "AMP AIM",
+        "technology": "Serum C1Q",
+        "technology_key": "serum_c1q",
+        "scope": "SLE-KDY",
+        "level": "Lv1",
+        "stage": "pending"
+      },
+      {
+        "name": "AMP RA/SLE Multiple Olink (serum) Lv(all)",
+        "team": "AMP RA/SLE",
+        "technology": "Olink (serum)",
+        "technology_key": "olink_serum",
+        "scope": "Multiple",
+        "level": "Lv(all)",
+        "stage": "pre_release"
+      },
+      {
+        "name": "AMP RA/SLE SLE Olink (urine) Lv1",
+        "team": "AMP RA/SLE",
+        "technology": "Olink (urine)",
+        "technology_key": "olink_urine",
+        "scope": "SLE",
+        "level": "Lv1",
+        "stage": "pre_release"
+      },
+      {
+        "name": "AMP RA/SLE AMP RA/SLE sIHC Lv2",
+        "team": "AMP RA/SLE",
+        "technology": "sIHC",
+        "technology_key": "sihc",
+        "scope": "AMP RA/SLE",
+        "level": "Lv2",
+        "stage": "pending"
+      },
+      {
+        "name": "AMP RA/SLE SLE sIHC Lv1",
+        "team": "AMP RA/SLE",
+        "technology": "sIHC",
+        "technology_key": "sihc",
+        "scope": "SLE",
+        "level": "Lv1",
+        "stage": "staged"
+      },
+      {
+        "name": "AMP RA/SLE Multiple SomaScan Lv(all)",
+        "team": "AMP RA/SLE",
+        "technology": "SomaScan",
+        "technology_key": "somascan",
+        "scope": "Multiple",
+        "level": "Lv(all)",
+        "stage": "pre_release"
+      },
+      {
+        "name": "Fava Proteomics AMP RA/SLE Olink (urine) Lv(all)",
+        "team": "Fava Proteomics",
+        "technology": "Olink (urine)",
+        "technology_key": "olink_urine",
+        "scope": "AMP RA/SLE",
+        "level": "Lv(all)",
+        "stage": "pre_release"
+      }
+    ],
+    "total_rows": 320
   }
 }
