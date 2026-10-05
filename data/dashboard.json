@@ -1,5 +1,5 @@
 {
-  "generated_at": "2026-09-28T19:33:03Z",
+  "generated_at": "2026-10-05T20:07:43Z",
   "source_rows": 1412,
   "totals": {
     "subjects": 999,
@@ -21,10 +21,10 @@
       {
         "key": "ra",
         "label": "Rheumatoid Arthritis (RA)",
-        "subjects": 171,
-        "visits": 258,
+        "subjects": 169,
+        "visits": 256,
         "status": {
-          "enrolled": 119,
+          "enrolled": 117,
           "enabling": 10,
           "archival": 42
         }
@@ -82,6 +82,17 @@
           "enrolled": 0,
           "enabling": 0,
           "archival": 17
+        }
+      },
+      {
+        "key": "unknown",
+        "label": "Unknown",
+        "subjects": 2,
+        "visits": 0,
+        "status": {
+          "enrolled": 2,
+          "enabling": 0,
+          "archival": 0
         }
       }
     ],
@@ -281,10 +292,10 @@
       {
         "key": "ra",
         "label": "Rheumatoid Arthritis (RA)",
-        "subjects": 171,
-        "visits": 258,
+        "subjects": 169,
+        "visits": 256,
         "status": {
-          "enrolled": 119,
+          "enrolled": 117,
           "enabling": 10,
           "archival": 42
         },
@@ -294,7 +305,7 @@
           {
             "key": "ra",
             "label": "Rheumatoid Arthritis (RA)",
-            "subjects": 171
+            "subjects": 169
           }
         ],
         "cohort_segments": [
@@ -302,10 +313,10 @@
             "disease_key": "ra",
             "disease_label": "Rheumatoid Arthritis (RA)",
             "cohort": "RA C1 Early RA",
-            "subjects": 86,
-            "visits": 167,
+            "subjects": 85,
+            "visits": 166,
             "status": {
-              "enrolled": 51,
+              "enrolled": 50,
               "enabling": 0,
               "archival": 35
             },
@@ -354,10 +365,10 @@
             "disease_key": "ra",
             "disease_label": "Rheumatoid Arthritis (RA)",
             "cohort": "RA Cohort Pending",
-            "subjects": 8,
-            "visits": 8,
+            "subjects": 7,
+            "visits": 7,
             "status": {
-              "enrolled": 5,
+              "enrolled": 4,
               "enabling": 0,
               "archival": 3
             },
@@ -554,6 +565,41 @@
               "archival": 5
             },
             "expected": 5
+          }
+        ]
+      },
+      {
+        "key": "unknown",
+        "label": "Unknown",
+        "subjects": 2,
+        "visits": 0,
+        "status": {
+          "enrolled": 2,
+          "enabling": 0,
+          "archival": 0
+        },
+        "expected": null,
+        "expected_partial": true,
+        "segments": [
+          {
+            "key": "unknown",
+            "label": "Unknown",
+            "subjects": 2
+          }
+        ],
+        "cohort_segments": [
+          {
+            "disease_key": "unknown",
+            "disease_label": "Unknown",
+            "cohort": "Unknown",
+            "subjects": 2,
+            "visits": 0,
+            "status": {
+              "enrolled": 2,
+              "enabling": 0,
+              "archival": 0
+            },
+            "expected": null
           }
         ]
       }
@@ -797,10 +843,10 @@
         "disease_key": "ra",
         "disease_label": "Rheumatoid Arthritis (RA)",
         "cohort": "RA C1 Early RA",
-        "subjects": 86,
-        "visits": 167,
+        "subjects": 85,
+        "visits": 166,
         "status": {
-          "enrolled": 51,
+          "enrolled": 50,
           "enabling": 0,
           "archival": 35
         },
@@ -836,10 +882,10 @@
         "disease_key": "ra",
         "disease_label": "Rheumatoid Arthritis (RA)",
         "cohort": "RA Cohort Pending",
-        "subjects": 8,
-        "visits": 8,
+        "subjects": 7,
+        "visits": 7,
         "status": {
-          "enrolled": 5,
+          "enrolled": 4,
           "enabling": 0,
           "archival": 3
         },
@@ -948,6 +994,19 @@
           "archival": 12
         },
         "expected": 12
+      },
+      {
+        "disease_key": "unknown",
+        "disease_label": "Unknown",
+        "cohort": "Unknown",
+        "subjects": 2,
+        "visits": 0,
+        "status": {
+          "enrolled": 2,
+          "enabling": 0,
+          "archival": 0
+        },
+        "expected": null
       }
     ],
     "cohort_view": {
@@ -985,16 +1044,16 @@
         {
           "key": "ra",
           "label": "Rheumatoid Arthritis (RA)",
-          "subjects": 171,
-          "visits": 258,
+          "subjects": 169,
+          "visits": 256,
           "status": {
-            "enrolled": 119,
+            "enrolled": 117,
             "enabling": 10,
             "archival": 42
           },
           "schedule_status": {
             "complete": 52,
-            "not_complete": 119
+            "not_complete": 117
           }
         },
         {
@@ -1040,6 +1099,21 @@
           "schedule_status": {
             "complete": 17,
             "not_complete": 0
+          }
+        },
+        {
+          "key": "unknown",
+          "label": "Unknown",
+          "subjects": 2,
+          "visits": 0,
+          "status": {
+            "enrolled": 2,
+            "enabling": 0,
+            "archival": 0
+          },
+          "schedule_status": {
+            "complete": 0,
+            "not_complete": 2
           }
         }
       ],
@@ -1303,16 +1377,16 @@
           "disease_key": "ra",
           "disease_label": "Rheumatoid Arthritis (RA)",
           "cohort": "RA C1 Early RA",
-          "subjects": 86,
-          "visits": 167,
+          "subjects": 85,
+          "visits": 166,
           "status": {
-            "enrolled": 51,
+            "enrolled": 50,
             "enabling": 0,
             "archival": 35
           },
           "schedule_status": {
             "complete": 35,
-            "not_complete": 51
+            "not_complete": 50
           },
           "expected": 96
         },
@@ -1354,16 +1428,16 @@
           "disease_key": "ra",
           "disease_label": "Rheumatoid Arthritis (RA)",
           "cohort": "RA Cohort Pending",
-          "subjects": 8,
-          "visits": 8,
+          "subjects": 7,
+          "visits": 7,
           "status": {
-            "enrolled": 5,
+            "enrolled": 4,
             "enabling": 0,
             "archival": 3
           },
           "schedule_status": {
             "complete": 3,
-            "not_complete": 5
+            "not_complete": 4
           },
           "expected": null
         },
@@ -1502,6 +1576,23 @@
             "not_complete": 0
           },
           "expected": 12
+        },
+        {
+          "disease_key": "unknown",
+          "disease_label": "Unknown",
+          "cohort": "Unknown",
+          "subjects": 2,
+          "visits": 0,
+          "status": {
+            "enrolled": 2,
+            "enabling": 0,
+            "archival": 0
+          },
+          "schedule_status": {
+            "complete": 0,
+            "not_complete": 2
+          },
+          "expected": null
         }
       ]
     },
@@ -1673,17 +1764,17 @@
     },
     {
       "counts": {
-        "completed": 1033,
-        "pending": 76,
+        "completed": 1103,
+        "pending": 6,
         "not_applicable": 0,
         "no_specimen": 302,
         "qc_fail": 0,
         "unknown": 1
       },
       "total": 1412,
-      "pct_complete": 73.2,
+      "pct_complete": 78.1,
       "eligible": 1109,
-      "pct_eligible": 93.1,
+      "pct_eligible": 99.5,
       "key": "omrf_lab",
       "label": "Autoantibody Testing"
     },
@@ -2369,8 +2460,8 @@
     },
     "omrf_lab": {
       "PsD-SKN": {
-        "completed": 129,
-        "pending": 7,
+        "completed": 135,
+        "pending": 1,
         "not_applicable": 0,
         "no_specimen": 42,
         "qc_fail": 0,
@@ -2385,32 +2476,32 @@
         "unknown": 1
       },
       "PsD-SYN": {
-        "completed": 35,
-        "pending": 4,
+        "completed": 38,
+        "pending": 1,
         "not_applicable": 0,
         "no_specimen": 20,
         "qc_fail": 0,
         "unknown": 0
       },
       "RA-SYN": {
-        "completed": 141,
-        "pending": 7,
+        "completed": 146,
+        "pending": 2,
         "not_applicable": 0,
         "no_specimen": 113,
         "qc_fail": 0,
         "unknown": 0
       },
       "SLE-KDY": {
-        "completed": 220,
-        "pending": 3,
+        "completed": 221,
+        "pending": 2,
         "not_applicable": 0,
         "no_specimen": 44,
         "qc_fail": 0,
         "unknown": 0
       },
       "SLE-SKN": {
-        "completed": 53,
-        "pending": 1,
+        "completed": 54,
+        "pending": 0,
         "not_applicable": 0,
         "no_specimen": 23,
         "qc_fail": 0,
@@ -2425,8 +2516,8 @@
         "unknown": 0
       },
       "SjD-SGL": {
-        "completed": 451,
-        "pending": 54,
+        "completed": 505,
+        "pending": 0,
         "not_applicable": 0,
         "no_specimen": 40,
         "qc_fail": 0,
@@ -3055,16 +3146,16 @@
         "unknown": 0
       },
       "NRP1": {
-        "completed": 112,
-        "pending": 3,
+        "completed": 114,
+        "pending": 1,
         "not_applicable": 0,
         "no_specimen": 82,
         "qc_fail": 0,
         "unknown": 0
       },
       "Undefined": {
-        "completed": 710,
-        "pending": 73,
+        "completed": 778,
+        "pending": 5,
         "not_applicable": 0,
         "no_specimen": 172,
         "qc_fail": 0,
@@ -5462,8 +5553,8 @@
           "unknown": 0
         },
         "Undefined": {
-          "completed": 106,
-          "pending": 7,
+          "completed": 112,
+          "pending": 1,
           "not_applicable": 0,
           "no_specimen": 38,
           "qc_fail": 0,
@@ -5530,8 +5621,8 @@
           "unknown": 0
         },
         "Undefined": {
-          "completed": 21,
-          "pending": 4,
+          "completed": 24,
+          "pending": 1,
           "not_applicable": 0,
           "no_specimen": 12,
           "qc_fail": 0,
@@ -5564,8 +5655,8 @@
           "unknown": 0
         },
         "Undefined": {
-          "completed": 106,
-          "pending": 6,
+          "completed": 111,
+          "pending": 1,
           "not_applicable": 0,
           "no_specimen": 44,
           "qc_fail": 0,
@@ -5598,8 +5689,8 @@
           "unknown": 0
         },
         "Undefined": {
-          "completed": 161,
-          "pending": 3,
+          "completed": 162,
+          "pending": 2,
           "not_applicable": 0,
           "no_specimen": 36,
           "qc_fail": 0,
@@ -5632,8 +5723,8 @@
           "unknown": 0
         },
         "Undefined": {
-          "completed": 4,
-          "pending": 1,
+          "completed": 5,
+          "pending": 0,
           "not_applicable": 0,
           "no_specimen": 19,
           "qc_fail": 0,
@@ -5692,16 +5783,16 @@
           "unknown": 0
         },
         "NRP1": {
-          "completed": 47,
-          "pending": 2,
+          "completed": 49,
+          "pending": 0,
           "not_applicable": 0,
           "no_specimen": 17,
           "qc_fail": 0,
           "unknown": 0
         },
         "Undefined": {
-          "completed": 309,
-          "pending": 52,
+          "completed": 361,
+          "pending": 0,
           "not_applicable": 0,
           "no_specimen": 20,
           "qc_fail": 0,
@@ -7215,14 +7306,14 @@
       {
         "key": "ra",
         "label": "Rheumatoid Arthritis (RA)",
-        "visits": 261,
+        "visits": 259,
         "counts": {
           "tissue_mold": 130,
           "tissue_cryo": 192,
-          "serum": 143,
-          "pbmc": 143,
+          "serum": 142,
+          "pbmc": 142,
           "cytodelics": 0,
-          "pax": 106,
+          "pax": 105,
           "urine": 0
         }
       },
@@ -7530,14 +7621,14 @@
         "disease_key": "ra",
         "disease_label": "Rheumatoid Arthritis (RA)",
         "cohort": "RA C1 Early RA",
-        "visits": 169,
+        "visits": 168,
         "counts": {
           "tissue_mold": 57,
           "tissue_cryo": 121,
-          "serum": 82,
-          "pbmc": 82,
+          "serum": 81,
+          "pbmc": 81,
           "cytodelics": 0,
-          "pax": 56,
+          "pax": 55,
           "urine": 0
         }
       },
@@ -7575,7 +7666,7 @@
         "disease_key": "ra",
         "disease_label": "Rheumatoid Arthritis (RA)",
         "cohort": "RA Cohort Pending",
-        "visits": 8,
+        "visits": 7,
         "counts": {
           "tissue_mold": 4,
           "tissue_cryo": 4,
@@ -7707,7 +7798,7 @@
         }
       }
     ],
-    "unassigned_visits": 0,
+    "unassigned_visits": 2,
     "total_visits": 1412
   },
   "data_tab": {
@@ -7895,10 +7986,10 @@
         "released": 0
       },
       "xenium": {
-        "pending": 41,
+        "pending": 42,
         "generated": 0,
         "staged": 0,
-        "pre_release": 44,
+        "pre_release": 43,
         "released": 0
       },
       "post-xenium_h&e": {
@@ -8061,10 +8152,10 @@
       },
       "xenium": {
         "SLE-KDY": {
-          "pending": 3,
+          "pending": 4,
           "generated": 0,
           "staged": 0,
-          "pre_release": 6,
+          "pre_release": 5,
           "released": 0
         },
         "SLE-SKN": {
@@ -8589,10 +8680,10 @@
           "released": 0
         },
         "NRP1": {
-          "pending": 31,
+          "pending": 32,
           "generated": 0,
           "staged": 0,
-          "pre_release": 1,
+          "pre_release": 0,
           "released": 0
         }
       },
@@ -8927,10 +9018,10 @@
             "released": 0
           },
           "NRP1": {
-            "pending": 3,
+            "pending": 4,
             "generated": 0,
             "staged": 0,
-            "pre_release": 1,
+            "pre_release": 0,
             "released": 0
           }
         },
@@ -10313,10 +10404,10 @@
           },
           "NRP1": {
             "Lv1": {
-              "pending": 0,
+              "pending": 1,
               "generated": 0,
               "staged": 0,
-              "pre_release": 1,
+              "pre_release": 0,
               "released": 0
             },
             "Lv2": {
@@ -13233,10 +13324,10 @@
             "label": "Xenium",
             "total": 32,
             "stage_counts": {
-              "pending": 31,
+              "pending": 32,
               "generated": 0,
               "staged": 0,
-              "pre_release": 1,
+              "pre_release": 0,
               "released": 0
             },
             "levels": [
